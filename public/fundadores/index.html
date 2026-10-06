@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proveedores fundadores · ¡Hay que vernos!</title>
+<meta name="description" content="Aparta tu lugar de proveedor fundador: sitio web gratis para siempre e insignia de fundador.">
+<meta property="og:title" content="Sé proveedor fundador de ¡Hay que vernos!">
+<meta property="og:description" content="Tu sitio web de proveedor de fiestas, gratis para siempre. Solo 100 lugares de fundador.">
+<meta property="og:image" content="https://hayquevernos.com/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/img/favicon.png">
+<meta name="theme-color" content="#7B2CBF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/css/base.css">
+<style>
+.hero{background:linear-gradient(135deg,var(--grape),#5A1E94);color:#fff;border-radius:24px;padding:22px;display:grid;gap:8px}
+.hero h1{font-size:clamp(26px,5vw,34px);line-height:1.05}
+.hero p{margin:0;opacity:.92}
+.steps{display:grid;gap:6px;margin:0;padding:0;list-style:none;font-size:14px}
+.steps li{display:flex;gap:8px}
+.done{text-align:center;justify-items:center}
+.done .big{font-size:52px;line-height:1}
+.num{font-family:var(--f-display);font-size:44px;font-weight:700;color:var(--grape);line-height:1}
+</style>
+</head>
+<body>
+<main class="wrap narrow">
+  <nav class="top"><a href="/"><img src="/img/logo.webp" width="420" height="159" alt="¡Hay que vernos! — Inicio"></a><a class="hint" href="/">← Inicio</a></nav>
+
+  <section class="hero">
+    <h1>Aparta tu lugar de proveedor fundador ⭐</h1>
+    <p>El constructor de tu sitio web abre en unos días. Aparta tu lugar hoy y te avisamos por WhatsApp para que lo configures antes del 1º de noviembre.</p>
+  </section>
+
+  <form class="card" id="f" novalidate>
+    <ol class="steps"><li>1️⃣ <span>Apartas tu lugar (2 minutos).</span></li><li>2️⃣ <span>Te mandamos por WhatsApp tu acceso al constructor.</span></li><li>3️⃣ <span>Completas tu sitio al 100% y obtienes tu insignia de fundador.</span></li></ol>
+    <div class="field"><span>¿Qué tipo de proveedor eres? <span class="opt">(puedes elegir varios)</span></span>
+      <div class="chips" id="tipos">
+        <button type="button" class="chip" data-v="servicios" aria-pressed="false">🎈 Servicios</button>
+        <button type="button" class="chip" data-v="venue" aria-pressed="false">🏛️ Venue</button>
+        <button type="button" class="chip" data-v="planner" aria-pressed="false">📋 Event planner</button>
+      </div></div>
+    <div class="field"><label for="negocio">Nombre de tu negocio</label><input type="text" id="negocio" name="negocio" maxlength="100" autocomplete="organization" placeholder="Ej. Mesa Dulce Lupita"></div>
+    <div class="field"><label for="categoria">¿Qué ofreces? <span class="opt">(opcional)</span></label><input type="text" id="categoria" name="categoria" maxlength="80" placeholder="Ej. Mesa de dulces, DJ, salón de eventos…"></div>
+    <div class="field"><label for="zona">Alcaldía o municipio donde trabajas <span class="opt">(opcional)</span></label><input type="text" id="zona" name="zona" maxlength="80" placeholder="Ej. Coyoacán"></div>
+    <div class="field"><label for="nombre">Tu nombre</label><input type="text" id="nombre" name="nombre" maxlength="80" autocomplete="name"></div>
+    <div class="field"><label for="whatsapp">Tu WhatsApp</label><input type="tel" id="whatsapp" name="whatsapp" inputmode="numeric" autocomplete="tel-national" placeholder="10 dígitos"></div>
+    <div class="field"><label for="correo">Tu correo <span class="opt">(opcional)</span></label><input type="email" id="correo" name="correo" maxlength="120" autocomplete="email"></div>
+    <input class="hp" type="text" name="empresa_web" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <label class="chk"><input type="checkbox" name="priv"><span>Acepto el <a href="/privacidad/" target="_blank">aviso de privacidad</a>.</span></label>
+    <label class="chk"><input type="checkbox" name="mkt"><span>Quiero recibir novedades y promociones de ¡Hay que vernos! <span class="opt">(opcional)</span></span></label>
+    <div id="msg" aria-live="polite"></div>
+    <button class="btn big" type="submit">Apartar mi lugar de fundador →</button>
+  </form>
+
+  <section class="card done" id="ok" hidden>
+    <span class="big">🎉</span>
+    <h2>¡Tu lugar está apartado!</h2>
+    <p style="margin:0;color:var(--muted)">Te escribimos por WhatsApp en cuanto abra el constructor de tu sitio. Mientras, prepara tu logo y unas fotos bonitas de tu trabajo.</p>
+    <div id="pos"></div>
+    <a class="btn ghost" href="/">Volver al inicio</a>
+  </section>
+
+  <footer class="foot"><span>© 2026 ¡Hay que vernos!</span><a href="/privacidad/">Aviso de privacidad</a></footer>
+</main>
+
+<script type="module">
+import { insertRow, rpc, cleanPhone } from "/js/hqv.js";
+const $=id=>document.getElementById(id),f=$("f"),msg=$("msg");
+const tipos=new Set();
+document.querySelectorAll("#tipos .chip").forEach(b=>b.onclick=()=>{const v=b.dataset.v;tipos.has(v)?tipos.delete(v):tipos.add(v);b.setAttribute("aria-pressed",tipos.has(v));});
+const err=list=>{msg.innerHTML=`<div class="tip bad">✋ <span><b>Te falta:</b> ${list.join(" · ")}</span></div>`;};
+f.addEventListener("submit",async e=>{
+  e.preventDefault();if(f.empresa_web.value)return;
+  const row={nombre:f.nombre.value.trim(),negocio:f.negocio.value.trim(),whatsapp:cleanPhone(f.whatsapp.value),correo:f.correo.value.trim()||null,
+    tipos:[...tipos],categoria:f.categoria.value.trim()||null,zona:f.zona.value.trim()||null,acepta_privacidad:f.priv.checked,acepta_marketing:f.mkt.checked,
+    origen:new URLSearchParams(location.search).get("o")||"web"};
+  const miss=[];
+  if(!row.tipos.length)miss.push("Tipo de proveedor");
+  if(row.negocio.length<2)miss.push("Nombre de tu negocio");
+  if(row.nombre.length<2)miss.push("Tu nombre");
+  if(!/^\d{10}$/.test(row.whatsapp))miss.push("WhatsApp a 10 dígitos");
+  if(row.correo&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(row.correo))miss.push("Un correo válido");
+  if(!row.acepta_privacidad)miss.push("Aceptar el aviso de privacidad");
+  if(miss.length)return err(miss);
+  const btn=f.querySelector("button[type=submit]");btn.disabled=true;btn.textContent="Apartando…";
+  const r=await insertRow("fundadores",row);
+  btn.disabled=false;btn.textContent="Apartar mi lugar de fundador →";
+  if(r.ok||r.dup){
+    f.hidden=true;$("ok").hidden=false;scrollTo({top:0});
+    if(r.dup)$("pos").innerHTML=`<div class="tip info">Ese WhatsApp ya tenía un lugar apartado. ¡Ya estás dentro!</div>`;
+    else{const n=await rpc("fundadores_apartados");if(typeof n==="number")$("pos").innerHTML=`<span class="hint">Eres el proveedor fundador</span><div class="num">#${n}</div>`;}
+  }else msg.innerHTML=`<div class="tip bad">No pudimos guardar tus datos. Intenta de nuevo en un momento.</div>`;
+});
+</script>
+</body>
+</html>

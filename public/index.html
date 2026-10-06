@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¡Hay que vernos! · La red de proveedores de fiestas de México</title>
+<meta name="description" content="Si eres proveedor de fiestas, crea tu sitio web profesional gratis. Si eres anfitrión, pre-cotiza tu fiesta en minutos y gratis.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="¡Hay que vernos! · ¿De qué lado de la fiesta estás?">
+<meta property="og:description" content="Proveedores: tu sitio web gratis para siempre. Anfitriones: calcula el costo de tu fiesta gratis desde el 1 de noviembre.">
+<meta property="og:image" content="https://hayquevernos.com/img/og.png">
+<meta property="og:locale" content="es_MX">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/img/favicon.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<meta name="theme-color" content="#7B2CBF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/css/base.css">
+<style>
+/* Home: dos lados de un mismo universo (proveedor a la izquierda, anfitrión a la derecha) */
+.split-head{display:grid;justify-items:center;text-align:center;gap:4px;padding-top:18px}
+.split-head img.logo{width:min(220px,56vw);height:auto}
+.split-head .q{display:flex;align-items:center;gap:14px;justify-content:center}
+.split-head .q img{width:64px;height:auto;animation:bob 3s ease-in-out infinite}
+.split-head h1{font-size:clamp(22px,4.4vw,32px)}
+.split-head p{margin:0;color:var(--muted);font-size:14.5px}
+.ar{font-family:var(--f-display);font-size:28px;color:var(--grape)}.ar.r{color:var(--pink)}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-4deg)}}
+.sides{display:grid;grid-template-columns:1fr 1fr;border-radius:28px;overflow:hidden;border:1px solid var(--line);background:var(--card)}
+.side{display:grid;grid-row:span 6;grid-template-rows:subgrid;gap:14px;padding:22px 26px 26px;align-content:start}
+.side+.side{border-left:1px dashed var(--line)}
+.band{margin:-22px -26px 0;padding:22px 26px;color:#fff;display:grid;gap:12px;grid-template-rows:auto 1fr auto auto;align-content:start}
+.pv .band{background:linear-gradient(135deg,var(--grape),#5A1E94)}
+.hs .band{background:linear-gradient(225deg,#D6338A,#A81F67)}
+.band .eye{font-size:12.5px;font-weight:700;letter-spacing:.04em;opacity:.92}
+.hs .band .eye{text-align:right}
+.band h2{font-size:clamp(26px,3vw,34px);line-height:1.04}
+.go{background:#fff;color:#5A1E94;border-radius:16px;padding:15px 18px;font-family:var(--f-display);font-size:19px;font-weight:600;text-align:center;text-decoration:none;box-shadow:0 6px 0 rgba(0,0,0,.18);transition:transform .15s}
+.hs .go{color:#A81F67}
+.go:hover{transform:translateY(-2px)}
+.go:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(0,0,0,.18)}
+.disc{font-size:12px;opacity:.92;text-align:center;margin-top:-4px}
+.key{font-size:17px;display:flex;gap:8px;align-items:baseline}
+.slots{display:grid;gap:6px;align-content:start}
+.slots .bar{height:12px;border-radius:99px;background:var(--line);overflow:hidden}
+.slots .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--grape),var(--pink),var(--sun));transition:width .8s}
+.slots .n{font-family:var(--f-display);font-size:26px;font-weight:600;line-height:1}
+.build{border-radius:16px;overflow:hidden;border:1.5px solid var(--warn);background:var(--warn-soft);color:var(--warn);display:grid;align-content:start}
+.build .tape{height:14px;background:repeating-linear-gradient(-45deg,#FFC83D 0 12px,#23173A 12px 24px)}
+.build .in{padding:10px 12px;display:grid;gap:8px}
+.build p{margin:0;font-size:13px;font-weight:600}
+.cd{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center}
+.cd div{background:var(--card);border-radius:12px;padding:6px 0;color:var(--ink)}
+.cd b{display:block;font-family:var(--f-display);font-size:26px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1}
+.cd span{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.notify{display:grid;gap:8px}
+.notify summary{cursor:pointer;font-weight:700;font-size:13.5px;color:var(--ink);list-style:none}
+.notify summary::-webkit-details-marker{display:none}
+.notify form{display:grid;gap:8px;margin-top:8px}
+.perks{border-radius:16px;padding:12px 14px;display:grid;gap:8px;font-size:13.5px;align-content:start}
+.pv .perks{background:var(--grape-soft)}.hs .perks{background:var(--pink-soft)}
+.perks ul{margin:0;padding:0;list-style:none;display:grid;gap:5px}
+.perks li{display:flex;gap:8px}
+.kinds{display:grid;gap:6px;align-content:start}
+.kinds .lab{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.kinds .ks{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:6px}
+.kinds .k{border:1.5px solid var(--line);border-radius:14px;padding:10px 8px;display:grid;justify-items:center;text-align:center;gap:2px;font-size:12.5px;font-weight:700}
+.kinds .k span{font-size:24px}
+.seam{display:none}
+@media (max-width:760px){
+ .sides{grid-template-columns:1fr;border:0;background:none;overflow:visible;gap:22px}
+ .side{grid-row:auto;grid-template-rows:none;border:1px solid var(--line)!important;border-radius:24px;background:var(--card);overflow:hidden;padding:18px 18px 20px}
+ .band{margin:-18px -18px 0;padding:18px}
+ .hs .band .eye{text-align:left}
+ .seam{display:grid;justify-items:center}.seam img{width:70px;height:auto}
+ .split-head .q img,.ar{display:none}
+ .go{font-size:17px}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="split-head">
+    <img class="logo" src="/img/logo.webp" width="420" height="159" alt="¡Hay que vernos!">
+    <div class="q"><span class="ar" aria-hidden="true">←</span><img src="/img/ball.webp" width="220" height="220" alt=""><h1>¿De qué lado de la fiesta estás?</h1><span class="ar r" aria-hidden="true">→</span></div>
+    <p>Un mismo universo, dos caminos. Elige el tuyo.</p>
+  </header>
+
+  <div class="sides">
+    <section class="side pv" aria-labelledby="hpv">
+      <div class="band"><span class="eye">← SI VENDES PARA FIESTAS</span><h2 id="hpv">Soy proveedor de fiestas</h2><a class="go" href="/fundadores/">Crear mi sitio web gratis →</a><span class="disc">Sin tarjeta. Listo en minutos.</span></div>
+      <div class="key">✅ <span><b>Sitio web gratis</b> para siempre</span></div>
+      <div class="slots" id="slots"><span class="n"><span id="taken">—</span> de 100</span><span class="hint">lugares de miembro fundador apartados</span><div class="bar"><i id="bar"></i></div></div>
+      <div class="perks"><b>Crea y configura tu sitio al 100% antes del 1º de noviembre de 2026 y obtén:</b>
+        <ul><li>⭐ <span>Insignia de miembro fundador para siempre, <b>SIN COSTO</b>.</span></li><li>🚀 <span>Prioridad en actualizaciones de mejora del sitio, <b>SIN COSTO</b>.</span></li><li>🔔 <span>Notificaciones de clientes reales interesados en tus servicios a <b>costo preferencial</b>.</span></li></ul></div>
+      <div class="kinds"><span class="lab">Diseñado para</span><div class="ks"><div class="k"><span>🎈</span>Proveedores de servicios</div><div class="k"><span>🏛️</span>Proveedores de venues</div><div class="k"><span>📋</span>Event planners independientes</div></div></div>
+      <span></span>
+    </section>
+
+    <div class="seam" aria-hidden="true"><img src="/img/ball.webp" width="220" height="220" alt=""></div>
+
+    <section class="side hs" aria-labelledby="hhs">
+      <div class="band"><span class="eye">SI ORGANIZAS UNA FIESTA →</span><h2 id="hhs">Soy anfitrión de una fiesta</h2><a class="go" href="/cotizador/">Pre-cotizar mi evento gratis →</a><span class="disc">Versión beta. Disponible a partir del 1º de noviembre.</span></div>
+      <div class="key">✅ <span><b>Calcula el $ de tu fiesta</b> gratis</span></div>
+      <div class="build"><div class="tape"></div><div class="in"><p>🚧 Por ahora es una demostración con precios de ejemplo. Los precios reales llegan con los proveedores fundadores.</p>
+        <div class="cd" id="cd" role="timer" aria-label="Tiempo para el lanzamiento"></div>
+        <details class="notify"><summary>🔔 Avísame por WhatsApp el 1 de noviembre</summary>
+          <form id="nf" novalidate>
+            <input type="text" name="nombre" placeholder="Tu nombre" aria-label="Tu nombre" autocomplete="given-name" required maxlength="80">
+            <input type="tel" name="whatsapp" placeholder="WhatsApp a 10 dígitos" aria-label="WhatsApp a 10 dígitos" autocomplete="tel-national" inputmode="numeric" required>
+            <input class="hp" type="text" name="empresa_web" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <label class="chk"><input type="checkbox" name="priv" required><span>Acepto el <a href="/privacidad/" target="_blank">aviso de privacidad</a>.</span></label>
+            <button class="btn" type="submit">Avísame</button>
+            <div id="nmsg" aria-live="polite"></div>
+          </form>
+        </details></div></div>
+      <div class="perks"><b>Calcula el costo de tu fiesta a partir del 1º de noviembre de 2026 y obtén:</b>
+        <ul><li>📊 <span>Costos promedio de servicios, venues y event planners, <b>gratis</b>.</span></li><li>🧭 <span>Guía en la administración de servicios y presupuestos, <b>sin costo</b>.</span></li><li>🤝 <span>Contactos de proveedores interesados en tu evento a <b>precio preferencial</b>.</span></li></ul></div>
+      <div class="kinds"><span class="lab">Te ayudamos con</span><div class="ks"><div class="k"><span>🎂</span>Todo tipo de eventos sociales</div><div class="k"><span>🏢</span>Todo tipo de eventos corporativos</div></div></div>
+      <span></span>
+    </section>
+  </div>
+
+  <footer class="foot"><span>© 2026 ¡Hay que vernos!</span><a href="/privacidad/">Aviso de privacidad</a></footer>
+</main>
+
+<script type="module">
+import { rpc, insertRow, cleanPhone, countdown, FOUNDER_SLOTS } from "/js/hqv.js";
+const $ = id => document.getElementById(id);
+
+// Cuenta regresiva (solo del lado del anfitrión)
+function drawCd(){const c=countdown();$("cd").innerHTML=[[c.d,"días"],[c.h,"horas"],[c.m,"min"],[c.s,"seg"]].map(([v,l],i)=>`<div><b>${i?String(v).padStart(2,"0"):v}</b><span>${l}</span></div>`).join("");}
+drawCd(); setInterval(drawCd,1000);
+
+// Lugares de fundador: número real desde la base
+rpc("fundadores_apartados").then(n=>{
+  if(typeof n!=="number"){$("slots").hidden=true;return;}
+  $("taken").textContent=Math.min(n,FOUNDER_SLOTS);
+  requestAnimationFrame(()=>{$("bar").style.width=Math.min(100,n/FOUNDER_SLOTS*100)+"%";});
+});
+
+// Avísame (anfitriones)
+$("nf").addEventListener("submit",async e=>{
+  e.preventDefault();const f=e.target,msg=$("nmsg"),btn=f.querySelector("button");
+  if(f.empresa_web.value)return; // trampa para bots
+  const nombre=f.nombre.value.trim(),wa=cleanPhone(f.whatsapp.value);
+  const err=t=>{msg.innerHTML=`<div class="tip bad">${t}</div>`;};
+  if(nombre.length<2)return err("Escribe tu nombre.");
+  if(!/^\d{10}$/.test(wa))return err("Tu WhatsApp debe tener 10 dígitos.");
+  if(!f.priv.checked)return err("Necesitamos que aceptes el aviso de privacidad.");
+  btn.disabled=true;btn.textContent="Guardando…";
+  const r=await insertRow("avisos_anfitriones",{nombre,whatsapp:wa,acepta_privacidad:true,origen:"home"});
+  btn.disabled=false;btn.textContent="Avísame";
+  if(r.ok||r.dup){f.querySelectorAll("input,button").forEach(x=>x.disabled=true);msg.innerHTML=`<div class="tip good">✅ ¡Listo, ${nombre.replace(/[<>&]/g,"")}! Te escribimos por WhatsApp el 1 de noviembre.</div>`;}
+  else err("No pudimos guardar tus datos. Intenta de nuevo en un momento.");
+});
+</script>
+</body>
+</html>
