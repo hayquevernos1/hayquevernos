@@ -1,0 +1,209 @@
+<title>Mi cuenta ¡HQV!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Cuenta única: un perfil de persona y dos pestañas (Mi negocio / Mis fiestas). Cada pestaña carga su app en un marco que ocupa el resto de la pantalla. */
+:root{
+  --paper:#F7F4FC; --card:#FFFFFF; --ink:#23173A; --muted:#6B6280; --line:#E3DCF0;
+  --grape:#7B2CBF; --grape-soft:#EFE4FB; --pink:#D6338A; --pink-soft:#FCE4F0;
+  --sun:#FFC83D; --sun-soft:#FFF3D3; --mint:#14806A; --mint-soft:#DDF5EE; --warn:#9A5A00; --bad:#C0264B; --bad-soft:#FDE3E9;
+  --f-display:"Fredoka","Arial Rounded MT Bold",system-ui,sans-serif;
+  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#140E22; --card:#1F1733; --ink:#F3EEFB; --muted:#ABA1C0; --line:#372C50;
+  --grape:#B57BFF; --grape-soft:#2E1F4A; --pink:#FF6DB4; --pink-soft:#3D1830;
+  --sun:#FFD25E; --sun-soft:#3A2E12; --mint:#4FD6B5; --mint-soft:#103329; --warn:#FFC24F; --bad:#FF7393; --bad-soft:#3D1522; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#140E22; --card:#1F1733; --ink:#F3EEFB; --muted:#ABA1C0; --line:#372C50;
+  --grape:#B57BFF; --grape-soft:#2E1F4A; --pink:#FF6DB4; --pink-soft:#3D1830;
+  --sun:#FFD25E; --sun-soft:#3A2E12; --mint:#4FD6B5; --mint-soft:#103329; --warn:#FFC24F; --bad:#FF7393; --bad-soft:#3D1522; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{margin:0;display:flex;flex-direction:column;height:100%;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;margin:0;text-wrap:balance}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--grape);outline-offset:2px}
+.proto{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--muted);padding:6px 16px;border-bottom:1px solid var(--line);background:var(--card)}
+.proto b{background:var(--sun-soft);color:var(--warn);padding:2px 9px;border-radius:99px;font-size:11px;letter-spacing:.04em}
+.proto .sp{flex:1}
+.mini{border:1.5px solid var(--line);background:var(--card);border-radius:99px;padding:3px 10px;font-size:12px;font-weight:600}
+.btn{border:0;border-radius:14px;padding:13px 20px;font-weight:700;background:var(--grape);color:#fff;font-size:15.5px;display:inline-flex;justify-content:center;align-items:center;gap:8px;text-decoration:none}
+.btn.ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.btn.pink{background:var(--pink)}
+.btn.big{font-family:var(--f-display);font-size:19px;font-weight:600}
+.btn:disabled{opacity:.55;cursor:default}
+.hint{font-size:12.5px;color:var(--muted)}
+.err{color:var(--bad);font-size:13.5px;font-weight:600;margin:0}
+input[type=text],input[type=tel],input[type=email]{width:100%;min-width:0;border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:11px 12px}
+input:focus{border-color:var(--grape);outline:none;box-shadow:0 0 0 3px var(--grape-soft)}
+.field{display:grid;gap:6px}.field>label,.field>span.l{font-weight:700;font-size:14px}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:13.5px}.chk input{width:18px;height:18px;margin-top:2px;accent-color:var(--grape);flex:none}
+
+/* Entrada */
+.enter{flex:1;overflow:auto;display:grid;place-items:center;padding:24px 16px}
+.enter .card{width:100%;max-width:440px;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px;display:grid;gap:14px}
+.enter .logo{width:180px;height:auto;justify-self:center}
+.enter h1{font-size:26px;text-align:center}
+.enter p.sub{margin:0;text-align:center;color:var(--muted)}
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.door{border:2px solid var(--line);background:var(--card);border-radius:16px;padding:12px 8px;display:grid;justify-items:center;gap:2px;text-align:center;font-weight:700;font-size:13.5px}
+.door span{font-size:26px}
+.door[aria-pressed="true"].nb{border-color:var(--grape);background:var(--grape-soft);color:var(--grape)}
+.door[aria-pressed="true"].fs{border-color:var(--pink);background:var(--pink-soft);color:var(--pink)}
+.code{display:flex;gap:8px;justify-content:center}
+.code input{width:52px;text-align:center;font-family:var(--f-display);font-size:24px;padding:8px 0}
+
+/* App */
+.app{flex:1;min-height:0;display:grid;grid-template-rows:auto 1fr}
+.bar{display:flex;align-items:center;gap:10px;padding:8px 16px;background:var(--card);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.bar .logo{height:34px;width:auto}
+.tabs{display:flex;gap:4px;background:var(--paper);border-radius:99px;padding:4px;border:1px solid var(--line)}
+.tab{border:0;background:transparent;border-radius:99px;padding:7px 14px;font-weight:700;font-size:14px;display:flex;gap:6px;align-items:center;white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.tab .dot{font-size:10px;background:var(--sun);color:#3A2600;border-radius:99px;padding:1px 6px;font-weight:700}
+.bar .sp{flex:1}
+.invite{border:1.5px dashed var(--pink);background:var(--pink-soft);color:var(--pink);border-radius:99px;padding:6px 12px;font-weight:700;font-size:13px}
+.invite.nb{border-color:var(--grape);background:var(--grape-soft);color:var(--grape)}
+.me{width:38px;height:38px;border-radius:50%;border:2px solid var(--line);background:var(--grape);color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px;padding:0}
+.me[aria-pressed="true"]{border-color:var(--ink)}
+.stage{position:relative;min-height:0}
+.stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(--paper)}
+.pane{position:absolute;inset:0;overflow:auto;padding:24px 16px}
+.inv-card{max-width:560px;margin:0 auto;border-radius:24px;padding:24px;display:grid;gap:12px;color:#fff}
+.inv-card.nb{background:linear-gradient(135deg,#7B2CBF,#5A1E94)}
+.inv-card.fs{background:linear-gradient(225deg,#D6338A,#A81F67)}
+.inv-card h2{font-size:28px;line-height:1.05}
+.inv-card ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.inv-card li{display:flex;gap:8px}
+.inv-card .go{background:#fff;color:#5A1E94;border:0;border-radius:16px;padding:14px 18px;font-family:var(--f-display);font-size:19px;font-weight:600;box-shadow:0 6px 0 rgba(0,0,0,.18)}
+.inv-card.fs .go{color:#A81F67}
+.inv-card .hint{color:#fff;opacity:.9}
+.profile{max-width:560px;margin:0 auto;display:grid;gap:14px}
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;display:grid;gap:12px}
+.pcard h2{font-size:22px}
+.sides{display:grid;gap:8px}
+.side{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1.5px solid var(--line);border-radius:14px;padding:10px 12px}
+.side b{display:block}
+.ok{color:var(--mint);font-weight:700;font-size:13px}
+.verified{font-size:12px;font-weight:700;color:var(--mint);background:var(--mint-soft);border-radius:99px;padding:2px 8px;width:fit-content}
+.founder{background:var(--sun-soft);color:var(--warn);border-radius:14px;padding:10px 12px;font-size:13.5px;font-weight:600}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--paper);border-radius:14px;padding:10px 16px;font-weight:600;font-size:14px;z-index:10;box-shadow:0 8px 24px rgba(0,0,0,.2);max-width:calc(100% - 32px);text-align:center}
+@media (max-width:640px){
+ .bar{padding:6px 10px;gap:6px}
+ .bar .logo{height:28px}
+ .tabs{order:3;width:100%;justify-content:stretch}
+ .tab{flex:1;justify-content:center;padding:7px 8px;font-size:13.5px}
+ .invite{font-size:12px;padding:5px 10px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<div class="proto"><b>PROTOTIPO</b><span>Una cuenta, dos pestañas. Nada se guarda.</span><span class="sp"></span><button class="mini" type="button" id="reset">↺ Empezar de nuevo</button></div>
+
+<!-- 1. Entrada con WhatsApp -->
+<section class="enter" id="enter">
+  <form class="card" id="f1" novalidate>
+    <img class="logo" src="logo.webp" width="420" height="159" alt="¡Hay que vernos!">
+    <h1>Entra a tu cuenta</h1>
+    <p class="sub">Una sola cuenta para tu negocio y para tus fiestas.</p>
+    <div class="field"><span class="l">¿Por qué puerta llegaste? <span class="hint">(en el sitio real lo sabemos por el botón del home)</span></span>
+      <div class="doors"><button type="button" class="door nb" data-d="negocio" aria-pressed="true"><span>💼</span>Tengo un negocio de fiestas</button><button type="button" class="door fs" data-d="fiestas" aria-pressed="false"><span>🎉</span>Voy a hacer una fiesta</button></div></div>
+    <div class="field"><label for="nm">Tu nombre</label><input type="text" id="nm" autocomplete="given-name" maxlength="60"></div>
+    <div class="field"><label for="wa">Tu WhatsApp</label><input type="tel" id="wa" inputmode="numeric" placeholder="10 dígitos" autocomplete="tel-national"></div>
+    <label class="chk"><input type="checkbox" id="fz"><span>(Simulación) Ya aparté mi lugar de fundador con este WhatsApp</span></label>
+    <p class="err" id="e1" hidden></p>
+    <button class="btn big" type="submit">Recibir código por WhatsApp</button>
+    <span class="hint" style="text-align:center">Sin contraseñas: te mandamos un código de 4 dígitos.</span>
+  </form>
+  <form class="card" id="f2" novalidate hidden>
+    <h1>Escribe tu código</h1>
+    <p class="sub" id="sentTo"></p>
+    <div class="code"><input type="text" inputmode="numeric" maxlength="1" aria-label="Dígito 1"><input type="text" inputmode="numeric" maxlength="1" aria-label="Dígito 2"><input type="text" inputmode="numeric" maxlength="1" aria-label="Dígito 3"><input type="text" inputmode="numeric" maxlength="1" aria-label="Dígito 4"></div>
+    <span class="hint" style="text-align:center">En el prototipo cualquier código funciona. <button type="button" class="mini" id="auto">Llenar 1234</button></span>
+    <p class="err" id="e2" hidden></p>
+    <button class="btn big" type="submit">Entrar</button>
+    <button class="btn ghost" type="button" id="back1">← Cambiar número</button>
+  </form>
+</section>
+
+<!-- 2. La cuenta -->
+<section class="app" id="app" hidden>
+  <header class="bar">
+    <img class="logo" src="logo.webp" width="420" height="159" alt="¡Hay que vernos!">
+    <nav class="tabs" role="tablist" aria-label="Mi cuenta">
+      <button class="tab" role="tab" id="t-negocio" data-t="negocio">💼 Mi negocio</button>
+      <button class="tab" role="tab" id="t-fiestas" data-t="fiestas">🎉 Mis fiestas</button>
+    </nav>
+    <span class="sp"></span>
+    <button class="invite" type="button" id="invite" hidden></button>
+    <button class="me" type="button" id="me" aria-label="Mi perfil" title="Mi perfil"></button>
+  </header>
+  <div class="stage" id="stage"></div>
+</section>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const U={door:"negocio",name:"",wa:"",email:"",founder:null,sides:{negocio:false,fiestas:false},published:false,parties:0,notify:true};
+let tab="negocio";const frames={};
+
+/* Entrada */
+document.querySelectorAll(".door").forEach(b=>b.onclick=()=>{U.door=b.dataset.d;document.querySelectorAll(".door").forEach(x=>x.setAttribute("aria-pressed",x===b));});
+$("f1").onsubmit=e=>{e.preventDefault();const err=m=>{$("e1").textContent=m;$("e1").hidden=false;};
+ U.name=$("nm").value.trim();U.wa=$("wa").value.replace(/\D/g,"").slice(-10);
+ if(U.name.length<2)return err("Escribe tu nombre.");if(U.wa.length!==10)return err("Tu WhatsApp debe tener 10 dígitos.");
+ U.founder=$("fz").checked?12:null;$("e1").hidden=true;$("f1").hidden=true;$("f2").hidden=false;$("sentTo").textContent=`Te lo mandamos por WhatsApp al ${U.wa.replace(/(\d{2})(\d{4})(\d{4})/,"$1 $2 $3")}.`;$("f2").querySelector("input").focus();};
+const digits=[...$("f2").querySelectorAll(".code input")];
+digits.forEach((d,i)=>{d.oninput=()=>{d.value=d.value.replace(/\D/g,"");if(d.value&&digits[i+1])digits[i+1].focus();};d.onkeydown=e=>{if(e.key==="Backspace"&&!d.value&&digits[i-1])digits[i-1].focus();};});
+$("auto").onclick=()=>{"1234".split("").forEach((c,i)=>digits[i].value=c);};
+$("back1").onclick=()=>{$("f2").hidden=true;$("f1").hidden=false;};
+$("f2").onsubmit=e=>{e.preventDefault();if(digits.some(d=>!d.value)){$("e2").textContent="Escribe los 4 dígitos.";$("e2").hidden=false;return;}
+ U.sides[U.door]=true;tab=U.door;$("enter").hidden=true;$("app").hidden=false;draw();
+ toast(U.founder&&U.door==="negocio"?`⭐ ¡Hola, ${U.name}! Reconocimos tu lugar de fundador #${U.founder}`:`¡Hola, ${U.name}! 👋`);};
+
+/* Cuenta */
+function q(){return`cuenta=1&nombre=${encodeURIComponent(U.name)}&wa=${U.wa}`;}
+function draw(){
+ document.querySelectorAll(".tab").forEach(t=>{const k=t.dataset.t;t.setAttribute("aria-selected",tab===k);t.innerHTML=(k==="negocio"?"💼 Mi negocio":"🎉 Mis fiestas")+(U.sides[k]?"":' <span class="dot">Nuevo</span>');});
+ $("me").setAttribute("aria-pressed",tab==="perfil");$("me").textContent=(U.name[0]||"?").toUpperCase();
+ // Invitación permanente al lado que aún no usa
+ const other=!U.sides.negocio?"negocio":!U.sides.fiestas?"fiestas":null;const iv=$("invite");iv.hidden=!other||tab===other;
+ if(other){iv.className="invite"+(other==="negocio"?" nb":"");iv.textContent=other==="negocio"?"💼 Hazte proveedor":"🎉 Organiza una fiesta";iv.onclick=()=>{tab=other;draw();};}
+ const st=$("stage");Object.values(frames).forEach(f=>f.hidden=true);st.querySelectorAll(".pane").forEach(p=>p.remove());
+ if(tab==="perfil")return st.insertAdjacentHTML("beforeend",profileHtml()),bindProfile();
+ if(!U.sides[tab])return st.insertAdjacentHTML("beforeend",inviteHtml(tab)),bindInvite(tab);
+ if(!frames[tab]){const f=document.createElement("iframe");f.title=tab==="negocio"?"Mi negocio":"Mis fiestas";f.src=(tab==="negocio"?"negocio.html":"fiestas.html")+"?"+q();st.appendChild(f);frames[tab]=f;}
+ frames[tab].hidden=false;}
+function inviteHtml(k){return k==="negocio"
+ ?`<div class="pane"><div class="inv-card nb"><span class="hint">💼 MI NEGOCIO</span><h2>¿Tienes un negocio de fiestas?</h2><ul><li>✅ <span><b>Sitio web gratis</b> para siempre</span></li><li>🔔 <span>Recibe clientes reales por WhatsApp</span></li><li>⭐ <span>Insignia de fundador si lo completas antes del 1º de noviembre</span></li></ul><button class="go" type="button" id="act">Crear mi sitio web gratis →</button><span class="hint">Usamos tu misma cuenta: no tienes que volver a registrarte.</span></div></div>`
+ :`<div class="pane"><div class="inv-card fs"><span class="hint">🎉 MIS FIESTAS</span><h2>¿Vas a celebrar algo?</h2><ul><li>✅ <span><b>Calcula el $ de tu fiesta</b> gratis, por persona</span></li><li>🏛️ <span>Venues y proveedores que sí cumplen lo que pides</span></li><li>🗓️ <span>Te recordamos tus fechas importantes con 3 meses de anticipación</span></li></ul><button class="go" type="button" id="act">Pre-cotizar mi evento gratis →</button><span class="hint">Usamos tu misma cuenta: no tienes que volver a registrarte.</span></div></div>`;}
+function bindInvite(k){$("act").onclick=()=>{U.sides[k]=true;draw();toast(k==="negocio"?"💼 Activaste Mi negocio":"🎉 Activaste Mis fiestas");};}
+function profileHtml(){return`<div class="pane"><div class="profile">
+ <div class="pcard"><h2>👤 Mi perfil</h2><span class="hint">Estos datos son tuyos y se usan en tus dos pestañas.</span>
+  <div class="field"><label for="p-nm">Nombre</label><input type="text" id="p-nm" value="${esc(U.name)}"></div>
+  <div class="field"><span class="l">WhatsApp</span><span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span>${U.wa.replace(/(\d{2})(\d{4})(\d{4})/,"$1 $2 $3")}</span><span class="verified">✓ Verificado</span></span><span class="hint">Es tu forma de entrar. Para cambiarlo te mandamos un código al nuevo número.</span></div>
+  <div class="field"><label for="p-em">Correo <span class="hint">(opcional)</span></label><input type="email" id="p-em" value="${esc(U.email)}" placeholder="Para recibos y facturas"></div>
+  <label class="chk"><input type="checkbox" id="p-nt" ${U.notify?"checked":""}><span>Recibir avisos por WhatsApp (solicitudes, proveedores interesados y recordatorios de fechas).</span></label>
+  ${U.founder?`<div class="founder">⭐ Proveedor fundador #${U.founder}: reconocido por tu WhatsApp.</div>`:''}</div>
+ <div class="pcard"><h2>Mis lados</h2><div class="sides">
+  ${[["negocio","💼 Mi negocio",U.published?"Sitio publicado":"Sitio en construcción"],["fiestas","🎉 Mis fiestas",U.parties?`${U.parties} ${U.parties===1?"fiesta":"fiestas"} en curso`:"Sin fiestas todavía"]].map(([k,t,d])=>`<div class="side"><span><b>${t}</b><span class="hint">${U.sides[k]?esc(d):"Aún no lo usas"}</span></span>${U.sides[k]?`<button class="btn ghost" type="button" data-go="${k}" style="padding:8px 12px;font-size:13.5px">Ir →</button>`:`<button class="btn ${k==="fiestas"?"pink":""}" type="button" data-on="${k}" style="padding:8px 12px;font-size:13.5px">Activar</button>`}</div>`).join("")}</div></div>
+ <button class="btn ghost" type="button" id="logout">Cerrar sesión</button></div></div>`;}
+function bindProfile(){$("p-nm").oninput=e=>{U.name=e.target.value;$("me").textContent=(U.name[0]||"?").toUpperCase();};$("p-em").oninput=e=>{U.email=e.target.value;};$("p-nt").onchange=e=>{U.notify=e.target.checked;};
+ document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{tab=b.dataset.go;draw();});
+ document.querySelectorAll("[data-on]").forEach(b=>b.onclick=()=>{U.sides[b.dataset.on]=true;tab=b.dataset.on;draw();});
+ $("logout").onclick=reset;}
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{tab=t.dataset.t;draw();});
+$("me").onclick=()=>{tab=tab==="perfil"?(U.sides.negocio?"negocio":"fiestas"):"perfil";draw();};
+
+/* Avisos desde cada pestaña */
+addEventListener("message",e=>{const d=e.data||{};
+ if(d.hqv==="negocio-publicado"){U.published=true;toast(`🎉 ¡${d.nombre||"Tu negocio"} ya tiene sitio!${U.sides.fiestas?"":" ¿Vas a celebrar algo? Prueba Mis fiestas."}`);draw();}
+ if(d.hqv==="fiesta-enviada"){U.parties++;toast(`🚀 Guardamos tu fiesta en Mis fiestas${U.sides.negocio?"":". ¿Tienes un negocio de fiestas? Hazte proveedor."}`);draw();}});
+let tt;function toast(m){const t=$("toast");t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,4200);}
+function reset(){Object.values(frames).forEach(f=>f.remove());for(const k in frames)delete frames[k];Object.assign(U,{door:"negocio",name:"",wa:"",email:"",founder:null,sides:{negocio:false,fiestas:false},published:false,parties:0,notify:true});
+ $("app").hidden=true;$("enter").hidden=false;$("f2").hidden=true;$("f1").hidden=false;$("f1").reset();digits.forEach(d=>d.value="");document.querySelectorAll(".door").forEach((x,i)=>x.setAttribute("aria-pressed",i===0));}
+$("reset").onclick=reset;
+</script>
