@@ -1,0 +1,577 @@
+{
+ "Por paquete": {
+  "familia": "paquete",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por persona": {
+  "familia": "persona",
+  "tiempo": "",
+  "sinonimos": [
+   "Por invitado"
+  ]
+ },
+ "Por platillo": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por porción": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": [
+   "Por ración"
+  ]
+ },
+ "Por adulto": {
+  "familia": "persona",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por evento": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por menú": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por niño": {
+  "familia": "persona",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por caja": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por pieza": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": [
+   "Por pieza (unidad)",
+   "Por pieza por evento"
+  ]
+ },
+ "Por hora": {
+  "familia": "tiempo",
+  "tiempo": "hora",
+  "sinonimos": []
+ },
+ "Por bandeja": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por docena (12 piezas)": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por sesión": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por ciento (100 piezas)": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por bolsa": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por kilo": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": [
+   "Por kilogramo (kg)"
+  ]
+ },
+ "Por estación": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por día": {
+  "familia": "tiempo",
+  "tiempo": "dia",
+  "sinonimos": []
+ },
+ "Por equipo": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": [
+   "Por equipo por evento"
+  ]
+ },
+ "Por litro": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": [
+   "Por litro (L)"
+  ]
+ },
+ "Por mesa": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por pieza por día": {
+  "familia": "cantidad",
+  "tiempo": "dia",
+  "sinonimos": []
+ },
+ "Por gramo": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": [
+   "Por gramo (g)"
+  ]
+ },
+ "Por juego": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": [
+   "Por juego (set)"
+  ]
+ },
+ "Por metro lineal": {
+  "familia": "espacio",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por equipo por día": {
+  "familia": "cantidad",
+  "tiempo": "dia",
+  "sinonimos": []
+ },
+ "Por minuto de contenido terminado": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por proyecto": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por ubicación": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por show": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": [
+   "Por presentación (show)"
+  ]
+ },
+ "Por m²": {
+  "familia": "espacio",
+  "tiempo": "",
+  "sinonimos": [
+   "Por metro cuadrado (m²)"
+  ]
+ },
+ "Por m² por día": {
+  "familia": "espacio",
+  "tiempo": "dia",
+  "sinonimos": [
+   "Por metro cuadrado por día"
+  ]
+ },
+ "Por módulo": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por jornada": {
+  "familia": "tiempo",
+  "tiempo": "dia",
+  "sinonimos": []
+ },
+ "Por equipo por hora": {
+  "familia": "cantidad",
+  "tiempo": "hora",
+  "sinonimos": []
+ },
+ "Por sala por día": {
+  "familia": "tiempo",
+  "tiempo": "dia",
+  "sinonimos": []
+ },
+ "Por botella": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por garrafón": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por jarra": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por vaso": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por copa": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por persona por hora": {
+  "familia": "persona",
+  "tiempo": "hora",
+  "sinonimos": []
+ },
+ "Por hora extra": {
+  "familia": "extra",
+  "tiempo": "hora",
+  "sinonimos": []
+ },
+ "Por grupo": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por barril": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por lata": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por tonelada": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por servicio": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por vehículo": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por manojo": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por diseño": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por par": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por rollo": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por millar (1,000 piezas)": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por lote": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por prenda": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por mes": {
+  "familia": "tiempo",
+  "tiempo": "mes",
+  "sinonimos": []
+ },
+ "Por carpa por noche": {
+  "familia": "cantidad",
+  "tiempo": "noche",
+  "sinonimos": []
+ },
+ "Por persona por noche": {
+  "familia": "persona",
+  "tiempo": "noche",
+  "sinonimos": []
+ },
+ "Por reserva gestionada": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por habitación por noche": {
+  "familia": "cantidad",
+  "tiempo": "noche",
+  "sinonimos": []
+ },
+ "Por noche": {
+  "familia": "tiempo",
+  "tiempo": "noche",
+  "sinonimos": []
+ },
+ "Por cama por noche": {
+  "familia": "cantidad",
+  "tiempo": "noche",
+  "sinonimos": []
+ },
+ "Por punto de conexión": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por kWh": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": [
+   "Por kilovatio-hora (kWh)"
+  ]
+ },
+ "Por m³ por día": {
+  "familia": "espacio",
+  "tiempo": "dia",
+  "sinonimos": [
+   "Por metro cúbico por día"
+  ]
+ },
+ "Por elevación": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por m³": {
+  "familia": "espacio",
+  "tiempo": "",
+  "sinonimos": [
+   "Por metro cúbico (m³)"
+  ]
+ },
+ "Por viaje": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": [
+   "Por traslado (trayecto)"
+  ]
+ },
+ "Por actividad": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por fotografía": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por boleto emitido": {
+  "familia": "persona",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por minuto de servicio": {
+  "familia": "tiempo",
+  "tiempo": "min",
+  "sinonimos": []
+ },
+ "Por equipo participante": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por álbum": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por página": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por video": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por minuto de material original": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por recolección": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por contenedor": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por carga de lavado": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por turno": {
+  "familia": "tiempo",
+  "tiempo": "turno",
+  "sinonimos": []
+ },
+ "Por composición musical": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por spot": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por canción": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por persona por día": {
+  "familia": "persona",
+  "tiempo": "dia",
+  "sinonimos": []
+ },
+ "Por mascota": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por mascota por hora": {
+  "familia": "cantidad",
+  "tiempo": "hora",
+  "sinonimos": []
+ },
+ "Porcentaje del presupuesto administrado": {
+  "familia": "porcentaje",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Porcentaje de ventas": {
+  "familia": "porcentaje",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por vehículo por día": {
+  "familia": "cantidad",
+  "tiempo": "dia",
+  "sinonimos": []
+ },
+ "Por vehículo por hora": {
+  "familia": "cantidad",
+  "tiempo": "hora",
+  "sinonimos": []
+ },
+ "Por trámite": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por palabra": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por campaña": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por conexión simultánea por hora": {
+  "familia": "cantidad",
+  "tiempo": "hora",
+  "sinonimos": []
+ },
+ "Por usuario": {
+  "familia": "persona",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por destinatario": {
+  "familia": "persona",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por envío": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por licencia": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por certificado": {
+  "familia": "persona",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por inscripción": {
+  "familia": "persona",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por transacción": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por pallet": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": [
+   "Por tarima de carga (pallet)"
+  ]
+ },
+ "Por ruta": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por entrega": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por km": {
+  "familia": "cantidad",
+  "tiempo": "",
+  "sinonimos": [
+   "Por kilómetro (km)"
+  ]
+ }
+}

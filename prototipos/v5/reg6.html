@@ -1,0 +1,980 @@
+<title>Registro de proveedores ¡HQV!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap">
+<style>
+/* Layout: home con selección de tipo; editor por pasos con línea de tiempo + micrositio en vivo en un teléfono; en celular se alterna con un interruptor */
+:root{
+  --paper:#F7F4FC; --card:#FFFFFF; --ink:#23173A; --muted:#6B6280; --line:#E3DCF0;
+  --grape:#7B2CBF; --grape-soft:#EFE4FB; --pink:#D6338A; --pink-soft:#FCE4F0;
+  --sun:#FFC83D; --sun-soft:#FFF3D3; --mint:#14806A; --mint-soft:#DDF5EE; --warn:#9A5A00; --warn-soft:#FFF0D9; --bad:#C0264B; --bad-soft:#FDE3E9;
+  --f-display:"Fredoka","Arial Rounded MT Bold",system-ui,sans-serif;
+  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#140E22; --card:#1F1733; --ink:#F3EEFB; --muted:#ABA1C0; --line:#372C50;
+  --grape:#B57BFF; --grape-soft:#2E1F4A; --pink:#FF6DB4; --pink-soft:#3D1830;
+  --sun:#FFD25E; --sun-soft:#3A2E12; --mint:#4FD6B5; --mint-soft:#103329; --warn:#FFC24F; --warn-soft:#3A2A10; --bad:#FF7393; --bad-soft:#3D1522; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#140E22; --card:#1F1733; --ink:#F3EEFB; --muted:#ABA1C0; --line:#372C50;
+  --grape:#B57BFF; --grape-soft:#2E1F4A; --pink:#FF6DB4; --pink-soft:#3D1830;
+  --sun:#FFD25E; --sun-soft:#3A2E12; --mint:#4FD6B5; --mint-soft:#103329; --warn:#FFC24F; --warn-soft:#3A2A10; --bad:#FF7393; --bad-soft:#3D1522; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;padding-inline:16px;padding-block:0 56px}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;text-wrap:balance;margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--grape);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto}
+.proto{max-width:1180px;margin:0 auto;padding-block:10px;font-size:12.5px;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.proto b{background:var(--sun-soft);color:var(--warn);padding:2px 9px;border-radius:99px;font-size:11.5px;letter-spacing:.04em}
+.proto .sp{flex:1}
+.mini{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:4px 10px;font-size:12px}
+.emo{line-height:1}
+.opt{font-weight:400;color:var(--muted);font-size:12.5px}
+.home{padding-block:18px;display:grid;gap:22px}
+.home-top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center}
+.home-top img.logo{width:min(230px,58vw);height:auto}
+.home-top img.ball{width:min(130px,26vw);height:auto;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(-4deg)}}
+.home h1{font-size:clamp(28px,5vw,48px);line-height:1.06;max-width:16ch}
+.home .lead{font-size:17px;color:var(--muted);margin:0;max-width:52ch}
+.perks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:10px}
+.perk{display:flex;gap:10px;align-items:flex-start;font-size:14px}
+.perk .emo{font-size:22px}
+.pick-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;display:grid;gap:14px}
+.pick-card h2{font-size:22px}
+.types{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px}
+.type{border:2px solid var(--line);background:var(--paper);border-radius:18px;padding:14px 46px 14px 14px;display:grid;grid-template-columns:auto 1fr;gap:2px 12px;text-align:left;position:relative;align-items:center}
+.type .emo{font-size:30px;grid-row:span 2}
+.type strong{font-family:var(--f-display);font-size:17px;font-weight:600}
+.type span.d{font-size:12.5px;color:var(--muted)}
+.tick{position:absolute;top:50%;right:12px;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;background:var(--card)}
+.tick svg{opacity:0}
+.type[aria-pressed="true"]{border-color:var(--grape);background:var(--grape-soft)}
+.type[aria-pressed="true"] .tick,.chip[aria-pressed="true"] .tick{background:var(--grape);border-color:var(--grape)}
+.type[aria-pressed="true"] .tick svg,.chip[aria-pressed="true"] .tick svg{opacity:1}
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;border-radius:16px;padding:15px 24px;font-family:var(--f-display);font-size:19px;font-weight:600;background:var(--grape);color:#fff}
+.cta.off,.btn.off{opacity:.45}
+.soon{display:flex;gap:12px;align-items:center;background:var(--sun-soft);border-radius:16px;padding:12px 16px;font-size:14px}
+.editor{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:28px;align-items:start;padding-block:12px}
+.timeline{list-style:none;margin:0 0 14px;padding:0;display:flex;flex-wrap:wrap;gap:4px 0;align-items:center;font-size:13px}
+.timeline li{display:flex;align-items:center;gap:6px;color:var(--muted);padding-right:8px}
+.timeline li+li::before{content:"";width:16px;height:2px;background:var(--line);margin-right:2px}
+.timeline .dot{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px;border:2px solid var(--line);background:var(--card);flex:none}
+.timeline li.done{color:var(--mint)}.timeline li.done .dot{background:var(--mint);border-color:var(--mint);color:#fff}
+.timeline li.now{color:var(--ink);font-weight:700}.timeline li.now .dot{border-color:var(--grape);background:var(--grape);color:#fff}
+.timeline li.child{font-size:12.5px}
+.timeline li.child .dot{width:18px;height:18px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;display:grid;gap:20px}
+.panel>h2{font-size:24px}
+.panel>.sub{margin:-12px 0 0;color:var(--muted)}
+.crumb{font-size:12.5px;font-weight:600;color:var(--grape);margin-bottom:-14px}
+.field{display:grid;gap:7px}
+.lbl{font-weight:600;font-size:14.5px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.hint{font-size:12.5px;color:var(--muted)}
+input[type=text],input[type=email],input[type=password],input[type=number],input[type=tel],input[type=date],input[type=search],select,textarea{width:100%;border:1.5px solid var(--line);background:var(--paper);border-radius:12px;padding:10px 12px;min-width:0}
+input:focus,select:focus,textarea:focus{border-color:var(--grape);outline:none}
+.miss{outline:2px solid var(--bad);outline-offset:2px;background:var(--bad-soft)!important}
+textarea{min-height:64px;resize:vertical}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1.5px solid var(--line);background:var(--paper);border-radius:99px;padding:5px 11px;font-size:13px;font-weight:500;display:inline-flex;gap:6px;align-items:center}
+.chip[aria-pressed="true"]{background:var(--grape-soft);color:var(--grape);border-color:var(--grape)}
+.chip .tick{position:static;transform:none;width:18px;height:18px;border-width:1.5px}
+.chip .tick svg{width:11px;height:11px}
+.chip.new{border-style:dashed;color:var(--grape)}
+.chip.rm{background:var(--grape-soft);color:var(--grape);border-color:transparent}
+.chip:disabled{opacity:.4}
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,104px),1fr));gap:6px;border-radius:12px}
+.cat{border:1.5px solid var(--line);background:var(--paper);border-radius:12px;padding:6px 8px;display:flex;gap:6px;align-items:center;font-size:12.5px;font-weight:500;text-align:left;line-height:1.15;min-height:40px}
+.cat .emo{font-size:18px;flex:none}
+.cat[aria-pressed="true"]{border-color:var(--grape);background:var(--grape);color:#fff}
+.yn{display:inline-flex;border:1.5px solid var(--line);border-radius:99px;overflow:hidden;width:fit-content}
+.yn button{border:0;background:var(--paper);padding:6px 18px;font-weight:600;font-size:13.5px}
+.yn button+button{border-left:1.5px solid var(--line)}
+.yn button[aria-pressed="true"]{background:var(--grape);color:#fff}
+.box{border:1.5px solid var(--line);border-radius:18px;padding:16px;display:grid;gap:16px;background:var(--card)}
+.box-head{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.box-head h3{font-size:18px;font-weight:600}
+.sub-box{background:var(--paper);border-radius:14px;padding:12px;display:grid;gap:10px}
+.line{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);gap:8px;align-items:center}
+.line b{font-size:13.5px}
+.link{background:none;border:0;color:var(--grape);font-weight:600;padding:0;text-align:left}
+.link.bad{color:var(--bad)}
+.btn{border:0;border-radius:14px;padding:13px 20px;font-weight:700;background:var(--grape);color:#fff;font-size:15px}
+.btn.ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.btn.sm{padding:8px 12px;font-size:13px;border-radius:10px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.nav{display:grid;gap:10px}
+.nav-row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ac{position:relative}
+.ac-list{position:absolute;z-index:5;left:0;right:0;top:100%;margin-top:4px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 10px 28px rgba(35,23,58,.16)}
+.ac-list button{display:block;width:100%;text-align:left;padding:9px 12px;border:0;background:none;font-size:14px}
+.ac-list button:hover,.ac-list button.active{background:var(--grape-soft)}
+.ac-list small{color:var(--muted)}
+.pol{display:grid;gap:8px}
+.pol2{border:1.5px solid var(--line);border-radius:12px;padding:10px;background:var(--paper);display:grid;gap:6px}
+.pol2>b{font-size:14px}
+.mini-l{font-size:12px;font-weight:700;color:var(--muted)}
+.pkg{border:1.5px solid var(--line);border-radius:12px;padding:10px;background:var(--card);display:grid;gap:8px}
+.dayadj{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:6px}
+.dayadj label{display:grid;gap:2px;font-size:12px;font-weight:700;color:var(--muted)}
+.sp-row{grid-template-columns:minmax(0,1fr) 120px auto!important;align-items:center}
+.stdbox{border:2px dashed var(--grape);border-radius:16px;padding:12px 14px;display:grid;gap:6px;background:var(--grape-soft)}
+.stdrows{display:grid;gap:4px;font-size:13.5px}.stdrows>div{display:flex;justify-content:space-between;gap:8px}
+.stdrows small{color:var(--muted)}
+.pol-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;border:1.5px solid var(--line);border-radius:12px;padding:8px 10px;background:var(--paper)}
+.pol-row>span{font-size:14px;font-weight:500}
+.pol-row .chips{justify-content:flex-end}
+.up{border:2px dashed var(--line);border-radius:16px;padding:12px;display:grid;gap:10px;background:var(--paper)}
+.up-top{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+label.pick{display:inline-flex;gap:8px;align-items:center;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:8px 13px;font-weight:600;cursor:pointer;position:relative;overflow:hidden}
+label.pick input[type=file]{position:absolute;inset:0;opacity:0;width:100%;cursor:pointer}
+.specs{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:3px 10px}
+.specs b{color:var(--ink);font-weight:600}
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,140px),1fr));gap:8px}
+.ph{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:grid}
+.ph img{width:100%;aspect-ratio:4/3;object-fit:cover;max-width:100%;display:block}
+.ph .q{padding:6px 8px;font-size:11.5px;display:grid;gap:2px}
+.q .good{color:var(--mint);font-weight:700}.q .meh{color:var(--warn);font-weight:700}.q small{color:var(--muted)}
+.ph .rmph{border:0;background:none;color:var(--bad);font-size:12px;font-weight:600;padding:0 8px 6px;text-align:left}
+.alert{border-radius:12px;padding:10px 12px;font-size:13px;display:flex;gap:8px;align-items:flex-start}
+.alert.bad{background:var(--bad-soft);color:var(--bad)}
+.alert.warn{background:var(--warn-soft);color:var(--warn)}
+.alert.ok{background:var(--mint-soft);color:var(--mint)}
+.alert.info{background:var(--grape-soft);color:var(--grape)}
+.avatar{width:72px;height:72px;border-radius:50%;background:var(--grape);display:grid;place-items:center;font-family:var(--f-display);font-size:24px;color:#fff;overflow:hidden;flex:none}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.zbox{max-height:200px;overflow-y:auto;border:1.5px solid var(--line);border-radius:12px;padding:10px;background:var(--card)}
+.meter{display:grid;gap:6px}
+.meter-bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden}
+.meter-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--grape),var(--pink),var(--sun));transition:width .3s}
+.err{color:var(--bad);font-size:13.5px;font-weight:600;margin:0}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:14px;background:var(--paper);border-radius:12px;padding:12px}
+.chk input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--grape);flex:none}
+.calc{font-size:12.5px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.calc span{background:var(--card);border:1px solid var(--line);border-radius:99px;padding:3px 9px}
+.copyline{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:12.5px}
+.copyline code{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:5px 8px;overflow-wrap:anywhere;min-width:0;flex:1}
+.file-chip{display:inline-flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:13px;width:fit-content;max-width:100%;overflow-wrap:anywhere}
+.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);display:grid;gap:10px}
+.phone{border:10px solid var(--ink);border-radius:38px;overflow:hidden;background:var(--card);height:min(740px,calc(100vh - 150px));display:flex;flex-direction:column}
+.urlbar{font-size:11px;padding:7px 12px;background:var(--paper);color:var(--muted);border-bottom:1px solid var(--line);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.site{overflow-y:auto;flex:1;background:var(--card)}
+.net{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--ink);color:var(--paper);font-size:11.5px}
+.net img{width:22px;height:22px}
+.net span{flex:1;min-width:0}
+.net b{background:var(--sun);color:#3A2600;border-radius:99px;padding:3px 9px;font-size:11px;white-space:nowrap}
+.ms-hero{padding:16px;background:linear-gradient(160deg,var(--grape),var(--pink));color:#fff;display:grid;gap:10px}
+.ms-id{display:flex;gap:12px;align-items:center}
+.ms-logo{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.22);display:grid;place-items:center;font-family:var(--f-display);font-size:22px;color:#fff;overflow:hidden;flex:none;border:2px solid rgba(255,255,255,.7)}
+.ms-logo img{width:100%;height:100%;object-fit:cover}
+.ms-name{font-family:var(--f-display);font-size:21px;font-weight:600;line-height:1.1}
+.ms-since{font-size:12.5px;opacity:.92}
+.level{display:flex;gap:8px;align-items:center;background:rgba(255,255,255,.16);border-radius:12px;padding:7px 10px;font-size:12.5px}
+.level .emo{font-size:20px}
+.level b{font-family:var(--f-display);font-weight:600;font-size:14px}
+.ms-tags{display:flex;gap:6px;flex-wrap:wrap}
+.ms-tags span{font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,.2)}
+.ms-tags span.f{background:var(--sun);color:#3A2600}
+.ms-body{padding:14px 16px;display:grid;gap:18px}
+.ms-body h3{font-size:16px;font-weight:600}
+.ms-about{margin:0;font-size:14px}
+.ms-cta{display:grid;gap:8px}
+.ms-cta .wa{display:flex;justify-content:center;gap:8px;padding:12px;border-radius:14px;font-weight:700;text-decoration:none;background:#1F8A5B;color:#fff}
+.social{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.social span{display:inline-flex;gap:5px;align-items:center;border:1px solid var(--line);border-radius:99px;padding:4px 10px;font-size:12px}
+.loc{font-size:12.5px;color:var(--muted);display:grid;gap:2px}
+.loc a{color:var(--grape);font-weight:600;text-decoration:none}
+.ms-item{border:1px solid var(--line);border-radius:14px;padding:11px 12px;display:grid;gap:6px}
+.ms-item-top{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.ms-item-top b{font-size:14.5px}
+.plist{display:grid;gap:3px;font-size:13px}
+.plist>span{display:flex;justify-content:space-between;gap:8px}
+.price{font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.price small{font-weight:500;color:var(--muted)}
+.ms-item small{color:var(--muted);font-size:12px}
+.promo{background:var(--sun-soft);border-radius:10px;padding:7px 9px;font-size:12px;display:grid;gap:2px;scroll-margin-top:50px}
+.promo b{color:var(--warn)}
+.strip{display:flex;gap:5px;overflow-x:auto}
+.strip img{width:76px;height:76px;flex:none;border-radius:10px;object-fit:cover;max-width:100%}
+.feat{display:flex;flex-wrap:wrap;gap:5px}
+.feat span{font-size:11.5px;background:var(--paper);border-radius:99px;padding:3px 8px}
+.ms-pol{font-size:12.5px;display:grid;gap:4px}
+.ms-pol>span{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.st{font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;white-space:nowrap;font-style:normal}
+.st.inc{background:var(--mint-soft);color:var(--mint)}.st.ext{background:var(--warn-soft);color:var(--warn)}.st.no{background:var(--bad-soft);color:var(--bad)}
+.venue-head{display:flex;gap:10px;align-items:center}
+.venue-head .ms-logo{width:46px;height:46px;font-size:16px;background:var(--grape);border:0}
+.planner-card{border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+.planner-card .pic{aspect-ratio:1;background:var(--grape-soft);display:grid;place-items:center;font-size:54px;position:relative;max-width:100%}
+.planner-card .pic img{width:100%;height:100%;object-fit:cover}
+.planner-card .pic .nm{position:absolute;left:0;right:0;bottom:0;padding:24px 12px 10px;background:linear-gradient(transparent,rgba(20,10,35,.85));color:#fff;font-family:var(--f-display);font-size:19px;font-weight:600}
+.planner-card .pic .nm small{display:block;font-family:var(--f-body);font-size:12px;font-weight:500;opacity:.9}
+.planner-card .bd{padding:11px 12px;display:grid;gap:8px;font-size:13px}
+.prompt{background:var(--paper);border-radius:10px;padding:8px 10px}
+.prompt small{display:block;color:var(--muted);font-size:11px;font-weight:600}
+.stars{color:#E8A500;letter-spacing:1px}
+.rev{border-top:1px solid var(--line);padding-top:8px;font-size:12.5px;display:grid;gap:2px}
+.rate-btn{border:1.5px solid var(--grape);color:var(--grape);background:transparent;border-radius:12px;padding:9px;font-weight:700;font-size:13px}
+.ms-foot{background:var(--paper);padding:14px 16px;font-size:12px;color:var(--muted);text-align:center;border-top:1px solid var(--line)}
+.ms-foot b{color:var(--ink)}
+.empty{font-size:12.5px;color:var(--muted);font-style:italic;margin:0}
+.toggle{display:none}
+.pv-ctl{display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--muted)}
+.done-card{max-width:640px;margin:28px auto;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:26px;display:grid;gap:16px}
+.done-card img.ball{width:100px;justify-self:center}
+.done-card h2{font-size:27px;text-align:center}
+.copy{display:flex;gap:8px;flex-wrap:wrap}
+.copy code{flex:1;min-width:0;background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:11px 13px;overflow-wrap:anywhere;font-size:14px}
+.addr-box{display:grid;gap:8px;background:var(--paper);border-radius:14px;padding:12px}.addr-cp{display:grid;gap:4px}
+.addr-street{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr);gap:8px}
+.addr-ok{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--mint-soft);border-radius:12px;padding:8px 10px;font-size:13px}
+.addr-ok a{color:var(--grape);font-weight:700}
+.chk-in{display:flex;gap:6px;align-items:center;font-weight:600}.chk-in input{width:18px;height:18px;accent-color:var(--grape)}
+.link-btn{background:none;border:0;color:var(--grape);font-weight:700;padding:0;text-decoration:underline;font-size:12.5px}
+.scores{display:flex;gap:8px;flex-wrap:wrap}
+.scores span{background:var(--paper);border-radius:12px;padding:6px 10px;font-size:12.5px}
+.scores b{font-family:var(--f-display);font-size:16px}
+.rtag{font-size:10.5px;font-weight:700;border-radius:99px;padding:1px 7px;background:var(--grape-soft);color:var(--grape)}
+.rtag.q{background:var(--sun-soft);color:var(--warn)}
+@media (max-width:920px){
+  .editor{grid-template-columns:minmax(0,1fr)}
+  .toggle{display:flex;gap:6px;position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--paper);padding-block:8px}
+  .toggle button{flex:1;border:1.5px solid var(--line);background:var(--card);border-radius:99px;padding:9px;font-weight:700}
+  .toggle button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+  .side{position:static}
+  .editor.show-preview .form-col{display:none}
+  .editor:not(.show-preview) .side{display:none}
+  .phone{height:auto;border-width:6px}
+  .panel{padding:16px}
+}
+@media (max-width:520px){
+  .addr-street{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .addr-street input:first-child{grid-column:1/-1}
+  .timeline li:not(.now) .tl-t{display:none}
+  .line{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .line b{grid-column:1/-1}
+  .pol-row{grid-template-columns:minmax(0,1fr)}
+  .pol-row .chips{justify-content:flex-start}
+  .cats{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+  .cat{font-size:11.5px;padding:5px 6px;gap:4px;min-height:36px}
+  .cat .emo{font-size:16px}
+  .box{padding:12px}
+}
+.public-wrap{max-width:780px;margin:0 auto;padding-block:8px 40px;display:grid;gap:12px}
+.public-bar{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.public-site{background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden}
+.public-site .net{font-size:13px;padding:10px 18px}
+.public-site .ms-hero{padding:28px 24px 22px;gap:14px}
+.public-site .ms-logo{width:92px;height:92px;font-size:30px}
+.public-site .ms-name{font-size:clamp(24px,5vw,34px)}
+.public-site .ms-since{font-size:14px}
+.public-site .level{font-size:14px;padding:10px 14px}
+.public-site .ms-body{padding:22px 24px;gap:26px}
+.public-site .ms-body h3{font-size:20px}
+.public-site .ms-about{font-size:16px}
+.public-site .ms-cta .wa{font-size:16px;padding:14px}
+.public-site .ms-item{padding:16px;gap:10px}
+.public-site .plist{font-size:15px}
+.public-site .strip img{width:150px;height:150px}
+.public-site .feat span{font-size:12.5px}
+.public-site .venue-head .ms-logo{width:56px;height:56px}
+.public-site .planner-card{max-width:440px}
+@media (max-width:520px){.public-site .ms-hero{padding:20px 16px}.public-site .ms-body{padding:16px}.public-site .strip img{width:110px;height:110px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* v6 · selector de servicios */
+.cats.big{grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr))}
+.svc-top{display:grid;gap:12px}
+.qwrap{position:relative}
+.qres{display:grid;gap:4px;margin-top:6px;background:var(--card);border-radius:16px;padding:6px;box-shadow:var(--hqv-clay-sm,0 6px 18px rgba(0,0,0,.08))}
+.qres button{border:0;background:none;text-align:left;padding:8px 10px;border-radius:12px;font-size:13.5px;display:flex;gap:8px;align-items:center}
+.qres button:hover,.qres button:focus{background:var(--grape-soft)}
+.qres small{color:var(--muted)}
+.qres .on{color:var(--muted)}
+.sub-q{margin-bottom:6px}
+.subchips .chip.hide{display:none}
+.slines{display:grid;gap:10px}
+.sline{background:var(--card);border-radius:16px;padding:12px;display:grid;gap:8px;box-shadow:var(--hqv-clay-sm,0 4px 12px rgba(0,0,0,.06))}
+.sl-top{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.sl-top b{font-size:14px}
+.sl-top small{font-weight:600;color:var(--muted)}
+.sl-f{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:13px}
+.sl-f label{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap}
+.sl-f input[type=number]{width:84px;padding:8px 10px}
+.sl-f .sl-p input[type=number]{width:130px}
+.sl-p span{font-weight:800;color:var(--grape)}
+.sl-uo{max-width:280px}
+.hv{font-size:12.5px;color:var(--muted);display:block}
+.hv b{color:var(--grape)}
+.sl-dup{font-size:13px;justify-self:start}
+.flash{background:var(--grape-soft);color:var(--grape);border-radius:12px;padding:8px 12px;font-size:13px;font-weight:600}
+.vnote{background:var(--paper);border-radius:14px;padding:10px 12px;font-size:13px}
+.chips.unit-chips .chip{font-size:12.5px}
+</style>
+<link rel="stylesheet" href="marca.css">
+
+<div class="proto"><b>PROTOTIPO</b><span>Nada se guarda ni se envía.</span><span class="sp"></span><button class="mini" type="button" id="seePublic">👀 Ver sitio terminado</button><button class="mini" type="button" id="fillEx">Llenar con ejemplo</button><button class="mini" type="button" id="fillEmpty">Empezar vacío</button></div>
+
+<section id="home" class="wrap home">
+  <div class="home-top">
+    <div style="display:grid;gap:14px">
+      <img class="logo" src="__LOGO__" alt="¡Hay que vernos!">
+      <h1>Tu negocio de fiestas merece su propio sitio web 🎉</h1>
+      <p class="lead">¡Hay que vernos! es la red de proveedores de fiestas de México. Crea tu sitio gratis y para siempre, con tu catálogo, tus precios y un botón directo a tu WhatsApp.</p>
+    </div>
+    <img class="ball" src="__BALL__" alt="">
+  </div>
+  <div class="perks">
+    <div class="perk"><span class="emo">🔗</span><span><b>Un link para vender</b><br>Ponlo en tus redes y en tu WhatsApp.</span></div>
+    <div class="perk"><span class="emo">⏱️</span><span><b>Listo en minutos</b><br>Desde tu celular, sin saber de diseño.</span></div>
+    <div class="perk"><span class="emo">⭐</span><span><b>Insignia de fundador</b><br>Solo los primeros 100. Para siempre.</span></div>
+  </div>
+  <div class="pick-card">
+    <h2>¿Qué ofreces? Elige todas las que apliquen 👇</h2>
+    <div class="types" id="types"></div>
+    <p class="err" id="typeErr" hidden>Elige al menos una opción para empezar.</p>
+    <button class="cta off" type="button" id="goProv">Empezar mi sitio gratis <span aria-hidden="true">→</span></button>
+    <button class="link" type="button" id="goConc" style="justify-self:center">⏱️ ¿Sin tiempo? <b>Lo armamos por ti</b></button>
+  </div>
+  <div class="soon"><span style="font-size:24px">🔜</span><span><b>Muy pronto:</b> los anfitriones calcularán su fiesta aquí y te llegarán solicitudes por WhatsApp de gente que busca lo que tú haces.</span></div>
+</section>
+
+<section id="editorWrap" class="wrap" hidden>
+  <div class="toggle" role="group" aria-label="Vista">
+    <button type="button" id="tEdit" aria-pressed="true">✏️ Editar</button>
+    <button type="button" id="tPrev" aria-pressed="false">👀 Ver mi sitio</button>
+  </div>
+  <div class="editor" id="editor">
+    <div class="form-col">
+      <ol class="timeline" id="timeline" aria-label="Avance"></ol>
+      <div id="stepBody"></div>
+    </div>
+    <aside class="side">
+      <div class="meter">
+        <div style="display:flex;justify-content:space-between;gap:8px;font-size:13px"><span>Tu sitio va al <b id="pct">0%</b></span><span class="hint" id="pctHint"></span></div>
+        <div class="meter-bar"><i id="bar" style="width:0"></i></div>
+      </div>
+      <div class="phone">
+        <div class="urlbar" id="url">hayquevernos.com/</div>
+        <div class="site" id="site"></div>
+      </div>
+      <label class="pv-ctl"><input type="checkbox" id="demoRev"> Ver con reseñas y nivel de ejemplo</label>
+    </aside>
+  </div>
+</section>
+
+<section id="published" class="wrap" hidden>
+  <div class="done-card">
+    <img class="ball" src="__BALL__" alt="">
+    <h2 id="doneTitle">¡Ya tienes tu sitio!</h2>
+    <p style="margin:0;text-align:center">Este es tu link. Colócalo en la bio y descripción de tus redes sociales y en tu WhatsApp para comenzar a vender más.</p>
+    <div class="copy"><code id="doneUrl"></code><button class="btn" type="button" id="copyBtn">Copiar link</button></div>
+    <span class="hint" id="copyMsg" aria-live="polite"></span>
+    <p style="margin:0;font-size:14px;text-align:center">⭐ Eres <b>proveedor fundador</b>: tu insignia es para siempre.</p>
+    <button class="btn" type="button" id="toPublic">👀 Ver mi sitio como lo ven tus clientes</button>
+    <div class="nav-row"><button class="btn ghost" type="button" id="backEdit">Seguir editando</button><button class="btn ghost" type="button" id="restart">Volver al inicio</button></div>
+  </div>
+</section>
+
+<section id="public" class="wrap" hidden>
+  <div class="public-wrap">
+    <div class="public-bar"><span>Así lo ve tu cliente en <b id="pubUrl"></b></span><button class="mini" type="button" id="pubBack">← Volver</button></div>
+    <div class="public-site" id="publicSite"></div>
+  </div>
+</section>
+
+<script src="config.js"></script>
+<script src="catalogo.js"></script>
+<script src="catalogo_servicios.js"></script>
+<script>
+const QS=new URLSearchParams(location.search),ACCT=QS.get("cuenta")==="1",ACCT_WA=QS.get("wa")||"",ACCT_NAME=QS.get("nombre")||"";
+const MX=__MX__;
+const BALL="__BALL__";
+const TICK='<span class="tick" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>';
+__ADDR__
+const SVC=window.HQV_SVC,UF=SVC.units;
+const CATS=SVC.cats.map(c=>({n:c.n,e:c.e,s:c.s.map(([n,t,u])=>({n,t,u}))}));
+const EXG=50,EXH=5; /* fiesta de ejemplo para mostrar la conversión */
+const COMMON_UNITS=["Por persona","Por evento","Por paquete","Por pieza","Por hora"];
+let SPECS=["Chiles en nogada","Pasta","Lasaña","Pozole","Barbacoa","Cochinita pibil","Tacos al pastor","Sushi","Paella","Mezcal","Micheladas","Azulitos","Carajillos","Gin tonic","Pastel fondant","Pastel de tres leches","Cupcakes","Galletas decoradas","Palomitas gourmet","Helado artesanal","Churros","Crepas","Arco de globos orgánico","Globos con helio","Flores naturales","Flores preservadas","Neón personalizado","Sillas Tiffany","Sillas crossback","Cabina 360","Batucada","Pinta caritas","Mago","Inflable","Karaoke"];
+const NEW_CATS=new Set(),NEW_SUBS=new Set(),NEW_SPECS=new Set(),NEW_UNITS=new Set();
+const famOf=u=>u==="__otra"?"otra":UF[u]?UF[u][0]:"",tOf=u=>UF[u]?UF[u][1]:"";
+const uLabel=u=>/^Porcentaje /.test(u)?"% "+u.slice(11):u.charAt(0).toLowerCase()+u.slice(1);
+const uNoun=x=>x.u==="__otra"?(x.uo||"unidad").replace(/^por\s+/i,""):x.u.replace(/^Por /,"").replace(/ por (hora|día|noche)$/,"");
+const lineLabel=x=>!x.u?"":x.u==="__otra"?(x.uo?"por "+x.uo.replace(/^por\s+/i,""):""):uLabel(x.u);
+const URANK=["Por persona","Por evento","Por paquete"];const urank=u=>{const k=URANK.indexOf(u);return k<0?9:k;};
+const blankLine=n=>({n,u:"",uo:"",price:"",yieldP:"",pkgP:"",pkgH:"",unit:""});
+function canonUnit(v){const t=norm(v).replace(/^por\s+/,"").trim();return Object.keys(UF).find(u=>{const c=norm(u).replace(/^por\s+/,"");return c===t||norm(uLabel(u))===norm(v);});}
+const scopeOk=t=>{const sc=S.svcScope||{};if(!sc.S&&!sc.E)return true;return(sc.S&&t.includes("S"))||(sc.E&&t.includes("E"));};
+function subOf(cat,n){const c=catOf(cat);return c&&c.s.find(x=>x.n===n);}
+function priceTxt(x){if(famOf(x.u)==="porcentaje")return`${esc(x.price)}% <small>${esc(uLabel(x.u).slice(2))}</small>`;return`${money(x.price)} <small>${esc(x.unit)}${+x.pkgP>0?` · ${esc(x.pkgP)} personas`:""}</small>`;}
+function hostView(x){const P=+x.price;if(!x.u||!(P>0))return"";const f=famOf(x.u),t=tOf(x.u),hrs=t==="hora"?EXH:1,Y=+x.yieldP;
+ let per=null,total=null,note="";
+ if(f==="persona"){per=P*hrs;total=per*EXG;}
+ else if(f==="evento"){total=P;per=P/EXG;}
+ else if(f==="tiempo"){if(t==="mes"||t==="min")note="Lo calculamos con la duración que elija el anfitrión.";else{total=P*hrs;per=total/EXG;}}
+ else if(f==="paquete"){const n=+x.pkgP;if(n>0){per=P/n;total=Math.ceil(EXG/n)*P;}else note="Dinos para cuántas personas es el paquete y lo convertimos.";}
+ else if(f==="porcentaje")return`<span class="hv">👀 El anfitrión verá: ${esc(x.price)}% ${esc(uLabel(x.u).slice(2))}, calculado sobre su fiesta.</span>`;
+ else if(f==="extra")return`<span class="hv">👀 Solo se suma si la fiesta se alarga: ${money(P)} por hora extra.</span>`;
+ else{if(Y>0){per=P*hrs/Y;total=Math.ceil(EXG/Y)*P*hrs;}else note=f==="otra"?"Revisamos esta unidad y te avisamos cómo se la mostramos al anfitrión.":"Si no lo sabes, usamos un promedio de la plataforma para convertirlo.";}
+ if(per===null)return`<span class="hv">👀 ${note}</span>`;
+ return`<span class="hv">👀 Así lo ve el anfitrión en una fiesta de ${EXG} personas${t==="hora"?` y ${EXH} h`:""}: <b>${money(Math.round(per))}</b> por persona · <b>${money(Math.round(total))}</b> en total${Y>0||f!=="cantidad"&&f!=="espacio"?"":" (estimado)"}</span>`;}
+let FLASH=null;const SHOWALL=new Set();
+function addSubTo(cat,n){let i=S.services.findIndex(s=>s.cat===cat);
+ if(i<0){i=S.services.findIndex(s=>!s.cat||s.cat==="__new");if(i<0){S.services.push(blankSvc());i=S.services.length-1;}S.services[i].cat=cat;S.services[i].subs=[];}
+ const s=S.services[i];if(!s.subs.some(y=>y.n===n)){const L=blankLine(n),sub=subOf(cat,n);if(sub&&sub.u.length===1){L.u=sub.u[0];L.unit=lineLabel(L);}s.subs.push(L);}return i;}
+function goBox(i,msg){if(msg)FLASH={i,msg};drawServices();changed();setTimeout(()=>{const b=document.querySelector(`#svcList .box[data-i="${i}"]`);b&&b.scrollIntoView({behavior:"smooth",block:"start"});},0);}
+const MIN_UNITS=["personas","piezas","horas","kilos","mesas","litros","charolas","pesos ($)"];
+const VENUE_TYPES=HQV.VENUE_TYPES,FEATURES=HQV.VENUE_FEATS,POLICY_SVCS=HQV.POLICY_CATS;
+const DOCS=["INE","Comprobante de domicilio","Contrato firmado","Carta responsiva","Póliza de seguro","Permiso de la alcaldía","Lista de invitados"];
+const PLANNER_PROMPTS=["Mi superpoder en una fiesta es…","La fiesta más épica que he organizado…","Nunca llego a un evento sin…"];
+const PLANNER_SPECS=["Cumpleaños","Infantiles","XV años","Baby shower","Bodas pequeñas","Corporativos","Posadas","Graduaciones","Temáticas"];
+const LEVELS=[{n:"Nuevo",e:"🌱",min:0,r:0,t:"Aún sin eventos por ¡Hay que vernos!"},{n:"Oro",e:"🥇",min:3,r:4.5},{n:"Platino",e:"💠",min:15,r:4.7},{n:"Diamante",e:"💎",min:40,r:4.8}];
+const DEMO_REV={events:46,rating:4.9,count:38,qrating:4.7,qcount:112,list:[{n:"Mariana G.",s:5,ty:"e",t:"La mesa de dulces fue lo más fotografiado de la fiesta 😍",d:"sep 2026"},{n:"Carlos P.",s:5,ty:"q",t:"Me respondió en 10 minutos y la cotización fue clarísima.",d:"sep 2026"},{n:"Grupo Andrés",s:5,ty:"e",t:"Puntuales, montaron rapidísimo y todo delicioso.",d:"ago 2026"}]};
+const yearNow=2026;
+
+const blankZone=()=>({state:"",all:false,munis:[]});
+const blankPromo=()=>({has:null,what:"",terms:"",until:""});
+const blankMin=()=>({has:null,qty:"",unit:""});
+const blankSvc=()=>({cat:"",catNew:"",subs:[],desc:"",person:false,ship:false,shipMode:"",shipFixed:"",shipBase:"",shipBaseKm:"",shipPerKm:"",shipMaxKm:"",shipFreeFrom:"",min:blankMin(),specs:[],promo:blankPromo(),photos:[]});
+function samplePic(emoji,h1,h2,w=1200,h=900){try{const c=document.createElement("canvas");c.width=w;c.height=h;const x=c.getContext("2d");const g=x.createLinearGradient(0,0,w,h);g.addColorStop(0,h1);g.addColorStop(1,h2);x.fillStyle=g;x.fillRect(0,0,w,h);x.font=`${Math.round(h*.42)}px serif`;x.textAlign="center";x.textBaseline="middle";x.fillText(emoji,w/2,h/2);x.font=`600 ${Math.round(h*.06)}px sans-serif`;x.fillStyle="rgba(255,255,255,.9)";x.fillText("Foto de ejemplo",w/2,h*.88);return c.toDataURL("image/jpeg",.7);}catch(e){return null;}}
+const sp=(e,a,b)=>{const u=samplePic(e,a,b);return u?[{url:u,issues:[],before:2400000,after:Math.round(u.length*.75)}]:[];};
+function exampleState(){return{
+ types:{services:true,venue:true,planner:true},
+ biz:{owner:"Lupita Ramírez",name:"Lupita Dulces y Antojos",photo:samplePic("🍭","#D6338A","#7B2CBF",600,600),since:"2019",invoice:"no",about:"Mesas de dulces y carritos para que tu fiesta sea inolvidable. Montamos y recogemos 🍭",whatsapp:"55 1234 5678",instagram:"@lupitadulces",tiktok:"@lupita.dulces",facebook:"",addr:{cp:"01020",state:"Ciudad de México",muni:"Álvaro Obregón",col:"Guadalupe Inn",colOther:"",street:"Av. Revolución",num:"1500",int:"",ref:"",ok:true,manual:false},showAddr:"colonia"},
+ svcScope:{S:true,E:false},
+ services:[{cat:"Alimentos",catNew:"",subs:[{n:"Mesas de dulces",u:"Por paquete",uo:"",price:"3500",yieldP:"",pkgP:"50",pkgH:"5",unit:"por paquete"},{n:"Mesas de dulces",u:"Por persona",uo:"",price:"75",yieldP:"",pkgP:"",pkgH:"",unit:"por persona"},{n:"Galletas decoradas",u:"Por docena (12 piezas)",uo:"",price:"280",yieldP:"6",pkgP:"",pkgH:"",unit:"por docena (12 piezas)"},{n:"Carritos de alimentos",u:"Por hora",uo:"",price:"1200",yieldP:"",pkgP:"",pkgH:"",unit:"por hora"}],desc:"Para 30 a 80 invitados, decorada con el tema de tu fiesta.",person:true,ship:true,shipMode:"distancia",shipFixed:"",shipBase:"80",shipBaseKm:"5",shipPerKm:"12",shipMaxKm:"30",shipFreeFrom:"5000",min:{has:true,qty:"30",unit:"personas"},specs:["Galletas decoradas","Helado artesanal"],promo:{has:true,what:"10% de descuento",terms:"Contratando con 30 días de anticipación",until:"2026-12-15"},photos:[...sp("🍬","#FFB3D9","#FF6DB4"),...sp("🍦","#FFE29A","#FF9F68")]}],
+ svcZones:[{state:"Ciudad de México",all:false,munis:["Álvaro Obregón","Coyoacán","Benito Juárez","Tlalpan"]},{state:"Estado de México",all:false,munis:["Naucalpan de Juárez","Huixquilucan"]}],
+ venue:{name:"Terraza Lupita",photo:samplePic("🌇","#FF9F68","#7B2CBF",600,600),addr:{cp:"01000",state:"Ciudad de México",muni:"Álvaro Obregón",col:"San Ángel",colOther:"",street:"Calle Sur 12",num:"45",int:"",ref:"Portón verde",ok:true,manual:false},instagram:"@terrazalupita",tiktok:"",facebook:"",
+  type:"Terraza",seated:"60",standing:"90",area:"51 a 60 m²",features:["techado","aire","fumar","luz","agua","refri","calle","ninos"],baths:{m:"1",w:"1",g:"1"},
+  days:["jue","vie","sab","dom"],open:"12:00",limit:"23:00",hoursIncl:"5",extraHour:"1800",
+  mode:"renta",rent:{price:"9000",per:"evento",upTo:"60",perExtraGuest:"150"},packages:[],adj:{day:{sab:"10"},daytime:"-10"},spaces:[{name:"Salón interior",price:"2500"}],negotiable:true,
+  policy:{"Comida":{offer:"no",price:"",per:"evento",own:"si",fee:""},"Con alcohol":{offer:"no",price:"",per:"evento",own:"cuota",fee:"1500"},"Sin alcohol":{offer:"no",price:"",per:"evento",own:"si",fee:""},"Postres":{offer:"no",price:"",per:"evento",own:"si",fee:""},"Música":{offer:"costo",price:"3500",per:"evento",own:"no",fee:""},"Luz y show":{offer:"no",price:"",per:"evento",own:"si",fee:""},"Mobiliario":{offer:"inc",price:"",per:"evento",own:"si",fee:""},"Decoración":{offer:"no",price:"",per:"evento",own:"si",fee:""},"Staff":{offer:"no",price:"",per:"evento",own:"si",fee:""}},
+  deposit:"50%",advance:"15",guarantee:"2000",cancel:"Reembolso del anticipo con 30 días de aviso",corkage:"$150 por botella",docs:["INE","Contrato firmado"],docsOther:"",docsNone:false,rulesText:"Volumen moderado después de las 22:00. Sin confeti.",rulesFile:null,promo:{has:false,what:"",terms:"",until:""},photos:[...sp("🌇","#FFC83D","#D6338A"),...sp("🌙","#2E1F4A","#7B2CBF")]},
+ planner:{person:"Lupita Ramírez",photo:samplePic("👩🏻","#FCE4F0","#B57BFF",600,600),since:"2021",bio:"Me encanta que nadie note que hubo estrés detrás de una fiesta perfecta.",prompts:["Leer a los invitados y saber cuándo subir la música.","Una boda sorpresa en una azotea con 40 personas.","Mi kit de emergencia: cinta, tijeras y curitas."],fee:"6000",feeNote:"Hasta 50 invitados",specialties:["Cumpleaños","Baby shower"],zones:[{state:"Ciudad de México",all:true,munis:[]}],promo:{has:false,what:"",terms:"",until:""},photos:sp("🎉","#7B2CBF","#14806A")},
+ account:{email:"lupita@ejemplo.com"}};}
+function emptyState(){return{types:{services:false,venue:false,planner:false},
+ biz:{name:"",photo:null,since:"",invoice:"",about:"",whatsapp:"",instagram:"",tiktok:"",facebook:"",addr:blankAddr(),showAddr:""},
+ svcScope:{S:false,E:false},services:[blankSvc()],svcZones:[blankZone()],
+ venue:{name:"",photo:null,addr:blankAddr(),instagram:"",tiktok:"",facebook:"",type:"",seated:"",standing:"",area:"",features:[],baths:{m:"",w:"",g:""},
+  days:[],open:"",limit:"",hoursIncl:"5",extraHour:"",mode:"",rent:{price:"",per:"evento",upTo:"",perExtraGuest:""},packages:[],adj:{day:{},daytime:""},spaces:[],negotiable:null,
+  policy:Object.fromEntries(POLICY_SVCS.map(([s])=>[s,{offer:"",price:"",per:"evento",own:"",fee:""}])),deposit:"",advance:"",guarantee:"",cancel:"",corkage:"",docs:[],docsOther:"",docsNone:false,rulesText:"",rulesFile:null,promo:blankPromo(),photos:[]},
+ planner:{person:"",photo:null,since:"",bio:"",prompts:["","",""],fee:"",feeNote:"",specialties:[],zones:[blankZone()],promo:blankPromo(),photos:[]},
+ account:{email:""}};}
+let S=emptyState(),step=0,demo=false,showMiss=false;
+
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const money=n=>n!==""&&n!=null&&!isNaN(+n)?"$"+Number(n).toLocaleString("es-MX"):"";
+const slug=s=>(s||"tu-negocio").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"tu-negocio";
+const initials=s=>(s||"?").split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join("")||"?";
+const norm=x=>String(x).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+const catOf=n=>CATS.find(c=>c.n===n);
+const filled=v=>String(v??"").trim()!=="";
+const MISS=ok=>showMiss&&!ok?" miss":"";
+
+function drawTypes(){$("types").innerHTML=[["services","🎉","Servicios para fiestas","Comida, bebida, música, deco, mobiliario, shows, foto y más"],["venue","🏡","Tengo un venue","Un espacio donde se hacen fiestas: terraza, jardín, salón, casa…"],["planner","📋","Soy event planner","Organizo y coordino eventos de principio a fin"]]
+ .map(([k,e,t,d])=>`<button type="button" class="type" data-k="${k}" aria-pressed="${S.types[k]}"><span class="emo">${e}</span><strong>${t}</strong><span class="d">${d}</span>${TICK}</button>`).join("");
+ $("types").querySelectorAll(".type").forEach(x=>x.onclick=()=>{S.types[x.dataset.k]=!S.types[x.dataset.k];drawTypes();});
+ const any=Object.values(S.types).some(Boolean);$("goProv").classList.toggle("off",!any);if(any)$("typeErr").hidden=true;}
+
+function stepList(){const l=[{id:"biz",t:"Mi negocio",e:"🏷️"}];
+ if(S.types.services)l.push({id:"svc",t:"Servicios",e:"🎉",child:true});if(S.types.venue)l.push({id:"venue",t:"Venue",e:"🏡",child:true});if(S.types.planner)l.push({id:"planner",t:"Planner",e:"📋",child:true});
+ l.push({id:"publish",t:"Publicar",e:"🚀"});return l;}
+const zonesOk=zs=>zs.some(z=>z.state&&(z.all||z.munis.length));
+const promoOk=p=>p.has===false||(p.has===true&&filled(p.what)&&filled(p.terms)&&filled(p.until));
+const minOk=m=>m.has===false||(m.has===true&&+m.qty>0&&filled(m.unit));
+function shipOk(s){if(!s.ship)return true;if(s.shipMode==="gratis")return true;if(s.shipMode==="fijo")return filled(s.shipFixed);if(s.shipMode==="distancia")return filled(s.shipBase)&&filled(s.shipBaseKm)&&filled(s.shipPerKm)&&filled(s.shipMaxKm);return false;}
+const EMAIL_OK=e=>/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e||"");
+function missing(id){const m=[];
+ if(id==="biz"){const b=S.biz;if(!filled(b.name))m.push("Nombre");if(!filled(b.owner||""))m.push("Tu nombre");if(!EMAIL_OK(S.account.email))m.push("Tu correo");if(b.whatsapp.replace(/\D/g,"").length!==10)m.push("WhatsApp de 10 dígitos");if(!b.since)m.push("Año en que empezaste");if(!b.invoice)m.push("¿Facturas?");if(!filled(b.about))m.push("Frase de qué haces");if(!addrOk(b.addr))m.push("Dirección confirmada");if(!b.showAddr)m.push("Qué parte de tu dirección mostrar");}
+ if(id==="svc"){const sc=S.svcScope||{};if(!sc.S&&!sc.E)m.push("Tipo de eventos: sociales, empresariales o ambos");
+  S.services.forEach((s,i)=>{const n=catOf(s.cat)?s.cat:`Ficha ${i+1}`;
+  if(!s.cat||s.cat==="__new")m.push(`${n}: categoría`);if(!s.subs.length)m.push(`${n}: qué ofreces`);
+  s.subs.forEach(x=>{if(!x.u||(x.u==="__otra"&&!filled(x.uo)))m.push(`${n}: cómo cobras ${x.n}`);else{if(!filled(x.price))m.push(`${n}: precio de ${x.n}`);if(famOf(x.u)==="paquete"&&!(+x.pkgP>0))m.push(`${n}: personas del paquete de ${x.n}`);}});
+  if(s.subs.length){if(!filled(s.desc))m.push(`${n}: descripción`);if(!s.person&&!s.ship)m.push(`${n}: cómo lo entregas`);if(!shipOk(s))m.push(`${n}: costo de envío`);
+  if(!minOk(s.min))m.push(`${n}: mínimo de compra`);if(!promoOk(s.promo))m.push(`${n}: promoción`);}});
+  if(!zonesOk(S.svcZones))m.push("Zonas donde das tus servicios");}
+ if(id==="venue"){const v=S.venue;if(!filled(v.name))m.push("Nombre del lugar");if(!addrOk(v.addr))m.push("Dirección del lugar confirmada");if(!v.type)m.push("Tipo de espacio");
+  if(!(+v.seated>0)||!(+v.standing>0))m.push("Capacidad");if(!v.area)m.push("Tamaño");if(!v.days.length)m.push("Días que rentas");if(!filled(v.open)||!filled(v.limit))m.push("Horario");if(!(+v.hoursIncl>0))m.push("Horas incluidas");if(!filled(v.extraHour))m.push("Costo de hora extra");
+  if(!v.mode)m.push("Cómo cobras");if((v.mode==="renta"||v.mode==="ambos")&&!filled(v.rent.price))m.push("Precio de renta");if((v.mode==="paquetes"||v.mode==="ambos")&&!(v.packages.length&&v.packages.every(pkgOk)))m.push("Nombre y precio de cada paquete");if(v.negotiable===null)m.push("¿Precio negociable?");
+  if(!v.features.length)m.push("Con qué cuenta tu espacio");if(!(+v.baths.m+ +v.baths.w+ +v.baths.g>0))m.push("Baños");
+  POLICY_SVCS.forEach(([sv])=>{if(!polOk(v.policy[sv]))m.push(`${sv}: si lo ofreces y si pueden traerlo`);});
+  if(!v.deposit)m.push("Anticipo");if(!filled(v.advance))m.push("Días de anticipación");if(!v.docsNone&&!v.docs.length&&!filled(v.docsOther))m.push("Documentos que pides");
+  if(!filled(v.rulesText)&&!v.rulesFile)m.push("Reglas del lugar");if(!promoOk(v.promo))m.push("Promoción");}
+ if(id==="planner"){const p=S.planner;if(!filled(p.person))m.push("Tu nombre");if(!p.since)m.push("Desde cuándo organizas");if(!filled(p.bio))m.push("Tu bio");if(!p.prompts.some(filled))m.push("Al menos una frase");
+  if(!filled(p.fee))m.push("Tarifa");if(!p.specialties.length)m.push("Especialidad");if(!zonesOk(p.zones))m.push("Zonas donde trabajas");if(!promoOk(p.promo))m.push("Promoción");}
+ return m;}
+function completeness(){const ids=stepList().map(s=>s.id).filter(i=>i!=="publish");let ok=0;ids.forEach(i=>{const n=missing(i).length;ok+=n===0?1:Math.max(0,1-n/12);});return Math.round(ok/ids.length*100);}
+
+function renderTimeline(){const l=stepList();if(step>=l.length)step=l.length-1;
+ $("timeline").innerHTML=`<li class="done"><span class="dot">✓</span><span class="tl-t">Qué ofreces</span></li>`+l.map((s,i)=>`<li class="${i<step?'done':i===step?'now':''}${s.child?' child':''}" ${i===step?'aria-current="step"':''}><span class="dot">${i<step?'✓':s.e}</span><span class="tl-t">${esc(s.t)}</span></li>`).join("");}
+function navHtml(last){return`<div class="nav"><div id="missBox"></div><div class="nav-row"><button class="btn ghost" type="button" id="prev">← Atrás</button>${last?'':`<button class="btn" type="button" id="next">Siguiente →</button>`}</div></div>`;}
+function missMsg(m){return m.length?`<div class="alert bad">✋ <span><b>Para seguir te falta:</b> ${m.map(esc).join(" · ")}</span></div>`:`<div class="alert ok">✅ <span>¡Listo! Ya puedes seguir.</span></div>`;}
+function bindNav(){const id=stepList()[step].id;
+ $("prev").onclick=()=>{showMiss=false;if(step===0){$("editorWrap").hidden=true;$("home").hidden=false;drawTypes();scrollTo({top:0});return;}step--;render();scrollTo({top:0});};
+ if(showMiss&&$("missBox"))$("missBox").innerHTML=missMsg(missing(id));
+ const nx=$("next");if(!nx)return;updNext();
+ nx.onclick=()=>{const m=missing(id);if(m.length){showMiss=true;renderStep();const f=document.querySelector(".miss");(f||$("missBox")).scrollIntoView({behavior:"smooth",block:"center"});return;}
+  showMiss=false;step++;render();scrollTo({top:0});};}
+function updNext(){const nx=$("next");if(!nx)return;const m=missing(stepList()[step].id);nx.classList.toggle("off",m.length>0);nx.setAttribute("aria-disabled",String(m.length>0));}
+function changed(){preview();updNext();if(showMiss){const box=$("missBox");if(box)box.innerHTML=missMsg(missing(stepList()[step].id));}}
+
+function ynHtml(id,val){return`<div class="yn" role="group" id="${id}"><button type="button" data-v="0" aria-pressed="${val===false}">No</button><button type="button" data-v="1" aria-pressed="${val===true}">Sí</button></div>`;}
+function bindYN(id,cb){const g=$(id);if(g)g.querySelectorAll("button").forEach(b=>b.onclick=()=>cb(b.dataset.v==="1"));}
+function socialHtml(o,k){return`<div class="field"><span class="lbl">🔗 Redes sociales <span class="opt">(opcional)</span></span><div class="row">
+ <input type="text" id="ig-${k}" value="${esc(o.instagram)}" placeholder="📸 Instagram: @tunegocio" aria-label="Instagram">
+ <input type="text" id="tt-${k}" value="${esc(o.tiktok)}" placeholder="🎵 TikTok: @tunegocio" aria-label="TikTok">
+ <input type="text" id="fb-${k}" value="${esc(o.facebook)}" placeholder="👍 Facebook: tu página" aria-label="Facebook"></div></div>`;}
+function bindSocial(o,k){[["ig-","instagram"],["tt-","tiktok"],["fb-","facebook"]].forEach(([p,f])=>$(p+k).oninput=e=>{o[f]=e.target.value;changed();});}
+function addrHtml(a,k,title){return addrBlock(a,k,title,MISS,k==="v");}
+function bindAddr(a,k,redraw){bindAddrBlock(a,k,changed,redraw);}
+function zonesHtml(zs,k,title){return`<div class="field"><span class="lbl">🗺️ ${title}</span><span class="hint">Elige el estado y luego los municipios o alcaldías.</span>
+ <div style="display:grid;gap:8px">${zs.map((z,i)=>`<div class="sub-box${MISS(zonesOk(zs))}">
+  <div style="display:flex;gap:8px;align-items:center"><select id="zs-${k}-${i}" aria-label="Estado"><option value="">Elige un estado…</option>${Object.keys(MX).map(s=>`<option ${s===z.state?'selected':''}>${esc(s)}</option>`).join("")}</select>${zs.length>1?`<button type="button" class="link bad" data-zrm="${i}" aria-label="Quitar estado">✕</button>`:''}</div>
+  ${z.state?`<div class="chips"><button type="button" class="chip" id="za-${k}-${i}" aria-pressed="${z.all}">${TICK}Todo el estado</button></div>
+  ${z.all?'':`<input type="search" id="zq-${k}-${i}" placeholder="Busca tu municipio o alcaldía" aria-label="Buscar municipio"><div class="zbox"><div class="chips" id="zl-${k}-${i}">${(MX[z.state]||[]).map(m=>`<button type="button" class="chip" data-m="${esc(m)}" aria-pressed="${z.munis.includes(m)}">${TICK}${esc(m)}</button>`).join("")}</div></div><span class="hint" id="zc-${k}-${i}">${z.munis.length} seleccionados</span>`}`:''}</div>`).join("")}</div>
+ <button type="button" class="link" id="zadd-${k}">+ Agregar otro estado</button></div>`;}
+function bindZones(zs,k,redraw){zs.forEach((z,i)=>{$(`zs-${k}-${i}`).onchange=e=>{z.state=e.target.value;z.munis=[];z.all=false;redraw();changed();};
+  const a=$(`za-${k}-${i}`);if(a)a.onclick=()=>{z.all=!z.all;redraw();changed();};
+  const l=$(`zl-${k}-${i}`);if(l){l.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{const m=c.dataset.m;z.munis=z.munis.includes(m)?z.munis.filter(x=>x!==m):[...z.munis,m];c.setAttribute("aria-pressed",z.munis.includes(m));$(`zc-${k}-${i}`).textContent=z.munis.length+" seleccionados";changed();});
+   const q=$(`zq-${k}-${i}`);q.oninput=()=>{const t=norm(q.value);l.querySelectorAll(".chip").forEach(c=>c.hidden=!!t&&!norm(c.dataset.m).includes(t));};}});
+ $(`zadd-${k}`).closest(".field").querySelectorAll("[data-zrm]").forEach(b=>b.onclick=()=>{zs.splice(+b.dataset.zrm,1);redraw();changed();});
+ $(`zadd-${k}`).onclick=()=>{zs.push(blankZone());redraw();};}
+const zonesText=zs=>zs.filter(z=>z.state).map(z=>z.all?`Todo ${z.state}`:z.munis.length?`${z.munis.slice(0,3).join(", ")}${z.munis.length>3?` +${z.munis.length-3}`:''}`:z.state).join(" · ");
+
+function minHtml(m,k){return`<div class="field"><span class="lbl">🧾 ¿Tienes un mínimo de compra?</span><div class="${MISS(m.has!==null)}" style="width:fit-content;border-radius:99px">${ynHtml("mn-"+k,m.has)}</div>
+ ${m.has?`<div class="row"><input type="number" min="1" id="mq-${k}" class="${MISS(+m.qty>0)}" value="${esc(m.qty)}" placeholder="Cantidad" aria-label="Cantidad mínima">
+ <input type="text" id="mu-${k}" class="${MISS(filled(m.unit))}" list="minUnits" value="${esc(m.unit)}" placeholder="Unidad: personas, piezas, horas, pesos…" aria-label="Unidad del mínimo"></div>`:''}</div>`;}
+function bindMin(m,k,redraw){bindYN("mn-"+k,v=>{m.has=v;redraw();changed();});const q=$("mq-"+k),u=$("mu-"+k);if(q)q.oninput=e=>{m.qty=e.target.value;changed();};if(u)u.oninput=e=>{m.unit=e.target.value;changed();};}
+const minText=m=>m.has&&m.qty&&m.unit?(/peso|\$/.test(m.unit)?`Compra mínima ${money(m.qty)}`:`Mínimo ${m.qty} ${m.unit}`):"";
+
+function promoHtml(p,k,anchor){const link=`hayquevernos.com/${slug(S.biz.name)}#promo-${anchor}`;
+ return`<div class="field"><span class="lbl">🏷️ ¿Tienes alguna promoción?</span><div class="${MISS(p.has!==null)}" style="width:fit-content;border-radius:99px">${ynHtml("pr-"+k,p.has)}</div>
+ ${p.has?`<div class="sub-box"><input type="text" id="pw-${k}" class="${MISS(filled(p.what))}" value="${esc(p.what)}" placeholder="¿En qué consiste? 10% de descuento, 2x1…" aria-label="Promoción">
+ <div class="row"><input type="text" id="pt-${k}" class="${MISS(filled(p.terms))}" value="${esc(p.terms)}" placeholder="Condiciones" aria-label="Condiciones"><div class="field"><label class="hint" for="pu-${k}">Válida hasta</label><input type="date" id="pu-${k}" class="${MISS(filled(p.until))}" value="${esc(p.until)}"></div></div>
+ <div class="copyline"><span>🔗 Link de tu promo:</span><code id="pl-${k}">${esc(link)}</code><button type="button" class="btn sm" id="pc-${k}">Copiar</button></div><span class="hint" id="pm-${k}" aria-live="polite">Compártelo por WhatsApp o redes: lleva directo a esta promo en tu sitio.</span></div>`:''}</div>`;}
+function bindPromo(p,k,redraw){bindYN("pr-"+k,v=>{p.has=v;redraw();changed();});
+ [["pw-","what"],["pt-","terms"],["pu-","until"]].forEach(([pre,f])=>{const el=$(pre+k);if(el)el.oninput=el.onchange=e=>{p[f]=e.target.value;changed();};});
+ const c=$("pc-"+k);if(c)c.onclick=()=>copyText("https://"+$("pl-"+k).textContent,$("pm-"+k));}
+async function copyText(t,msg){try{await navigator.clipboard.writeText(t);msg.textContent="✅ Link copiado.";}catch(e){msg.textContent="Selecciona el link y cópialo.";}}
+
+const SPEC={photo:{max:8,minSide:1080,multi:true,txt:["<b>JPG, PNG o WebP</b>","hasta <b>8 MB</b> c/u","mínimo <b>1080 px</b> del lado corto","<b>horizontal o cuadrada</b>","hasta <b>8 fotos</b>"]},
+ avatar:{max:5,minSide:400,txt:["<b>JPG, PNG o WebP</b>","<b>cuadrada</b>","mínimo <b>400 × 400 px</b>","hasta <b>5 MB</b>","tu logo o una foto tuya"]},
+ face:{max:8,minSide:800,txt:["<b>JPG, PNG o WebP</b>","tu cara, de frente y con buena luz","mínimo <b>800 px</b>","hasta <b>8 MB</b>"]}};
+const OK_IMG=["image/jpeg","image/png","image/webp"];
+function checkFile(f,kind){const sp=SPEC[kind],n=f.name||"archivo";
+ if(/\.(heic|heif)$/i.test(n)||/heic|heif/.test(f.type))return`"${n}" está en formato HEIC (fotos de iPhone). En tu iPhone ve a Ajustes › Cámara › Formatos › "Más compatible", o envíate la foto por WhatsApp y descárgala de nuevo.`;
+ if(!OK_IMG.includes(f.type))return`"${n}" no es una imagen compatible. Usa JPG, PNG o WebP.`;
+ if(f.size>sp.max*1048576)return`"${n}" pesa ${(f.size/1048576).toFixed(1)} MB y el máximo es ${sp.max} MB. Envíatela por WhatsApp y descárgala: así pesa menos.`;
+ return null;}
+function loadImage(f){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>res(im);im.onerror=rej;im.src=r.result;};r.onerror=rej;r.readAsDataURL(f);});}
+function analyze(im){const W=256,sc=W/Math.max(im.width,im.height),w=Math.max(8,Math.round(im.width*sc)),h=Math.max(8,Math.round(im.height*sc));
+ const c=document.createElement("canvas");c.width=w;c.height=h;const x=c.getContext("2d");x.drawImage(im,0,0,w,h);const d=x.getImageData(0,0,w,h).data;
+ const g=new Float32Array(w*h);let s=0;for(let i=0;i<w*h;i++){g[i]=.299*d[i*4]+.587*d[i*4+1]+.114*d[i*4+2];s+=g[i];}
+ const mean=s/(w*h);let v=0;for(let i=0;i<w*h;i++)v+=(g[i]-mean)**2;const sd=Math.sqrt(v/(w*h));
+ let ls=0,lq=0,n=0;for(let y=1;y<h-1;y++)for(let xx=1;xx<w-1;xx++){const i=y*w+xx,L=4*g[i]-g[i-1]-g[i+1]-g[i-w]-g[i+w];ls+=L;lq+=L*L;n++;}
+ return{mean,sd,lap:lq/n-(ls/n)**2};}
+function quality(im,kind){const a=analyze(im),out=[];
+ if(Math.min(im.width,im.height)<SPEC[kind].minSide)out.push(["📏","Baja resolución","Usa la foto original, no una captura de pantalla."]);
+ if(a.mean<70)out.push(["🌑","Muy oscura","Tómala con luz natural o junto a una ventana."]);else if(a.mean>215)out.push(["☀️","Muy clara","Evita el flash y el sol directo."]);
+ if(a.sd<28)out.push(["🌫️","Sin contraste","Busca un fondo que haga resaltar tu producto."]);
+ if(a.lap<55)out.push(["🫨","Borrosa","Limpia la cámara y sostén el celular firme."]);
+ if(kind==="photo"&&im.height>im.width*1.15)out.push(["↔️","Vertical","Mejor horizontal o cuadrada para que se vea completa."]);
+ if(kind==="avatar"&&Math.abs(im.width-im.height)>im.width*.1)out.push(["⬜","No es cuadrada","Se recortará al centro. Mejor súbela cuadrada."]);
+ return out;}
+function optimize(im){const M=1600,sc=Math.min(1,M/Math.max(im.width,im.height));const c=document.createElement("canvas");c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);c.getContext("2d").drawImage(im,0,0,c.width,c.height);let u=c.toDataURL("image/webp",.8);if(!u.startsWith("data:image/webp"))u=c.toDataURL("image/jpeg",.8);return u;}
+const kb=b=>b>1048576?(b/1048576).toFixed(1)+" MB":Math.round(b/1024)+" KB";
+function uploaderHtml(k,kind,photos,has){const sp=SPEC[kind];has=true;const noPh=sp.multi&&!photos.length;
+ return`<div class="up${MISS(has)}"><div class="up-top"><label class="pick">📷 ${sp.multi?"Subir fotos":"Subir foto"}<input type="file" id="up-${k}" accept="image/jpeg,image/png,image/webp,.heic,.heif" ${sp.multi?'multiple':''}></label><span class="specs">${sp.txt.map(t=>`<span>${t}</span>`).join("")}</span></div>
+ <div id="upmsg-${k}" style="display:grid;gap:6px"></div>${noPh?`<div class="alert warn">📷 <span>Las fotos son opcionales, pero sin ellas será más difícil que los anfitriones te encuentren y te elijan.</span></div>`:""}${!sp.multi&&!photosHas(k)?`<span class="hint">Opcional, pero un sitio con foto genera mucha más confianza.</span>`:""}
+ ${sp.multi&&photos.length?`<div class="photos">${photos.map((p,i)=>`<div class="ph"><img src="${p.url}" alt="Foto ${i+1}"><div class="q">${p.issues.length?p.issues.map(x=>`<span class="meh">${x[0]} ${esc(x[1])}</span>`).join(""):'<span class="good">✅ Se ve bien</span>'}<small>Optimizada: ${kb(p.before)} → ${kb(p.after)}</small></div><button type="button" class="rmph" data-rm="${i}">Quitar</button></div>`).join("")}</div>
+ ${photos.some(p=>p.issues.length)?`<div class="alert warn">⚠️ <span>Algunas fotos no cumplen con lo recomendado. Fotos oscuras, borrosas o pixeladas pueden hacer que los anfitriones no te elijan. ${[...new Set(photos.flatMap(p=>p.issues.map(x=>x[2])))].slice(0,3).join(" ")}</span></div>`:''}`:''}</div>`;}
+function bindUploader(k,kind,photos,redraw,single){const inp=$("up-"+k);if(!inp)return;
+ inp.onchange=async()=>{const errs=[];let files=[...inp.files];inp.value="";
+  if(!single&&photos.length+files.length>8){errs.push(`Puedes subir hasta 8 fotos aquí. Se cargaron solo ${Math.max(0,8-photos.length)}.`);files=files.slice(0,Math.max(0,8-photos.length));}
+  for(const f of files){const e=checkFile(f,kind);if(e){errs.push(e);continue;}
+   try{const im=await loadImage(f);const issues=quality(im,kind);const url=optimize(im);const after=Math.round((url.length-url.indexOf(",")-1)*3/4);
+    if(single)single(url,issues);else photos.push({url,issues,before:f.size,after});}
+   catch(_){errs.push(`No pudimos abrir "${f.name}". Puede estar dañada; intenta con otra o vuelve a tomarla.`);}}
+  if(!single)redraw();changed();const m=$("upmsg-"+k);if(m)m.innerHTML=errs.map(e=>`<div class="alert bad">❌ <span>${esc(e)}</span></div>`).join("");};
+ if(!single)inp.closest(".up").querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{photos.splice(+b.dataset.rm,1);redraw();changed();});}
+const photosHas=k=>({biz:S.biz.photo,vav:S.venue.photo,face:S.planner.photo})[k];
+function avatarHtml(o,k,kind,label){return`<div class="field"><span class="lbl">${label}</span><div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><div class="avatar" id="av-${k}">${o.photo?`<img src="${o.photo}" alt="">`:(kind==="face"?"🙂":"📷")}</div><div style="flex:1;min-width:0">${uploaderHtml(k,kind,[],!!o.photo)}</div></div><div id="avq-${k}"></div></div>`;}
+function bindAvatar(o,k,kind){bindUploader(k,kind,[],null,(url,iss)=>{o.photo=url;$("av-"+k).innerHTML=`<img src="${url}" alt="">`;$("avq-"+k).innerHTML=iss.length?`<div class="alert warn">⚠️ <span>${iss.map(x=>`${x[0]} ${esc(x[1])}: ${esc(x[2])}`).join(" ")}</span></div>`:`<div class="alert ok">✅ <span>¡Se ve muy bien!</span></div>`;$("up-"+k).closest(".up").classList.remove("miss");});}
+
+function specsHtml(list,k){return`<div class="field"><span class="lbl">✨ Especialidades <span class="opt">(opcional)</span></span>
+ <div class="ac"><input type="text" id="sp-${k}" placeholder="Escribe y elige: chiles en nogada, mezcal, globos con helio…" autocomplete="off"><div class="ac-list" hidden></div></div>
+ <div class="chips">${list.map((t,j)=>`<button type="button" class="chip rm" data-j="${j}" aria-label="Quitar ${esc(t)}">${esc(t)}${NEW_SPECS.has(t)?' <small>· nueva</small>':''} ✕</button>`).join("")}<button type="button" class="chip new" id="spn-${k}">+ Otra especialidad</button></div></div>`;}
+function bindSpecs(list,k,redraw){const inp=$("sp-"+k);if(!inp)return;const box=inp.nextElementSibling;let act=-1;
+ const add=t=>{t=t.trim();if(!t)return;const ex=SPECS.find(x=>norm(x)===norm(t));if(!ex){SPECS.push(t);NEW_SPECS.add(t);}const v=ex||t;if(!list.some(x=>norm(x)===norm(v)))list.push(v);redraw();changed();setTimeout(()=>{const n=$("sp-"+k);n&&n.focus();},0);};
+ const show=()=>{const q=norm(inp.value.trim());if(!q){box.hidden=true;return;}const m=SPECS.filter(t=>norm(t).includes(q)&&!list.includes(t)).slice(0,6);const exact=SPECS.some(t=>norm(t)===q);
+  box.innerHTML=m.map((t,i)=>`<button type="button" data-t="${esc(t)}" class="${i===act?'active':''}">${esc(t)}</button>`).join("")+(exact?'':`<button type="button" data-t="${esc(inp.value.trim())}">+ Agregar "${esc(inp.value.trim())}" <small>· se suma al catálogo</small></button>`);
+  box.hidden=false;box.querySelectorAll("button").forEach(b=>b.onmousedown=e=>{e.preventDefault();add(b.dataset.t);});};
+ inp.oninput=()=>{act=-1;show();};
+ inp.onkeydown=e=>{const bs=box.querySelectorAll("button");if(e.key==="ArrowDown"){e.preventDefault();act=Math.min(act+1,bs.length-1);show();}else if(e.key==="ArrowUp"){e.preventDefault();act=Math.max(act-1,0);show();}else if(e.key==="Enter"){e.preventDefault();if(act>=0&&bs[act])add(bs[act].dataset.t);else add(inp.value);}else if(e.key==="Escape")box.hidden=true;};
+ inp.onblur=()=>setTimeout(()=>box.hidden=true,150);
+ $("spn-"+k).onclick=()=>{inp.focus();inp.placeholder="Escribe tu especialidad y presiona Enter";};
+ inp.closest(".field").querySelectorAll(".chip.rm").forEach(c=>c.onclick=()=>{list.splice(+c.dataset.j,1);redraw();changed();});}
+
+function shipCost(s,km){if(s.shipMode==="gratis")return 0;if(s.shipMode==="fijo")return +s.shipFixed||0;
+ if(s.shipMode==="distancia"){if(+s.shipMaxKm&&km>+s.shipMaxKm)return null;return (+s.shipBase||0)+Math.max(0,km-(+s.shipBaseKm||0))*(+s.shipPerKm||0);}return null;}
+function shipText(s){if(!s.ship)return"";const fr=s.shipFreeFrom?` · gratis desde ${money(s.shipFreeFrom)}`:"";
+ if(s.shipMode==="gratis")return"📦 Envío gratis";if(s.shipMode==="fijo"&&s.shipFixed)return`📦 Envío ${money(s.shipFixed)}${fr}`;
+ if(s.shipMode==="distancia"&&s.shipBase)return`📦 Envío desde ${money(s.shipBase)} (hasta ${s.shipBaseKm||0} km) + ${money(s.shipPerKm)}/km · máx. ${s.shipMaxKm} km${fr}`;return"📦 Envío a domicilio";}
+
+function renderStep(){const id=stepList()[step].id;
+ if(id==="biz")drawBiz();if(id==="svc")drawSvcStep();if(id==="venue")drawVenue();if(id==="planner")drawPlanner();
+ if(id==="publish"){const b=S.biz,faltan=missing("biz");
+  $("stepBody").innerHTML=`<div class="panel"><h2>¡A publicar! 🚀</h2><p class="sub">Tu sitio y tu cuenta de ¡Hay que vernos! se crean juntos, con un solo clic. No tienes que llenar nada más.</p>
+   <div class="sub-box" style="display:grid;gap:6px;padding:14px"><span>🙋 <b>${esc(b.owner||"—")}</b></span><span>📱 ${esc(b.whatsapp||"—")}</span><span>✉️ ${esc(S.account.email||"—")}</span><span>🔗 hayquevernos.com/${esc(slug(b.name))}</span></div>
+   ${faltan.length?`<p class="err">Antes de publicar completa en el paso Mi negocio: ${esc(faltan.join(", "))}.</p>`:''}
+   <label class="chk"><input type="checkbox" id="a-mk" ${S.account.mk?"checked":""}><span>Quiero recibir novedades, cursos y promociones de ¡Hay que vernos! <span class="opt">(opcional)</span></span></label>
+   <button class="btn big" type="button" id="pubBtn" ${faltan.length?"disabled":""}>Publicar mi sitio gratis 🎉</button>
+   <p class="hint" style="margin:0">Al publicar se crea tu cuenta de ¡Hay que vernos! con los datos que ya nos diste y aceptas los <a href="#" onclick="return false">Términos para proveedores</a> y el <a href="#" onclick="return false">Aviso de privacidad</a>. Te avisaremos por WhatsApp cuando un anfitrión busque lo que ofreces.</p>
+   ${navHtml(true)}</div>`;
+  $("a-mk").onchange=e=>{S.account.mk=e.target.checked;};
+  $("pubBtn").onclick=()=>{if(missing("biz").length)return;publish();};
+  bindNav();}}
+
+function drawBiz(){const b=S.biz,yrs=[];for(let y=yearNow;y>=1960;y--)yrs.push(y);
+ $("stepBody").innerHTML=`<div class="panel"><h2>Mi negocio 🏷️</h2><p class="sub">El perfil general de tu negocio. Después configuras cada cosa que ofreces.</p>
+ <div class="field"><label class="lbl" for="f-name">Nombre de tu negocio</label><input type="text" id="f-name" class="${MISS(filled(b.name))}" value="${esc(b.name)}" placeholder="Así te conocen tus clientes"></div>
+ ${avatarHtml(b,"biz","avatar","🖼️ Foto de logo o perfil")}
+ ${socialHtml(b,"biz")}
+ <div class="sub-box" style="display:grid;gap:10px;padding:14px"><span class="lbl">🙋 Tus datos de contacto</span><span class="hint">Con estos datos creamos tu cuenta al publicar. Tus clientes solo ven el WhatsApp de tu negocio.</span>
+ <div class="row"><div class="field"><label class="lbl" for="f-owner">Tu nombre</label><input type="text" id="f-owner" autocomplete="name" class="${MISS(filled(b.owner||""))}" value="${esc(b.owner||"")}" placeholder="Quien atiende a los clientes"></div>
+ <div class="field"><label class="lbl" for="f-email">Correo</label><input type="email" id="f-email" autocomplete="email" class="${MISS(EMAIL_OK(S.account.email))}" value="${esc(S.account.email)}" placeholder="tunegocio@gmail.com"></div></div></div>
+ <div class="row"><div class="field"><label class="lbl" for="f-wa">📱 WhatsApp</label><input type="tel" id="f-wa" class="${MISS(b.whatsapp.replace(/\D/g,"").length===10)}" value="${esc(b.whatsapp)}" placeholder="55 1234 5678"></div>
+  <div class="field"><label class="lbl" for="f-since">🎉 ¿Desde qué año haces fiestas?</label><select id="f-since" class="${MISS(!!b.since)}"><option value="">Elige el año</option>${yrs.map(y=>`<option ${String(y)===String(b.since)?'selected':''}>${y}</option>`).join("")}</select></div></div>
+ <div class="field"><span class="lbl">🧾 ¿Facturas?</span><div class="chips${MISS(!!b.invoice)}" style="width:fit-content;border-radius:99px">${[["si","Sí facturo"],["no","No facturo"]].map(([v,t])=>`<button type="button" class="chip inv" data-v="${v}" aria-pressed="${b.invoice===v}">${TICK}${t}</button>`).join("")}</div></div>
+ <div class="field"><label class="lbl" for="f-about">💬 Cuéntanos en una frase qué haces</label><textarea id="f-about" class="${MISS(filled(b.about))}" placeholder="Mesas de dulces que se roban la fiesta 🍭">${esc(b.about)}</textarea></div>
+ ${addrHtml(b.addr,"biz","Ubicación de tu negocio")}
+ <div class="field"><span class="lbl">👀 ¿Qué mostrar en tu sitio?</span><div class="chips${MISS(!!b.showAddr)}" style="width:fit-content;border-radius:99px">${[["colonia","Solo colonia y municipio"],["full","Dirección completa"]].map(([v,t])=>`<button type="button" class="chip sa" data-v="${v}" aria-pressed="${b.showAddr===v}">${TICK}${t}</button>`).join("")}</div><span class="hint">Si trabajas desde casa, te recomendamos mostrar solo la colonia.</span></div>
+ ${navHtml()}</div>`;
+ [["f-name","name"],["f-wa","whatsapp"],["f-about","about"],["f-since","since"],["f-owner","owner"]].forEach(([i,k])=>{$(i).oninput=$(i).onchange=e=>{b[k]=e.target.value;changed();};});
+ $("f-email").oninput=e=>{S.account.email=e.target.value.trim();changed();};
+ document.querySelectorAll(".inv").forEach(c=>c.onclick=()=>{b.invoice=c.dataset.v;document.querySelectorAll(".inv").forEach(x=>x.setAttribute("aria-pressed",x===c));changed();});
+ document.querySelectorAll(".sa").forEach(c=>c.onclick=()=>{b.showAddr=c.dataset.v;document.querySelectorAll(".sa").forEach(x=>x.setAttribute("aria-pressed",x===c));changed();});
+ bindAvatar(b,"biz","avatar");bindSocial(b,"biz");bindAddr(b.addr,"biz",drawBiz);bindNav();}
+
+function drawSvcStep(){const sc=S.svcScope=S.svcScope||{S:false,E:false};
+ $("stepBody").innerHTML=`<div class="panel"><span class="crumb">Mi negocio › Servicios</span><h2>Mis servicios 🎉</h2><p class="sub">Pon el precio como tú lo cobras. Nosotros se lo mostramos al anfitrión por persona y en total.</p>
+ <div class="svc-top">
+  <div class="field"><span class="lbl">¿Para qué tipo de eventos? <span class="opt">Puedes elegir los dos</span></span><div class="chips${MISS(sc.S||sc.E)}" style="width:fit-content;border-radius:99px"><button type="button" class="chip scp" data-v="S" aria-pressed="${!!sc.S}">${TICK}🎉 Sociales</button><button type="button" class="chip scp" data-v="E" aria-pressed="${!!sc.E}">${TICK}💼 Empresariales</button></div></div>
+  <div class="field qwrap"><label class="lbl" for="svcQ">🔎 Busca lo que ofreces <span class="opt">o elige abajo por categoría</span></label><input type="search" id="svcQ" autocomplete="off" placeholder="Ej. taquiza, DJ, carpa, meseros, galletas…"><div id="svcQr" class="qres" hidden></div></div>
+ </div>
+ <div id="svcList" style="display:grid;gap:14px"></div><button type="button" class="btn ghost" id="addSvc">+ Agregar otra categoría</button>
+ ${zonesHtml(S.svcZones,"svc","¿Dónde das estos servicios?")}${navHtml()}</div>`;
+ document.querySelectorAll(".scp").forEach(c=>c.onclick=()=>{sc[c.dataset.v]=!sc[c.dataset.v];drawSvcStep();changed();});
+ const q=$("svcQ"),qr=$("svcQr");
+ const search=()=>{const v=norm(q.value).trim();if(v.length<2){qr.hidden=true;return;}const toks=v.split(/\s+/);const res=[];
+  CATS.forEach(c=>c.s.forEach(x=>{if(!scopeOk(x.t))return;const h=norm(x.n+" "+c.n);if(toks.every(t=>h.includes(t)))res.push([c,x,norm(x.n).startsWith(v)?0:norm(x.n).includes(v)?1:2]);}));
+  res.sort((p,q2)=>p[2]-q2[2]);
+  qr.innerHTML=res.slice(0,8).map(([c,x])=>{const on=S.services.some(s=>s.cat===c.n&&s.subs.some(y=>y.n===x.n));return`<button type="button" data-c="${esc(c.n)}" data-s="${esc(x.n)}"${on?' class="on"':''}><span>${c.e}</span><span><b>${esc(x.n)}</b> <small>· ${esc(c.n)}${on?" · ya lo tienes":""}</small></span></button>`;}).join("")
+   ||`<span class="hint" style="padding:8px">No lo encontramos. Elige la categoría más cercana y usa <b>✏️ Otro</b> para escribirlo; lo revisamos para sumarlo al catálogo.</span>`;
+  qr.hidden=false;qr.querySelectorAll("button").forEach(btn=>btn.onclick=()=>{const i=addSubTo(btn.dataset.c,btn.dataset.s);q.value="";qr.hidden=true;hqvTrack("servicio_buscado",{sub:btn.dataset.s});goBox(i);});};
+ q.oninput=search;q.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();const f=qr.querySelector("button");f&&f.click();}if(e.key==="Escape"){qr.hidden=true;}};
+ drawServices();$("addSvc").onclick=()=>{S.services.push(blankSvc());drawServices();changed();const l=$("svcList").lastElementChild;l&&l.scrollIntoView({behavior:"smooth",block:"start"});};
+ bindZones(S.svcZones,"svc",drawSvcStep);bindNav();}
+
+function lineHtml(s,k,x,j){const sub=subOf(s.cat,x.n),allowed=(sub&&sub.u.length?sub.u:COMMON_UNITS).slice().sort((p,q)=>urank(p)-urank(q)),f=famOf(x.u);if(x.u&&x.u!=="__otra"&&!allowed.includes(x.u))allowed.push(x.u);
+ const same=s.subs.filter(y=>y.n===x.n),nth=same.indexOf(x)+1;
+ return`<div class="sline" data-j="${j}">
+  <div class="sl-top"><b>${esc(x.n)}${same.length>1?` <small>· forma ${nth}</small>`:''}${NEW_SUBS.has(x.n)?' <small>· nuevo</small>':''}</b><button type="button" class="link bad sl-rm" aria-label="Quitar ${esc(x.n)}">✕ Quitar</button></div>
+  <span class="mini-l">¿Cómo lo cobras?</span>
+  <div class="chips unit-chips${MISS(!!x.u&&(x.u!=="__otra"||filled(x.uo)))}">${allowed.map(u=>`<button type="button" class="chip sl-u" data-u="${esc(u)}" aria-pressed="${x.u===u}">${esc(uLabel(u))}</button>`).join("")}<button type="button" class="chip new sl-u" data-u="__otra" aria-pressed="${x.u==="__otra"}">✏️ Otra</button></div>
+  ${x.u==="__otra"?`<input type="text" class="sl-uo${MISS(filled(x.uo))}" list="dlUnits" value="${esc(x.uo)}" placeholder="Escribe tu unidad: por charola, por metro…" aria-label="Otra unidad para ${esc(x.n)}">`:''}
+  ${x.u?`<div class="sl-f">
+   <label class="sl-p"><span>${f==="porcentaje"?"%":"$"}</span><input type="number" min="0" step="any" class="sl-price${MISS(filled(x.price))}" value="${esc(x.price)}" placeholder="${f==="porcentaje"?"porcentaje":"precio"}" aria-label="Precio de ${esc(x.n)} ${esc(lineLabel(x))}"> <small class="opt">${esc(f==="porcentaje"?uLabel(x.u).slice(2):lineLabel(x))}</small></label>
+   ${f==="paquete"?`<label>¿Para cuántas personas? <input type="number" min="1" class="sl-pkgP${MISS(+x.pkgP>0)}" value="${esc(x.pkgP)}"></label><label>¿Cuántas horas incluye? <input type="number" min="0" step="any" class="sl-pkgH" value="${esc(x.pkgH)}"> <span class="opt">(opcional)</span></label>`:''}
+   ${f==="cantidad"||f==="espacio"||f==="otra"?`<label>Cada ${esc(uNoun(x))} alcanza para <input type="number" min="0" step="any" class="sl-yield" value="${esc(x.yieldP)}"> personas <span class="opt">(opcional)</span></label>`:''}
+  </div><div class="sl-hv">${hostView(x)}</div>`:''}
+  <button type="button" class="link sl-dup">+ Otra forma de cobrar ${esc(x.n.toLowerCase())}</button>
+ </div>`;}
+
+function drawServices(){const list=$("svcList");if(!list)return;
+ list.innerHTML=S.services.map((s,i)=>{const cat=catOf(s.cat),k="s"+i,anchor="s"+(i+1),fl=FLASH&&FLASH.i===i?FLASH.msg:"";
+ const subs=cat?cat.s.filter(x=>scopeOk(x.t)||s.subs.some(y=>y.n===x.n)):[],hid=cat?cat.s.length-subs.length:0;
+ return`<div class="box" data-i="${i}"><div class="box-head"><h3>${cat?cat.e+" "+esc(cat.n):"Ficha "+(i+1)}</h3><span style="display:flex;gap:14px">${cat?`<button type="button" class="link ch-cat">Cambiar categoría</button>`:''}${S.services.length>1?`<button type="button" class="link bad rm-svc">Quitar</button>`:''}</span></div>
+ ${fl?`<div class="flash">${esc(fl)}</div>`:''}
+ ${!cat?`<div class="field"><span class="lbl">1. Categoría</span><div class="cats big${MISS(!!cat)}">${CATS.map(c=>{const used=S.services.some((y,ii)=>ii!==i&&y.cat===c.n);return`<button type="button" class="cat" data-c="${esc(c.n)}" aria-pressed="${s.cat===c.n}"><span class="emo">${c.e}</span><span>${esc(c.n)}${NEW_CATS.has(c.n)?' <small>· nueva</small>':''}${used?' <small>· ya la tienes</small>':''}</span></button>`;}).join("")}<button type="button" class="cat" data-c="__new" aria-pressed="${s.cat==="__new"}"><span class="emo">✏️</span><span>Otra</span></button></div>
+  ${s.cat==="__new"?`<div style="display:flex;gap:8px"><input type="text" id="cn-${k}" list="dlCats" value="${esc(s.catNew)}" placeholder="Escribe tu categoría"><button type="button" class="btn sm" id="cnb-${k}">Agregar</button></div><span class="hint">Si ya existe te la sugerimos; si no, la revisamos para sumarla al catálogo.</span>`:''}</div>`:''}
+ ${cat?`<div class="field"><span class="lbl">¿Qué ofreces de ${esc(cat.n.toLowerCase())}? <span class="opt">Elige todos los que hagas</span></span>
+  ${subs.length>10?`<input type="search" class="sub-q" placeholder="🔎 Filtrar ${subs.length} opciones…" aria-label="Filtrar subcategorías">`:''}
+  <div class="chips subchips${MISS(s.subs.length>0)}" style="border-radius:14px">${subs.map((x,xi)=>`<button type="button" class="chip sub${xi>=12&&!s.subs.some(y=>y.n===x.n)&&!SHOWALL.has(i)?" more hide":""}" data-s="${esc(x.n)}" aria-pressed="${s.subs.some(y=>y.n===x.n)}">${TICK}${esc(x.n)}${NEW_SUBS.has(x.n)?' <small>· nuevo</small>':''}</button>`).join("")}${subs.length>12&&!SHOWALL.has(i)?`<button type="button" class="chip new sh-all">Ver las ${subs.length} opciones</button>`:''}<button type="button" class="chip new" id="sbn-${k}">✏️ Otro</button></div>
+  ${hid?`<span class="hint">Ocultamos ${hid} que no son para el tipo de eventos que elegiste.</span>`:''}
+  <div style="display:flex;gap:8px" id="snw-${k}" hidden><input type="text" id="sn-${k}" list="dlSubs" placeholder="¿Cómo se llama tu servicio?"><button type="button" class="btn sm" id="snb-${k}">Agregar</button></div>
+  ${cat.n==="Espacios y hospedaje"?`<div class="vnote">🏡 ¿Rentas un salón, terraza, jardín o casa para fiestas? ${S.types.venue?"Tu venue tiene su propia sección con capacidad, horarios y paquetes.":`<button type="button" class="link" id="tv-${k}">Activa la ficha de venue</button> para registrar capacidad, horarios y paquetes.`}</div>`:''}</div>`:''}
+ ${s.subs.length?`<div class="field"><span class="lbl">💲 ¿Cómo lo cobras?</span><span class="hint">¿Cobras de dos formas? Usa <b>+ Otra forma de cobrar</b>.</span><div class="slines">${s.subs.map((x,j)=>lineHtml(s,k,x,j)).join("")}</div></div>
+ <div class="field"><label class="lbl" for="d-${k}">💬 Descríbelo en una frase</label><input type="text" id="d-${k}" class="${MISS(filled(s.desc))}" value="${esc(s.desc)}" placeholder="Qué incluye y para cuántas personas"></div>
+ <div class="field"><span class="lbl">🚚 ¿Cómo entregas este servicio? <span class="opt">Puedes elegir los dos</span></span><div class="chips${MISS(s.person||s.ship)}" style="width:fit-content;border-radius:99px"><button type="button" class="chip" id="dp-${k}" aria-pressed="${s.person}">${TICK}🙋 En persona</button><button type="button" class="chip" id="ds-${k}" aria-pressed="${s.ship}">${TICK}📦 Por envío a domicilio</button></div>
+  ${s.ship?`<div class="sub-box${MISS(shipOk(s))}"><span class="lbl">¿Cuánto cobras de envío?</span><div class="chips">${[["gratis","🎁 Gratis"],["fijo","💵 Costo fijo"],["distancia","📍 Según la distancia"]].map(([v,t])=>`<button type="button" class="chip shm" data-v="${v}" aria-pressed="${s.shipMode===v}">${TICK}${t}</button>`).join("")}</div>
+   ${s.shipMode==="fijo"?`<input type="number" min="0" id="sf-${k}" value="${esc(s.shipFixed)}" placeholder="$ costo del envío" aria-label="Costo fijo de envío">`:''}
+   ${s.shipMode==="distancia"?`<div class="row"><div class="field"><label class="hint" for="sb-${k}">Cobro base $</label><input type="number" min="0" id="sb-${k}" value="${esc(s.shipBase)}"></div><div class="field"><label class="hint" for="sk-${k}">Incluye hasta (km)</label><input type="number" min="0" id="sk-${k}" value="${esc(s.shipBaseKm)}"></div><div class="field"><label class="hint" for="sq-${k}">$ por km extra</label><input type="number" min="0" id="sq-${k}" value="${esc(s.shipPerKm)}"></div><div class="field"><label class="hint" for="sm-${k}">Llego hasta (km)</label><input type="number" min="0" id="sm-${k}" value="${esc(s.shipMaxKm)}"></div></div>
+    <div class="calc" id="calc-${k}"></div><span class="hint">Cuando un anfitrión cotice, calculamos la distancia entre tu negocio y su fiesta y le mostramos el envío exacto.</span>`:''}
+   ${s.shipMode&&s.shipMode!=="gratis"?`<div class="field"><label class="hint" for="sfr-${k}">Envío gratis en compras desde $ <span class="opt">(opcional)</span></label><input type="number" min="0" id="sfr-${k}" value="${esc(s.shipFreeFrom)}"></div>`:''}</div>`:''}</div>
+ ${minHtml(s.min,k)}
+ ${specsHtml(s.specs,k)}
+ ${promoHtml(s.promo,k,anchor)}
+ <div class="field"><span class="lbl">📷 Fotos de este servicio</span>${uploaderHtml(k,"photo",s.photos,s.photos.length>0)}</div>`:''}
+ </div>`;}).join("");
+ FLASH=null;
+ list.querySelectorAll(".box").forEach(el=>{const i=+el.dataset.i,s=S.services[i],k="s"+i,redraw=()=>drawServices();
+  el.querySelectorAll(".cat").forEach(t=>t.onclick=()=>{const c=t.dataset.c;
+   const o=S.services.findIndex((y,ii)=>ii!==i&&y.cat===c&&c!=="__new");
+   if(o>=0){if(!s.subs.length){S.services.splice(i,1);goBox(o>i?o-1:o,"Ya tenías esta categoría; aquí está.");}else goBox(o,"Ya tenías esta categoría; aquí está.");return;}
+   if(s.cat!==c){s.cat=c;s.subs=[];}redraw();changed();});
+  const chc=el.querySelector(".ch-cat");if(chc)chc.onclick=()=>{s.cat="";s.subs=[];redraw();changed();};
+  const tv=$("tv-"+k);if(tv)tv.onclick=()=>{S.types.venue=true;hqvTrack("venue_desde_servicios");render();};
+  const sq=el.querySelector(".sub-q");if(sq)sq.oninput=()=>{const v=norm(sq.value).trim();el.querySelectorAll(".subchips .chip.sub").forEach(c=>c.classList.toggle("hide",v?!norm(c.dataset.s).includes(v)&&c.getAttribute("aria-pressed")!=="true":c.classList.contains("more")));};
+  const sa=el.querySelector(".sh-all");if(sa)sa.onclick=()=>{SHOWALL.add(i);redraw();};
+  el.querySelectorAll(".sub").forEach(t=>t.onclick=()=>{const n=t.dataset.s;if(s.subs.some(y=>y.n===n))s.subs=s.subs.filter(y=>y.n!==n);else addSubTo(s.cat,n);redraw();changed();});
+  const addCat=()=>{const v=($("cn-"+k).value||"").trim();if(!v)return;let c=CATS.find(x=>norm(x.n)===norm(v));if(!c){c={n:v,e:"✨",s:[]};CATS.push(c);NEW_CATS.add(v);}
+   const o=S.services.findIndex((y,ii)=>ii!==i&&y.cat===c.n);if(o>=0){S.services.splice(i,1);goBox(o>i?o-1:o,"Ya tenías esta categoría; aquí está.");return;}
+   s.cat=c.n;s.catNew="";redraw();changed();if(!c.s.length)setTimeout(()=>{const b=$("sbn-"+k);b&&b.click();},0);};
+  if($("cn-"+k)){$("cnb-"+k).onclick=addCat;$("cn-"+k).onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addCat();}};$("cn-"+k).oninput=e=>{s.catNew=e.target.value;};}
+  const addSub=()=>{const v=($("sn-"+k).value||"").trim();if(!v)return;const c=catOf(s.cat);const ex=c.s.find(x=>norm(x.n)===norm(v));
+   if(ex){addSubTo(c.n,ex.n);redraw();changed();return;}
+   for(const cc of CATS){const e2=cc.s.find(x=>norm(x.n)===norm(v));if(e2){const ii=addSubTo(cc.n,e2.n);goBox(ii,`“${e2.n}” ya existe en ${cc.n}; lo agregamos ahí.`);return;}}
+   c.s.push({n:v,t:"SE",u:[]});NEW_SUBS.add(v);s.subs.push(blankLine(v));hqvTrack("catalogo_propuesta",{tipo:"subcategoria",cat:c.n,valor:v});redraw();changed();};
+  if($("sbn-"+k)){$("sbn-"+k).onclick=()=>{$("snw-"+k).hidden=false;$("sn-"+k).focus();};$("snb-"+k).onclick=addSub;$("sn-"+k).onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addSub();}};}
+  el.querySelectorAll(".sline").forEach(L=>{const j=+L.dataset.j,x=s.subs[j],hv=()=>{const h=L.querySelector(".sl-hv");if(h)h.innerHTML=hostView(x);};
+   L.querySelectorAll(".sl-u").forEach(c=>c.onclick=()=>{x.u=c.dataset.u;x.unit=lineLabel(x);redraw();changed();if(x.u==="__otra")setTimeout(()=>{const b=document.querySelector(`#svcList .box[data-i="${i}"] .sline[data-j="${j}"] .sl-uo`);b&&b.focus();},0);});
+   const uo=L.querySelector(".sl-uo");if(uo){uo.oninput=e=>{x.uo=e.target.value;x.unit=lineLabel(x);changed();};
+    uo.onchange=()=>{const v=x.uo.trim();if(!v)return;const cu=canonUnit(v);if(cu){x.u=cu;x.uo="";}else{NEW_UNITS.add(v);hqvTrack("catalogo_propuesta",{tipo:"unidad",sub:x.n,valor:v});}x.unit=lineLabel(x);redraw();changed();};}
+   [["sl-price","price"],["sl-pkgP","pkgP"],["sl-pkgH","pkgH"],["sl-yield","yieldP"]].forEach(([c,f])=>{const n=L.querySelector("."+c);if(n)n.oninput=e=>{x[f]=e.target.value;hv();changed();};});
+   L.querySelector(".sl-rm").onclick=()=>{s.subs.splice(j,1);redraw();changed();};
+   L.querySelector(".sl-dup").onclick=()=>{let e=j;while(e+1<s.subs.length&&s.subs[e+1].n===x.n)e++;s.subs.splice(e+1,0,blankLine(x.n));redraw();changed();};});
+  const calc=()=>{const c=$("calc-"+k);if(c)c.innerHTML="Así se vería: "+[3,10,20,35].map(km=>{const v=shipCost(s,km);return`<span>${km} km: ${v===null?"fuera de zona":money(Math.round(v))}</span>`;}).join("");};
+  [["d-","desc"],["sf-","shipFixed"],["sb-","shipBase"],["sk-","shipBaseKm"],["sq-","shipPerKm"],["sm-","shipMaxKm"],["sfr-","shipFreeFrom"]].forEach(([p,f])=>{const x=$(p+k);if(x)x.oninput=e=>{s[f]=e.target.value;calc();changed();};});calc();
+  const dp=$("dp-"+k),ds=$("ds-"+k);if(dp)dp.onclick=()=>{s.person=!s.person;redraw();changed();};if(ds)ds.onclick=()=>{s.ship=!s.ship;redraw();changed();};
+  el.querySelectorAll(".shm").forEach(c=>c.onclick=()=>{s.shipMode=c.dataset.v;redraw();changed();});
+  if(s.subs.length){bindMin(s.min,k,redraw);bindSpecs(s.specs,k,redraw);bindPromo(s.promo,k,redraw);bindUploader(k,"photo",s.photos,redraw);}
+  const rm=el.querySelector(".rm-svc");if(rm)rm.onclick=()=>{S.services.splice(i,1);redraw();changed();};});}
+
+function drawVenue(){const v=S.venue,k="v";const isR=v.mode==="renta"||v.mode==="ambos",isP=v.mode==="paquetes"||v.mode==="ambos";
+ const pol=HQV.POLICY_CATS.map(([s,e])=>{const p=v.policy[s];return`<div class="pol2${MISS(polOk(p))}" data-s="${esc(s)}"><b>${e} ${esc(s)}</b>
+  <span class="mini-l">¿Lo ofreces?</span><div class="chips">${[["inc","✅ Incluido"],["costo","💲 Con costo"],["no","No"]].map(([val,t])=>`<button type="button" class="chip pof" data-v="${val}" aria-pressed="${p.offer===val}">${TICK}${t}</button>`).join("")}</div>
+  ${p.offer==="costo"?`<div class="row"><input type="number" min="0" class="ppr" value="${esc(p.price)}" placeholder="$ precio" aria-label="Precio de ${esc(s)}"><select class="pper" aria-label="Cómo lo cobras">${[["evento","por evento"],["persona","por persona"]].map(([val,t])=>`<option value="${val}" ${p.per===val?'selected':''}>${t}</option>`).join("")}</select></div>`:''}
+  <span class="mini-l">¿El cliente puede traer el suyo?</span><div class="chips">${[["si","🆓 Libre"],["cuota","🎟️ Con cuota"],["no","🔒 No"]].map(([val,t])=>`<button type="button" class="chip pow" data-v="${val}" aria-pressed="${p.own===val}">${TICK}${t}</button>`).join("")}</div>
+  ${p.own==="cuota"?`<input type="number" min="0" class="pfee" value="${esc(p.fee)}" placeholder="$ cuota por evento (descorche, derecho de piso…)" aria-label="Cuota por traer ${esc(s)}">`:''}</div>`;}).join("");
+ const pk=v.packages.map((x,i)=>`<div class="pkg${MISS(pkgOk(x))}" data-i="${i}"><div class="row"><input type="text" class="pk-n" value="${esc(x.name)}" placeholder="Nombre: Paquete 1, Plata, Básico…" aria-label="Nombre del paquete"><input type="number" min="0" class="pk-p" value="${esc(x.price)}" placeholder="$ precio" aria-label="Precio del paquete"></div>
+  <div class="row"><select class="pk-per" aria-label="Cómo se cobra">${[["persona","por persona"],["total","precio total"]].map(([val,t])=>`<option value="${val}" ${x.per===val?'selected':''}>${t}</option>`).join("")}</select><input type="number" min="0" class="pk-m" value="${esc(x.min)}" placeholder="Mínimo de invitados (opcional)" aria-label="Mínimo de invitados"></div>
+  <span class="mini-l">Este paquete incluye</span><div class="chips">${HQV.POLICY_CATS.map(([s,e])=>`<button type="button" class="chip pk-i" data-s="${esc(s)}" aria-pressed="${x.inc.includes(s)}">${TICK}${e} ${esc(s)}</button>`).join("")}</div>
+  <button type="button" class="link bad pk-rm">Quitar paquete</button></div>`).join("");
+ const std=venueStdRows(v);
+ $("stepBody").innerHTML=`<div class="panel"><span class="crumb">Mi negocio › Venue</span><h2>Mi venue 🏡</h2>
+ <div class="alert info">💡 <span><b>¿Qué es un venue?</b> Es cualquier lugar donde se puede hacer una fiesta: una terraza, un jardín, un salón, un roof, una casa o un restaurante que rentas para eventos.</span></div>
+ <div class="field"><label class="lbl" for="v-name">Nombre del lugar</label><input type="text" id="v-name" class="${MISS(filled(v.name))}" value="${esc(v.name)}" placeholder="Terraza Las Flores"></div>
+ ${avatarHtml(v,"vav","avatar","🖼️ Foto de logo o perfil del lugar")}
+ ${socialHtml(v,"v")}
+ ${addrHtml(v.addr,"v","Dirección del lugar")}
+ <div class="field"><span class="lbl">Tipo de espacio</span><div class="cats${MISS(!!v.type)}">${HQV.VENUE_TYPES.map(([t,e])=>`<button type="button" class="cat vt" data-t="${esc(t)}" aria-pressed="${v.type===t}"><span class="emo">${e}</span><span>${esc(t)}</span></button>`).join("")}</div></div>
+ <div class="field"><span class="lbl">👥 ¿Cuántas personas caben?</span><div class="row"><div class="field"><label class="hint" for="v-seat">🪑 Sentadas</label><input type="number" id="v-seat" min="1" class="${MISS(+v.seated>0)}" value="${esc(v.seated)}"></div><div class="field"><label class="hint" for="v-stand">🕺 De pie</label><input type="number" id="v-stand" min="1" class="${MISS(+v.standing>0)}" value="${esc(v.standing)}"></div></div><span class="hint">Calculamos uno con el otro (de pie ≈ 1.5 × sentadas). Ajústalo si en tu lugar es distinto.</span></div>
+ <div class="field"><label class="lbl" for="v-area">📐 Tamaño</label><select id="v-area" class="${MISS(!!v.area)}"><option value="">Elige</option>${["6 a 12 m²","13 a 20 m²","21 a 30 m²","31 a 40 m²","41 a 50 m²","51 a 60 m²","61 a 100 m²","101 a 300 m²","Más de 300 m²"].map(t=>`<option ${t===v.area?'selected':''}>${t}</option>`).join("")}</select></div>
+ <div class="field"><span class="lbl">🏠 ¿Con qué cuenta tu espacio?</span><span class="hint">Los anfitriones buscan con esta misma lista. Lo que no marques, no aparecerá en sus búsquedas.</span><div class="chips${MISS(v.features.length>0)}" style="border-radius:14px">${HQV.VENUE_FEATS.map(([id,e,t])=>`<button type="button" class="chip ft" data-f="${id}" aria-pressed="${v.features.includes(id)}">${TICK}${e} ${esc(t)}</button>`).join("")}</div></div>
+ <div class="field"><span class="lbl">🚻 Baños</span><div class="row${MISS(+v.baths.m+ +v.baths.w+ +v.baths.g>0)}" style="border-radius:12px">${[["m","🚹 Hombres"],["w","🚺 Mujeres"],["g","🚻 Generales"]].map(([f,t])=>`<div class="field"><label class="hint" for="vb-${f}">${t}</label><input type="number" min="0" id="vb-${f}" value="${esc(v.baths[f])}" placeholder="0"></div>`).join("")}</div></div>
+
+ <div class="field"><span class="lbl">🕒 Horario</span><div class="sub-box">
+  <span class="hint">¿Qué días rentas?</span><div class="chips${MISS(v.days.length>0)}" style="border-radius:14px">${HQV.DAYS.map(([d,t])=>`<button type="button" class="chip vd" data-d="${d}" aria-pressed="${v.days.includes(d)}">${TICK}${t}</button>`).join("")}</div>
+  <div class="row"><div class="field"><label class="hint" for="v-open">Pueden empezar desde</label><input type="time" id="v-open" class="${MISS(filled(v.open))}" value="${esc(v.open)}"></div>
+   <div class="field"><label class="hint" for="v-limit">Hora límite (todos fuera)</label><input type="time" id="v-limit" class="${MISS(filled(v.limit))}" value="${esc(v.limit)}"></div></div>
+  <div class="row"><div class="field"><label class="hint" for="v-hincl">Horas de fiesta incluidas</label><input type="number" id="v-hincl" min="1" max="24" class="${MISS(+v.hoursIncl>0)}" value="${esc(v.hoursIncl)}"></div>
+   <div class="field"><label class="hint" for="v-xh">Cada hora extra $</label><input type="number" id="v-xh" min="0" class="${MISS(filled(v.extraHour))}" value="${esc(v.extraHour)}"></div></div>
+  <span class="hint">📏 Estándar ¡HQV!: además de las horas de fiesta, se dan ½ hora para montar y ½ hora para desmontar sin costo.</span></div></div>
+
+ <div class="field"><span class="lbl">💲 ¿Cómo cobras?</span><div class="chips${MISS(!!v.mode)}" style="border-radius:14px">${[["renta","🏠 Renta del espacio"],["paquetes","📦 Paquetes"],["ambos","Las dos"]].map(([val,t])=>`<button type="button" class="chip vm" data-v="${val}" aria-pressed="${v.mode===val}">${TICK}${t}</button>`).join("")}</div>
+  ${isR?`<div class="sub-box"><b style="font-size:14px">🏠 Renta del espacio</b><div class="row"><input type="number" min="0" id="r-price" class="${MISS(filled(v.rent.price))}" value="${esc(v.rent.price)}" placeholder="$ precio" aria-label="Precio de renta"><select id="r-per" aria-label="Cómo cobras la renta">${[["evento",`por evento (${v.hoursIncl||5} h incluidas)`],["hora","por hora"],["persona","por persona"]].map(([val,t])=>`<option value="${val}" ${v.rent.per===val?'selected':''}>${t}</option>`).join("")}</select></div>
+   <div class="row"><div class="field"><label class="hint" for="r-upto">Incluye hasta (invitados) <span class="opt">opcional</span></label><input type="number" min="0" id="r-upto" value="${esc(v.rent.upTo)}" placeholder="Ej. 60"></div><div class="field"><label class="hint" for="r-pxg">Cada invitado extra $</label><input type="number" min="0" id="r-pxg" value="${esc(v.rent.perExtraGuest)}" placeholder="Ej. 150" ${filled(v.rent.upTo)?'':'disabled'}></div></div></div>`:''}
+  ${isP?`<div class="sub-box"><b style="font-size:14px">📦 Mis paquetes</b><span class="hint">Por ejemplo: Paquete 1 básico, Paquete 2 con más cosas, Paquete 3 premium.</span>${pk||''}${v.packages.length<4?`<button type="button" class="btn ghost sm" id="pk-add">+ Agregar paquete</button>`:''}</div>`:''}</div>
+
+ <div class="field"><span class="lbl">📈 Ajustes de precio <span class="opt">(opcional)</span></span><div class="sub-box">
+  <span class="hint">¿Cobras distinto según el día? Pon el porcentaje de más (+) o de menos (−).</span>
+  <div class="dayadj">${HQV.DAYS.filter(([d])=>v.days.includes(d)).map(([d,t])=>`<label><span>${t}</span><input type="number" step="5" class="adj-d" data-d="${d}" value="${esc(v.adj.day[d]||"")}" placeholder="0 %" aria-label="Ajuste ${HQV.DAY_NAMES[d]}"></label>`).join("")||'<span class="hint">Primero elige los días que rentas.</span>'}</div>
+  <div class="field"><label class="hint" for="adj-dt">Si la fiesta es de día (termina antes de las 7 pm), % de ajuste</label><input type="number" step="5" id="adj-dt" value="${esc(v.adj.daytime)}" placeholder="Ej. −10"></div>
+  <span class="hint">¿Rentas espacios extra? (salón VIP, terraza, alberca…)</span>
+  ${v.spaces.map((x,i)=>`<div class="row sp-row" data-i="${i}"><input type="text" class="sp-n" value="${esc(x.name)}" placeholder="Nombre del espacio" aria-label="Espacio extra"><input type="number" min="0" class="sp-p" value="${esc(x.price)}" placeholder="$ por evento" aria-label="Precio del espacio extra"><button type="button" class="link bad sp-rm">Quitar</button></div>`).join("")}
+  <button type="button" class="btn ghost sm" id="sp-add" style="width:fit-content">+ Espacio extra</button>
+  <span class="hint">¿Tu precio es negociable?</span><div class="chips${MISS(v.negotiable!==null)}" style="width:fit-content;border-radius:99px">${[[true,"🤝 Sí, se puede platicar"],[false,"Precio fijo"]].map(([val,t])=>`<button type="button" class="chip neg" data-v="${val}" aria-pressed="${v.negotiable===val}">${TICK}${t}</button>`).join("")}</div></div></div>
+
+ <div class="field"><span class="lbl">🔄 Servicios en tu venue</span><span class="hint">Para cada servicio dinos si tú lo ofreces y si el cliente puede traer el suyo (🔒 No = solo con tu gente o tu equipo). Así solo te llegan fiestas que sí puedes atender.</span><div class="pol">${pol}</div></div>
+ <div class="field"><span class="lbl">📝 Condiciones para rentarlo</span><div class="sub-box">
+  <div class="field"><span class="hint">Anticipo para apartar</span><div class="chips${MISS(!!v.deposit)}" style="width:fit-content;border-radius:99px">${["30%","50%","100%"].map(t=>`<button type="button" class="chip dep" data-v="${t}" aria-pressed="${v.deposit===t}">${TICK}${t}</button>`).join("")}</div></div>
+  <div class="row"><div class="field"><label class="hint" for="v-adv">Reservar con (días de anticipación)</label><input type="number" id="v-adv" min="0" class="${MISS(filled(v.advance))}" value="${esc(v.advance)}"></div>
+   <div class="field"><label class="hint" for="v-guar">Depósito en garantía $ <span class="opt">(opcional)</span></label><input type="number" id="v-guar" min="0" value="${esc(v.guarantee)}"></div>
+   <div class="field"><label class="hint" for="v-cork">Descorche <span class="opt">(opcional)</span></label><input type="text" id="v-cork" value="${esc(v.corkage)}" placeholder="$150 por botella"></div></div>
+  <div class="field"><label class="hint" for="v-cancel">Cancelación <span class="opt">(opcional)</span></label><input type="text" id="v-cancel" value="${esc(v.cancel)}" placeholder="Reembolso del anticipo con 30 días de aviso"></div>
+  <div class="field"><span class="hint">📄 Documentos que pides al cliente</span><div class="chips${MISS(v.docsNone||v.docs.length>0||filled(v.docsOther))}" style="border-radius:14px">${DOCS.map(d=>`<button type="button" class="chip doc" data-d="${esc(d)}" aria-pressed="${v.docs.includes(d)}" ${v.docsNone?'disabled':''}>${TICK}${esc(d)}</button>`).join("")}<button type="button" class="chip" id="docNone" aria-pressed="${v.docsNone}">${TICK}No pido documentos</button></div>
+   ${v.docsNone?'':`<input type="text" id="v-docs" value="${esc(v.docsOther)}" placeholder="Otro documento (opcional)">`}</div>
+  <div class="field"><label class="hint" for="v-rules">📌 Reglas del lugar: escríbelas o sube tu reglamento</label><textarea id="v-rules" class="${MISS(filled(v.rulesText)||!!v.rulesFile)}" placeholder="Sin confeti, volumen moderado después de las 22:00…">${esc(v.rulesText)}</textarea>
+   <div class="up-top"><label class="pick">📎 Subir reglamento<input type="file" id="v-rfile" accept="application/pdf,image/jpeg,image/png"></label><span class="specs"><span><b>PDF, JPG o PNG</b></span><span>hasta <b>10 MB</b></span></span></div>
+   ${v.rulesFile?`<span class="file-chip">📄 ${esc(v.rulesFile.name)} · ${kb(v.rulesFile.size)} <button type="button" class="link bad" id="v-rrm">Quitar</button></span>`:''}<div id="rmsg"></div></div></div></div>
+ <div class="stdbox" id="stdbox">${std}</div>
+ ${promoHtml(v.promo,k,"venue")}
+ <div class="field"><span class="lbl">📷 Fotos del lugar</span><span class="hint">Una desde cada esquina, de día y de noche, y montado como para un evento.</span>${uploaderHtml(k,"photo",v.photos,v.photos.length>0)}</div>
+ ${navHtml()}</div>`;
+ const redraw=()=>{const y=scrollY;drawVenue();scrollTo({top:y});};
+ const ch=()=>{changed();const b=$("stdbox");if(b)b.innerHTML=venueStdRows(v);};
+ [["v-name","name"],["v-area","area"],["v-open","open"],["v-limit","limit"],["v-hincl","hoursIncl"],["v-xh","extraHour"],["v-adv","advance"],["v-guar","guarantee"],["v-cork","corkage"],["v-cancel","cancel"],["v-rules","rulesText"]].forEach(([i,f])=>{$(i).oninput=$(i).onchange=e=>{v[f]=e.target.value;ch();};});
+ $("v-seat").oninput=e=>{v.seated=e.target.value;v.standing=+v.seated>0?String(Math.round(+v.seated*1.5)):"";$("v-stand").value=v.standing;ch();};
+ $("v-stand").oninput=e=>{v.standing=e.target.value;v.seated=+v.standing>0?String(Math.round(+v.standing/1.5)):"";$("v-seat").value=v.seated;ch();};
+ ["m","w","g"].forEach(f=>$("vb-"+f).oninput=e=>{v.baths[f]=e.target.value;ch();});
+ document.querySelectorAll(".vt").forEach(t=>t.onclick=()=>{v.type=t.dataset.t;document.querySelectorAll(".vt").forEach(x=>x.setAttribute("aria-pressed",x===t));ch();});
+ document.querySelectorAll(".ft").forEach(c=>c.onclick=()=>{const f=c.dataset.f;v.features=v.features.includes(f)?v.features.filter(x=>x!==f):[...v.features,f];c.setAttribute("aria-pressed",v.features.includes(f));ch();});
+ document.querySelectorAll(".vd").forEach(c=>c.onclick=()=>{const d=c.dataset.d;v.days=v.days.includes(d)?v.days.filter(x=>x!==d):HQV.DAYS.map(x=>x[0]).filter(x=>x===d||v.days.includes(x));redraw();changed();});
+ document.querySelectorAll(".vm").forEach(c=>c.onclick=()=>{v.mode=c.dataset.v;if((v.mode==="paquetes"||v.mode==="ambos")&&!v.packages.length)v.packages.push(blankPkg());redraw();changed();});
+ const rp=$("r-price");if(rp){rp.oninput=e=>{v.rent.price=e.target.value;ch();};$("r-per").onchange=e=>{v.rent.per=e.target.value;ch();};$("r-upto").oninput=e=>{v.rent.upTo=e.target.value;$("r-pxg").disabled=!filled(v.rent.upTo);ch();};$("r-pxg").oninput=e=>{v.rent.perExtraGuest=e.target.value;ch();};}
+ document.querySelectorAll(".pkg").forEach(box=>{const x=v.packages[+box.dataset.i];const q=s=>box.querySelector(s);
+  q(".pk-n").oninput=e=>{x.name=e.target.value;ch();};q(".pk-p").oninput=e=>{x.price=e.target.value;ch();};q(".pk-per").onchange=e=>{x.per=e.target.value;ch();};q(".pk-m").oninput=e=>{x.min=e.target.value;ch();};
+  box.querySelectorAll(".pk-i").forEach(c=>c.onclick=()=>{const s=c.dataset.s;x.inc=x.inc.includes(s)?x.inc.filter(y=>y!==s):[...x.inc,s];c.setAttribute("aria-pressed",x.inc.includes(s));ch();});
+  q(".pk-rm").onclick=()=>{v.packages.splice(+box.dataset.i,1);redraw();changed();};});
+ const pa=$("pk-add");if(pa)pa.onclick=()=>{v.packages.push(blankPkg());redraw();changed();};
+ document.querySelectorAll(".adj-d").forEach(i=>i.oninput=()=>{v.adj.day[i.dataset.d]=i.value;ch();});
+ $("adj-dt").oninput=e=>{v.adj.daytime=e.target.value;ch();};
+ document.querySelectorAll(".sp-row").forEach(r=>{const x=v.spaces[+r.dataset.i];r.querySelector(".sp-n").oninput=e=>{x.name=e.target.value;ch();};r.querySelector(".sp-p").oninput=e=>{x.price=e.target.value;ch();};r.querySelector(".sp-rm").onclick=()=>{v.spaces.splice(+r.dataset.i,1);redraw();changed();};});
+ $("sp-add").onclick=()=>{v.spaces.push({name:"",price:""});redraw();changed();};
+ document.querySelectorAll(".neg").forEach(c=>c.onclick=()=>{v.negotiable=c.dataset.v==="true";document.querySelectorAll(".neg").forEach(x=>x.setAttribute("aria-pressed",x===c));ch();});
+ document.querySelectorAll(".pol2").forEach(box=>{const p=v.policy[box.dataset.s];
+  box.querySelectorAll(".pof").forEach(c=>c.onclick=()=>{p.offer=c.dataset.v;redraw();changed();});
+  box.querySelectorAll(".pow").forEach(c=>c.onclick=()=>{p.own=c.dataset.v;redraw();changed();});
+  const pr=box.querySelector(".ppr");if(pr){pr.oninput=e=>{p.price=e.target.value;box.classList.toggle("miss",showMiss&&!polOk(p));ch();};box.querySelector(".pper").onchange=e=>{p.per=e.target.value;ch();};}
+  const fe=box.querySelector(".pfee");if(fe)fe.oninput=e=>{p.fee=e.target.value;box.classList.toggle("miss",showMiss&&!polOk(p));ch();};});
+ document.querySelectorAll(".dep").forEach(c=>c.onclick=()=>{v.deposit=c.dataset.v;document.querySelectorAll(".dep").forEach(x=>x.setAttribute("aria-pressed",x===c));ch();});
+ document.querySelectorAll(".doc").forEach(c=>c.onclick=()=>{const d=c.dataset.d;v.docs=v.docs.includes(d)?v.docs.filter(x=>x!==d):[...v.docs,d];c.setAttribute("aria-pressed",v.docs.includes(d));ch();});
+ $("docNone").onclick=()=>{v.docsNone=!v.docsNone;if(v.docsNone){v.docs=[];v.docsOther="";}redraw();changed();};
+ const dO=$("v-docs");if(dO)dO.oninput=e=>{v.docsOther=e.target.value;ch();};
+ $("v-rfile").onchange=e=>{const f=e.target.files[0];e.target.value="";if(!f)return;const okT=["application/pdf","image/jpeg","image/png"];
+  if(!okT.includes(f.type)){$("rmsg").innerHTML=`<div class="alert bad">❌ <span>"${esc(f.name)}" no es PDF, JPG ni PNG. Si es un Word, guárdalo como PDF y vuelve a subirlo.</span></div>`;return;}
+  if(f.size>10*1048576){$("rmsg").innerHTML=`<div class="alert bad">❌ <span>"${esc(f.name)}" pesa ${kb(f.size)}; el máximo es 10 MB.</span></div>`;return;}
+  v.rulesFile={name:f.name,size:f.size};redraw();changed();};
+ const rr=$("v-rrm");if(rr)rr.onclick=()=>{v.rulesFile=null;redraw();changed();};
+ bindAvatar(v,"vav","avatar");bindSocial(v,"v");bindAddr(v.addr,"v",redraw);bindPromo(v.promo,k,redraw);bindUploader(k,"photo",v.photos,redraw);bindNav();}
+
+const blankPkg=()=>({name:"",price:"",per:"persona",min:"",inc:[]});
+const polOk=p=>!!p.offer&&!!p.own&&(p.offer!=="costo"||filled(p.price))&&(p.own!=="cuota"||filled(p.fee));
+const pkgOk=x=>filled(x.name)&&filled(x.price);
+// Cómo ve el cotizador a este venue: precio estándar ¡HQV! (5 h, sábado en la noche, sin servicios extra)
+function venueStdRows(v){const cap=+v.seated||0;if(!v.mode||!cap)return`<b>📊 Así te ve el cotizador</b><span class="hint">Cuando llenes capacidad y forma de cobro, aquí verás cuánto le aparece por persona a un anfitrión.</span>`;
+ const gs=[...new Set([Math.min(30,cap),Math.round(cap/2),cap].filter(x=>x>0))].sort((a,b)=>a-b);
+ const rows=gs.map(g=>{const t=HQV.standardPrice(venueForQuote(v),g);return t?`<div><span>${g} invitados</span><span><b>${money(Math.round(t/g))}</b> por persona <small>(${money(t)})</small></span></div>`:"";}).join("");
+ return`<b>📊 Así te ve el cotizador · precio estándar ¡HQV!</b><span class="hint">Para comparar a todos los venues con la misma regla: fiesta de ${HQV.STD.hours} h en sábado por la noche, sin servicios extra.</span><div class="stdrows">${rows||'<span class="hint">Completa tu precio para verlo.</span>'}</div>`;}
+// Convierte el formulario (texto) al formato del motor
+function venueForQuote(v){const n=x=>HQV.num(x);return{...v,addr:{muni:v.addr.muni},seated:n(v.seated),standing:n(v.standing),hoursIncl:n(v.hoursIncl)||HQV.STD.hours,extraHour:n(v.extraHour),
+ rent:{price:n(v.rent.price),per:v.rent.per,upTo:n(v.rent.upTo),perExtraGuest:n(v.rent.perExtraGuest)},packages:v.packages.filter(pkgOk).map(x=>({...x,price:n(x.price),min:n(x.min)})),
+ adj:{day:Object.fromEntries(Object.entries(v.adj.day).map(([d,x])=>[d,n(x)])),daytime:n(v.adj.daytime)},days:v.days.length?v.days:HQV.DAYS.map(d=>d[0])};}
+
+function drawPlanner(){const p=S.planner,k="pl",yrs=[];for(let y=yearNow;y>=1970;y--)yrs.push(y);
+ const extra=p.specialties.filter(x=>!PLANNER_SPECS.includes(x));
+ $("stepBody").innerHTML=`<div class="panel"><span class="crumb">Mi negocio › Event planner</span><h2>Mi perfil de planner 📋</h2><p class="sub">Aquí los anfitriones te conocen a ti. Que se note tu personalidad.</p>
+ ${avatarHtml(p,"face","face","🤳 Tu foto (no tu logo)")}
+ <div class="row"><div class="field"><label class="lbl" for="pl-name">Tu nombre</label><input type="text" id="pl-name" class="${MISS(filled(p.person))}" value="${esc(p.person)}"></div>
+  <div class="field"><label class="lbl" for="pl-since">Organizo eventos desde</label><select id="pl-since" class="${MISS(!!p.since)}"><option value="">Año</option>${yrs.map(y=>`<option ${String(y)===String(p.since)?'selected':''}>${y}</option>`).join("")}</select></div></div>
+ <div class="field"><label class="lbl" for="pl-bio">💬 Tu bio</label><textarea id="pl-bio" class="${MISS(filled(p.bio))}" placeholder="Cuéntales quién eres y cómo trabajas">${esc(p.bio)}</textarea></div>
+ <div class="field"><span class="lbl">🎤 Completa la frase <span class="opt">(al menos una)</span></span>${PLANNER_PROMPTS.map((q,i)=>`<div class="field"><label class="hint" for="pq-${i}">${esc(q)}</label><input type="text" id="pq-${i}" class="${MISS(p.prompts.some(filled))}" value="${esc(p.prompts[i])}"></div>`).join("")}</div>
+ <div class="row"><div class="field"><label class="lbl" for="pl-fee">💲 Tarifa por evento</label><input type="number" id="pl-fee" min="0" class="${MISS(filled(p.fee))}" value="${esc(p.fee)}" placeholder="$"></div>
+  <div class="field"><label class="lbl" for="pl-note">¿Para qué tamaño? <span class="opt">(opcional)</span></label><input type="text" id="pl-note" value="${esc(p.feeNote)}" placeholder="Hasta 50 invitados"></div></div>
+ <div class="field"><span class="lbl">⭐ Me especializo en</span><div class="chips${MISS(p.specialties.length>0)}" style="border-radius:14px">${PLANNER_SPECS.concat(extra).map(t=>`<button type="button" class="chip ps" data-t="${esc(t)}" aria-pressed="${p.specialties.includes(t)}">${TICK}${esc(t)}</button>`).join("")}<button type="button" class="chip new" id="ps-new">+ Otra especialidad</button></div>
+  <div style="display:flex;gap:8px" id="psw" hidden><input type="text" id="ps-in" placeholder="Escribe tu especialidad"><button type="button" class="btn sm" id="ps-add">Agregar</button></div></div>
+ ${zonesHtml(p.zones,"pl","¿Dónde trabajas como planner?")}
+ ${promoHtml(p.promo,k,"planner")}
+ <div class="field"><span class="lbl">📷 Fotos de eventos que organizaste</span>${uploaderHtml(k,"photo",p.photos,p.photos.length>0)}</div>
+ ${navHtml()}</div>`;
+ const redraw=()=>drawPlanner();
+ [["pl-name","person"],["pl-since","since"],["pl-bio","bio"],["pl-fee","fee"],["pl-note","feeNote"]].forEach(([i,f])=>{$(i).oninput=$(i).onchange=e=>{p[f]=e.target.value;changed();};});
+ PLANNER_PROMPTS.forEach((_,i)=>$("pq-"+i).oninput=e=>{p.prompts[i]=e.target.value;changed();});
+ document.querySelectorAll(".ps").forEach(c=>c.onclick=()=>{const t=c.dataset.t;p.specialties=p.specialties.includes(t)?p.specialties.filter(x=>x!==t):[...p.specialties,t];c.setAttribute("aria-pressed",p.specialties.includes(t));changed();});
+ const addSp=()=>{const t=$("ps-in").value.trim();if(t&&!p.specialties.includes(t))p.specialties.push(t);redraw();changed();};
+ $("ps-new").onclick=()=>{$("psw").hidden=false;$("ps-in").focus();};$("ps-add").onclick=addSp;$("ps-in").onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addSp();}};
+ bindAvatar(p,"face","face");bindZones(p.zones,"pl",redraw);bindPromo(p.promo,k,redraw);bindUploader(k,"photo",p.photos,redraw);bindNav();}
+
+function level(){const ev=demo?DEMO_REV.events:0,r=demo?DEMO_REV.rating:0;let L=LEVELS[0];LEVELS.forEach(l=>{if(ev>=l.min&&r>=l.r)L=l;});return L;}
+function mainCat(){if(S.types.services){const s=S.services.find(x=>catOf(x.cat));if(s)return catOf(s.cat).n;}if(S.types.venue)return"Venue";if(S.types.planner)return"Event planner";return"";}
+function addrLine(a,full){if(!a.muni)return"";return full?addrText(a):addrShort(a);}
+const mapsLink=a=>addrMap(a);
+function promoBlock(p,anchor){return p.has&&p.what?`<div class="promo" id="promo-${anchor}"><b>🏷️ ${esc(p.what)}</b>${p.terms?`<span>${esc(p.terms)}</span>`:''}${p.until?`<span>Válida hasta el ${new Date(p.until+"T12:00").toLocaleDateString("es-MX",{day:"numeric",month:"long",year:"numeric"})}</span>`:''}</div>`:'';}
+const strip=ph=>ph.length?`<div class="strip">${ph.map(p=>`<img src="${p.url}" alt="">`).join("")}</div>`:'';
+const socialRow=o=>{const s=[["📸",o.instagram],["🎵",o.tiktok],["👍",o.facebook]].filter(x=>filled(x[1]));return s.length?`<div class="social">${s.map(([e,t])=>`<span>${e} ${esc(t)}</span>`).join("")}</div>`:'';};
+function venuePriceHtml(v){const out=[];const isR=v.mode==="renta"||v.mode==="ambos",isP=v.mode==="paquetes"||v.mode==="ambos";
+ if(isR)out.push(`<div class="ms-item-top"><b>Renta del espacio</b><span class="price">${filled(v.rent.price)?`${money(v.rent.price)} <small>${v.rent.per==="hora"?"por hora":v.rent.per==="persona"?"por persona":`por evento de ${esc(v.hoursIncl||5)} h`}</small>`:'<small>Por cotizar</small>'}</span></div>${filled(v.rent.upTo)?`<small style="color:var(--muted)">Incluye hasta ${esc(v.rent.upTo)} invitados${filled(v.rent.perExtraGuest)?` · invitado extra ${money(v.rent.perExtraGuest)}`:''}</small>`:''}`);
+ if(isP)v.packages.filter(pkgOk).forEach(x=>out.push(`<div class="ms-item-top"><b>📦 ${esc(x.name)}</b><span class="price">${money(x.price)} <small>${x.per==="persona"?"por persona":"total"}</small></span></div><small style="color:var(--muted)">${filled(x.min)?`Desde ${esc(x.min)} invitados · `:''}${x.inc.length?"Incluye: "+esc(x.inc.join(", ")):""}</small>`));
+ v.spaces.filter(x=>filled(x.name)).forEach(x=>out.push(`<div class="ms-item-top"><span>➕ ${esc(x.name)}</span><span class="price">${filled(x.price)?money(x.price):''}</span></div>`));
+ return out.join("")||'<div class="ms-item-top"><b>Renta del espacio</b><span class="price"><small>Por cotizar</small></span></div>';}
+function siteHtml(){const b=S.biz,wa=b.whatsapp.replace(/\D/g,""),L=level(),yrs=b.since?yearNow-(+b.since):0,out=[];
+ out.push(`<div class="net"><img src="${BALL}" alt=""><span>Parte de la red de proveedores <b style="background:none;color:inherit;padding:0">¡Hay que vernos!</b></span><b>Crea tu sitio gratis →</b></div>`);
+ out.push(`<div class="ms-hero"><div class="ms-id"><div class="ms-logo">${b.photo?`<img src="${b.photo}" alt="">`:esc(initials(b.name))}</div><div><div class="ms-name">${esc(b.name||"Tu negocio")}</div>${b.since?`<div class="ms-since">🎉 En la fiesta desde ${esc(b.since)}${yrs>0?` · ${yrs} ${yrs===1?"año":"años"}`:''}</div>`:''}</div></div>
+ <div class="level"><span class="emo">${L.e}</span><span><b>${L.n}</b>${mainCat()?` · ${esc(mainCat())}`:''}<br><span style="opacity:.88">${demo?`★★★★★ ${DEMO_REV.rating} · ${DEMO_REV.events} eventos por ¡HQV!`:esc(L.t)}</span></span></div>
+ <div class="ms-tags"><span class="f">⭐ Fundador</span>${b.invoice==="si"?'<span>🧾 Factura</span>':b.invoice==="no"?'<span>No factura</span>':''}${S.types.services?'<span>🎉 Servicios</span>':''}${S.types.venue?'<span>🏡 Venue</span>':''}${S.types.planner?'<span>📋 Planner</span>':''}</div></div>`);
+ out.push(`<div class="ms-body">`);
+ if(b.about)out.push(`<p class="ms-about">${esc(b.about)}</p>`);
+ const al=addrLine(b.addr,b.showAddr==="full");
+ out.push(`<div class="ms-cta"><a class="wa" href="${wa?`https://wa.me/52${wa}`:'#'}" target="_blank" rel="noopener">💬 Cotizar por WhatsApp</a>${wa?`<span class="hint" style="text-align:center">${esc(b.whatsapp)}</span>`:''}${socialRow(b)}
+  ${al?`<div class="loc" style="text-align:center"><span>📍 ${esc(al)}</span>${b.showAddr==="full"?`<a href="${mapsLink(b.addr)}" target="_blank" rel="noopener">Cómo llegar</a>`:''}</div>`:''}</div>`);
+ if(S.types.services){const sv=S.services.filter(s=>s.subs.length);
+  out.push(`<div style="display:grid;gap:8px"><h3>🎉 Servicios</h3>${sv.length?sv.map(s=>{const c=catOf(s.cat);const i=S.services.indexOf(s);return`<div class="ms-item"><div class="ms-item-top"><b>${c?c.e+" "+esc(c.n):"✨"}</b></div>
+   <div class="plist">${s.subs.map(x=>`<span>${esc(x.n)} <span class="price">${filled(x.price)&&x.u?priceTxt(x):'<small>Por cotizar</small>'}</span></span>`).join("")}</div>
+   ${s.desc?`<small>${esc(s.desc)}</small>`:''}
+   <div class="feat">${s.person?'<span>🙋 En persona</span>':''}${s.ship?`<span>${esc(shipText(s))}</span>`:''}${minText(s.min)?`<span>🧾 ${esc(minText(s.min))}</span>`:''}${s.specs.map(t=>`<span>✨ ${esc(t)}</span>`).join("")}</div>
+   ${promoBlock(s.promo,"s"+(i+1))}${strip(s.photos)}</div>`;}).join(""):'<p class="empty">Aquí aparecerán tus servicios.</p>'}
+   ${zonesText(S.svcZones)?`<small style="color:var(--muted);font-size:12px">🗺️ Servicio en: ${esc(zonesText(S.svcZones))}</small>`:''}</div>`);}
+ if(S.types.venue){const v=S.venue,vt=VENUE_TYPES.find(x=>x[0]===v.type),bt=+v.baths.m+ +v.baths.w+ +v.baths.g,va=addrLine(v.addr,true);
+  out.push(`<div style="display:grid;gap:8px"><h3>🏡 Venue</h3><div class="ms-item">
+   <div class="venue-head"><div class="ms-logo">${v.photo?`<img src="${v.photo}" alt="">`:esc(initials(v.name||"V"))}</div><div><b style="font-size:15px">${esc(v.name||"Tu venue")}</b><br><small>${vt?vt[1]+" "+esc(vt[0]):''}</small></div></div>
+   ${va?`<div class="loc"><span>📍 ${esc(va)}${v.addr.ref?` · ${esc(v.addr.ref)}`:''}</span><a href="${mapsLink(v.addr)}" target="_blank" rel="noopener">Cómo llegar</a></div>`:''}
+   ${socialRow(v)}
+   ${venuePriceHtml(v)}
+   <div class="feat">${v.seated?`<span>🪑 ${esc(v.seated)} sentadas</span>`:''}${v.standing?`<span>🕺 ${esc(v.standing)} de pie</span>`:''}${v.area?`<span>📐 ${esc(v.area)}</span>`:''}${v.days.length?`<span>🗓️ ${esc(v.days.map(d=>HQV.DAYS.find(x=>x[0]===d)[1]).join(" "))}</span>`:''}${v.limit?`<span>🕒 ${esc(v.open||"")}${v.open?" a ":"Hasta las "}${esc(v.limit)}</span>`:''}${v.hoursIncl?`<span>⏱️ ${esc(v.hoursIncl)} h de fiesta + ½ h montaje + ½ h desmontaje</span>`:''}${filled(v.extraHour)?`<span>⏰ Hora extra ${money(v.extraHour)}</span>`:''}${v.negotiable?'<span>🤝 Precio negociable</span>':''}
+    ${bt?`<span>${"Baños: "+[+v.baths.m>0?`🚹 ${v.baths.m}`:"",+v.baths.w>0?`🚺 ${v.baths.w}`:"",+v.baths.g>0?`🚻 ${v.baths.g}`:""].filter(Boolean).join(" ")}</span>`:''}${FEATURES.filter(f=>v.features.includes(f[0])).map(f=>`<span>${f[1]} ${esc(f[2])}</span>`).join("")}</div>
+   <div class="ms-pol">${POLICY_SVCS.map(([s,e])=>{const p=v.policy[s];if(!p.offer&&!p.own)return"";return`<span>${e} ${esc(s)} <span style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end">${p.offer==="inc"?'<em class="st inc">Incluido</em>':p.offer==="costo"?`<em class="st ext">Lo ofrece ${filled(p.price)?money(p.price)+(p.per==="persona"?" c/u":""):""}</em>`:''}${p.own==="si"?'<em class="st inc">Puedes traerlo</em>':p.own==="cuota"?`<em class="st ext">Traerlo: cuota ${money(p.fee)}</em>`:p.own==="no"?'<em class="st no">Solo con su gente</em>':''}</span></span>`;}).join("")}</div>
+   <div class="prompt" style="font-size:12px;display:grid;gap:2px"><small>Condiciones</small>${v.deposit?`<span>💳 Anticipo ${esc(v.deposit)}</span>`:''}${v.advance?`<span>📅 Reserva con ${esc(v.advance)} días de anticipación</span>`:''}${v.guarantee?`<span>🔐 Depósito en garantía ${money(v.guarantee)}</span>`:''}${v.corkage?`<span>🍾 Descorche: ${esc(v.corkage)}</span>`:''}${v.cancel?`<span>↩️ ${esc(v.cancel)}</span>`:''}
+    ${v.docsNone?'<span>📄 Sin documentos</span>':(v.docs.length||v.docsOther)?`<span>📄 Documentos: ${esc([...v.docs,v.docsOther].filter(Boolean).join(", "))}</span>`:''}${v.rulesText?`<span>📌 ${esc(v.rulesText)}</span>`:''}${v.rulesFile?`<span>📎 Ver reglamento (${esc(v.rulesFile.name)})</span>`:''}</div>
+   ${promoBlock(v.promo,"venue")}${strip(v.photos)}</div></div>`);}
+ if(S.types.planner){const p=S.planner,py=p.since?yearNow-(+p.since):0;
+  out.push(`<div style="display:grid;gap:8px"><h3>📋 Event planner</h3><div class="planner-card"><div class="pic">${p.photo?`<img src="${p.photo}" alt="">`:"🙂"}<div class="nm">${esc(p.person||"Tu nombre")}<small>${py>0?`${py} años organizando fiestas`:''}${zonesText(p.zones)?` · ${esc(zonesText(p.zones))}`:''}</small></div></div>
+   <div class="bd">${p.bio?`<span>${esc(p.bio)}</span>`:''}${PLANNER_PROMPTS.map((q,i)=>filled(p.prompts[i])?`<div class="prompt"><small>${esc(q)}</small>${esc(p.prompts[i])}</div>`:'').join("")}
+   <div class="ms-item-top"><b>Coordinación de tu evento</b><span class="price">${filled(p.fee)?`${money(p.fee)} <small>por evento</small>`:'<small>Por cotizar</small>'}</span></div>${p.feeNote?`<small style="color:var(--muted)">${esc(p.feeNote)}</small>`:''}
+   ${p.specialties.length?`<div class="feat">${p.specialties.map(t=>`<span>⭐ ${esc(t)}</span>`).join("")}</div>`:''}${promoBlock(p.promo,"planner")}${strip(p.photos)}</div></div></div>`);}
+ out.push(`<div style="display:grid;gap:8px"><h3>⭐ Reseñas</h3>${demo?`<div class="scores"><span>🎉 Eventos <b>${DEMO_REV.rating}</b> ★ · ${DEMO_REV.count}</span><span>💬 Cotizaciones <b>${DEMO_REV.qrating}</b> ★ · ${DEMO_REV.qcount}</span></div>${DEMO_REV.list.map(r=>`<div class="rev"><span><span class="stars">${"★".repeat(r.s)}</span> <b>${esc(r.n)}</b> <span class="rtag ${r.ty==="q"?"q":""}">${r.ty==="q"?"Cotización":"Evento"}</span> · <span style="color:var(--muted)">${r.d}</span></span><span>${esc(r.t)}</span></div>`).join("")}`:'<p class="empty">Aún no hay reseñas. Los anfitriones califican cómo cotizas y, si te contratan, cómo estuvo tu servicio.</p>'}
+  <button type="button" class="rate-btn">⭐ Califica a ${esc(b.name||"este proveedor")}</button></div>`);
+ out.push(`</div><div class="ms-foot">¿Tienes un negocio de fiestas? <b>Crea tu sitio gratis</b> en hayquevernos.com 🪩</div>`);
+ return out.join("");}
+
+function preview(){const st=$("site");const top=st.scrollTop;st.innerHTML=siteHtml();st.scrollTop=top;
+ $("url").textContent="hayquevernos.com/"+slug(S.biz.name);const p=completeness();$("pct").textContent=p+"%";$("bar").style.width=p+"%";
+ const cur=stepList()[step];const m=cur&&cur.id!=="publish"?missing(cur.id):[];$("pctHint").textContent=$("editorWrap").hidden?"":m.length?`Faltan ${m.length} datos en esta sección`:"¡Sección lista!";}
+function render(){renderTimeline();renderStep();preview();}
+function publish(){const datos={nombre:S.biz.owner||"",negocio:S.biz.name,wa:S.biz.whatsapp.replace(/\D/g,"").slice(-10),email:S.account.email,marketing:!!S.account.mk,
+  tipos:Object.keys(S.types).filter(k=>S.types[k]),ambito:{social:!!(S.svcScope||{}).S,empresarial:!!(S.svcScope||{}).E},
+  servicios:S.services.map(s=>({cat:s.cat,subs:s.subs.map(x=>({n:x.n,precio:x.price,unidad:x.u==="__otra"?null:x.u,unidadOtra:x.u==="__otra"?x.uo:null,familia:famOf(x.u),rinde:x.yieldP||null,paquetePersonas:x.pkgP||null,paqueteHoras:x.pkgH||null}))})).filter(s=>s.cat),
+  propuestas:{categorias:[...NEW_CATS],subcategorias:[...NEW_SUBS],unidades:[...NEW_UNITS]},
+  zona:(S.biz.addr&&(S.biz.addr.muni||S.biz.addr.state))||"",url:"hayquevernos.com/"+slug(S.biz.name),completo:completeness()};
+ hqvTrack("sitio_publicado",{tipos:datos.tipos,completo:datos.completo});
+ if(parent!==window){try{parent.postMessage({hqv:"negocio-publicado",datos},"*");}catch(_){}return;}$("editorWrap").hidden=true;$("published").hidden=false;$("doneUrl").textContent="hayquevernos.com/"+slug(S.biz.name);$("doneTitle").textContent=`¡${S.biz.name||"Tu negocio"} ya tiene sitio! 🎉`;scrollTo({top:0});}
+
+document.body.insertAdjacentHTML("beforeend",`<datalist id="minUnits">${MIN_UNITS.map(u=>`<option value="${u}">`).join("")}</datalist>
+<datalist id="dlUnits">${Object.keys(UF).map(u=>`<option value="${esc(uLabel(u))}">`).join("")}</datalist>
+<datalist id="dlCats">${CATS.map(c=>`<option value="${esc(c.n)}">`).join("")}</datalist>
+<datalist id="dlSubs">${[...new Set(CATS.flatMap(c=>c.s.map(x=>x.n)))].sort().map(n=>`<option value="${esc(n)}">`).join("")}</datalist>`);
+$("goProv").onclick=()=>{if(!Object.values(S.types).some(Boolean)){$("typeErr").hidden=false;return;}$("home").hidden=true;$("editorWrap").hidden=false;step=0;showMiss=false;render();scrollTo({top:0});};
+$("copyBtn").onclick=()=>copyText("https://"+$("doneUrl").textContent,$("copyMsg"));
+$("backEdit").onclick=()=>{$("published").hidden=true;$("editorWrap").hidden=false;render();};
+$("restart").onclick=()=>{$("published").hidden=true;$("editorWrap").hidden=true;$("home").hidden=false;drawTypes();scrollTo({top:0});};
+$("tEdit").onclick=()=>{$("editor").classList.remove("show-preview");$("tEdit").setAttribute("aria-pressed","true");$("tPrev").setAttribute("aria-pressed","false");};
+$("tPrev").onclick=()=>{$("editor").classList.add("show-preview");$("tPrev").setAttribute("aria-pressed","true");$("tEdit").setAttribute("aria-pressed","false");};
+$("demoRev").onchange=e=>{demo=e.target.checked;preview();};
+$("fillEx").onclick=()=>{S=exampleState();drawTypes();showMiss=false;if(!$("editorWrap").hidden)render();else preview();};
+$("fillEmpty").onclick=()=>{S=emptyState();step=0;showMiss=false;drawTypes();$("editorWrap").hidden=true;$("published").hidden=true;$("home").hidden=false;preview();};
+let lastView="home";
+function showPublic(from){lastView=from;["home","editorWrap","published"].forEach(i=>$(i).hidden=true);$("public").hidden=false;$("publicSite").innerHTML=siteHtml();$("pubUrl").textContent="hayquevernos.com/"+slug(S.biz.name);scrollTo({top:0});}
+$("toPublic").onclick=()=>showPublic("published");
+$("seePublic").onclick=()=>{const cur=!$("editorWrap").hidden?"editorWrap":!$("published").hidden?"published":"home";if(!filled(S.biz.name)){S=exampleState();drawTypes();}demo=true;$("demoRev").checked=true;showPublic(cur);};
+$("pubBack").onclick=()=>{$("public").hidden=true;$(lastView).hidden=false;if(lastView==="editorWrap")render();scrollTo({top:0});};
+if(ACCT&&ACCT_WA)S.biz.whatsapp=ACCT_WA;
+if(ACCT){const h=document.querySelector("#home h1");h.textContent=`${ACCT_NAME?ACCT_NAME+", c":"C"}onfiguremos tu negocio 💼`;document.querySelector("#home .lead").textContent="Elige qué ofreces y arma tu sitio web gratis. Todo queda guardado en tu cuenta, en esta pestaña.";document.querySelector("#home .perks").hidden=true;}
+$("goConc").onclick=()=>{hqvTrack("concierge_click",{lado:"proveedor"});if(parent!==window)parent.postMessage({hqv:"concierge",lado:"proveedor"},"*");};
+if(ACCT){S.biz.owner=S.biz.owner||ACCT_NAME;S.account.email=S.account.email||(QS.get("email")||"");}
+drawTypes();preview();loadCP();hqvTrack("proveedor_inicio");
+</script>
