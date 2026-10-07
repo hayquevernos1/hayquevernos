@@ -56,14 +56,22 @@ def family(u):
     return "cantidad", time_of(u)   # pieza, kilo, botella, equipo, vehículo, mesa…
 
 
+def key_sort(s):
+    return key(s)
+
+
 def key(s):
     s = unicodedata.normalize("NFD", s.lower())
     return re.sub(r"[^a-z0-9]+", " ", "".join(c for c in s if unicodedata.category(c) != "Mn")).strip()
 
 
 df = pd.read_excel(SRC)
-df.columns = ["tipo", "cat", "sub", "unit"]
+HAS_EV = df.shape[1] == 5
+df.columns = ["tipo", "ev", "cat", "sub", "unit"] if HAS_EV else ["tipo", "cat", "sub", "unit"]
 df = df.dropna(subset=["cat", "sub", "unit"])
+dfe = df.copy()
+if HAS_EV:
+    df = df.drop(columns=["ev"]).drop_duplicates()
 for c in df.columns:
     df[c] = df[c].astype(str).str.strip()
 
@@ -89,7 +97,31 @@ for cat, g in df.groupby("cat", sort=False):
         subs.append([sub, tipo, us])
     cats.append({"n": cat, "e": EMO.get(cat, "✨"), "s": subs})
 
-data = {"version": "catálogo Diego · 7 oct 2026", "cats": cats,
+# tipos de evento: lista por universo con los índices (planos) de subcategorías que NO aplican
+EVEMO = {"15 años": "👑", "15 de septiembre": "🇲🇽", "Aniversario": "❤️", "Año Nuevo": "🎆", "Baby shower": "🍼", "Bar mitzvah": "✡️", "Bautizo": "🕊️",
+ "Boda": "💍", "Confirmación religiosa": "⛪", "Conmemoración": "🕯️", "Convivencia": "🧺", "Cumpleaños": "🎂", "Despedida de soltera o soltero": "👰",
+ "Día de las Madres o Día del Padre": "💐", "Día del Niño": "🧸", "Fiesta temática": "🎭", "Gala": "🥂", "Graduación": "🎓", "Halloween": "🎃", "Homenaje": "🏅",
+ "Integración": "🤝", "Open house": "🏡", "Pedida de mano": "💌", "Picnic": "🧺", "Posada / Navidad / fin de año": "🪅", "Primera comunión": "🙏",
+ "Reencuentro de generación": "🫂", "Renovación de votos": "💞", "Reunión": "🗣️", "Revelación de género": "🎀", "Torneo": "🏆", "otro": "✨",
+ "Activación de marca": "📣", "Asamblea": "🏛️", "Cóctel": "🍸", "Conferencia": "🎤", "Congreso": "🧑‍💼", "Convención": "🏢", "Curso / bootcamp / taller / capacitación": "📚",
+ "Desayuno / comida / cena de negocios": "🍽️", "Desfile de moda": "👗", "Despedida de amigos / empleados": "👋", "Encuentro": "🔗", "Entrega de premios": "🏆",
+ "Evento de voluntariado": "🌱", "Feria / expo / exhibición / showroom": "🎪", "Foro": "💬", "Hackathon": "💻", "Inauguración": "✂️", "Lanzamiento": "🚀",
+ "Retiro": "🧘", "Rueda de prensa": "📰", "Seminario": "🧑‍🏫", "Simposio": "📑", "Subasta": "🔨", "Team building": "🧗", "Webinar": "🖥️"}
+flat = {}
+for ci, c in enumerate(cats):
+    for si, x in enumerate(c["s"]):
+        flat[(c["n"], x[0])] = len(flat)
+ev = {"S": [], "E": []}
+if HAS_EV:
+    for t, kk in (("Social", "S"), ("Empresarial", "E")):
+        g = dfe[dfe.tipo == t]
+        full = {flat[(c, s)] for c, s in zip(g.cat, g["sub"])}
+        for e, h in g.groupby("ev", sort=False):
+            has = {flat[(c, s)] for c, s in zip(h.cat, h["sub"])}
+            name = "Otro" if e == "otro" else e
+            ev[kk].append([name, EVEMO.get(e, "✨"), sorted(full - has)])
+        ev[kk].sort(key=lambda x: (x[0] == "Otro", key_sort(x[0])))
+data = {"version": "catálogo Diego v2 · 7 oct 2026", "cats": cats, "ev": ev,
         "units": {u: [v["fam"], v["t"]] for u, v in sorted(units.items(), key=lambda x: key(x[0]))}}
 js = "/* Catálogo de servicios ¡Hay que vernos! (generado desde el Excel de Diego con gen_catalogo.py — no editar a mano).\n" \
      "   cats[].s = [subcategoría, tipo (S social · E empresarial · SE ambos), unidades permitidas]\n" \

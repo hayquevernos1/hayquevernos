@@ -71,13 +71,13 @@
   "tiempo": "",
   "sinonimos": []
  },
- "Por sesión": {
-  "familia": "evento",
+ "Por ciento (100 piezas)": {
+  "familia": "cantidad",
   "tiempo": "",
   "sinonimos": []
  },
- "Por ciento (100 piezas)": {
-  "familia": "cantidad",
+ "Por sesión": {
+  "familia": "evento",
   "tiempo": "",
   "sinonimos": []
  },
@@ -312,6 +312,16 @@
   "tiempo": "mes",
   "sinonimos": []
  },
+ "Por noche": {
+  "familia": "tiempo",
+  "tiempo": "noche",
+  "sinonimos": []
+ },
+ "Por habitación por noche": {
+  "familia": "cantidad",
+  "tiempo": "noche",
+  "sinonimos": []
+ },
  "Por carpa por noche": {
   "familia": "cantidad",
   "tiempo": "noche",
@@ -325,16 +335,6 @@
  "Por reserva gestionada": {
   "familia": "evento",
   "tiempo": "",
-  "sinonimos": []
- },
- "Por habitación por noche": {
-  "familia": "cantidad",
-  "tiempo": "noche",
-  "sinonimos": []
- },
- "Por noche": {
-  "familia": "tiempo",
-  "tiempo": "noche",
   "sinonimos": []
  },
  "Por cama por noche": {
@@ -380,11 +380,6 @@
    "Por traslado (trayecto)"
   ]
  },
- "Por actividad": {
-  "familia": "evento",
-  "tiempo": "",
-  "sinonimos": []
- },
  "Por fotografía": {
   "familia": "cantidad",
   "tiempo": "",
@@ -395,14 +390,19 @@
   "tiempo": "",
   "sinonimos": []
  },
- "Por minuto de servicio": {
-  "familia": "tiempo",
-  "tiempo": "min",
-  "sinonimos": []
- },
  "Por equipo participante": {
   "familia": "evento",
   "tiempo": "",
+  "sinonimos": []
+ },
+ "Por actividad": {
+  "familia": "evento",
+  "tiempo": "",
+  "sinonimos": []
+ },
+ "Por minuto de servicio": {
+  "familia": "tiempo",
+  "tiempo": "min",
   "sinonimos": []
  },
  "Por álbum": {
@@ -510,11 +510,6 @@
   "tiempo": "",
   "sinonimos": []
  },
- "Por conexión simultánea por hora": {
-  "familia": "cantidad",
-  "tiempo": "hora",
-  "sinonimos": []
- },
  "Por usuario": {
   "familia": "persona",
   "tiempo": "",
@@ -530,13 +525,18 @@
   "tiempo": "",
   "sinonimos": []
  },
+ "Por conexión simultánea por hora": {
+  "familia": "cantidad",
+  "tiempo": "hora",
+  "sinonimos": []
+ },
  "Por licencia": {
   "familia": "evento",
   "tiempo": "",
   "sinonimos": []
  },
- "Por certificado": {
-  "familia": "persona",
+ "Por transacción": {
+  "familia": "evento",
   "tiempo": "",
   "sinonimos": []
  },
@@ -545,8 +545,8 @@
   "tiempo": "",
   "sinonimos": []
  },
- "Por transacción": {
-  "familia": "evento",
+ "Por certificado": {
+  "familia": "persona",
   "tiempo": "",
   "sinonimos": []
  },

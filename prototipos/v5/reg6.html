@@ -389,6 +389,7 @@ label.pick input[type=file]{position:absolute;inset:0;opacity:0;width:100%;curso
 <script src="config.js"></script>
 <script src="catalogo.js"></script>
 <script src="catalogo_servicios.js"></script>
+<script src="conversiones.js"></script>
 <script>
 const QS=new URLSearchParams(location.search),ACCT=QS.get("cuenta")==="1",ACCT_WA=QS.get("wa")||"",ACCT_NAME=QS.get("nombre")||"";
 const MX=__MX__;
@@ -411,17 +412,13 @@ function canonUnit(v){const t=norm(v).replace(/^por\s+/,"").trim();return Object
 const scopeOk=t=>{const sc=S.svcScope||{};if(!sc.S&&!sc.E)return true;return(sc.S&&t.includes("S"))||(sc.E&&t.includes("E"));};
 function subOf(cat,n){const c=catOf(cat);return c&&c.s.find(x=>x.n===n);}
 function priceTxt(x){if(famOf(x.u)==="porcentaje")return`${esc(x.price)}% <small>${esc(uLabel(x.u).slice(2))}</small>`;return`${money(x.price)} <small>${esc(x.unit)}${+x.pkgP>0?` · ${esc(x.pkgP)} personas`:""}</small>`;}
-function hostView(x){const P=+x.price;if(!x.u||!(P>0))return"";const f=famOf(x.u),t=tOf(x.u),hrs=t==="hora"?EXH:1,Y=+x.yieldP;
- let per=null,total=null,note="";
- if(f==="persona"){per=P*hrs;total=per*EXG;}
- else if(f==="evento"){total=P;per=P/EXG;}
- else if(f==="tiempo"){if(t==="mes"||t==="min")note="Lo calculamos con la duración que elija el anfitrión.";else{total=P*hrs;per=total/EXG;}}
- else if(f==="paquete"){const n=+x.pkgP;if(n>0){per=P/n;total=Math.ceil(EXG/n)*P;}else note="Dinos para cuántas personas es el paquete y lo convertimos.";}
- else if(f==="porcentaje")return`<span class="hv">👀 El anfitrión verá: ${esc(x.price)}% ${esc(uLabel(x.u).slice(2))}, calculado sobre su fiesta.</span>`;
- else if(f==="extra")return`<span class="hv">👀 Solo se suma si la fiesta se alarga: ${money(P)} por hora extra.</span>`;
- else{if(Y>0){per=P*hrs/Y;total=Math.ceil(EXG/Y)*P*hrs;}else note=f==="otra"?"Revisamos esta unidad y te avisamos cómo se la mostramos al anfitrión.":"Si no lo sabes, usamos un promedio de la plataforma para convertirlo.";}
- if(per===null)return`<span class="hv">👀 ${note}</span>`;
- return`<span class="hv">👀 Así lo ve el anfitrión en una fiesta de ${EXG} personas${t==="hora"?` y ${EXH} h`:""}: <b>${money(Math.round(per))}</b> por persona · <b>${money(Math.round(total))}</b> en total${Y>0||f!=="cantidad"&&f!=="espacio"?"":" (estimado)"}</span>`;}
+function hostView(x,cat){const P=+x.price;if(!x.u||!(P>0))return"";const f=famOf(x.u),t=tOf(x.u);
+ if(f==="porcentaje")return`<span class="hv">👀 El anfitrión verá: ${esc(x.price)}% ${esc(uLabel(x.u).slice(2))}, calculado sobre su fiesta.</span>`;
+ if(f==="extra")return`<span class="hv">👀 Solo se suma si la fiesta se alarga: ${money(P)} por hora extra.</span>`;
+ const r=hqvCost({cat,sub:x.n,u:x.u,price:P,guests:EXG,hours:EXH,rinde:x.yieldP,pkgP:x.pkgP});
+ if(r.pend)return`<span class="hv">👀 ${f==="otra"?"Revisamos esta unidad y te avisamos cómo se la mostramos al anfitrión.":"Dinos para cuántas personas alcanza y lo convertimos; si no, el anfitrión lo verá «por cotizar»."}</span>`;
+ const def=!+x.yieldP&&(f==="cantidad"||f==="espacio")?" (con nuestro promedio; si sabes cuánto rinde, ponlo)":"";
+ return`<span class="hv">👀 Así lo ve el anfitrión en una fiesta de ${EXG} personas${t==="hora"||t==="minuto"?` y ${EXH} h`:""}: <b>${money(Math.round(r.total/EXG))}</b> por persona · <b>${money(Math.round(r.total))}</b> en total${r.note?" · "+esc(r.note):""}${def}</span>`;}
 let FLASH=null;const SHOWALL=new Set();
 function addSubTo(cat,n){let i=S.services.findIndex(s=>s.cat===cat);
  if(i<0){i=S.services.findIndex(s=>!s.cat||s.cat==="__new");if(i<0){S.services.push(blankSvc());i=S.services.length-1;}S.services[i].cat=cat;S.services[i].subs=[];}
@@ -692,7 +689,7 @@ function lineHtml(s,k,x,j){const sub=subOf(s.cat,x.n),allowed=(sub&&sub.u.length
    <label class="sl-p"><span>${f==="porcentaje"?"%":"$"}</span><input type="number" min="0" step="any" class="sl-price${MISS(filled(x.price))}" value="${esc(x.price)}" placeholder="${f==="porcentaje"?"porcentaje":"precio"}" aria-label="Precio de ${esc(x.n)} ${esc(lineLabel(x))}"> <small class="opt">${esc(f==="porcentaje"?uLabel(x.u).slice(2):lineLabel(x))}</small></label>
    ${f==="paquete"?`<label>¿Para cuántas personas? <input type="number" min="1" class="sl-pkgP${MISS(+x.pkgP>0)}" value="${esc(x.pkgP)}"></label><label>¿Cuántas horas incluye? <input type="number" min="0" step="any" class="sl-pkgH" value="${esc(x.pkgH)}"> <span class="opt">(opcional)</span></label>`:''}
    ${f==="cantidad"||f==="espacio"||f==="otra"?`<label>Cada ${esc(uNoun(x))} alcanza para <input type="number" min="0" step="any" class="sl-yield" value="${esc(x.yieldP)}"> personas <span class="opt">(opcional)</span></label>`:''}
-  </div><div class="sl-hv">${hostView(x)}</div>`:''}
+  </div><div class="sl-hv">${hostView(x,s.cat)}</div>`:''}
   <button type="button" class="link sl-dup">+ Otra forma de cobrar ${esc(x.n.toLowerCase())}</button>
  </div>`;}
 
@@ -742,7 +739,7 @@ function drawServices(){const list=$("svcList");if(!list)return;
    for(const cc of CATS){const e2=cc.s.find(x=>norm(x.n)===norm(v));if(e2){const ii=addSubTo(cc.n,e2.n);goBox(ii,`“${e2.n}” ya existe en ${cc.n}; lo agregamos ahí.`);return;}}
    c.s.push({n:v,t:"SE",u:[]});NEW_SUBS.add(v);s.subs.push(blankLine(v));hqvTrack("catalogo_propuesta",{tipo:"subcategoria",cat:c.n,valor:v});redraw();changed();};
   if($("sbn-"+k)){$("sbn-"+k).onclick=()=>{$("snw-"+k).hidden=false;$("sn-"+k).focus();};$("snb-"+k).onclick=addSub;$("sn-"+k).onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addSub();}};}
-  el.querySelectorAll(".sline").forEach(L=>{const j=+L.dataset.j,x=s.subs[j],hv=()=>{const h=L.querySelector(".sl-hv");if(h)h.innerHTML=hostView(x);};
+  el.querySelectorAll(".sline").forEach(L=>{const j=+L.dataset.j,x=s.subs[j],hv=()=>{const h=L.querySelector(".sl-hv");if(h)h.innerHTML=hostView(x,s.cat);};
    L.querySelectorAll(".sl-u").forEach(c=>c.onclick=()=>{x.u=c.dataset.u;x.unit=lineLabel(x);redraw();changed();if(x.u==="__otra")setTimeout(()=>{const b=document.querySelector(`#svcList .box[data-i="${i}"] .sline[data-j="${j}"] .sl-uo`);b&&b.focus();},0);});
    const uo=L.querySelector(".sl-uo");if(uo){uo.oninput=e=>{x.uo=e.target.value;x.unit=lineLabel(x);changed();};
     uo.onchange=()=>{const v=x.uo.trim();if(!v)return;const cu=canonUnit(v);if(cu){x.u=cu;x.uo="";}else{NEW_UNITS.add(v);hqvTrack("catalogo_propuesta",{tipo:"unidad",sub:x.n,valor:v});}x.unit=lineLabel(x);redraw();changed();};}
