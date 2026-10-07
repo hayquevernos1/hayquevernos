@@ -1,0 +1,70 @@
+/* ¡Hay que vernos! · Marca 2026 (brandbook v3)
+   Fuente de verdad de color, tipografía y estilo clay para todo el sitio.
+   Se carga DESPUÉS del CSS de cada página: redefine sus variables y suaviza sus componentes. */
+:root{
+  /* core */
+  --hqv-morado:#9146FF; --hqv-negro:#000000; --hqv-hielo:#F0F0FF;
+  /* neones */
+  --hqv-magenta:#FA1ED2; --hqv-naranja:#FF6905; --hqv-amarillo:#FAFA19; --hqv-lima:#BEFF00;
+  --hqv-menta-neon:#69FFC3; --hqv-verde-neon:#00FA05; --hqv-rojo:#FA2828; --hqv-azul:#1E69FF;
+  /* profundos */
+  --hqv-uva:#8205B4; --hqv-berenjena:#41145F; --hqv-frambuesa:#BE0078; --hqv-azul-rey:#0014A5;
+  /* sorbetes */
+  --hqv-sandia:#FC6675; --hqv-mango:#FFCA5F; --hqv-cielo:#57BEE6; --hqv-turquesa:#00C8AF;
+  /* pasteles */
+  --hqv-chicle:#FAB4FF; --hqv-durazno:#FACDC8; --hqv-vainilla:#FEEE85; --hqv-menta:#BEFAE1;
+  --hqv-lila:#BEAAFF; --hqv-niebla:#D2D2E6; --hqv-blanco:#FFFFFF;
+  /* forma */
+  --hqv-fuente:"Nunito","Arial Rounded MT Bold",system-ui,sans-serif;
+  --hqv-radio:28px; --hqv-pill:999px;
+  --hqv-clay:inset 5px 5px 10px rgba(255,255,255,.65),inset -5px -6px 12px rgba(65,20,95,.14),0 10px 26px rgba(65,20,95,.16);
+  --hqv-clay-sm:inset 3px 3px 6px rgba(255,255,255,.6),inset -3px -4px 8px rgba(65,20,95,.14),0 6px 14px rgba(65,20,95,.16);
+  --hqv-clay-press:inset 4px 4px 10px rgba(65,20,95,.22),0 3px 8px rgba(65,20,95,.14);
+
+  /* puente con las variables que ya usan las páginas */
+  --paper:var(--hqv-hielo); --card:#FFFFFF; --ink:#120B1E; --muted:#5E5470; --line:#E4E1F6;
+  --grape:var(--hqv-morado); --grape-soft:#ECE3FF; --pink:var(--hqv-frambuesa); --pink-soft:#FFE1F8;
+  --sun:var(--hqv-amarillo); --sun-soft:#FFF8C2; --mint:#007A6A; --mint-soft:var(--hqv-menta);
+  --warn:#7A4A00; --bad:#C8102E; --bad-soft:#FFE0E3;
+  --f-display:var(--hqv-fuente); --f-body:var(--hqv-fuente);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#140A20; --card:#22133A; --ink:#F6F1FF; --muted:#B9AECD; --line:#3A2858;
+  --grape:#B58CFF; --grape-soft:#2F1B52; --pink:#FF6ADB; --pink-soft:#3D1636;
+  --sun:#FAFA19; --sun-soft:#3A3510; --mint:#69FFC3; --mint-soft:#103A30; --warn:#FFD36A; --bad:#FF7088; --bad-soft:#3D1522;
+  --hqv-clay:inset 4px 4px 10px rgba(255,255,255,.06),inset -5px -6px 12px rgba(0,0,0,.35),0 10px 26px rgba(0,0,0,.4);
+  --hqv-clay-sm:inset 3px 3px 6px rgba(255,255,255,.06),inset -3px -4px 8px rgba(0,0,0,.35),0 6px 14px rgba(0,0,0,.35);
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#140A20; --card:#22133A; --ink:#F6F1FF; --muted:#B9AECD; --line:#3A2858;
+  --grape:#B58CFF; --grape-soft:#2F1B52; --pink:#FF6ADB; --pink-soft:#3D1636;
+  --sun:#FAFA19; --sun-soft:#3A3510; --mint:#69FFC3; --mint-soft:#103A30; --warn:#FFD36A; --bad:#FF7088; --bad-soft:#3D1522;
+  color-scheme:dark}
+
+body{font-family:var(--hqv-fuente)!important;background:var(--paper)}
+h1,h2,h3,.ms-name,.cta,.btn.big{font-family:var(--hqv-fuente)!important;font-weight:900!important;letter-spacing:-.01em}
+
+/* Botones: píldora, sin borde, sombra clay */
+.btn,.cta,.go,button.big{border-radius:var(--hqv-pill)!important;border:0!important;box-shadow:var(--hqv-clay-sm);transition:transform .12s,box-shadow .12s}
+.btn:active,.cta:active,.go:active{transform:translateY(2px);box-shadow:var(--hqv-clay-press)}
+.btn.ghost{background:var(--card)!important;color:var(--ink)!important}
+.btn.wa{background:#25D366!important;color:#06301A!important}
+.mini,.chip,.tab,.tile,.type,.cat,.seg button,.yn button,.door{border-radius:var(--hqv-pill)}
+.chip,.mini{border-color:transparent!important;box-shadow:var(--hqv-clay-sm);background:var(--card)}
+.chip[aria-pressed="true"]{background:var(--grape)!important;color:#fff!important}
+/* Tarjetas y paneles: radio grande, sin borde, clay */
+.card,.panel,.pcard,.pick-card,.done-card,.perk,.sub-box,.side,.lado,.phone,.meter,.tip,.note,.alert,.stdbox,.result-hero,.prov,.vres>div{border:0!important;border-radius:var(--hqv-radio)!important;box-shadow:var(--hqv-clay)}
+.tip,.note,.alert{box-shadow:var(--hqv-clay-sm)}
+/* Campos */
+input[type=text],input[type=tel],input[type=email],input[type=number],input[type=date],input[type=time],input[type=password],select,textarea{border-radius:18px!important;border:0!important;background:var(--card)!important;box-shadow:inset 2px 3px 7px rgba(65,20,95,.14),inset -2px -2px 5px rgba(255,255,255,.7)!important}
+input:focus,select:focus,textarea:focus{box-shadow:inset 2px 3px 7px rgba(65,20,95,.14),0 0 0 3px var(--grape-soft)!important}
+/* Sin degradados donde no hacen falta */
+.ms-hero{background:var(--grape)!important}
+.meter-bar i{background:var(--hqv-lima)!important}
+.proto{background:var(--card);border:0}
+.proto b{background:var(--hqv-vainilla);color:#3A2E00}
+/* Botón flotante de ideas */
+.hqv-ideas{position:fixed;left:14px;bottom:14px;z-index:40;display:flex;align-items:center;gap:8px;background:#25D366;color:#06301A;border-radius:999px;padding:10px 14px;font-weight:900;font-size:14px;text-decoration:none;box-shadow:var(--hqv-clay-sm)}
+.hqv-ideas svg{width:20px;height:20px}
+@media (max-width:640px){.hqv-ideas span{display:none}.hqv-ideas{padding:12px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}

@@ -1,0 +1,41 @@
+:root {
+  /* core */
+  --hqv-morado-disco: #9146FF;
+  --hqv-negro: #000000;
+  --hqv-hielo: #F0F0FF;
+  /* neones */
+  --hqv-magenta: #FA1ED2;
+  --hqv-naranja: #FF6905;
+  --hqv-amarillo: #FAFA19;
+  --hqv-lima: #BEFF00;
+  --hqv-menta-neon: #69FFC3;
+  --hqv-verde-neon: #00FA05;
+  --hqv-rojo: #FA2828;
+  --hqv-azul-electrico: #1E69FF;
+  /* profundos */
+  --hqv-uva: #8205B4;
+  --hqv-berenjena: #41145F;
+  --hqv-frambuesa: #BE0078;
+  --hqv-azul-rey: #0014A5;
+  /* sorbetes */
+  --hqv-sandia: #FC6675;
+  --hqv-mango: #FFCA5F;
+  --hqv-cielo: #57BEE6;
+  --hqv-turquesa: #00C8AF;
+  /* pasteles */
+  --hqv-chicle: #FAB4FF;
+  --hqv-durazno: #FACDC8;
+  --hqv-vainilla: #FEEE85;
+  --hqv-menta: #BEFAE1;
+  --hqv-lila: #BEAAFF;
+  --hqv-niebla: #D2D2E6;
+  --hqv-blanco: #FFFFFF;
+  /* forma */
+  --hqv-fuente: "Nunito", "Arial Rounded MT Bold", Arial, sans-serif;
+  --hqv-pill: 999px;
+  --hqv-radio: 28px;
+  --hqv-clay: inset 6px 6px 12px rgba(255,255,255,.7),
+              inset -6px -6px 14px rgba(65,20,95,.18),
+              0 12px 28px rgba(65,20,95,.25);
+  --hqv-clay-presionado: inset 4px 4px 10px rgba(65,20,95,.22), 0 4px 10px rgba(65,20,95,.18);
+}
