@@ -69,7 +69,7 @@ CSS = '''
  .home .door .fnd,.home .door .kinds{background:var(--card);border-radius:22px;box-shadow:var(--hqv-clay-sm);padding:14px 16px}
 }
 @media (min-width:861px){.home .door .emph strong{font-size:18px}.home .door .top{padding-top:18px}}
-.home .doors>*{display:none!important;padding-inline:0!important}
+.home .doors>.door{display:none!important;padding-inline:0!important}
 .home[data-s="pv"] #d-pv,.home[data-s="hs"] #d-hs{display:grid!important;animation:hqvIn .35s ease-out}
 @keyframes hqvIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 body:has(#home:not([hidden])) .top .logo{visibility:hidden}
