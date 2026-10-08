@@ -55,11 +55,18 @@ CSS = '''
 .home:not([data-s="neutral"]) .hhero h1{font-size:clamp(20px,2.6vw,26px)}
 .home .doors{display:block!important;overflow:visible!important;margin-inline:auto!important;max-width:1120px!important;width:100%}
 /* zona enfática: que no parezca botón */
-@media (min-width:861px){
 .home .door .emph{background:var(--grape-soft,#ECE3FF);color:var(--ink,#1a1033);box-shadow:none;border-radius:18px;border-left:6px solid var(--prov);padding:14px 16px 14px 18px}
 .home .door.hs .emph{background:#E3ECFF;border-left-color:var(--host)}
 .home .door.pv .emph strong{color:#4A13A8}.home .door.hs .emph strong{color:#0B3FB0}
 .home .door .emph small{color:var(--muted);opacity:1}
+/* celular: mismo estilo que web (sin caja), misma estructura de una columna */
+@media (max-width:860px){
+ .home .door{background:none!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important}
+ .home .door .top,.home .door .body{background:none!important;box-shadow:none!important}
+ .home .door .top{padding:6px 0 18px;justify-items:center;text-align:center}
+ .home .door .top h2{font-size:30px}
+ .home .door .body{padding:0 0 28px}
+ .home .door .fnd,.home .door .kinds{background:var(--card);border-radius:22px;box-shadow:var(--hqv-clay-sm);padding:14px 16px}
 }
 @media (min-width:861px){.home .door .emph strong{font-size:18px}.home .door .top{padding-top:18px}}
 .home .doors>*{display:none!important;padding-inline:0!important}
