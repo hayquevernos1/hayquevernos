@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap">
 <style>
 /* Layout: un solo sitio (home de dos puertas → journeys sin cuenta → cuenta de dos lados). Tokens de marca en marca.css. */
-:root{--prov:var(--hqv-morado);--host:var(--hqv-magenta);--ok:#00A86B;--glass:rgba(255,255,255,.55)}
+:root{--prov:var(--hqv-morado);--host:var(--hqv-azul);--ok:#00A86B;--glass:rgba(255,255,255,.55)}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html,body{height:100%}
@@ -32,12 +32,12 @@ a{color:inherit}
 .top .sp{flex:1}
 .pill{border:0;border-radius:99px;padding:9px 16px;font-weight:800;background:var(--card);box-shadow:var(--hqv-clay-sm);display:inline-flex;align-items:center;gap:6px;font-size:14px}
 .pill.primary{background:var(--grape);color:#fff}
-.pill.host{background:var(--host);color:#14000F}
+.pill.host{background:var(--host);color:#fff}
 .pill.sm{padding:6px 12px;font-size:13px}
 .avatar{width:42px;height:42px;border-radius:50%;border:0;background:var(--grape);color:#fff;font-weight:900;font-size:17px;display:grid;place-items:center;box-shadow:var(--hqv-clay-sm);position:relative;padding:0}
 .avatar .tag{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);font-size:9px;background:var(--hqv-vainilla);color:#3A2E00;border-radius:99px;padding:0 6px;font-weight:900;white-space:nowrap}
 .bell{position:relative}
-.badge{position:absolute;top:-4px;right:-4px;background:var(--host);color:#14000F;font-size:11px;font-weight:900;border-radius:99px;min-width:18px;height:18px;display:grid;place-items:center;padding:0 4px}
+.badge{position:absolute;top:-4px;right:-4px;background:var(--host);color:#fff;font-size:11px;font-weight:900;border-radius:99px;min-width:18px;height:18px;display:grid;place-items:center;padding:0 4px}
 
 /* HOME */
 .home{padding-block:8px 80px}
@@ -50,11 +50,11 @@ a{color:inherit}
 .doors .door{background:var(--card);border-radius:32px;box-shadow:var(--hqv-clay);overflow:hidden;display:grid;align-content:start;min-width:0}
 .door .band{padding:22px;display:grid;gap:12px;position:relative;overflow:hidden}
 .door.pv .band{background:var(--prov);color:#fff}
-.door.hs .band{background:var(--host);color:#14000F}
+.door.hs .band{background:var(--host);color:#fff}
 .door .eye{font-size:12px;font-weight:900;letter-spacing:.08em}
 .door h2{font-size:clamp(28px,3.2vw,38px);font-weight:900;max-width:12ch;position:relative;z-index:1}
 .door .go{border:0;border-radius:99px;padding:15px 20px;background:#fff;font-weight:900;font-size:18px;box-shadow:var(--hqv-clay-sm);position:relative;z-index:1;justify-self:start}
-.door.pv .go{color:#4A13A8}.door.hs .go{color:#7A0063}
+.door.pv .go{background:var(--prov);color:#fff}.door.hs .go{background:var(--host);color:#fff}
 .door .disc{font-size:12.5px;font-weight:700;opacity:.92;position:relative;z-index:1}
 .door .mascot{position:absolute;right:-6px;bottom:-10px;width:120px;z-index:0;filter:drop-shadow(0 8px 14px rgba(0,0,0,.18))}
 .door .body{padding:18px 22px 22px;display:grid;gap:14px}
@@ -101,7 +101,7 @@ a{color:inherit}
 .swt[data-s="pv"] .knob{left:34px}
 .swt[data-s="hs"] .knob{left:calc(100% - 34px)}
 .swt[data-s="pv"] .l{color:var(--prov)}
-.swt[data-s="hs"] .r{color:#B0008F}
+.swt[data-s="hs"] .r{color:var(--host)}
 
 /* Journey a pantalla completa */
 .journey{position:fixed;inset:0;z-index:30;background:var(--paper);display:grid;grid-template-rows:auto 1fr}
@@ -120,7 +120,7 @@ a{color:inherit}
 .tag2.ok{background:var(--hqv-menta);color:#003D30}
 .tabs{display:flex;gap:6px;background:var(--card);border-radius:99px;padding:6px;box-shadow:var(--hqv-clay-sm);width:fit-content;max-width:100%;overflow-x:auto}
 .tab{border:0;background:none;border-radius:99px;padding:9px 16px;font-weight:900;white-space:nowrap;display:flex;gap:6px;align-items:center}
-.tab[aria-selected="true"].fs{background:var(--host);color:#14000F}
+.tab[aria-selected="true"].fs{background:var(--host);color:#fff}
 .tab[aria-selected="true"].nb{background:var(--prov);color:#fff}
 .tab[aria-selected="true"].sh{background:var(--ink);color:var(--paper)}
 .tab .new{font-size:10px;background:var(--hqv-lima);color:#1A2600;border-radius:99px;padding:1px 7px}
@@ -132,7 +132,7 @@ a{color:inherit}
 .box h3{font-size:17px;font-weight:900}
 .soft{background:var(--paper);border-radius:20px;padding:12px 14px;display:grid;gap:6px}
 .btn{border:0;border-radius:99px;padding:13px 20px;font-weight:900;background:var(--grape);color:#fff;font-size:15.5px;display:inline-flex;justify-content:center;align-items:center;gap:8px;text-decoration:none;box-shadow:var(--hqv-clay-sm)}
-.btn.host{background:var(--host);color:#14000F}
+.btn.host{background:var(--host);color:#fff}
 .btn.ghost{background:var(--card);color:var(--ink)}
 .btn.wa{background:#25D366;color:#06301A}
 .btn.sm{padding:8px 14px;font-size:13.5px}
@@ -148,7 +148,7 @@ a{color:inherit}
 .empty img{width:120px}
 
 /* Fiesta */
-.hero{border-radius:32px;background:var(--host);color:#14000F;padding:22px;display:grid;gap:4px;position:relative;overflow:hidden;box-shadow:var(--hqv-clay)}
+.hero{border-radius:32px;background:var(--host);color:#fff;padding:22px;display:grid;gap:4px;position:relative;overflow:hidden;box-shadow:var(--hqv-clay)}
 .hero small{font-weight:800}
 .hero .big{font-size:clamp(44px,8vw,64px);font-weight:900;line-height:1;font-variant-numeric:tabular-nums}
 .hero .tt{font-weight:800}
@@ -180,7 +180,7 @@ a{color:inherit}
 .steps li i{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:900;background:var(--line);font-size:12px}
 .steps li.done i{background:var(--ok);color:#fff}
 .steps li.now{font-weight:900}
-.steps li.now i{background:var(--host);color:#14000F}
+.steps li.now i{background:var(--host);color:#fff}
 .stars{display:flex;gap:4px}.stars button{border:0;background:none;font-size:28px;line-height:1;padding:2px;filter:grayscale(1);opacity:.45}.stars button[aria-pressed="true"]{filter:none;opacity:1}
 .svq{display:grid;gap:6px;padding:10px 0;border-bottom:1px dashed var(--line)}.svq:last-of-type{border-bottom:0}
 .sim{border:2px dashed var(--line);background:none;border-radius:99px;padding:6px 12px;font-size:12.5px;font-weight:800;color:var(--muted)}
@@ -210,6 +210,40 @@ input[type=text],input[type=tel],input[type=email],input[type=date]{width:100%;m
 .badges figure{margin:0;display:grid;justify-items:center;gap:2px;width:84px;text-align:center;font-size:11.5px;font-weight:800}
 .badges img{width:64px}
 .badges .off img{filter:grayscale(1);opacity:.35}
+
+/* v7 · puertas limpias */
+.door .top{padding:24px 22px 6px;display:grid;gap:14px}
+.door .top h2{max-width:none;font-size:clamp(26px,3vw,34px)}
+.door .go{justify-self:stretch;text-align:center;font-size:19px;padding:18px 20px;box-shadow:0 10px 24px rgba(30,20,90,.28),var(--hqv-clay-sm)}
+.ben-t{font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ben-lead{font-size:15px;line-height:1.4}
+.ben-lead b{background:var(--hqv-vainilla);border-radius:6px;padding:0 4px}
+.bens{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.bens li{display:flex;gap:10px;font-size:14px;line-height:1.35}
+.bens li .em{width:24px;height:24px;flex:none;margin-top:1px}
+.bens li b{display:block;font-size:14.5px}
+.emph{border-radius:22px;padding:16px 18px;display:grid;gap:4px;color:#fff;box-shadow:var(--hqv-clay)}
+.door.pv .emph{background:var(--prov)}.door.hs .emph{background:var(--host)}
+.emph strong{font-size:16.5px;line-height:1.3;font-weight:900}
+.emph small{font-size:12px;font-weight:800;opacity:.9;letter-spacing:.02em}
+.fnd{display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:center;background:var(--paper);border-radius:22px;padding:12px 14px}
+.fnd img{width:56px}
+.fnd b{font-size:15px}
+.fnd .hint{font-size:12px}
+.home .hh p{display:none}
+@media(max-width:860px){.home:has(#swt[data-s="pv"]) .hh,.home:has(#swt[data-s="hs"]) .hh{display:none}}
+.swt{grid-template-columns:1fr 64px 1fr}
+.swt .knob{width:46px;height:46px;margin:-23px 0 0 -23px}
+.swt[data-s="pv"] .knob{left:calc(50% - 1px)}
+.swt[data-s="hs"] .knob{left:calc(50% + 1px)}
+.swt[data-s="pv"] .knob img{transform:translateX(-6px) rotate(-14deg)}
+.swt[data-s="hs"] .knob img{transform:translateX(6px) rotate(14deg)}
+.beta{position:fixed;inset:0;z-index:60;background:rgba(20,10,40,.45);display:grid;place-items:center;padding:16px}
+.beta[hidden]{display:none}
+.beta .bx{background:var(--card);border-radius:28px;max-width:420px;width:100%;overflow:hidden;box-shadow:var(--hqv-clay)}
+.beta .bx .in{padding:18px;display:grid;gap:12px;font-size:14.5px}
+.beta .bx .tape{height:12px;background:repeating-linear-gradient(-45deg,#FAFA19 0 12px,#000 12px 24px)}
+.hqv-ideas{display:none!important}
 </style>
 <link rel="stylesheet" href="marca.css">
 <script src="config.js"></script>
@@ -230,16 +264,22 @@ input[type=text],input[type=tel],input[type=email],input[type=date]{width:100%;m
     <span class="knob"><img src="img/ball.webp" alt=""></span></div></div>
   <div class="doors" id="doors">
     <section class="door pv" id="d-pv" aria-labelledby="hpv">
-      <div class="band"><span class="eye">← SI VENDES PARA FIESTAS</span><h2 id="hpv">Soy proveedor de fiestas</h2>
-        <button class="go" type="button" data-open="negocio">Crear mi sitio web gratis →</button><span class="disc">Sin tarjeta. Listo en minutos.</span>
-        <img class="mascot" src="img/c_13.webp" alt="" width="260" height="260"></div>
+      <div class="top"><h2 id="hpv">Soy proveedor de fiestas</h2>
+        <button class="go" type="button" data-open="negocio">Crear mi sitio web gratis →</button></div>
       <div class="body">
-        <div class="key"><img class="em" src="img/e_check_mark_button.webp" alt=""><span><b>Sitio web gratis</b> para siempre</span></div>
-        <div class="slots"><span class="n">37 de 100</span> <span class="hint">lugares de miembro fundador ocupados (ejemplo)</span><div class="bar"><i style="width:37%"></i></div></div>
-        <div class="perks"><b>Crea y configura tu sitio al 100% antes del 1º de noviembre de 2026 y obtén:</b>
-          <ul><li><img class="em" src="img/e_glowing_star.webp" alt=""><span>Insignia de miembro fundador para siempre, <b>SIN COSTO</b>.</span></li><li><img class="em" src="img/e_rocket.webp" alt=""><span>Prioridad en actualizaciones de mejora del sitio, <b>SIN COSTO</b>.</span></li><li><img class="em" src="img/e_megaphone.webp" alt=""><span>Notificaciones de clientes reales interesados en tus servicios a <b>costo preferencial</b>.</span></li></ul></div>
-        <div class="kinds"><span class="lab">Diseñado para</span><div class="ks"><span class="k"><img class="em" src="img/e_balloon.webp" alt="">Proveedores de servicios</span><span class="k"><img class="em" src="img/e_house.webp" alt="">Proveedores de venues</span><span class="k"><img class="em" src="img/e_magic_wand.webp" alt="">Event planners</span></div></div>
-        <button class="conc" type="button" data-conc="proveedor"><img class="em lg" src="img/e_stopwatch.webp" alt=""><span><b>¿Sin tiempo? Háganmelo ustedes</b>Te armamos el sitio con tus fotos y precios. Tú solo nos los mandas.</span></button>
+        <span class="ben-t">Beneficios</span>
+        <p class="ben-lead" style="margin:0">Crea tu sitio web antes del <b>1º de noviembre de 2026</b>, conviértete en <b>miembro fundador</b> y obtén <b>totalmente gratis</b>:</p>
+        <ul class="bens">
+          <li><img class="em" src="img/e_globe_showing_americas.webp" alt=""><span><b>Mayor visibilidad</b>Haz que más clientes te encuentren en internet.</span></li>
+          <li><img class="em" src="img/e_money_bag.webp" alt=""><span><b>Más oportunidades de venta</b>Muestra tus datos de contacto fácilmente y convierte visitantes en clientes potenciales.</span></li>
+          <li><img class="em" src="img/e_sparkles.webp" alt=""><span><b>Imagen profesional</b>Genera confianza, destaca frente a tu competencia y fortalece tu marca.</span></li>
+          <li><img class="em" src="img/e_camera_with_flash.webp" alt=""><span><b>Escaparate digital 24/7</b>Exhibe tus servicios, paquetes, fotografías y trabajos anteriores en cualquier momento.</span></li>
+          <li><img class="em" src="img/e_rocket.webp" alt=""><span><b>Crecimiento de tu negocio</b>Promociona tus servicios, facilita el contacto y conecta con clientes que están organizando eventos.</span></li>
+        </ul>
+        <div class="emph"><strong>Y recibe pre-cotizaciones perfectamente calculadas de clientes 100% reales, listos para contratarte, directo en tu WhatsApp.</strong><small>Beneficio exclusivo · Tarifa preferencial</small></div>
+        <div class="fnd"><img src="img/b_fundador.webp" alt="Insignia de miembro fundador"><div style="display:grid;gap:6px"><b>Serías el proveedor 38 de 100 de nuestros miembros fundadores</b><div class="bar"><i style="width:37%"></i></div><span class="hint">Lugares de ejemplo</span></div></div>
+        <div class="kinds"><span class="lab">Diseñado para</span><div class="ks"><span class="k"><img class="em" src="img/e_balloon.webp" alt="">Proveedores de servicios</span><span class="k"><img class="em" src="img/e_house.webp" alt="">Venues</span><span class="k"><img class="em" src="img/e_magic_wand.webp" alt="">Event planners</span></div>
+          <div class="ks"><span class="k"><img class="em" src="img/e_birthday_cake.webp" alt="">Eventos sociales</span><span class="k"><img class="em" src="img/e_briefcase.webp" alt="">Eventos corporativos</span></div></div>
       </div>
     </section>
     <div class="seam neutral-seam" aria-hidden="true"><img src="img/ball.webp" alt=""><b>o</b></div>
@@ -250,18 +290,28 @@ input[type=text],input[type=tel],input[type=email],input[type=date]{width:100%;m
       <div class="arrows"><button class="pill primary" type="button" data-go="pv">← Vendo para fiestas</button><button class="pill host" type="button" data-go="hs">Organizo una fiesta →</button></div>
     </section>
     <section class="door hs" id="d-hs" aria-labelledby="hhs">
-      <div class="band"><span class="eye">SI ORGANIZAS UNA FIESTA →</span><h2 id="hhs">Soy anfitrión de una fiesta</h2>
-        <button class="go" type="button" data-open="fiestas">Pre-cotizar mi evento gratis →</button><span class="disc">Versión beta. Disponible a partir del 1º de noviembre.</span>
-        <img class="mascot" src="img/c_02.webp" alt="" width="260" height="260"></div>
+      <div class="top"><h2 id="hhs">Soy anfitrión de una fiesta</h2>
+        <button class="go" type="button" data-open="fiestas">Pre-cotizar mi evento gratis →</button></div>
       <div class="body">
-        <div class="key"><img class="em" src="img/e_check_mark_button.webp" alt=""><span><b>Calcula el $ de tu fiesta</b> gratis</span></div>
-        <div class="build"><div class="tape"></div><div class="in"><span>🚧 Por ahora es una demostración con precios de ejemplo. Los precios reales llegan con los proveedores fundadores.</span><div class="cd" id="cd"></div></div></div>
-        <div class="perks"><b>Calcula el costo de tu fiesta a partir del 1º de noviembre de 2026 y obtén:</b>
-          <ul><li><img class="em" src="img/e_hundred_points.webp" alt=""><span>Costos promedio de servicios, venues y event planners, <b>gratis</b>.</span></li><li><img class="em" src="img/e_light_bulb.webp" alt=""><span>Guía en la administración de servicios y presupuestos, <b>sin costo</b>.</span></li><li><img class="em" src="img/e_handshake.webp" alt=""><span>Contactos de proveedores interesados en tu evento a <b>precio preferencial</b>.</span></li></ul></div>
+        <span class="ben-t">Beneficios</span>
+        <p class="ben-lead" style="margin:0">Calcula el costo de tu evento a partir del <b>1º de noviembre de 2026</b>, conviértete en <b>miembro fundador</b> y obtén <b>totalmente gratis</b>:</p>
+        <ul class="bens">
+          <li><img class="em" src="img/e_money_bag.webp" alt=""><span><b>Presupuesto en minutos</b>Descubre cuánto podría costar tu evento de forma rápida, sencilla y gratuita.</span></li>
+          <li><img class="em" src="img/e_bar_chart.webp" alt=""><span><b>Precios reales, estimaciones confiables</b>Obtén un cálculo basado en el promedio de precios publicados por proveedores reales.</span></li>
+          <li><img class="em" src="img/e_stopwatch.webp" alt=""><span><b>Ahorra tiempo</b>Evita saturarte con múltiples cotizaciones para conocer los precios del mercado.</span></li>
+          <li><img class="em" src="img/e_bullseye.webp" alt=""><span><b>Planea a tu medida</b>Personaliza servicios, cantidades e invitados para ajustar tu evento a tu presupuesto.</span></li>
+          <li><img class="em" src="img/e_handshake.webp" alt=""><span><b>Decide con confianza</b>Compara escenarios, toma decisiones informadas y encuentra proveedores que se ajusten a tus necesidades.</span></li>
+        </ul>
+        <div class="emph"><strong>Y conecta con proveedores 100% listos para atender tu evento, directo en tu WhatsApp.</strong><small>Beneficio exclusivo · Tarifa preferencial</small></div>
+        <div class="fnd"><img src="img/b_fundador.webp" alt="Insignia de miembro fundador"><div style="display:grid;gap:6px"><b>Serías el anfitrión 128 de 500 de nuestros miembros fundadores</b><div class="bar"><i style="width:26%"></i></div><span class="hint">Lugares de ejemplo</span></div></div>
         <div class="kinds"><span class="lab">Te ayudamos con</span><div class="ks"><span class="k"><img class="em" src="img/e_birthday_cake.webp" alt="">Todo tipo de eventos sociales</span><span class="k"><img class="em" src="img/e_briefcase.webp" alt="">Todo tipo de eventos corporativos</span></div></div>
-        <button class="conc" type="button" data-conc="anfitrion"><img class="em lg" src="img/e_stopwatch.webp" alt=""><span><b>¿Sin tiempo? Organízamelo</b>Un experto arma tu fiesta contigo por WhatsApp, llamada o Zoom.</span></button>
       </div>
     </section>
+    <div class="beta" id="beta" hidden role="dialog" aria-modal="true" aria-labelledby="betaT"><div class="bx"><div class="tape"></div><div class="in">
+      <b id="betaT" style="font-size:19px">🚧 Estamos en versión beta</b>
+      <span>Por ahora el cotizador funciona con precios de ejemplo. Los precios reales llegan con nuestros proveedores fundadores el 1º de noviembre.</span>
+      <div class="cd" id="cd"></div>
+      <button class="btn host" type="button" id="betaOk" style="justify-self:stretch">Entendido. Probar versión beta</button></div></div></div>
   </div>
 </main>
 
@@ -300,6 +350,10 @@ drawCd();setInterval(drawCd,1000);
 const doors=$("doors");
 function goSide(s){const el=s==="hs"?$("d-hs"):s==="pv"?$("d-pv"):$("d-neu");doors.scrollTo({left:el.offsetLeft-doors.offsetLeft,behavior:"smooth"});track("home_switch",{lado:s});}
 document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>goSide(b.dataset.go));
+let betaShown=false;function betaSoon(){if(betaShown)return;betaShown=true;setTimeout(()=>{if(U.view!=="home"||!$("journey").hidden)return;$("beta").hidden=false;$("betaOk").focus();track("beta_popup");},1200);}
+$("betaOk").onclick=()=>{$("beta").hidden=true;};
+(()=>{const hs=$("d-hs");if(!hs)return;hs.addEventListener("pointerenter",e=>{if(e.pointerType==="mouse")betaSoon();});hs.addEventListener("focusin",betaSoon);
+ const sw=$("swt");new MutationObserver(()=>{if(sw.dataset.s==="hs")betaSoon();}).observe(sw,{attributes:true,attributeFilter:["data-s"]});})();
 function syncSwitch(){const w=doors.clientWidth||1,i=Math.round(doors.scrollLeft/w);$("swt").dataset.s=["pv","neutral","hs"][i]||"neutral";}
 doors.addEventListener("scroll",()=>requestAnimationFrame(syncSwitch),{passive:true});
 function centerNeutral(){if(matchMedia("(max-width:860px)").matches){const n=$("d-neu");doors.scrollLeft=n.offsetLeft-doors.offsetLeft;syncSwitch();}}
@@ -331,7 +385,9 @@ addEventListener("message",e=>{const d=e.data||{};if(!d.hqv)return;
  if(d.hqv==="track"){(window.dataLayer=window.dataLayer||[]).push({event:d.evento,...(d.datos||{})});return;}
  if(d.hqv==="invitado"){if(!U.account){U.account="invitado";U.name=d.nombre||"";}else if(d.nombre&&!U.name)U.name=d.nombre;drawTop();return;}
  if(d.hqv==="concierge"){closeJourney();concierge(d.lado);return;}
- if(d.hqv==="fiesta-lista"){if(!U.account)U.account="invitado";if(d.nombre&&!U.name)U.name=d.nombre;U.sides.fiestas=true;
+ if(d.hqv==="fiesta-lista"){if(d.nombre&&!U.name)U.name=d.nombre;track("cta_pre_cotizacion",{cta:d.cta||"guardar"});
+  if(U.account!=="cuenta"){accountModal(()=>saveFiesta(d),"",null);return;}saveFiesta(d);return;}
+ if(d.hqv==="__nunca__"){
   let ev;const old=U.editing&&U.events.find(x=>x.id===U.editing);
   if(old){const nv=newEvent(d.fiesta);Object.assign(old,{f:nv.f,provs:nv.provs,interes:nv.interes});ev=old;}else{ev=newEvent(d.fiesta);U.events.unshift(ev);}U.editing=null;U.tab="fiestas";U.eventId=ev.id;closeJourney();show("acct");confetti();
   inbox("fiestas",`🎉 Tu ${ev.f.occ.toLowerCase()} quedó guardada. Ya hay ${ev.interes} proveedores interesados cerca de ti.`);
@@ -391,7 +447,7 @@ function drawAcct(){const a=$("acct");
  drawPerfil(p);}
 
 function drawInvite(p,k){const fs=k==="fiestas";
- p.innerHTML=`<div class="box" style="max-width:620px;background:${fs?"var(--host)":"var(--prov)"};color:${fs?"#14000F":"#fff"}">
+ p.innerHTML=`<div class="box" style="max-width:620px;background:${fs?"var(--host)":"var(--prov)"};color:#fff">
   <img src="img/${fs?"c_05":"c_01"}.webp" alt="" style="width:120px">
   <h2 style="font-size:28px">${fs?"¿Vas a celebrar algo?":"¿Tienes un negocio de fiestas?"}</h2>
   <span>${fs?"Calcula gratis cuánto cuesta tu fiesta y encuentra a los proveedores que sí cumplen lo que pides.":"Crea tu sitio web gratis para siempre y recibe clientes reales por WhatsApp."}</span>
@@ -525,20 +581,36 @@ function bindPlanner(e){const P=e.planner;clearInterval(pTick);
 
 /* ---------- Pago (anfitrión) con cuenta prellenada ---------- */
 function startPay(e,kind){if(U.account==="cuenta")return payModal(e,kind);accountModal(()=>payModal(e,kind),"Para pagar y guardar tu fiesta en cualquier dispositivo, confirma tus datos.");}
-function accountModal(next,why){const m=$("modal");
- m.innerHTML=`<form class="sheet" id="acF" novalidate><img src="img/ball.webp" alt="" style="width:70px"><h2>Guarda tu cuenta</h2><span class="hint">${esc(why)}</span>
+/* Guarda la pre-cotización en la cuenta (ya creada) y abre un onboarding corto antes de cualquier pago */
+function saveFiesta(d){U.sides.fiestas=true;let ev;const old=U.editing&&U.events.find(x=>x.id===U.editing);
+ if(old){const nv=newEvent(d.fiesta);old.versions=old.versions||[{f:old.f,t:old.t||now()}];old.versions.unshift({f:nv.f,t:now()});Object.assign(old,{f:nv.f,provs:nv.provs,interes:nv.interes});ev=old;}
+ else{ev=newEvent(d.fiesta);ev.versions=[{f:ev.f,t:now()}];ev.cta=d.cta||"guardar";U.events.unshift(ev);}
+ U.editing=null;U.tab="fiestas";U.eventId=ev.id;closeJourney();show("acct");confetti();
+ inbox("fiestas",`📄 Te enviamos la pre-cotización de «${ev.f.nombre||ev.f.occ}» a tu correo, con un botón para mandártela a tu WhatsApp.`);
+ onboarding(ev);}
+function onboarding(ev){const m=$("modal"),f=ev.f,txt=encodeURIComponent(`Mi pre-cotización de ¡Hay que vernos!: ${f.nombre||f.occ} · ${f.guests} invitados · ${money(f.pp)} por persona · total aprox. ${money(f.total)}`);
+ m.innerHTML=`<div class="sheet"><img src="img/ball.webp" alt="" style="width:76px"><h2>¡Listo, ${esc(first(U.name))}! 🎉</h2><span class="hint">Ya tienes tu cuenta de ¡Hay que vernos!. Así funciona:</span>
+  <div class="soft" style="text-align:left;gap:10px">
+   <span>📄 <b>Tu pre-cotización ya va en camino a tu correo</b> en PDF.</span>
+   <span>🗂️ <b>Aquí se guardan tus pre-cotizaciones</b>: si recalculas, guardamos cada versión.</span>
+   <span>🔔 <b>Te avisamos aquí y por correo</b> cuando tu planner o tus proveedores respondan.</span></div>
+  <a class="btn ghost" href="https://wa.me/?text=${txt}" target="_blank" rel="noopener">💬 Enviármela a mi WhatsApp</a>
+  <button class="btn host" type="button" id="obOk">Ver mi fiesta →</button></div>`;
+ m.hidden=false;$("obOk").onclick=()=>{m.hidden=true;};track("onboarding_visto");}
+function accountModal(next,why,onClose){const m=$("modal");
+ m.innerHTML=`<form class="sheet" id="acF" novalidate><img src="img/ball.webp" alt="" style="width:70px"><h2>Crea tu cuenta</h2><span class="hint">${esc(why||"Para recibir en tu WhatsApp / correo tu pre-cotización, sumarte a nuestra comunidad de anfitriones y acceder a beneficios exclusivos.")}</span>
   <div class="field"><label for="acN">Tu nombre</label><input type="text" id="acN" value="${esc(U.name)}" autocomplete="name"></div>
   <div class="field"><label for="acW">Tu WhatsApp</label><input type="tel" id="acW" value="${esc(fmtWa(U.wa))}" inputmode="numeric" placeholder="55 1234 5678" autocomplete="tel-national"></div>
   <div class="field"><label for="acE">Correo</label><input type="email" id="acE" value="${esc(U.email)}" placeholder="tu@correo.com" autocomplete="email"></div>
-  <label class="chk"><input type="checkbox" id="acM"><span>Quiero recibir recordatorios de mis fechas, novedades y promociones. <span class="hint">(opcional)</span></span></label>
+  <label class="chk"><input type="checkbox" id="acM"><span>Quiero recibir pre-cotizaciones, opciones de proveedores y beneficios exclusivos.</span></label>
   <p class="err" id="acErr" hidden></p>
   <button class="btn host" type="submit">Guardar y continuar</button>
-  <p class="legal">Al continuar, tu cuenta invitada se vuelve cuenta de ¡Hay que vernos! con estos datos y aceptas los Términos y el Aviso de privacidad. Para entrar después te mandamos un código, sin contraseñas.</p>
+  <p class="legal">Al continuar se crea tu cuenta de ¡Hay que vernos! con estos datos y aceptas los Términos y el Aviso de privacidad. Para entrar después te mandamos un código, sin contraseñas.</p>
   <button class="pill sm" type="button" id="acX">Ahora no</button></form>`;
- m.hidden=false;$("acX").onclick=()=>m.hidden=true;
+ m.hidden=false;$("acX").onclick=()=>{m.hidden=true;onClose&&onClose();};
  $("acF").onsubmit=ev=>{ev.preventDefault();const n=$("acN").value.trim(),w=$("acW").value.replace(/\D/g,"").slice(-10),em_=$("acE").value.trim(),err=t=>{$("acErr").textContent=t;$("acErr").hidden=false;};
   if(n.length<2)return err("Escribe tu nombre.");if(w.length!==10)return err("Tu WhatsApp debe tener 10 dígitos.");if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em_))return err("Escribe un correo válido, por ejemplo tu@correo.com.");
-  Object.assign(U,{name:n,wa:w,email:em_,account:"cuenta",marketing:$("acM").checked});track("cuenta_creada",{desde:"pago"});drawTop();m.hidden=true;next();};}
+  Object.assign(U,{name:n,wa:w,email:em_,account:"cuenta",marketing:$("acM").checked});track("cuenta_creada",{desde:why?"pago":"pre-cotizacion"});drawTop();m.hidden=true;next();};}
 function payModal(e,kind){const amt=kind==="late"?PR.plannerDespues:e.opts.planner?PR.proveedoresMasPlanner:PR.desbloquearProveedores;
  const what=kind==="late"?"Conexión con event planner":e.opts.planner?"Proveedores + elegir a tu event planner":"Contactos de tus proveedores";
  const m=$("modal");let method="Tarjeta";
@@ -701,5 +773,5 @@ function confetti(){if(matchMedia("(prefers-reduced-motion: reduce)").matches)re
  let f=0;(function tick(){x.clearRect(0,0,c.width,c.height);ps.forEach(p=>{p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.a+=.2;x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillStyle=p.c;x.beginPath();x.roundRect?x.roundRect(-p.r,-p.r/2,p.r*2,p.r,p.r/2):x.rect(-p.r,-p.r/2,p.r*2,p.r);x.fill();x.restore();});
   if(++f<110)requestAnimationFrame(tick);else c.hidden=true;})();}
 
-drawTop();hqvIdeas();track("home_vista");
+drawTop();track("home_vista");
 </script>
