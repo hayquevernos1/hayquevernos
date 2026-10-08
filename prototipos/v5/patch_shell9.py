@@ -53,7 +53,15 @@ CSS = '''
 .home:not([data-s="neutral"]) .hhero{padding-block:0 6px}
 .home:not([data-s="neutral"]) .hhero img.big{width:min(220px,50vw)}
 .home:not([data-s="neutral"]) .hhero h1{font-size:clamp(20px,2.6vw,26px)}
-.home .doors{display:block!important;overflow:visible!important;margin-inline:0!important;max-width:640px;margin:0 auto}
+.home .doors{display:block!important;overflow:visible!important;margin-inline:auto!important;max-width:1120px!important;width:100%}
+/* zona enfática: que no parezca botón */
+@media (min-width:861px){
+.home .door .emph{background:var(--grape-soft,#ECE3FF);color:var(--ink,#1a1033);box-shadow:none;border-radius:18px;border-left:6px solid var(--prov);padding:14px 16px 14px 18px}
+.home .door.hs .emph{background:#E3ECFF;border-left-color:var(--host)}
+.home .door.pv .emph strong{color:#4A13A8}.home .door.hs .emph strong{color:#0B3FB0}
+.home .door .emph small{color:var(--muted);opacity:1}
+}
+@media (min-width:861px){.home .door .emph strong{font-size:18px}.home .door .top{padding-top:18px}}
 .home .doors>*{display:none!important;padding-inline:0!important}
 .home[data-s="pv"] #d-pv,.home[data-s="hs"] #d-hs{display:grid!important;animation:hqvIn .35s ease-out}
 @keyframes hqvIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
@@ -82,5 +90,34 @@ s, n = re.subn(r'function syncSwitch\(\)\{.*?\naddEventListener\("load",centerNe
 })();
 ''', s, count=1, flags=re.S)
 assert n == 1, 'syncSwitch'
+
+# ---------- escritorio: puertas a todo lo ancho, sin caja, en dos columnas
+s = s.replace('      <div class="body">\n', '      <div class="body"><div class="main">\n')
+s = s.replace('        <div class="emph">', '        </div><div class="side"><div class="emph">')
+s, n = re.subn(r'(<div class="kinds">.*?</div></div>)\n      </div>\n    </section>', r'\1</div>\n      </div>\n    </section>', s, flags=re.S)
+assert n == 2, 'kinds ' + str(n)
+CSS2 = """
+.door .body>.main,.door .body>.side{display:contents}
+.home .door .body>.main,.home .door .body>.side{box-shadow:none!important;background:none!important;border:0!important;padding:0!important;border-radius:0!important}
+.home .door .top{position:static!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;z-index:auto}
+@media (min-width:861px){
+ .home .doors{max-width:none!important;width:100%}
+ .home .door{background:none!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important}
+ .home .door .top,.home .door .body{background:none!important}
+ .home .door .top{justify-items:center;text-align:center;padding:8px 0 26px}
+ .home .door .top h2{font-size:clamp(30px,3.4vw,44px)}
+ .home .door .go{justify-self:center;width:min(620px,100%)}
+ .home .door .body{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);column-gap:56px;align-items:start;padding:0 0 40px}
+ .home .door .body>.main,.home .door .body>.side{display:grid;gap:16px;align-content:start}
+ .home .door .bens{gap:16px}
+ .home .door .fnd,.home .door .kinds{background:var(--card);border-radius:22px;box-shadow:var(--hqv-clay-sm);padding:16px 18px}
+}
+"""
+CSS2 += """
+/* sin resaltado amarillo: énfasis con el color de cada lado */
+.ben-lead b{background:none!important;padding:0!important;border-radius:0!important;font-weight:900}
+.door.pv .ben-lead b{color:#6B1FE0}.door.hs .ben-lead b{color:var(--host)}
+"""
+s = s.replace('/* ===== Home v7:', CSS2 + '/* ===== Home v7:')
 P.write_text(s)
 print('shell9 home ok')

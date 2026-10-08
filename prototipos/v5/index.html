@@ -244,6 +244,26 @@ input[type=text],input[type=tel],input[type=email],input[type=date]{width:100%;m
 .beta .bx .in{padding:18px;display:grid;gap:12px;font-size:14.5px}
 .beta .bx .tape{height:12px;background:repeating-linear-gradient(-45deg,#FAFA19 0 12px,#000 12px 24px)}
 .hqv-ideas{display:none!important}
+
+.door .body>.main,.door .body>.side{display:contents}
+.home .door .body>.main,.home .door .body>.side{box-shadow:none!important;background:none!important;border:0!important;padding:0!important;border-radius:0!important}
+.home .door .top{position:static!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;z-index:auto}
+@media (min-width:861px){
+ .home .doors{max-width:none!important;width:100%}
+ .home .door{background:none!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important}
+ .home .door .top,.home .door .body{background:none!important}
+ .home .door .top{justify-items:center;text-align:center;padding:8px 0 26px}
+ .home .door .top h2{font-size:clamp(30px,3.4vw,44px)}
+ .home .door .go{justify-self:center;width:min(620px,100%)}
+ .home .door .body{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);column-gap:56px;align-items:start;padding:0 0 40px}
+ .home .door .body>.main,.home .door .body>.side{display:grid;gap:16px;align-content:start}
+ .home .door .bens{gap:16px}
+ .home .door .fnd,.home .door .kinds{background:var(--card);border-radius:22px;box-shadow:var(--hqv-clay-sm);padding:16px 18px}
+}
+
+/* sin resaltado amarillo: énfasis con el color de cada lado */
+.ben-lead b{background:none!important;padding:0!important;border-radius:0!important;font-weight:900}
+.door.pv .ben-lead b{color:#6B1FE0}.door.hs .ben-lead b{color:var(--host)}
 /* ===== Home v7: héroe + switch en todas las pantallas ===== */
 .home .hhero{display:grid;justify-items:center;text-align:center;gap:10px;padding-block:10px 18px;transition:all .3s}
 .home .hhero img.big{width:min(420px,72vw);height:auto;filter:drop-shadow(0 10px 22px rgba(65,20,95,.18))}
@@ -268,7 +288,15 @@ input[type=text],input[type=tel],input[type=email],input[type=date]{width:100%;m
 .home:not([data-s="neutral"]) .hhero{padding-block:0 6px}
 .home:not([data-s="neutral"]) .hhero img.big{width:min(220px,50vw)}
 .home:not([data-s="neutral"]) .hhero h1{font-size:clamp(20px,2.6vw,26px)}
-.home .doors{display:block!important;overflow:visible!important;margin-inline:0!important;max-width:640px;margin:0 auto}
+.home .doors{display:block!important;overflow:visible!important;margin-inline:auto!important;max-width:1120px!important;width:100%}
+/* zona enfática: que no parezca botón */
+@media (min-width:861px){
+.home .door .emph{background:var(--grape-soft,#ECE3FF);color:var(--ink,#1a1033);box-shadow:none;border-radius:18px;border-left:6px solid var(--prov);padding:14px 16px 14px 18px}
+.home .door.hs .emph{background:#E3ECFF;border-left-color:var(--host)}
+.home .door.pv .emph strong{color:#4A13A8}.home .door.hs .emph strong{color:#0B3FB0}
+.home .door .emph small{color:var(--muted);opacity:1}
+}
+@media (min-width:861px){.home .door .emph strong{font-size:18px}.home .door .top{padding-top:18px}}
 .home .doors>*{display:none!important;padding-inline:0!important}
 .home[data-s="pv"] #d-pv,.home[data-s="hs"] #d-hs{display:grid!important;animation:hqvIn .35s ease-out}
 @keyframes hqvIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
@@ -297,7 +325,7 @@ body:has(#home:not([hidden])) .top .logo{visibility:hidden}
     <section class="door pv" id="d-pv" aria-labelledby="hpv">
       <div class="top"><h2 id="hpv">Soy proveedor de fiestas</h2>
         <button class="go" type="button" data-open="negocio">Crear mi sitio web gratis →</button></div>
-      <div class="body">
+      <div class="body"><div class="main">
         <span class="ben-t">Beneficios</span>
         <p class="ben-lead" style="margin:0">Crea tu sitio web antes del <b>1º de noviembre de 2026</b>, conviértete en <b>miembro fundador</b> y obtén <b>totalmente gratis</b>:</p>
         <ul class="bens">
@@ -307,16 +335,16 @@ body:has(#home:not([hidden])) .top .logo{visibility:hidden}
           <li><img class="em" src="img/e_camera_with_flash.webp" alt=""><span><b>Escaparate digital 24/7</b>Exhibe tus servicios, paquetes, fotografías y trabajos anteriores en cualquier momento.</span></li>
           <li><img class="em" src="img/e_rocket.webp" alt=""><span><b>Crecimiento de tu negocio</b>Promociona tus servicios, facilita el contacto y conecta con clientes que están organizando eventos.</span></li>
         </ul>
-        <div class="emph"><strong>Y recibe pre-cotizaciones perfectamente calculadas de clientes 100% reales, listos para contratarte, directo en tu WhatsApp.</strong><small>Beneficio exclusivo · Tarifa preferencial</small></div>
+        </div><div class="side"><div class="emph"><strong>Y recibe pre-cotizaciones perfectamente calculadas de clientes 100% reales, listos para contratarte, directo en tu WhatsApp.</strong><small>Beneficio exclusivo · Tarifa preferencial</small></div>
         <div class="fnd"><img src="img/b_fundador.webp" alt="Insignia de miembro fundador"><div style="display:grid;gap:6px"><b>Serías el proveedor 38 de 100 de nuestros miembros fundadores</b><div class="bar"><i style="width:37%"></i></div><span class="hint">Lugares de ejemplo</span></div></div>
         <div class="kinds"><span class="lab">Diseñado para</span><div class="ks"><span class="k"><img class="em" src="img/e_balloon.webp" alt="">Proveedores de servicios</span><span class="k"><img class="em" src="img/e_house.webp" alt="">Venues</span><span class="k"><img class="em" src="img/e_magic_wand.webp" alt="">Event planners</span></div>
-          <div class="ks"><span class="k"><img class="em" src="img/e_birthday_cake.webp" alt="">Eventos sociales</span><span class="k"><img class="em" src="img/e_briefcase.webp" alt="">Eventos corporativos</span></div></div>
+          <div class="ks"><span class="k"><img class="em" src="img/e_birthday_cake.webp" alt="">Eventos sociales</span><span class="k"><img class="em" src="img/e_briefcase.webp" alt="">Eventos corporativos</span></div></div></div>
       </div>
     </section>
     <section class="door hs" id="d-hs" aria-labelledby="hhs">
       <div class="top"><h2 id="hhs">Soy anfitrión de una fiesta</h2>
         <button class="go" type="button" data-open="fiestas">Pre-cotizar mi evento gratis →</button></div>
-      <div class="body">
+      <div class="body"><div class="main">
         <span class="ben-t">Beneficios</span>
         <p class="ben-lead" style="margin:0">Calcula el costo de tu evento a partir del <b>1º de noviembre de 2026</b>, conviértete en <b>miembro fundador</b> y obtén <b>totalmente gratis</b>:</p>
         <ul class="bens">
@@ -326,9 +354,9 @@ body:has(#home:not([hidden])) .top .logo{visibility:hidden}
           <li><img class="em" src="img/e_bullseye.webp" alt=""><span><b>Planea a tu medida</b>Personaliza servicios, cantidades e invitados para ajustar tu evento a tu presupuesto.</span></li>
           <li><img class="em" src="img/e_handshake.webp" alt=""><span><b>Decide con confianza</b>Compara escenarios, toma decisiones informadas y encuentra proveedores que se ajusten a tus necesidades.</span></li>
         </ul>
-        <div class="emph"><strong>Y conecta con proveedores 100% listos para atender tu evento, directo en tu WhatsApp.</strong><small>Beneficio exclusivo · Tarifa preferencial</small></div>
+        </div><div class="side"><div class="emph"><strong>Y conecta con proveedores 100% listos para atender tu evento, directo en tu WhatsApp.</strong><small>Beneficio exclusivo · Tarifa preferencial</small></div>
         <div class="fnd"><img src="img/b_fundador.webp" alt="Insignia de miembro fundador"><div style="display:grid;gap:6px"><b>Serías el anfitrión 128 de 500 de nuestros miembros fundadores</b><div class="bar"><i style="width:26%"></i></div><span class="hint">Lugares de ejemplo</span></div></div>
-        <div class="kinds"><span class="lab">Te ayudamos con</span><div class="ks"><span class="k"><img class="em" src="img/e_birthday_cake.webp" alt="">Todo tipo de eventos sociales</span><span class="k"><img class="em" src="img/e_briefcase.webp" alt="">Todo tipo de eventos corporativos</span></div></div>
+        <div class="kinds"><span class="lab">Te ayudamos con</span><div class="ks"><span class="k"><img class="em" src="img/e_birthday_cake.webp" alt="">Todo tipo de eventos sociales</span><span class="k"><img class="em" src="img/e_briefcase.webp" alt="">Todo tipo de eventos corporativos</span></div></div></div>
       </div>
     </section>
     <div class="beta" id="beta" hidden role="dialog" aria-modal="true" aria-labelledby="betaT"><div class="bx"><div class="tape"></div><div class="in">
