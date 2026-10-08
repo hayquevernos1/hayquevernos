@@ -1,0 +1,811 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¡Hay que vernos!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap">
+<style>
+/* Layout: un solo sitio (home de dos puertas → journeys sin cuenta → cuenta de dos lados). Tokens de marca en marca.css. */
+:root{--prov:var(--hqv-morado);--host:var(--hqv-azul);--ok:#00A86B;--glass:rgba(255,255,255,.55)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--hqv-fuente);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;text-wrap:balance;line-height:1.1}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--grape);outline-offset:2px}
+.em{width:1.35em;height:1.35em;vertical-align:-.3em;object-fit:contain}
+.em.lg{width:40px;height:40px}
+.hint{font-size:13px;color:var(--muted)}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:16px}
+
+/* Barra de prototipo */
+.proto{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--muted);padding:6px 16px}
+.proto b{border-radius:99px;padding:2px 10px;font-size:11px;letter-spacing:.05em}
+.proto .sp{flex:1}
+
+/* Encabezado */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px)}
+.top .in{display:flex;align-items:center;gap:10px;padding-block:8px}
+.top .logo{height:44px;width:auto;cursor:pointer}
+.top .sp{flex:1}
+.pill{border:0;border-radius:99px;padding:9px 16px;font-weight:800;background:var(--card);box-shadow:var(--hqv-clay-sm);display:inline-flex;align-items:center;gap:6px;font-size:14px}
+.pill.primary{background:var(--grape);color:#fff}
+.pill.host{background:var(--host);color:#fff}
+.pill.sm{padding:6px 12px;font-size:13px}
+.avatar{width:42px;height:42px;border-radius:50%;border:0;background:var(--grape);color:#fff;font-weight:900;font-size:17px;display:grid;place-items:center;box-shadow:var(--hqv-clay-sm);position:relative;padding:0}
+.avatar .tag{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);font-size:9px;background:var(--hqv-vainilla);color:#3A2E00;border-radius:99px;padding:0 6px;font-weight:900;white-space:nowrap}
+.bell{position:relative}
+.badge{position:absolute;top:-4px;right:-4px;background:var(--host);color:#fff;font-size:11px;font-weight:900;border-radius:99px;min-width:18px;height:18px;display:grid;place-items:center;padding:0 4px}
+
+/* HOME */
+.home{padding-block:8px 80px}
+.hh{display:grid;justify-items:center;text-align:center;gap:6px;padding-block:6px 18px}
+.hh h1{font-size:clamp(26px,4.2vw,40px);font-weight:900}
+.hh p{margin:0;color:var(--muted)}
+.doors{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:start}
+.seam{align-self:center;display:grid;justify-items:center;gap:4px;font-weight:900;color:var(--muted)}
+.seam img{width:64px}
+.doors .door{background:var(--card);border-radius:32px;box-shadow:var(--hqv-clay);overflow:hidden;display:grid;align-content:start;min-width:0}
+.door .band{padding:22px;display:grid;gap:12px;position:relative;overflow:hidden}
+.door.pv .band{background:var(--prov);color:#fff}
+.door.hs .band{background:var(--host);color:#fff}
+.door .eye{font-size:12px;font-weight:900;letter-spacing:.08em}
+.door h2{font-size:clamp(28px,3.2vw,38px);font-weight:900;max-width:12ch;position:relative;z-index:1}
+.door .go{border:0;border-radius:99px;padding:15px 20px;background:#fff;font-weight:900;font-size:18px;box-shadow:var(--hqv-clay-sm);position:relative;z-index:1;justify-self:start}
+.door.pv .go{background:var(--prov);color:#fff}.door.hs .go{background:var(--host);color:#fff}
+.door .disc{font-size:12.5px;font-weight:700;opacity:.92;position:relative;z-index:1}
+.door .mascot{position:absolute;right:-6px;bottom:-10px;width:120px;z-index:0;filter:drop-shadow(0 8px 14px rgba(0,0,0,.18))}
+.door .body{padding:18px 22px 22px;display:grid;gap:14px}
+.key{font-size:16px;display:flex;gap:8px;align-items:center}
+.bar{height:12px;border-radius:99px;background:var(--line);overflow:hidden;box-shadow:inset 1px 2px 4px rgba(65,20,95,.15)}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--hqv-lima)}
+.slots .n{font-size:24px;font-weight:900}
+.perks b{font-size:14px}
+.perks ul{margin:6px 0 0;padding:0;list-style:none;display:grid;gap:6px;font-size:14px}
+.perks li{display:flex;gap:8px}
+.kinds .lab{font-size:11.5px;font-weight:900;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+.ks{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.k{background:var(--paper);border-radius:99px;padding:6px 12px;font-size:13px;font-weight:700;display:flex;gap:6px;align-items:center}
+.build{border-radius:20px;overflow:hidden;background:var(--hqv-vainilla);color:#2A2200}
+.build .tape{height:10px;background:repeating-linear-gradient(-45deg,#FAFA19 0 12px,#000 12px 24px)}
+.build .in{padding:12px 14px;display:grid;gap:10px;font-size:13.5px}
+.cd{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center}
+.cd div{background:#fff;border-radius:16px;padding:6px 0;box-shadow:var(--hqv-clay-sm)}
+.cd b{display:block;font-size:22px;font-weight:900;font-variant-numeric:tabular-nums;line-height:1.1}
+.cd span{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#5E5470}
+.conc{border:0;background:var(--paper);border-radius:20px;padding:12px 14px;text-align:left;display:flex;gap:10px;align-items:center;font-size:13.5px;box-shadow:var(--hqv-clay-sm)}
+.conc b{display:block;font-size:14px}
+
+/* Switch (solo celular) */
+.sw{display:none}
+@media (max-width:860px){
+ .doors{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:-16px}
+ .doors::-webkit-scrollbar{display:none}
+ .doors>*{flex:0 0 100%;scroll-snap-align:center;padding-inline:16px}
+ .doors .door{border-radius:28px}
+ .seam{display:none}
+ .neutral{display:grid!important}
+ .sw{display:block;position:sticky;top:calc(env(safe-area-inset-top,0px) + 60px);z-index:15;padding-block:4px 12px}
+ .hh{padding-block:2px 10px}
+}
+.neutral{display:none;align-content:center;justify-items:center;text-align:center;gap:14px;min-height:62vh}
+.neutral img.b{width:150px;animation:bob 3s ease-in-out infinite}
+.neutral .arrows{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+@keyframes bob{50%{transform:translateY(-8px)}}
+.swt{position:relative;display:grid;grid-template-columns:1fr 56px 1fr;align-items:center;background:var(--card);border-radius:99px;box-shadow:var(--hqv-clay);padding:6px;max-width:480px;margin:0 auto}
+.swt button{border:0;background:none;font-weight:900;font-size:14px;padding:10px 6px;border-radius:99px;position:relative;z-index:1}
+.swt .knob{position:absolute;top:50%;left:50%;width:52px;height:52px;margin:-26px 0 0 -26px;transition:left .35s cubic-bezier(.3,1.4,.5,1);z-index:2;pointer-events:none}
+.swt .knob img{width:100%;filter:drop-shadow(0 4px 8px rgba(65,20,95,.3))}
+.swt[data-s="pv"] .knob{left:34px}
+.swt[data-s="hs"] .knob{left:calc(100% - 34px)}
+.swt[data-s="pv"] .l{color:var(--prov)}
+.swt[data-s="hs"] .r{color:var(--host)}
+
+/* Journey a pantalla completa */
+.journey{position:fixed;inset:0;z-index:30;background:var(--paper);display:grid;grid-template-rows:auto 1fr}
+.journey header{display:flex;align-items:center;gap:10px;padding:8px 16px;padding-top:calc(8px + env(safe-area-inset-top,0px));background:var(--card);box-shadow:0 4px 14px rgba(65,20,95,.08)}
+.journey header img{height:34px;width:auto}
+.journey header .sp{flex:1}
+.journey iframe{width:100%;height:100%;border:0;background:var(--paper)}
+.save-note{font-size:12.5px;font-weight:800;color:var(--muted)}
+
+/* CUENTA */
+.acct{padding-block:6px 90px;display:grid;gap:16px}
+.hello{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.hello h1{font-size:clamp(24px,3.6vw,32px);font-weight:900}
+.hello .lvl{width:46px}
+.tag2{font-size:12px;font-weight:900;border-radius:99px;padding:3px 10px;background:var(--hqv-vainilla);color:#3A2E00}
+.tag2.ok{background:var(--hqv-menta);color:#003D30}
+.tabs{display:flex;gap:6px;background:var(--card);border-radius:99px;padding:6px;box-shadow:var(--hqv-clay-sm);width:fit-content;max-width:100%;overflow-x:auto}
+.tab{border:0;background:none;border-radius:99px;padding:9px 16px;font-weight:900;white-space:nowrap;display:flex;gap:6px;align-items:center}
+.tab[aria-selected="true"].fs{background:var(--host);color:#fff}
+.tab[aria-selected="true"].nb{background:var(--prov);color:#fff}
+.tab[aria-selected="true"].sh{background:var(--ink);color:var(--paper)}
+.tab .new{font-size:10px;background:var(--hqv-lima);color:#1A2600;border-radius:99px;padding:1px 7px}
+.grid2{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:860px){.grid2{grid-template-columns:1fr}}
+@media (max-width:520px){.tab img{display:none}.tab{padding:9px 12px}}
+.box{background:var(--card);border-radius:28px;box-shadow:var(--hqv-clay);padding:20px;display:grid;gap:14px;min-width:0}
+.box h2{font-size:21px;font-weight:900;display:flex;gap:8px;align-items:center}
+.box h3{font-size:17px;font-weight:900}
+.soft{background:var(--paper);border-radius:20px;padding:12px 14px;display:grid;gap:6px}
+.btn{border:0;border-radius:99px;padding:13px 20px;font-weight:900;background:var(--grape);color:#fff;font-size:15.5px;display:inline-flex;justify-content:center;align-items:center;gap:8px;text-decoration:none;box-shadow:var(--hqv-clay-sm)}
+.btn.host{background:var(--host);color:#fff}
+.btn.ghost{background:var(--card);color:var(--ink)}
+.btn.wa{background:#25D366;color:#06301A}
+.btn.sm{padding:8px 14px;font-size:13.5px}
+.btn:disabled{opacity:.5;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.list{display:grid;gap:10px}
+.item{background:var(--paper);border-radius:22px;padding:12px 14px;display:flex;gap:12px;align-items:center;min-width:0}
+.item .grow{flex:1;min-width:0}
+.item b{display:block}
+.st{font-size:12px;font-weight:900;border-radius:99px;padding:3px 10px;white-space:nowrap}
+.st.go{background:var(--hqv-menta);color:#003D30}.st.wait{background:var(--hqv-vainilla);color:#3A2E00}.st.no{background:var(--hqv-niebla);color:#2A2440}.st.new{background:var(--hqv-chicle);color:#5A0048}.st.vis{background:var(--hqv-cielo);color:#00283A}
+.empty{display:grid;justify-items:center;text-align:center;gap:10px;padding:24px 12px}
+.empty img{width:120px}
+
+/* Fiesta */
+.hero{border-radius:32px;background:var(--host);color:#fff;padding:22px;display:grid;gap:4px;position:relative;overflow:hidden;box-shadow:var(--hqv-clay)}
+.hero small{font-weight:800}
+.hero .big{font-size:clamp(44px,8vw,64px);font-weight:900;line-height:1;font-variant-numeric:tabular-nums}
+.hero .tt{font-weight:800}
+.hero img.m{position:absolute;right:8px;bottom:-6px;width:110px}
+.brk{display:grid;gap:6px}
+.brk div{display:flex;justify-content:space-between;gap:10px;font-size:14px;border-radius:14px;padding:7px 10px;background:var(--paper)}
+.brk span:last-child{text-align:right;font-variant-numeric:tabular-nums;font-weight:800}
+.opt{display:flex;gap:12px;align-items:flex-start;border:0;text-align:left;background:var(--paper);border-radius:24px;padding:14px;box-shadow:var(--hqv-clay-sm);width:100%}
+.opt[aria-pressed="true"]{background:var(--hqv-chicle);color:#2A0022}
+.opt .ck{flex:none;width:26px;height:26px;border-radius:9px;background:var(--card);display:grid;place-items:center;font-weight:900;box-shadow:inset 1px 2px 4px rgba(65,20,95,.18)}
+.opt[aria-pressed="true"] .ck{background:var(--ink);color:#fff}
+.opt b{display:block;font-size:15.5px}
+.price{font-size:28px;font-weight:900;font-variant-numeric:tabular-nums}
+.int{display:grid;gap:8px}
+.int .ln{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:14px}
+.blur{filter:blur(5px);user-select:none}
+.prov{background:var(--paper);border-radius:22px;padding:12px;display:grid;gap:8px}
+.prov .tp{display:flex;gap:10px;align-items:center}
+.prov .av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--card);box-shadow:var(--hqv-clay-sm);flex:none;font-weight:900}
+.prov .rk{display:block;font-size:12px;font-weight:900;color:var(--muted)}
+.why{display:flex;flex-wrap:wrap;gap:6px}
+.why span{font-size:12px;font-weight:800;background:var(--card);border-radius:99px;padding:3px 9px}
+.why img{width:18px;height:18px;vertical-align:-4px}
+.svc-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-top:6px}
+.lock{display:flex;gap:10px;align-items:center;background:var(--hqv-vainilla);color:#2A2200;border-radius:20px;padding:10px 14px;font-size:13.5px;font-weight:700}
+.timer{font-variant-numeric:tabular-nums;font-weight:900}
+.steps{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.steps li{display:flex;gap:10px;align-items:center;font-size:14px}
+.steps li i{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:900;background:var(--line);font-size:12px}
+.steps li.done i{background:var(--ok);color:#fff}
+.steps li.now{font-weight:900}
+.steps li.now i{background:var(--host);color:#fff}
+.stars{display:flex;gap:4px}.stars button{border:0;background:none;font-size:28px;line-height:1;padding:2px;filter:grayscale(1);opacity:.45}.stars button[aria-pressed="true"]{filter:none;opacity:1}
+.svq{display:grid;gap:6px;padding:10px 0;border-bottom:1px dashed var(--line)}.svq:last-of-type{border-bottom:0}
+.sim{border:2px dashed var(--line);background:none;border-radius:99px;padding:6px 12px;font-size:12.5px;font-weight:800;color:var(--muted)}
+
+/* Modales */
+.modal{position:fixed;inset:0;z-index:50;background:rgba(18,11,30,.45);display:grid;place-items:center;padding:16px;overflow:auto}
+.sheet{background:var(--card);border-radius:30px;box-shadow:var(--hqv-clay);width:100%;max-width:520px;padding:22px;display:grid;gap:14px;max-height:calc(100% - 8px);overflow:auto}
+.sheet h2{font-size:23px;font-weight:900}
+.field{display:grid;gap:6px}
+.field label,.field .l{font-weight:800;font-size:14px}
+input[type=text],input[type=tel],input[type=email],input[type=date]{width:100%;min-width:0;padding:12px 14px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:0;border-radius:99px;padding:8px 14px;font-weight:800;font-size:13.5px;background:var(--paper);box-shadow:var(--hqv-clay-sm)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.legal{font-size:12px;color:var(--muted);margin:0}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:13.5px}.chk input{width:18px;height:18px;margin-top:2px;accent-color:var(--grape);flex:none}
+.err{color:var(--bad);font-weight:800;font-size:13.5px;margin:0}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);border-radius:20px;padding:11px 18px;font-weight:800;font-size:14px;z-index:60;box-shadow:0 10px 28px rgba(0,0,0,.25);max-width:calc(100% - 32px);text-align:center}
+#conf{position:fixed;inset:0;pointer-events:none;z-index:55}
+.plan{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.plan>div{background:var(--paper);border-radius:22px;padding:14px;display:grid;gap:6px;align-content:start}
+.plan .pro{background:var(--grape);color:#fff}
+.seg{display:flex;background:var(--paper);border-radius:99px;padding:4px;width:fit-content;box-shadow:inset 1px 2px 5px rgba(65,20,95,.15)}
+.seg button{border:0;background:none;border-radius:99px;padding:7px 14px;font-weight:900;font-size:13.5px}
+.seg button[aria-pressed="true"]{background:var(--card);box-shadow:var(--hqv-clay-sm)}
+.badges{display:flex;flex-wrap:wrap;gap:10px}
+.badges figure{margin:0;display:grid;justify-items:center;gap:2px;width:84px;text-align:center;font-size:11.5px;font-weight:800}
+.badges img{width:64px}
+.badges .off img{filter:grayscale(1);opacity:.35}
+
+/* v7 · puertas limpias */
+.door .top{padding:24px 22px 6px;display:grid;gap:14px}
+.door .top h2{max-width:none;font-size:clamp(26px,3vw,34px)}
+.door .go{justify-self:stretch;text-align:center;font-size:19px;padding:18px 20px;box-shadow:0 10px 24px rgba(30,20,90,.28),var(--hqv-clay-sm)}
+.ben-t{font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ben-lead{font-size:15px;line-height:1.4}
+.ben-lead b{background:var(--hqv-vainilla);border-radius:6px;padding:0 4px}
+.bens{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.bens li{display:flex;gap:10px;font-size:14px;line-height:1.35}
+.bens li .em{width:24px;height:24px;flex:none;margin-top:1px}
+.bens li b{display:block;font-size:14.5px}
+.emph{border-radius:22px;padding:16px 18px;display:grid;gap:4px;color:#fff;box-shadow:var(--hqv-clay)}
+.door.pv .emph{background:var(--prov)}.door.hs .emph{background:var(--host)}
+.emph strong{font-size:16.5px;line-height:1.3;font-weight:900}
+.emph small{font-size:12px;font-weight:800;opacity:.9;letter-spacing:.02em}
+.fnd{display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:center;background:var(--paper);border-radius:22px;padding:12px 14px}
+.fnd img{width:56px}
+.fnd b{font-size:15px}
+.fnd .hint{font-size:12px}
+.home .hh p{display:none}
+@media(max-width:860px){.home:has(#swt[data-s="pv"]) .hh,.home:has(#swt[data-s="hs"]) .hh{display:none}}
+.swt{grid-template-columns:1fr 64px 1fr}
+.swt .knob{width:46px;height:46px;margin:-23px 0 0 -23px}
+.swt[data-s="pv"] .knob{left:calc(50% - 1px)}
+.swt[data-s="hs"] .knob{left:calc(50% + 1px)}
+.swt[data-s="pv"] .knob img{transform:translateX(-6px) rotate(-14deg)}
+.swt[data-s="hs"] .knob img{transform:translateX(6px) rotate(14deg)}
+.beta{position:fixed;inset:0;z-index:60;background:rgba(20,10,40,.45);display:grid;place-items:center;padding:16px}
+.beta[hidden]{display:none}
+.beta .bx{background:var(--card);border-radius:28px;max-width:420px;width:100%;overflow:hidden;box-shadow:var(--hqv-clay)}
+.beta .bx .in{padding:18px;display:grid;gap:12px;font-size:14.5px}
+.beta .bx .tape{height:12px;background:repeating-linear-gradient(-45deg,#FAFA19 0 12px,#000 12px 24px)}
+.hqv-ideas{display:none!important}
+/* ===== Home v7: héroe + switch en todas las pantallas ===== */
+.home .hhero{display:grid;justify-items:center;text-align:center;gap:10px;padding-block:10px 18px;transition:all .3s}
+.home .hhero img.big{width:min(420px,72vw);height:auto;filter:drop-shadow(0 10px 22px rgba(65,20,95,.18))}
+.home .hhero h1{font-size:clamp(26px,4.4vw,46px);font-weight:900;margin:0;line-height:1.1}
+.home .sw{display:block!important;position:sticky;top:calc(env(safe-area-inset-top,0px) + 60px);z-index:15;padding-block:4px 14px}
+.home .swt{max-width:520px;padding:8px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.home .swt button{font-size:16px;padding:12px 6px}
+.home .swt .knob{width:58px;height:58px;margin:-29px 0 0 -29px;pointer-events:auto;cursor:grab}
+.home .swt.drag .knob{transition:none;cursor:grabbing}
+.home .swt .knob .ar{position:absolute;top:50%;margin-top:-12px;font-style:normal;font-weight:900;font-size:22px;line-height:24px;color:var(--grape,#7B2FF7);opacity:0}
+.home .swt .knob .ar.l{left:-16px}.home .swt .knob .ar.r{right:-16px}
+.home .swt[data-s="neutral"] .knob img{animation:hqvNudge 2.6s ease-in-out infinite}
+.home .swt[data-s="neutral"] .knob .ar.l{animation:hqvArL 2.6s ease-in-out infinite}
+.home .swt[data-s="neutral"] .knob .ar.r{animation:hqvArR 2.6s ease-in-out infinite}
+@keyframes hqvNudge{0%,100%{transform:none}18%{transform:translateX(-12px) rotate(-14deg)}36%{transform:none}54%{transform:translateX(12px) rotate(14deg)}72%{transform:none}}
+@keyframes hqvArL{0%,100%{opacity:0;transform:none}18%{opacity:1;transform:translateX(-6px)}30%{opacity:0}}
+@keyframes hqvArR{0%,50%,100%{opacity:0;transform:none}54%{opacity:1;transform:translateX(6px)}66%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.home .swt .knob img,.home .swt .knob .ar{animation:none!important}}
+.home .swh{display:grid;justify-items:center;text-align:center;gap:2px;margin-top:14px;font-size:13px;color:var(--muted)}
+.home .swh b{font-size:15px;color:var(--ink,#1a1033)}
+.home:not([data-s="neutral"]) .swh{display:none}
+.home:not([data-s="neutral"]) .hhero{padding-block:0 6px}
+.home:not([data-s="neutral"]) .hhero img.big{width:min(220px,50vw)}
+.home:not([data-s="neutral"]) .hhero h1{font-size:clamp(20px,2.6vw,26px)}
+.home .doors{display:block!important;overflow:visible!important;margin-inline:0!important;max-width:640px;margin:0 auto}
+.home .doors>*{display:none!important;padding-inline:0!important}
+.home[data-s="pv"] #d-pv,.home[data-s="hs"] #d-hs{display:grid!important;animation:hqvIn .35s ease-out}
+@keyframes hqvIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+body:has(#home:not([hidden])) .top .logo{visibility:hidden}
+@media (max-width:860px){.home .hhero{padding-block:4px 12px}.home:not([data-s="neutral"]) .hhero h1{display:none}.home .swt button{font-size:14px}}
+
+</style>
+<link rel="stylesheet" href="marca.css">
+<script src="config.js"></script>
+
+<div class="proto" id="proto"><b style="background:var(--hqv-vainilla);color:#3A2E00">PROTOTIPO v6</b><span>Precios provisionales. No se cobra nada ni se guardan datos.</span><span class="sp"></span><button class="pill sm" type="button" id="demo">Ver con datos de ejemplo</button><button class="pill sm" type="button" id="reset">↺ Empezar de nuevo</button></div>
+
+<header class="top"><div class="wrap in">
+  <img class="logo" id="logoBtn" src="img/logo.webp" alt="¡Hay que vernos! — Inicio" width="900" height="358">
+  <span class="sp"></span>
+  <span id="topRight" class="row"></span>
+</div></header>
+
+<!-- HOME -->
+<main id="home" class="wrap home" data-s="neutral">
+  <div class="hhero"><img class="big" src="img/logo.webp" alt="¡Hay que vernos!" width="900" height="358"><h1>¡Organizar una fiesta ya es la fiesta!</h1></div>
+  <div class="sw"><div class="swt" id="swt" data-s="neutral" role="group" aria-label="Elige tu lado">
+    <button type="button" class="l" data-go="pv">Soy proveedor</button><span></span><button type="button" class="r" data-go="hs">Soy anfitrión</button>
+    <span class="knob"><i class="ar l">‹</i><img src="img/ball.webp" alt="" draggable="false"><i class="ar r">›</i></span></div><div class="swh"><b>Desliza hacia tu lado</b><span>← A la izquierda, si ofreces servicios para fiestas</span><span>A la derecha, si estás organizando una fiesta →</span></div></div>
+  <div class="doors" id="doors">
+    <section class="door pv" id="d-pv" aria-labelledby="hpv">
+      <div class="top"><h2 id="hpv">Soy proveedor de fiestas</h2>
+        <button class="go" type="button" data-open="negocio">Crear mi sitio web gratis →</button></div>
+      <div class="body">
+        <span class="ben-t">Beneficios</span>
+        <p class="ben-lead" style="margin:0">Crea tu sitio web antes del <b>1º de noviembre de 2026</b>, conviértete en <b>miembro fundador</b> y obtén <b>totalmente gratis</b>:</p>
+        <ul class="bens">
+          <li><img class="em" src="img/e_globe_showing_americas.webp" alt=""><span><b>Mayor visibilidad</b>Haz que más clientes te encuentren en internet.</span></li>
+          <li><img class="em" src="img/e_money_bag.webp" alt=""><span><b>Más oportunidades de venta</b>Muestra tus datos de contacto fácilmente y convierte visitantes en clientes potenciales.</span></li>
+          <li><img class="em" src="img/e_sparkles.webp" alt=""><span><b>Imagen profesional</b>Genera confianza, destaca frente a tu competencia y fortalece tu marca.</span></li>
+          <li><img class="em" src="img/e_camera_with_flash.webp" alt=""><span><b>Escaparate digital 24/7</b>Exhibe tus servicios, paquetes, fotografías y trabajos anteriores en cualquier momento.</span></li>
+          <li><img class="em" src="img/e_rocket.webp" alt=""><span><b>Crecimiento de tu negocio</b>Promociona tus servicios, facilita el contacto y conecta con clientes que están organizando eventos.</span></li>
+        </ul>
+        <div class="emph"><strong>Y recibe pre-cotizaciones perfectamente calculadas de clientes 100% reales, listos para contratarte, directo en tu WhatsApp.</strong><small>Beneficio exclusivo · Tarifa preferencial</small></div>
+        <div class="fnd"><img src="img/b_fundador.webp" alt="Insignia de miembro fundador"><div style="display:grid;gap:6px"><b>Serías el proveedor 38 de 100 de nuestros miembros fundadores</b><div class="bar"><i style="width:37%"></i></div><span class="hint">Lugares de ejemplo</span></div></div>
+        <div class="kinds"><span class="lab">Diseñado para</span><div class="ks"><span class="k"><img class="em" src="img/e_balloon.webp" alt="">Proveedores de servicios</span><span class="k"><img class="em" src="img/e_house.webp" alt="">Venues</span><span class="k"><img class="em" src="img/e_magic_wand.webp" alt="">Event planners</span></div>
+          <div class="ks"><span class="k"><img class="em" src="img/e_birthday_cake.webp" alt="">Eventos sociales</span><span class="k"><img class="em" src="img/e_briefcase.webp" alt="">Eventos corporativos</span></div></div>
+      </div>
+    </section>
+    <section class="door hs" id="d-hs" aria-labelledby="hhs">
+      <div class="top"><h2 id="hhs">Soy anfitrión de una fiesta</h2>
+        <button class="go" type="button" data-open="fiestas">Pre-cotizar mi evento gratis →</button></div>
+      <div class="body">
+        <span class="ben-t">Beneficios</span>
+        <p class="ben-lead" style="margin:0">Calcula el costo de tu evento a partir del <b>1º de noviembre de 2026</b>, conviértete en <b>miembro fundador</b> y obtén <b>totalmente gratis</b>:</p>
+        <ul class="bens">
+          <li><img class="em" src="img/e_money_bag.webp" alt=""><span><b>Presupuesto en minutos</b>Descubre cuánto podría costar tu evento de forma rápida, sencilla y gratuita.</span></li>
+          <li><img class="em" src="img/e_bar_chart.webp" alt=""><span><b>Precios reales, estimaciones confiables</b>Obtén un cálculo basado en el promedio de precios publicados por proveedores reales.</span></li>
+          <li><img class="em" src="img/e_stopwatch.webp" alt=""><span><b>Ahorra tiempo</b>Evita saturarte con múltiples cotizaciones para conocer los precios del mercado.</span></li>
+          <li><img class="em" src="img/e_bullseye.webp" alt=""><span><b>Planea a tu medida</b>Personaliza servicios, cantidades e invitados para ajustar tu evento a tu presupuesto.</span></li>
+          <li><img class="em" src="img/e_handshake.webp" alt=""><span><b>Decide con confianza</b>Compara escenarios, toma decisiones informadas y encuentra proveedores que se ajusten a tus necesidades.</span></li>
+        </ul>
+        <div class="emph"><strong>Y conecta con proveedores 100% listos para atender tu evento, directo en tu WhatsApp.</strong><small>Beneficio exclusivo · Tarifa preferencial</small></div>
+        <div class="fnd"><img src="img/b_fundador.webp" alt="Insignia de miembro fundador"><div style="display:grid;gap:6px"><b>Serías el anfitrión 128 de 500 de nuestros miembros fundadores</b><div class="bar"><i style="width:26%"></i></div><span class="hint">Lugares de ejemplo</span></div></div>
+        <div class="kinds"><span class="lab">Te ayudamos con</span><div class="ks"><span class="k"><img class="em" src="img/e_birthday_cake.webp" alt="">Todo tipo de eventos sociales</span><span class="k"><img class="em" src="img/e_briefcase.webp" alt="">Todo tipo de eventos corporativos</span></div></div>
+      </div>
+    </section>
+    <div class="beta" id="beta" hidden role="dialog" aria-modal="true" aria-labelledby="betaT"><div class="bx"><div class="tape"></div><div class="in">
+      <b id="betaT" style="font-size:19px">🚧 Estamos en versión beta</b>
+      <span>Por ahora el cotizador funciona con precios de ejemplo. Los precios reales llegan con nuestros proveedores fundadores el 1º de noviembre.</span>
+      <div class="cd" id="cd"></div>
+      <button class="btn host" type="button" id="betaOk" style="justify-self:stretch">Entendido. Probar versión beta</button></div></div></div>
+  </div>
+</main>
+
+<!-- CUENTA -->
+<main id="acct" class="wrap acct" hidden></main>
+
+<div id="journey" class="journey" hidden><header><button class="pill sm" type="button" id="jBack">← Salir</button><img src="img/logo.webp" alt="¡Hay que vernos!" width="900" height="358"><span class="sp"></span><span class="save-note" id="jNote"></span></header><iframe id="jFrame" title="Journey"></iframe></div>
+<div id="modal" class="modal" hidden></div>
+<canvas id="conf" hidden></canvas>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const C=window.HQV_CONFIG,PR=C.precios,RG=C.reglas;
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const money=n=>"$"+Math.round(n).toLocaleString("es-MX");
+const em=(n,cls="")=>`<img class="em ${cls}" src="img/e_${n}.webp" alt="">`;
+const fmtWa=w=>String(w||"").replace(/(\d{2})(\d{4})(\d{4})/,"$1 $2 $3");
+const first=n=>String(n||"").trim().split(" ")[0];
+const track=(e,d)=>window.hqvTrack&&hqvTrack(e,d);
+let tt;function toast(m){const t=$("toast");t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,4600);}
+
+/* ======================= ESTADO (en memoria) ======================= */
+const fresh=()=>({account:null, /* null | "invitado" | "cuenta" */
+ name:"",wa:"",email:"",zona:"Álvaro Obregón",marketing:false,
+ sides:{fiestas:false,negocio:false},events:[],agenda:[],site:null,plan:"gratis",founder:null,
+ inbox:[],blocked:[],postul:[],solicitudes:[],view:"home",tab:"fiestas",eventId:null});
+let U=fresh();
+const now=()=>Date.now();
+
+/* ======================= HOME ======================= */
+const LAUNCH=new Date(C.lanzamiento);
+function drawCd(){const el=$("cd");if(!el)return;const ms=Math.max(0,LAUNCH-new Date()),v=[Math.floor(ms/864e5),Math.floor(ms/36e5)%24,Math.floor(ms/6e4)%60,Math.floor(ms/1e3)%60];
+ el.innerHTML=v.map((x,i)=>`<div><b>${i?String(x).padStart(2,"0"):x}</b><span>${["días","horas","min","seg"][i]}</span></div>`).join("");}
+drawCd();setInterval(drawCd,1000);
+const doors=$("doors");
+function goSide(s,quiet){$("home").dataset.s=s;$("swt").dataset.s=s;if(!quiet)track("home_switch",{lado:s});
+ if(s!=="neutral"){const sw=document.querySelector(".home .sw");setTimeout(()=>{const y=sw.getBoundingClientRect().top+scrollY-70;if(scrollY>y)scrollTo({top:y,behavior:"smooth"});},40);}}
+document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>goSide(b.dataset.go));
+let betaShown=false;function betaSoon(){if(betaShown)return;betaShown=true;setTimeout(()=>{if(U.view!=="home"||!$("journey").hidden)return;$("beta").hidden=false;$("betaOk").focus();track("beta_popup");},1200);}
+$("betaOk").onclick=()=>{$("beta").hidden=true;};
+(()=>{const hs=$("d-hs");if(!hs)return;hs.addEventListener("pointerenter",e=>{if(e.pointerType==="mouse")betaSoon();});hs.addEventListener("focusin",betaSoon);
+ const sw=$("swt");new MutationObserver(()=>{if(sw.dataset.s==="hs")betaSoon();}).observe(sw,{attributes:true,attributeFilter:["data-s"]});})();
+function centerNeutral(){}
+(()=>{const sw=$("swt");let x0=null,dx=0,moved=false;
+ sw.addEventListener("pointerdown",e=>{x0=e.clientX;dx=0;moved=false;});
+ addEventListener("pointermove",e=>{if(x0===null)return;dx=e.clientX-x0;if(Math.abs(dx)>8){moved=true;sw.classList.add("drag");
+  const r=sw.getBoundingClientRect(),k=sw.querySelector(".knob"),half=r.width/2-36;k.style.left=`calc(50% + ${Math.max(-half,Math.min(half,dx))}px)`;}});
+ addEventListener("pointerup",()=>{if(x0===null)return;const k=sw.querySelector(".knob");sw.classList.remove("drag");k.style.left="";
+  if(moved&&Math.abs(dx)>24)goSide(dx<0?"pv":"hs");x0=null;});
+ sw.addEventListener("click",e=>{if(moved){e.stopPropagation();e.preventDefault();moved=false;}},true);
+ /* deslizar sobre la puerta también cambia de lado (celular) */
+ let tx=null,ty=null;doors.addEventListener("touchstart",e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+ doors.addEventListener("touchend",e=>{if(tx===null)return;const ddx=e.changedTouches[0].clientX-tx,ddy=e.changedTouches[0].clientY-ty;tx=null;
+  if(Math.abs(ddx)>70&&Math.abs(ddx)>Math.abs(ddy)*1.6){const cur=$("home").dataset.s;goSide(ddx<0?(cur==="pv"?"hs":cur==="neutral"?"hs":"hs"):(cur==="hs"?"pv":"pv"));}},{passive:true});
+})();
+document.querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>openJourney(b.dataset.open));
+document.querySelectorAll("[data-conc]").forEach(b=>b.onclick=()=>concierge(b.dataset.conc));
+$("logoBtn").onclick=()=>show("home");
+
+/* ======================= VISTAS ======================= */
+function show(v){U.view=v;$("home").hidden=v!=="home";$("acct").hidden=v!=="acct";if(v==="acct")drawAcct();drawTop();scrollTo({top:0});if(v==="home")setTimeout(centerNeutral,30);}
+function drawTop(){const r=$("topRight");
+ if(!U.account){r.innerHTML=`<button class="pill" type="button" id="login">Entrar</button>`;$("login").onclick=login;return;}
+ const unread=U.inbox.filter(m=>!m.read).length;
+ r.innerHTML=`<button class="pill bell" type="button" id="tBell" aria-label="Bandeja">${em("speech_balloon")}${unread?`<span class="badge">${unread}</span>`:""}</button>
+  <button class="avatar" type="button" id="tMe" aria-label="Mi cuenta">${esc((U.name||"?")[0].toUpperCase())}${U.account==="invitado"?'<span class="tag">INVITADO</span>':''}</button>`;
+ $("tBell").onclick=()=>{U.tab="bandeja";show("acct");};$("tMe").onclick=()=>{if(U.view==="acct"&&U.tab!=="perfil"){U.tab="perfil";drawAcct();}else{U.tab=U.tab==="perfil"||U.tab==="bandeja"?(U.sides.fiestas?"fiestas":"negocio"):U.tab;show("acct");}};}
+
+/* ======================= JOURNEYS ======================= */
+let jKind=null;
+function openJourney(k,edit,editEv){jKind=k;U.editing=editEv||null;const f=$("jFrame");
+ const q=new URLSearchParams({shell:"1"});if(edit&&U.account){q.set("cuenta","1");q.set("nombre",U.name);q.set("wa",U.wa);q.set("email",U.email);}
+ f.src=(k==="negocio"?"negocio.html":"fiestas.html")+"?"+q.toString();
+ $("jNote").textContent=k==="fiestas"?"Se guarda solo, sin registrarte":"Tu cuenta se crea al publicar";
+ $("journey").hidden=false;document.body.style.overflow="hidden";track(k==="negocio"?"journey_proveedor":"journey_anfitrion");}
+function closeJourney(){$("journey").hidden=true;$("jFrame").src="about:blank";document.body.style.overflow="";}
+$("jBack").onclick=closeJourney;
+
+addEventListener("message",e=>{const d=e.data||{};if(!d.hqv)return;
+ if(d.hqv==="track"){(window.dataLayer=window.dataLayer||[]).push({event:d.evento,...(d.datos||{})});return;}
+ if(d.hqv==="invitado"){if(!U.account){U.account="invitado";U.name=d.nombre||"";}else if(d.nombre&&!U.name)U.name=d.nombre;drawTop();return;}
+ if(d.hqv==="concierge"){closeJourney();concierge(d.lado);return;}
+ if(d.hqv==="fiesta-lista"){if(d.nombre&&!U.name)U.name=d.nombre;track("cta_pre_cotizacion",{cta:d.cta||"guardar"});
+  if(U.account!=="cuenta"){accountModal(()=>saveFiesta(d),"",null);return;}saveFiesta(d);return;}
+ if(d.hqv==="__nunca__"){
+  let ev;const old=U.editing&&U.events.find(x=>x.id===U.editing);
+  if(old){const nv=newEvent(d.fiesta);Object.assign(old,{f:nv.f,provs:nv.provs,interes:nv.interes});ev=old;}else{ev=newEvent(d.fiesta);U.events.unshift(ev);}U.editing=null;U.tab="fiestas";U.eventId=ev.id;closeJourney();show("acct");confetti();
+  inbox("fiestas",`🎉 Tu ${ev.f.occ.toLowerCase()} quedó guardada. Ya hay ${ev.interes} proveedores interesados cerca de ti.`);
+  toast(U.account==="invitado"?"🎉 Tu fiesta quedó guardada en tu cuenta":"🎉 Tu fiesta quedó guardada");return;}
+ if(d.hqv==="negocio-publicado"){const x=d.datos||{};U.account="cuenta";U.name=x.nombre||U.name;U.wa=x.wa||U.wa;U.email=x.email||U.email;U.marketing=!!x.marketing;
+  U.sides.negocio=true;U.site=x;U.founder=U.founder||38;U.tab="negocio";closeJourney();show("acct");confetti();
+  inbox("negocio",`🚀 ¡${x.negocio||"Tu negocio"} ya está en línea! Tu link: ${x.url}`);
+  inbox("negocio","⭐ Eres proveedor fundador #38. Tu insignia es para siempre.");
+  toast("🎉 Tu sitio está publicado y tu cuenta quedó creada");return;}
+});
+
+/* ======================= DATOS DE EJEMPLO: proveedores y planners ======================= */
+const POOL={"Música y espectáculos":["DJ Rafa Beats","DJ Sonido Lunar","Mariachi Los Reyes","Grupo Versátil Fiesta","DJ Kenia","Banda La Chida","Trío Bohemio","DJ Mixer Max"],
+ "Alimentos":["Taquizas Don Beto","Sabores de Coyoacán","Paella Mar y Tierra","Banquetes Lupe","Pastelería Canela","Mesa Dulce Lupita","Parrilladas El Norte","Catering Verde"],
+ "Decoración y flores":["Globos Mágicos","Deco Fiesta Total","Flores y Listones","Arcos de Ensueño","Ambienta MX","Neón Party"],
+ "Bebidas y barra":["Barra La Catrina","Mixología Agave","Aguas La Güera","Café Nómada","Cervecería Móvil"],
+ "Música":["DJ Rafa Beats","DJ Sonido Lunar","Mariachi Los Reyes","Grupo Versátil Fiesta","DJ Kenia","Banda La Chida","Trío Bohemio","DJ Mixer Max","Son de la Ciudad","DJ Luna Roja"],
+ "Comida":["Taquizas Don Beto","Sabores de Coyoacán","Paella Mar y Tierra","Banquetes Lupe","Pizzas al Horno Nonna","Antojitos La Güera","Parrilladas El Norte","Catering Verde"],
+ "Postres":["Pastelería Canela","Mesa Dulce Lupita","Cupcakes Mágicos","Repostería Doña Rosa","Churros La Esquina","Pasteles Algodón"],
+ "Decoración":["Globos Mágicos","Deco Fiesta Total","Flores y Listones","Arcos de Ensueño","Ambienta MX","Neón Party"],
+ "Venue":["Terraza San Ángel","Jardín Las Flores","Salón Arcoíris","Casa Lomas","Rooftop Roma","Hacienda Tlalpan"]};
+const GEN=["Eventos","Grupo","Casa","Estudio","Taller","Fiesta"],SUR=["Ramírez","Luna","Del Valle","Sol","Estrella","Aurora","Olmos","Prado","Robles","Cielo"];
+let seed=7;const rnd=()=>{seed=(seed*16807)%2147483647;return(seed-1)/2147483646;};
+function providersFor(row,base){const n=6+Math.floor(rnd()*9);if(!row.amt){const o=[];const names=POOL[row.k]||[];for(let i=0;i<n;i++){const km=Math.round((1+rnd()*24)*10)/10,rate=Math.round((3.9+rnd()*1.1)*10)/10,rev=Math.floor(rnd()*80),resp=[5,10,15,30,45,60,120,240][Math.floor(rnd()*8)];o.push({nm:names[i]||`${GEN[Math.floor(rnd()*GEN.length)]} ${SUR[Math.floor(rnd()*SUR.length)]}`,km,rate,rev,resp,price:null,badges:resp<=60?["responde_ya"]:[],nuevo:rev<3,fit:.5,score:.4*(1-km/25)+.3*((rate-3.5)/1.5)+.3*(1-resp/240),emo:row.e});}return o.sort((a,b)=>b.score-a.score);}const names=POOL[row.k]||[];const out=[];
+ for(let i=0;i<n;i++){const nm=names[i]||`${GEN[Math.floor(rnd()*GEN.length)]} ${SUR[Math.floor(rnd()*SUR.length)]}`;
+  const km=Math.round((1+rnd()*24)*10)/10,rate=Math.round((3.9+rnd()*1.1)*10)/10,rev=Math.floor(rnd()*80),resp=[5,10,15,30,45,60,120,240][Math.floor(rnd()*8)],
+   price=Math.round(row.amt*(.72+rnd()*.6)/50)*50,badges=[rnd()<.35?"fundador":null,rnd()<.4?"verificado":null,resp<=60?"responde_ya":null].filter(Boolean),nuevo=rev<3;
+  const fit=1-Math.min(1,Math.abs(price-row.amt)/row.amt),score=.32*(1-Math.min(km,25)/25)+.2*fit+.2*((rate-3.5)/1.5)*Math.min(1,Math.log10(rev+1)/1.6)+.08*badges.length/3+.15*(1-Math.min(resp,240)/240)+(nuevo?.05:0);
+  out.push({nm,km,rate,rev,resp,price,badges,nuevo,fit,score,emo:row.e});}
+ return out.sort((a,b)=>b.score-a.score);}
+const PLANNERS=[{n:"Ana Robles",z:"Coyoacán",km:4,y:9,r:4.9,rev:58,resp:10,sp:"Bodas pequeñas y cumpleaños",fee:6000,c:"07"},{n:"Marco Prado",z:"Benito Juárez",km:6,y:6,r:4.8,rev:31,resp:20,sp:"Fiestas infantiles",fee:4500,c:"03"},{n:"Fer Olmos",z:"Álvaro Obregón",km:2,y:4,r:4.7,rev:12,resp:5,sp:"XV años y graduaciones",fee:5000,c:"10"},{n:"Sofi Cielo",z:"Tlalpan",km:11,y:12,r:5.0,rev:74,resp:45,sp:"Eventos corporativos",fee:9000,c:"14"},{n:"Leo Estrella",z:"Cuauhtémoc",km:8,y:3,r:4.6,rev:5,resp:15,sp:"Posadas y fiestas de oficina",fee:4000,c:"09"}];
+function rankPlanners(f){return PLANNERS.map((p,i)=>({...p,i,score:.35*(1-p.km/25)+.3*((p.r-4)/1)+.2*(1-p.resp/60)+.15*Math.min(1,Math.log10(p.rev+1)/1.8)})).sort((a,b)=>b.score-a.score);}
+
+function newEvent(f){seed=Math.floor(f.total)%9973+11;const rows=(f.rows||[]).filter(r=>r.k!=="Planner"&&(r.amt>0||r.pend));
+ const provs={};rows.forEach(r=>provs[r.k]=providersFor(r));const interes=Object.values(provs).reduce((a,l)=>a+l.length,0);
+ return{id:"e"+now(),f,provs,interes,opts:{prov:true,planner:false},paid:null,
+  planner:{state:null,pick:null,deadline:null,changes:0,tried:[],hostPaid:false,plannerPaid:false},late:false,showAll:{},check:{}};}
+const getEv=()=>U.events.find(e=>e.id===U.eventId);
+
+/* ======================= CUENTA ======================= */
+function inbox(side,txt){U.inbox.unshift({side,txt,t:now(),read:false});drawTop();}
+function drawAcct(){const a=$("acct");
+ const lvl=U.events.length+(U.site?1:0)>=3?"n2":"n1";
+ a.innerHTML=`<div class="hello"><img class="lvl" src="img/${lvl}.webp" alt="Nivel ${lvl==="n2"?"Fiestero":"Invitado"}"><div style="display:grid;gap:4px"><h1>${U.name?`¡Hola, ${esc(first(U.name))}!`:"¡Hola!"}</h1>
+  <span class="row" style="gap:6px">${U.account==="invitado"?'<span class="tag2">Cuenta invitada</span>':'<span class="tag2 ok">✓ Cuenta verificada</span>'}<span class="hint">Nivel ${lvl==="n2"?"Fiestero":"Invitado"}</span></span></div></div>
+ <nav class="tabs" role="tablist" aria-label="Mi cuenta">
+  <button class="tab fs" role="tab" data-t="fiestas" aria-selected="${U.tab==="fiestas"}">${em("party_popper")} Mis fiestas${U.sides.fiestas?"":'<span class="new">Activar</span>'}</button>
+  <button class="tab nb" role="tab" data-t="negocio" aria-selected="${U.tab==="negocio"}">${em("briefcase")} Mi negocio${U.sides.negocio?"":'<span class="new">Activar</span>'}</button>
+  <button class="tab sh" role="tab" data-t="bandeja" aria-selected="${U.tab==="bandeja"}">${em("speech_balloon")} Bandeja</button>
+  <button class="tab sh" role="tab" data-t="perfil" aria-selected="${U.tab==="perfil"}">${em("waving_hand")} Perfil</button></nav>
+ <div id="pane"></div>`;
+ a.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{U.tab=t.dataset.t;if(U.tab!=="fiestas")U.eventId=U.eventId;drawAcct();});
+ const p=$("pane");
+ if(U.tab==="fiestas")return U.sides.fiestas?(U.eventId&&getEv()?drawEvent(p):drawFiestas(p)):drawInvite(p,"fiestas");
+ if(U.tab==="negocio")return U.sides.negocio?drawNegocio(p):drawInvite(p,"negocio");
+ if(U.tab==="bandeja")return drawInbox(p);
+ drawPerfil(p);}
+
+function drawInvite(p,k){const fs=k==="fiestas";
+ p.innerHTML=`<div class="box" style="max-width:620px;background:${fs?"var(--host)":"var(--prov)"};color:#fff">
+  <img src="img/${fs?"c_05":"c_01"}.webp" alt="" style="width:120px">
+  <h2 style="font-size:28px">${fs?"¿Vas a celebrar algo?":"¿Tienes un negocio de fiestas?"}</h2>
+  <span>${fs?"Calcula gratis cuánto cuesta tu fiesta y encuentra a los proveedores que sí cumplen lo que pides.":"Crea tu sitio web gratis para siempre y recibe clientes reales por WhatsApp."}</span>
+  <button class="btn ghost" type="button" id="act" style="justify-self:start">${fs?"Pre-cotizar mi evento gratis →":"Crear mi sitio web gratis →"}</button>
+  <span style="font-size:13px;font-weight:700">Usamos tu misma cuenta: no tienes que volver a registrarte.</span></div>`;
+ $("act").onclick=()=>openJourney(k,true);}
+
+/* ---------- Mis fiestas ---------- */
+function drawFiestas(p){
+ p.innerHTML=`<div class="grid2"><div class="box"><h2>${em("party_popper")} Mis eventos</h2><div class="list">${U.events.map(e=>`<button class="item" type="button" data-ev="${e.id}" style="border:0;text-align:left;width:100%">
+   <img src="img/${e.f.occ.match(/Boda/)?"c_10":e.f.occ.match(/XV|Gradu/)?"c_07":"c_01"}.webp" alt="" style="width:52px"><span class="grow"><b>${esc(e.f.occ)} · ${e.f.guests} invitados</b><span class="hint">${fdate(e.f.date)} · ${money(e.f.total)}</span></span>${evState(e)}</button>`).join("")}</div>
+   <button class="btn host" type="button" id="newEv">＋ Nueva fiesta</button></div>
+  ${agendaBox()}</div>`;
+ p.querySelectorAll("[data-ev]").forEach(b=>b.onclick=()=>{U.eventId=b.dataset.ev;drawAcct();});
+ $("newEv").onclick=()=>openJourney("fiestas",true);bindAgenda();}
+function evState(e){if(daysTo(e.f.date)<0)return e.surveyDone?'<span class="st go">Celebrada ✓</span>':'<span class="st wait">Cuéntanos cómo te fue</span>';if(!e.paid)return'<span class="st new">Cotizada</span>';if(e.paid==="prov"||e.planner.state==="liberado")return'<span class="st go">Organizando</span>';return'<span class="st wait">Buscando planner</span>';}
+const fdate=d=>d?new Date(d+"T12:00").toLocaleDateString("es-MX",{day:"numeric",month:"long",year:"numeric"}):"Sin fecha";
+const daysTo=d=>Math.round((new Date(d+"T12:00")-new Date())/864e5);
+function agendaBox(){return`<div class="box"><h2>${em("spiral_calendar")} Mi agenda de fiestas</h2>
+ <span class="hint">Marca las fechas que celebras cada año. Te escribimos ${RG.diasRecordatorio} días antes: es el mejor momento para cotizar y conseguir precios preferentes.</span>
+ <div class="list">${U.agenda.length?U.agenda.map(x=>`<div class="item"><img class="em lg" src="img/e_birthday_cake.webp" alt=""><span class="grow"><b>${esc(x.w)}</b><span class="hint">${fdate(x.d)}</span></span><span class="st vis">Aviso ${RG.diasRecordatorio} días antes</span></div>`).join(""):'<span class="hint">Aún no tienes fechas. Agrega la primera 👇</span>'}</div>
+ <div class="row"><input type="text" id="agW" placeholder="Cumpleaños de mi hija, aniversario…" aria-label="Qué celebras" style="flex:2 1 180px"><input type="date" id="agD" aria-label="Fecha" style="flex:1 1 140px"></div>
+ <button class="btn ghost" type="button" id="agAdd">Agregar a mi agenda</button><span class="hint" id="agMsg" aria-live="polite"></span></div>`;}
+function bindAgenda(){const b=$("agAdd");if(!b)return;b.onclick=()=>{const w=$("agW").value.trim(),d=$("agD").value;if(!w||!d){$("agMsg").textContent="Escribe qué celebras y la fecha.";return;}U.agenda.push({w,d});track("agenda_fecha");drawAcct();toast("📅 Listo. Te escribimos "+RG.diasRecordatorio+" días antes.");};}
+
+/* Encuesta post-fiesta: valida los promedios con lo que pasó de verdad (1 minuto) */
+const FIT=[["falto","😬 Faltó"],["justo","👌 Justo"],["sobro","🤷 Sobró"]];
+function surveyBox(e){const f=e.f,v=e.sv||(e.sv={total:f.total,fit:{},stars:0,note:""});const rows=f.rows.filter(r=>r.k!=="Venue").slice(0,3);
+ return`<div class="box" id="svBox" style="background:var(--hqv-vainilla)"><h2>${em("party_popper")} ¿Cómo te fue en tu fiesta?</h2><span class="hint">1 minuto. Con tu respuesta calculamos mejor la próxima fiesta de alguien más 💜</span>
+  <div class="svq"><b>💸 ¿Cuánto pagaste en total?</b><span class="hint">Ya pusimos nuestro cálculo. Si fue distinto, corrígelo.</span><input type="number" min="0" id="svTot" value="${esc(v.total)}" aria-label="Total pagado" style="max-width:220px"></div>
+  ${rows.map(r=>`<div class="svq"><b>${r.e} ¿Alcanzó ${esc(r.label.toLowerCase())}?</b><div class="seg" data-fit="${esc(r.k)}">${FIT.map(([k,t])=>`<button type="button" data-v="${k}" aria-pressed="${v.fit[r.k]===k}">${t}</button>`).join("")}</div></div>`).join("")}
+  <div class="svq"><b>⭐ ¿Cómo calificas a tus proveedores?</b><div class="stars">${[1,2,3,4,5].map(n=>`<button type="button" data-st="${n}" aria-pressed="${v.stars>=n}" aria-label="${n} estrellas">⭐</button>`).join("")}</div>
+   <input type="text" id="svNote" value="${esc(v.note)}" placeholder="¿Algo que debamos saber? (opcional)"></div>
+  <button class="btn host" type="button" id="svSend">Enviar y ganar mi insignia</button><span class="hint">Te regalamos la insignia <b>Anfitrión experto</b> y 10% en tu próxima cotización.</span></div>`;}
+function bindSurvey(e){const v=e.sv,b=$("svBox");if(!b)return;
+ $("svTot").oninput=x=>{v.total=+x.target.value||0;};$("svNote").oninput=x=>{v.note=x.target.value;};
+ b.querySelectorAll("[data-fit]").forEach(g=>g.querySelectorAll("button").forEach(x=>x.onclick=()=>{v.fit[g.dataset.fit]=x.dataset.v;g.querySelectorAll("button").forEach(y=>y.setAttribute("aria-pressed",y===x));}));
+ b.querySelectorAll("[data-st]").forEach(x=>x.onclick=()=>{v.stars=+x.dataset.st;b.querySelectorAll("[data-st]").forEach(y=>y.setAttribute("aria-pressed",+y.dataset.st<=v.stars));});
+ $("svSend").onclick=()=>{if(!v.stars){toast("⭐ Califica a tus proveedores para enviar");return;}e.surveyDone=true;
+  const dif=e.f.total?Math.round((v.total-e.f.total)/e.f.total*100):0;
+  track("encuesta_post_fiesta",{occ:e.f.occ,invitados:e.f.guests,estimado:e.f.total,real:v.total,diferencia_pct:dif,alcanzo:v.fit,estrellas:v.stars,servicios:e.f.servicios||null});
+  U.hostBadge=true;inbox("fiestas","🏅 Ganaste la insignia Anfitrión experto y 10% en tu próxima cotización.");confetti();drawAcct();};}
+function drawEvent(p){const e=getEv(),f=e.f;const past=daysTo(f.date)<0;
+ const total=e.opts.planner?PR.proveedoresMasPlanner:PR.desbloquearProveedores;
+ p.innerHTML=`<button class="pill sm" type="button" id="evBack">← Mis eventos</button>
+ <div class="grid2">
+  <div style="display:grid;gap:16px;min-width:0">
+   <div class="hero"><small>${esc(f.occ)} · ${f.guests.toLocaleString("es-MX")} invitados · ${fdate(f.date)} · ${f.hours} h</small>
+    <span class="big">${money(f.pp)}</span><span>por persona</span><span class="tt">Total aproximado: ${money(f.total)}</span>
+    <img class="m" src="img/c_02.webp" alt=""></div>
+   <div class="box"><h3>Así se reparte</h3><div class="brk">${f.rows.map(r=>`<div><span>${r.e} ${esc(r.label)}</span><span>${r.pend?"Por cotizar":money(r.amt)}</span></div>`).join("")}</div>
+    <button class="btn ghost sm" type="button" id="evEdit" style="justify-self:start">✏️ Ajustar mi cálculo</button></div>
+   ${!e.paid||e.paid==="prov"?checklistBox(e):""}
+   ${past?"":`<button class="sim" type="button" id="evPast" style="justify-self:start">Simular: ya pasó mi fiesta</button>`}
+  </div>
+  <div style="display:grid;gap:16px;min-width:0" id="evRight"></div>
+ </div>`;
+ $("evBack").onclick=()=>{U.eventId=null;drawAcct();};$("evEdit").onclick=()=>openJourney("fiestas",true,e.id);
+ const ep=$("evPast");if(ep)ep.onclick=()=>{f.date=new Date(now()-864e5).toISOString().slice(0,10);inbox("fiestas",`🎉 ¿Cómo te fue en tu ${f.occ.toLowerCase()}? Cuéntanos en 1 minuto.`);drawAcct();};
+ if(past){const R0=$("evRight");R0.innerHTML=e.surveyDone?`<div class="box" style="background:var(--hqv-menta)"><h2>${em("glowing_star")} ¡Gracias por contarnos!</h2><span>Con tu respuesta ajustamos los cálculos para las próximas fiestas. Ya tienes tu insignia <b>Anfitrión experto</b> y 10% en tu próxima cotización.</span></div>`:surveyBox(e);bindSurvey(e);return;}
+ bindChecklist(e);
+ const R=$("evRight");
+ if(!e.paid){R.innerHTML=`<div class="box"><h2>${em("handshake")} ¿Qué sigue?</h2><span class="hint">Elige una o las dos. Pagas una sola vez.</span>
+   <button class="opt" type="button" id="oProv" aria-pressed="${e.opts.prov}"><span class="ck">${e.opts.prov?"✓":""}</span><span><b>¿Quieres contactar con los mejores proveedores?</b>Tengo unos cuantos miles de aliados que me gustaría presentarte.</span></button>
+   <button class="opt" type="button" id="oPlan" aria-pressed="${e.opts.planner}"><span class="ck">${e.opts.planner?"✓":""}</span><span><b>¿Quieres que un event planner te ayude a organizar con tus proveedores?</b>Conozco muchos planners que pueden ayudarte a organizar a tus proveedores.</span></button>
+   ${e.opts.planner?`<div class="soft hint">Con planner: primero eliges a tu planner y, cuando lo confirmes, se liberan los proveedores para ti y para él.</div>`:""}
+   <div class="row" style="justify-content:space-between"><span><span class="hint">Pago único</span><br><span class="price">${money(total)}</span></span>
+   <button class="btn host" type="button" id="evPay" ${!e.opts.prov&&!e.opts.planner?"disabled":""}>${e.opts.planner?"Elegir a mi planner →":"Acceder a mis proveedores →"}</button></div>
+   <p class="legal">Precio provisional de prototipo.</p></div>
+   ${interestBox(e,true)}`;
+  $("oProv").onclick=()=>{e.opts.prov=!e.opts.prov;if(!e.opts.prov&&!e.opts.planner)e.opts.prov=true;drawAcct();};
+  $("oPlan").onclick=()=>{e.opts.planner=!e.opts.planner;drawAcct();};
+  $("evPay").onclick=()=>startPay(e);return;}
+ if(e.paid==="prov"){R.innerHTML=provListBox(e,false)+`${e.late?"":`<div class="box"><h3>${em("magic_wand")} ¿Ya no te da tiempo?</h3><span class="hint">Puedes sumar a un event planner cuando quieras. Te presentamos opciones y tú eliges a uno.</span><button class="btn ghost" type="button" id="late">Quiero un planner · ${money(PR.plannerDespues)}</button></div>`}`;
+  bindProvList(e);const l=$("late");if(l)l.onclick=()=>startPay(e,"late");if(e.late)R.insertAdjacentHTML("afterbegin",plannerBox(e)),bindPlanner(e);return;}
+ R.innerHTML=plannerBox(e)+(e.planner.state==="liberado"?provListBox(e,true):interestBox(e,false));bindPlanner(e);bindProvList(e);}
+
+function interestBox(e,pre){const ks=Object.keys(e.provs);
+ return`<div class="box"><h2>${em("star-struck")} ${e.interes} proveedores interesados</h2><span class="hint">Cerca de ti y disponibles para tu fecha. ${pre?"Sus datos se muestran al acceder.":"Se liberan cuando confirmes a tu planner."}</span>
+ <div class="int">${ks.map(k=>`<div class="ln"><span>${e.provs[k][0].emo} ${esc(k)}</span><span class="st vis">${e.provs[k].length} interesados</span></div>`).join("")}</div>
+ <div class="list">${ks.slice(0,2).map(k=>e.provs[k].slice(0,2).map((x,i)=>provCard(x,i,true,e)).join("")).join("")}</div>
+ <div class="lock">${em("locked")}<span>${pre?"Ordenados por cercanía, presupuesto, calificación, insignias y rapidez.":"Tu planner y tú los verán al mismo tiempo."}</span></div></div>`;}
+function provCard(x,i,blur,e){const wa=`https://wa.me/525500000000?text=${encodeURIComponent(`Hola, vi tu perfil en ¡Hay que vernos! Este anfitrión cotiza con ${Math.max(0,daysTo(e.f.date))} días de anticipación para conseguir precios preferentes.`)}`;
+ return`<div class="prov"><div class="tp"><span class="av">${x.emo}</span><span class="grow" style="flex:1;min-width:0"><span class="rk">#${i+1} en compatibilidad${x.nuevo?" · Nuevo":""}</span><b class="${blur?"blur":""}">${esc(x.nm)}</b></span><b>${x.price==null?"Por cotizar":money(x.price)}</b></div>
+ <div class="why"><span>📍 a ${x.km} km</span><span>⚡ responde en ${x.resp<60?x.resp+" min":Math.round(x.resp/60)+" h"}</span><span>⭐ ${x.rate} (${x.rev})</span>${x.fit>.8?"<span>✅ dentro de tu presupuesto</span>":""}${x.badges.map(b=>`<span><img src="img/b_${b}.webp" alt=""> ${{fundador:"Fundador",verificado:"Verificado",responde_ya:"Responde ya"}[b]}</span>`).join("")}</div>
+ ${blur?"":`<div class="row"><a class="btn wa sm" href="${wa}" target="_blank" rel="noopener">💬 WhatsApp</a><button class="btn ghost sm" type="button" data-fav>♡ Guardar</button></div>`}</div>`;}
+function provListBox(e,withPlanner){const ks=Object.keys(e.provs),N=RG.proveedoresVisiblesPorServicio;
+ return`<div class="box"><h2>${em("handshake")} Tus proveedores</h2><span class="hint">${withPlanner?`${esc(PLANNERS[e.planner.pick].n.split(" ")[0])} también ve estos contactos y les dará seguimiento. Tú los tienes a la mano.`:"Ordenados para ti: primero cercanía, luego presupuesto, calificación, insignias y rapidez de respuesta."}</span>
+ ${ks.map(k=>{const l=e.provs[k],all=e.showAll[k];return`<div class="svc-h"><h3>${l[0].emo} ${esc(k)}</h3><span class="hint">${l.length} interesados</span></div>
+  <div class="list">${l.slice(0,all?l.length:Math.min(N,3)).map((x,i)=>provCard(x,i,false,e)).join("")}</div>
+  ${l.length>3&&!all?`<button class="pill sm" type="button" data-all="${esc(k)}">Ver a los ${l.length} interesados →</button>`:""}`;}).join("")}</div>`;}
+function bindProvList(e){document.querySelectorAll("[data-all]").forEach(b=>b.onclick=()=>{e.showAll[b.dataset.all]=true;drawAcct();});
+ document.querySelectorAll("[data-fav]").forEach(b=>b.onclick=()=>{b.textContent="♥ Guardado";toast("Guardado en tus favoritos");});}
+function checklistBox(e){if(!e.paid)return"";const ks=Object.keys(e.provs),S=["Contactado","Apartado","Pagado"];
+ return`<div class="box"><h3>${em("check_mark_button")} Yo organizo</h3><span class="hint">Tu tablero para llevar el control de cada proveedor.</span>
+ <div class="list">${ks.map(k=>`<div class="item"><span class="grow"><b>${e.provs[k][0].emo} ${esc(k)}</b></span><div class="chips">${S.map(s=>`<button class="chip" type="button" data-ck="${esc(k)}|${s}" aria-pressed="${(e.check[k]||[]).includes(s)}">${s}</button>`).join("")}</div></div>`).join("")}</div></div>`;}
+function bindChecklist(e){document.querySelectorAll("[data-ck]").forEach(b=>b.onclick=()=>{const[k,s]=b.dataset.ck.split("|");const a=e.check[k]=e.check[k]||[];const i=a.indexOf(s);i<0?a.push(s):a.splice(i,1);b.setAttribute("aria-pressed",i<0);});}
+
+/* ---------- Planner: elegir uno, 24 h, aceptar o cambiar, doble confirmación ---------- */
+function plannerBox(e){const P=e.planner,ranked=rankPlanners(e.f).filter(p=>!P.tried.includes(p.i));
+ const H=RG.horasRespuestaPlanner,left=RG.cambiosDePlannerGratis-P.changes,pk=P.pick!=null?PLANNERS[P.pick]:null;
+ const steps=[["elige","Eliges a tu planner"],["esperando",`Te contacta en menos de ${H} h`],["contactado","Platican y decides"],["aceptado","Le pagas directo y ambos confirman"],["liberado","Se liberan tus proveedores"]];
+ const order=steps.map(s=>s[0]),cur=P.state||"elige",ci=order.indexOf(cur);
+ let body="";
+ if(cur==="elige")body=`<span class="hint">Elige a uno. Están ordenados por cercanía, calificación y rapidez.</span><div class="list">${ranked.slice(0,4).map((p,j)=>`<div class="prov"><div class="tp"><img src="img/c_${p.c}.webp" alt="" style="width:50px"><span style="flex:1;min-width:0"><span class="rk">#${j+1} en compatibilidad</span><b>${esc(p.n)}</b><span class="hint">${esc(p.sp)}</span></span></div>
+   <div class="why"><span>📍 ${esc(p.z)} · a ${p.km} km</span><span>⭐ ${p.r} (${p.rev})</span><span>⚡ responde en ${p.resp} min</span><span>${p.y} años</span><span>Desde ${money(p.fee)}</span></div>
+   <button class="btn host sm" type="button" data-pick="${p.i}">Elegir a ${esc(p.n.split(" ")[0])}</button></div>`).join("")}</div>`;
+ if(cur==="esperando")body=`<div class="soft"><b>${esc(pk.n)} ya recibió tu solicitud.</b><span>Tiene <span class="timer" id="pTimer"></span> para pagar su acceso y escribirte por WhatsApp. Si no lo hace, te presentamos a otro planner sin costo.</span></div>
+   <div class="row"><button class="sim" type="button" id="sOk">Simular: ${esc(first(pk.n))} te escribió</button><button class="sim" type="button" id="sLate">Simular: pasaron ${H} h sin respuesta</button></div>`;
+ if(cur==="contactado")body=`<div class="prov"><div class="tp"><img src="img/c_${pk.c}.webp" alt="" style="width:50px"><span style="flex:1"><b>${esc(pk.n)}</b><span class="hint">55 1234 5678 · ${esc(pk.z)}</span></span></div><a class="btn wa sm" href="https://wa.me/525500000000" target="_blank" rel="noopener">💬 Escribirle por WhatsApp</a></div>
+   <span class="hint">¿Te late para tu fiesta?</span><div class="row"><button class="btn host" type="button" id="pYes">✅ ${esc(first(pk.n))} es mi planner</button>
+   <button class="btn ghost" type="button" id="pNo" ${left<=0?"disabled":""}>🔄 Quiero otro planner</button></div><span class="hint">Te ${left===1?"queda 1 cambio":`quedan ${left} cambios`} sin costo.</span>`;
+ if(cur==="aceptado")body=`<div class="soft"><b>¡Listo! ${esc(first(pk.n))} es tu planner.</b><span>Ponte de acuerdo con ${esc(first(pk.n))} y págale directo, como acuerden. ¡Hay que vernos! no cobra ni retiene ese pago.</span></div>
+   <button class="btn host" type="button" id="hPaid" ${P.hostPaid?"disabled":""}>${P.hostPaid?"✓ Confirmaste tu pago":`Ya le pagué a ${esc(first(pk.n))}`}</button>
+   ${P.hostPaid?`<span class="hint">Esperando que ${esc(first(pk.n))} confirme que recibió tu pago. En cuanto lo haga, se liberan tus proveedores para los dos.</span><button class="sim" type="button" id="sConf">Simular: ${esc(first(pk.n))} confirmó el pago</button>`:""}`;
+ if(cur==="liberado")body=`<div class="prov"><div class="tp"><img src="img/c_${pk.c}.webp" alt="" style="width:50px"><span style="flex:1"><b>${esc(pk.n)} · tu planner</b><span class="hint">Ya ve a tus proveedores y les dará seguimiento.</span></span></div><a class="btn wa sm" href="https://wa.me/525500000000" target="_blank" rel="noopener">💬 WhatsApp</a></div>`;
+ return`<div class="box"><h2>${em("magic_wand")} Tu event planner</h2><ol class="steps">${steps.map((s,i)=>`<li class="${i<ci?"done":i===ci?"now":""}"><i>${i<ci?"✓":i+1}</i>${s[1]}</li>`).join("")}</ol>${body}</div>`;}
+let pTick=null;
+function bindPlanner(e){const P=e.planner;clearInterval(pTick);
+ document.querySelectorAll("[data-pick]").forEach(b=>b.onclick=()=>{P.pick=+b.dataset.pick;P.state="esperando";P.deadline=now()+RG.horasRespuestaPlanner*36e5;track("planner_elegido");
+  inbox("fiestas",`📋 Le avisamos a ${PLANNERS[P.pick].n}. Tiene ${RG.horasRespuestaPlanner} h para escribirte.`);drawAcct();});
+ const t=$("pTimer");if(t){const f=()=>{const ms=Math.max(0,P.deadline-now());t.textContent=`${Math.floor(ms/36e5)}:${String(Math.floor(ms/6e4)%60).padStart(2,"0")}:${String(Math.floor(ms/1e3)%60).padStart(2,"0")} h`;};f();pTick=setInterval(f,1000);}
+ const on=(id,fn)=>{const b=$(id);if(b)b.onclick=fn;};
+ on("sOk",()=>{P.state="contactado";inbox("fiestas",`💬 ${PLANNERS[P.pick].n} pagó su acceso y te escribió por WhatsApp.`);drawAcct();});
+ on("sLate",()=>{P.tried.push(P.pick);const nx=rankPlanners(e.f).find(p=>!P.tried.includes(p.i));P.pick=nx?nx.i:null;P.state=nx?"esperando":"elige";P.deadline=now()+RG.horasRespuestaPlanner*36e5;
+  inbox("fiestas",nx?`⏱️ Tu planner no respondió a tiempo. Le pasamos tu solicitud a ${nx.n}, sin costo.`:"⏱️ Tu planner no respondió. Elige a otro.");drawAcct();});
+ on("pYes",()=>{P.state="aceptado";track("planner_aceptado");drawAcct();});
+ on("pNo",()=>{P.changes++;P.tried.push(P.pick);P.pick=null;P.state="elige";toast(`Sin problema. Elige a otro planner (te ${RG.cambiosDePlannerGratis-P.changes===1?"queda 1 cambio":"quedan "+(RG.cambiosDePlannerGratis-P.changes)+" cambios"}).`);drawAcct();});
+ on("hPaid",()=>{P.hostPaid=true;drawAcct();});
+ on("sConf",()=>{P.plannerPaid=true;P.state="liberado";track("proveedores_liberados",{via:"planner"});inbox("fiestas","🔓 Tus proveedores ya están liberados para ti y para tu planner.");confetti();drawAcct();});}
+
+/* ---------- Pago (anfitrión) con cuenta prellenada ---------- */
+function startPay(e,kind){if(U.account==="cuenta")return payModal(e,kind);accountModal(()=>payModal(e,kind),"Para pagar y guardar tu fiesta en cualquier dispositivo, confirma tus datos.");}
+/* Guarda la pre-cotización en la cuenta (ya creada) y abre un onboarding corto antes de cualquier pago */
+function saveFiesta(d){U.sides.fiestas=true;let ev;const old=U.editing&&U.events.find(x=>x.id===U.editing);
+ if(old){const nv=newEvent(d.fiesta);old.versions=old.versions||[{f:old.f,t:old.t||now()}];old.versions.unshift({f:nv.f,t:now()});Object.assign(old,{f:nv.f,provs:nv.provs,interes:nv.interes});ev=old;}
+ else{ev=newEvent(d.fiesta);ev.versions=[{f:ev.f,t:now()}];ev.cta=d.cta||"guardar";U.events.unshift(ev);}
+ U.editing=null;U.tab="fiestas";U.eventId=ev.id;closeJourney();show("acct");confetti();
+ inbox("fiestas",`📄 Te enviamos la pre-cotización de «${ev.f.nombre||ev.f.occ}» a tu correo, con un botón para mandártela a tu WhatsApp.`);
+ onboarding(ev);}
+function onboarding(ev){const m=$("modal"),f=ev.f,txt=encodeURIComponent(`Mi pre-cotización de ¡Hay que vernos!: ${f.nombre||f.occ} · ${f.guests} invitados · ${money(f.pp)} por persona · total aprox. ${money(f.total)}`);
+ m.innerHTML=`<div class="sheet"><img src="img/ball.webp" alt="" style="width:76px"><h2>¡Listo, ${esc(first(U.name))}! 🎉</h2><span class="hint">Ya tienes tu cuenta de ¡Hay que vernos!. Así funciona:</span>
+  <div class="soft" style="text-align:left;gap:10px">
+   <span>📄 <b>Tu pre-cotización ya va en camino a tu correo</b> en PDF.</span>
+   <span>🗂️ <b>Aquí se guardan tus pre-cotizaciones</b>: si recalculas, guardamos cada versión.</span>
+   <span>🔔 <b>Te avisamos aquí y por correo</b> cuando tu planner o tus proveedores respondan.</span></div>
+  <a class="btn ghost" href="https://wa.me/?text=${txt}" target="_blank" rel="noopener">💬 Enviármela a mi WhatsApp</a>
+  <button class="btn host" type="button" id="obOk">Ver mi fiesta →</button></div>`;
+ m.hidden=false;$("obOk").onclick=()=>{m.hidden=true;};track("onboarding_visto");}
+function accountModal(next,why,onClose){const m=$("modal");
+ m.innerHTML=`<form class="sheet" id="acF" novalidate><img src="img/ball.webp" alt="" style="width:70px"><h2>Crea tu cuenta</h2><span class="hint">${esc(why||"Para recibir en tu WhatsApp / correo tu pre-cotización, sumarte a nuestra comunidad de anfitriones y acceder a beneficios exclusivos.")}</span>
+  <div class="field"><label for="acN">Tu nombre</label><input type="text" id="acN" value="${esc(U.name)}" autocomplete="name"></div>
+  <div class="field"><label for="acW">Tu WhatsApp</label><input type="tel" id="acW" value="${esc(fmtWa(U.wa))}" inputmode="numeric" placeholder="55 1234 5678" autocomplete="tel-national"></div>
+  <div class="field"><label for="acE">Correo</label><input type="email" id="acE" value="${esc(U.email)}" placeholder="tu@correo.com" autocomplete="email"></div>
+  <label class="chk"><input type="checkbox" id="acM"><span>Quiero recibir pre-cotizaciones, opciones de proveedores y beneficios exclusivos.</span></label>
+  <p class="err" id="acErr" hidden></p>
+  <button class="btn host" type="submit">Guardar y continuar</button>
+  <p class="legal">Al continuar se crea tu cuenta de ¡Hay que vernos! con estos datos y aceptas los Términos y el Aviso de privacidad. Para entrar después te mandamos un código, sin contraseñas.</p>
+  <button class="pill sm" type="button" id="acX">Ahora no</button></form>`;
+ m.hidden=false;$("acX").onclick=()=>{m.hidden=true;onClose&&onClose();};
+ $("acF").onsubmit=ev=>{ev.preventDefault();const n=$("acN").value.trim(),w=$("acW").value.replace(/\D/g,"").slice(-10),em_=$("acE").value.trim(),err=t=>{$("acErr").textContent=t;$("acErr").hidden=false;};
+  if(n.length<2)return err("Escribe tu nombre.");if(w.length!==10)return err("Tu WhatsApp debe tener 10 dígitos.");if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em_))return err("Escribe un correo válido, por ejemplo tu@correo.com.");
+  Object.assign(U,{name:n,wa:w,email:em_,account:"cuenta",marketing:$("acM").checked});track("cuenta_creada",{desde:why?"pago":"pre-cotizacion"});drawTop();m.hidden=true;next();};}
+function payModal(e,kind){const amt=kind==="late"?PR.plannerDespues:e.opts.planner?PR.proveedoresMasPlanner:PR.desbloquearProveedores;
+ const what=kind==="late"?"Conexión con event planner":e.opts.planner?"Proveedores + elegir a tu event planner":"Contactos de tus proveedores";
+ const m=$("modal");let method="Tarjeta";
+ const draw=()=>{m.innerHTML=`<div class="sheet"><h2>${em("locked")} Pago seguro</h2>
+  <div class="soft"><span class="row" style="justify-content:space-between"><b>${esc(what)}</b><b>${money(amt)}</b></span><span class="hint">${esc(e.f.occ)} · ${fdate(e.f.date)}</span></div>
+  <div class="field"><span class="l">¿Cómo quieres pagar?</span><div class="chips">${["Tarjeta","Transferencia","OXXO"].map(x=>`<button class="chip" type="button" data-m="${x}" aria-pressed="${x===method}">${x}</button>`).join("")}</div></div>
+  <div class="soft hint">En el prototipo no se piden ni se guardan datos de pago. En el sitio real esta parte la procesa una pasarela de pagos certificada.</div>
+  <button class="btn host" type="button" id="doPay">Pagar ${money(amt)} (simulado)</button><button class="pill sm" type="button" id="pX">Cancelar</button></div>`;
+  m.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{method=b.dataset.m;draw();});$("pX").onclick=()=>m.hidden=true;
+  $("doPay").onclick=()=>{m.hidden=true;track("pago",{tipo:kind||(e.opts.planner?"planner":"prov"),monto:amt});
+   if(kind==="late"){e.late=true;e.planner.state="elige";inbox("fiestas","📋 Elige a tu planner. Te presentamos a los mejores para tu fiesta.");}
+   else{e.paid=e.opts.planner?"planner":"prov";if(e.paid==="planner")e.planner.state="elige";else inbox("fiestas","🔓 Ya puedes ver y contactar a tus proveedores.");}
+   confetti();toast("✅ Pago recibido. ¡Gracias!");drawAcct();};};
+ draw();m.hidden=false;}
+
+/* ---------- Mi negocio ---------- */
+function drawNegocio(p){const s=U.site||{},isPl=(s.tipos||[]).includes("planner"),pro=U.plan==="pro";
+ const pct=s.completo||80;
+ p.innerHTML=`<div class="grid2"><div style="display:grid;gap:16px;min-width:0">
+  <div class="box" style="background:var(--prov);color:#fff"><h2>${em("rocket")} Mi sitio</h2><b style="font-size:22px">${esc(s.negocio||"Mi negocio")}</b>
+   <span class="row" style="gap:6px"><span style="background:rgba(255,255,255,.18);border-radius:99px;padding:4px 12px;font-weight:800;word-break:break-all">${esc(s.url||"hayquevernos.com/minegocio")}</span>${U.founder?`<span class="tag2">⭐ Fundador #${U.founder}</span>`:""}<span class="tag2 ${pro?"ok":""}">Plan ${pro?"Pro":"Gratis"}</span></span>
+   <span>Tu sitio va al <b>${pct}%</b></span><div class="bar" style="background:rgba(255,255,255,.25)"><i style="width:${pct}%"></i></div>
+   <div class="row"><button class="btn ghost sm" type="button" id="sEdit">✏️ Editar mi sitio</button><button class="btn ghost sm" type="button" id="sCopy">🔗 Copiar link</button>${pro?"":`<button class="btn ghost sm" type="button" id="sPro">⭐ Pasar a Pro</button>`}</div></div>
+  <div class="box"><h2>${em("megaphone")} Solicitudes</h2><span class="hint">Anfitriones que buscan lo que ofreces. Responde en menos de ${RG.horasRespuestaPlanner} h para ganar la insignia Responde ya.</span>
+   <div class="list">${U.solicitudes.length?U.solicitudes.map((r,i)=>solHtml(r,i,pro)).join(""):`<div class="empty"><img src="img/c_08.webp" alt=""><b>Aún no tienes solicitudes</b><span class="hint">Te avisamos por WhatsApp en cuanto llegue la primera.</span></div>`}</div>
+   <div class="row"><button class="sim" type="button" id="sReq">Simular: me llegó una solicitud</button>${isPl?`<button class="sim" type="button" id="sPl">Simular: un anfitrión me eligió como planner</button>`:""}</div></div>
+ </div><div style="display:grid;gap:16px;min-width:0">
+  <div class="box"><h2>${em("trophy")} Mis postulaciones</h2><span class="hint">Los eventos a los que aplicaste y cómo te fue.</span>
+   <div class="list">${U.postul.map(x=>`<div class="item"><span class="grow"><b>${esc(x.ev)}</b><span class="hint">${esc(x.svc)} · quedaste #${x.pos} de ${x.of}</span></span><span class="st ${x.st==="Elegido"?"go":x.st==="Vista"?"vis":x.st==="Enviada"?"wait":"no"}">${x.st}</span></div>`).join("")||'<span class="hint">Cuando apliques a un evento, aquí ves su estado.</span>'}</div>
+   <div class="soft"><b>${em("light_bulb")} Consejos para subir en el orden</b>
+    <span>• Respondes en promedio en 2 h. Los que responden en menos de 1 h se eligen el doble.</span>
+    <span>• Tu precio está 12% arriba del promedio en ${esc(U.zona)}. Un paquete de entrada te acerca a más presupuestos.</span>
+    <span>• Agrega 3 fotos más. Los perfiles con 5 fotos o más reciben más solicitudes.</span></div></div>
+  <div class="box"><h2>${em("spiral_calendar")} Mi agenda</h2><span class="hint">Bloquea las fechas que ya tienes ocupadas y no te llegarán solicitudes para esos días.</span>
+   <div class="list">${U.blocked.map(d=>`<div class="item"><span class="grow"><b>${fdate(d)}</b></span><span class="st no">Ocupado</span></div>`).join("")||'<span class="hint">Sin fechas bloqueadas.</span>'}</div>
+   <div class="row"><input type="date" id="blD" aria-label="Fecha ocupada" style="flex:1 1 160px"><button class="btn ghost sm" type="button" id="blAdd">Bloquear fecha</button></div></div>
+  <div class="box"><h2>${em("glowing_star")} Mis insignias</h2><div class="badges">${[["fundador","Fundador",!!U.founder],["perfil_100","Perfil 100%",pct>=100],["responde_ya","Responde ya",false],["verificado","Verificado",false],["consentido","Consentido",false],["50_fiestas","50 fiestas",false]].map(([b,t,on])=>`<figure class="${on?"":"off"}"><img src="img/b_${b}.webp" alt=""><figcaption>${t}</figcaption></figure>`).join("")}</div></div>
+ </div></div>`;
+ $("sEdit").onclick=()=>openJourney("negocio",true);
+ $("sCopy").onclick=()=>{const u="https://"+(s.url||"");(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast("🔗 Link copiado"),()=>toast(u));};
+ const pb=$("sPro");if(pb)pb.onclick=planModal;
+ $("sReq").onclick=()=>{U.solicitudes.unshift({kind:"svc",occ:["Cumpleaños","Boda","15 años","Congreso"][U.solicitudes.length%4],guests:[40,120,150,300][U.solicitudes.length%4],svc:["Taquizas · por persona","Mesas de dulces · por paquete","DJ · por hora","Coffee break · por persona"][U.solicitudes.length%4],est:[8400,10500,7500,36000][U.solicitudes.length%4],date:new Date(now()+75*864e5).toISOString().slice(0,10),km:[3.2,6.8,12,4.5][U.solicitudes.length%4],dl:now()+24*36e5,st:"nueva"});
+  U.postul.unshift({ev:U.solicitudes[0].occ+" · "+U.solicitudes[0].guests+" invitados",svc:(s.servicios&&s.servicios[0]&&s.servicios[0].cat)||"Mi servicio",pos:3,of:9,st:"Enviada"});inbox("negocio","🔔 Nueva solicitud de un anfitrión cerca de ti.");drawAcct();};
+ const pl=$("sPl");if(pl)pl.onclick=()=>{U.solicitudes.unshift({kind:"planner",occ:"Cumpleaños",guests:60,date:new Date(now()+80*864e5).toISOString().slice(0,10),km:4,dl:now()+24*36e5,st:"nueva"});inbox("negocio","📋 Un anfitrión te eligió como su event planner. Tienes 24 h.");drawAcct();};
+ document.querySelectorAll("[data-sol]").forEach(b=>b.onclick=()=>{const r=U.solicitudes[+b.dataset.sol];const a=b.dataset.a;
+  if(a==="pro")return planModal();if(a==="ok"){r.st="aceptada";const po=U.postul.find(x=>x.st==="Enviada");if(po)po.st="Vista";toast("💬 Le escribiste por WhatsApp. ¡Suerte!");}
+  if(a==="no"){r.st="rechazada";}
+  if(a==="close"){r.closing=true;r.cq=r.cq||"";}
+  if(a==="cq"){r.cq=b.dataset.v;const inp=document.getElementById("cm-"+b.dataset.sol);if(inp)r.draft=inp.value;}
+  if(a==="lost"){r.st="perdida";r.closing=false;}
+  if(a==="why"){r.lostWhy=b.dataset.v;track("trato_perdido",{occ:r.occ,motivo:r.lostWhy});toast("👌 Gracias, nos ayuda a mejorar tus solicitudes.");}
+  if(a==="cfin"){const v=+(document.getElementById("cm-"+b.dataset.sol)||{}).value||r.est;if(!r.cq){toast("Dinos si nuestro cálculo fue corto, bien o sobrado");return;}
+   r.st="cerrada";r.closing=false;r.final=v;const po=U.postul.find(x=>x.st!=="Elegido");if(po)po.st="Elegido";
+   track("cierre_trato",{occ:r.occ,invitados:r.guests,servicio:r.svc,estimado:r.est,final:v,diferencia_pct:Math.round((v-r.est)/r.est*100),calculo:r.cq});
+   toast("🤝 ¡Felicidades por el cierre! Ya cuenta para tu insignia de 50 fiestas.");}if(a==="paid"){r.st="pago_recibido";toast("✅ Confirmaste el pago. Se liberaron los proveedores de este evento para ti y tu cliente.");}drawAcct();});
+ $("blAdd").onclick=()=>{const d=$("blD").value;if(!d)return;U.blocked.push(d);drawAcct();toast("📅 Fecha bloqueada");};}
+function solHtml(r,i,pro){const left=Math.max(0,r.dl-now()),h=Math.floor(left/36e5);const pl=r.kind==="planner";
+ const head=`<span class="grow"><b>${pl?"📋 Te eligieron como planner · ":""}${esc(r.occ)} · ${r.guests} invitados</b><span class="hint">${fdate(r.date)} · a ${r.km} km · te quedan ${h} h</span></span>`;
+ if(!pro)return`<div class="item">${head}<button class="btn sm" type="button" data-sol="${i}" data-a="pro">Ver datos con Pro</button></div>`;
+ if(r.st==="nueva")return`<div class="item" style="flex-wrap:wrap">${head}<span class="hint" style="width:100%">Anfitrión: Mariana G. · 55 8765 4321${r.svc?` · Busca: ${esc(r.svc)} · cálculo ¡HQV! ~${money(r.est)}`:""}</span><div class="row"><a class="btn wa sm" href="https://wa.me/525500000000" target="_blank" rel="noopener" data-sol="${i}" data-a="ok">💬 Escribirle</a><button class="btn ghost sm" type="button" data-sol="${i}" data-a="no">No puedo</button></div></div>`;
+ if(!pl&&r.st==="aceptada"&&r.closing)return`<div class="item" style="flex-wrap:wrap">${head}<div class="soft" style="width:100%"><b>🤝 ¡Bien! Cuéntanos en 10 segundos</b>
+   <label class="hint" for="cm-${i}">Monto final que cobraste</label><input type="number" min="0" id="cm-${i}" value="${r.draft||r.est||""}" style="max-width:200px">
+   <span class="hint">Nuestro cálculo de cantidad para este evento fue…</span><div class="seg">${[["corto","Corto"],["bien","Bien"],["sobrado","Sobrado"]].map(([k,t])=>`<button type="button" data-sol="${i}" data-a="cq" data-v="${k}" aria-pressed="${r.cq===k}">${t}</button>`).join("")}</div>
+   <button class="btn sm" type="button" data-sol="${i}" data-a="cfin" style="justify-self:start">Guardar</button></div></div>`;
+ if(!pl&&r.st==="aceptada")return`<div class="item" style="flex-wrap:wrap">${head}${r.est?`<span class="hint" style="width:100%">Cálculo ¡HQV!: ~${money(r.est)} · ${esc(r.svc||"")}</span>`:""}<div class="row"><button class="btn sm" type="button" data-sol="${i}" data-a="close">🤝 Se cerró</button><button class="btn ghost sm" type="button" data-sol="${i}" data-a="lost">No se cerró</button></div></div>`;
+ if(r.st==="perdida")return`<div class="item" style="flex-wrap:wrap">${head}<span class="st no">No se cerró</span>${r.lostWhy?"":`<span class="hint" style="width:100%">¿Por qué? (opcional)</span><div class="row">${["Precio","Fecha","Eligió a otro","No respondió"].map(t=>`<button class="pill sm" type="button" data-sol="${i}" data-a="why" data-v="${t}">${t}</button>`).join("")}</div>`}</div>`;
+ if(r.st==="cerrada")return`<div class="item">${head}<span class="st go">Cerrada · ${money(r.final)}</span></div>`;
+ if(pl&&r.st==="aceptada")return`<div class="item" style="flex-wrap:wrap">${head}<span class="hint" style="width:100%">Cuando tu cliente te confirme y te pague, confírmalo aquí para liberarle a ambos sus proveedores.</span><button class="btn sm" type="button" data-sol="${i}" data-a="paid">Recibí el pago</button></div>`;
+ return`<div class="item">${head}<span class="st ${r.st==="rechazada"?"no":"go"}">${{aceptada:"Contactado",rechazada:"No disponible",pago_recibido:"Cliente confirmado"}[r.st]}</span></div>`;}
+function planModal(){const m=$("modal");let bill="anual";
+ const draw=()=>{const mo=U.founder?PR.proFundadorMensual:PR.proMensual,an=Math.round(mo*12*(1-PR.descuentoAnual));
+  m.innerHTML=`<div class="sheet"><h2>⭐ Plan Pro</h2><span class="hint">Un solo pago te da acceso a todos los clientes interesados. No pagas por cada uno.</span>
+  <div class="seg" role="group" aria-label="Periodo"><button type="button" data-b="mensual" aria-pressed="${bill==="mensual"}">Mensual</button><button type="button" data-b="anual" aria-pressed="${bill==="anual"}">Anual −${PR.descuentoAnual*100}%</button></div>
+  <div class="plan"><div><b>Gratis</b><span class="price">$0</span><span class="hint">Sitio web, catálogo y link para compartir.</span></div>
+   <div class="pro"><b>Pro${U.founder?" fundador":""}</b><span class="price">${money(bill==="anual"?an:mo)}</span><span>${bill==="anual"?"al año":"al mes"}</span><span style="font-size:13px">Datos de los anfitriones, prioridad en el orden y estadísticas.</span></div></div>
+  <button class="btn" type="button" id="goPro">Activar Pro (simulado)</button><button class="pill sm" type="button" id="prX">Ahora no</button><p class="legal">Precios provisionales de prototipo.</p></div>`;
+  m.querySelectorAll("[data-b]").forEach(b=>b.onclick=()=>{bill=b.dataset.b;draw();});$("prX").onclick=()=>m.hidden=true;
+  $("goPro").onclick=()=>{U.plan="pro";m.hidden=true;track("plan_pro",{bill});inbox("negocio","⭐ Ya eres Pro. Ahora ves los datos de cada anfitrión interesado.");confetti();drawAcct();};};
+ draw();m.hidden=false;}
+
+/* ---------- Bandeja y perfil ---------- */
+function drawInbox(p){U.inbox.forEach(m=>m.read=true);drawTop();
+ const promos=[{side:"todos",txt:"🎓 Curso gratis: cómo cotizar tu servicio para ganar más fiestas. Cupo limitado.",promo:true}];
+ const all=[...U.inbox,...promos];
+ p.innerHTML=`<div class="box" style="max-width:760px"><h2>${em("speech_balloon")} Bandeja</h2><span class="hint">Solicitudes, respuestas, avisos y novedades de tus dos lados.</span>
+ <div class="list">${all.map(m=>`<div class="item"><span class="st ${m.side==="negocio"?"vis":m.side==="fiestas"?"new":"wait"}">${m.side==="negocio"?"Mi negocio":m.side==="fiestas"?"Mis fiestas":"Novedad"}</span><span class="grow">${esc(m.txt)}</span></div>`).join("")}</div></div>`;}
+function drawPerfil(p){const g=U.account==="invitado";
+ p.innerHTML=`<div class="grid2"><div class="box"><h2>${em("waving_hand")} Mi perfil</h2>
+  ${g?`<div class="lock">${em("light_bulb")}<span>Tu cuenta es invitada: vive en este dispositivo. Agrega tu WhatsApp y correo para no perder tus fiestas.</span></div>`:""}
+  <div class="field"><label for="pN">Nombre</label><input type="text" id="pN" value="${esc(U.name)}"></div>
+  <div class="field"><label for="pW">WhatsApp</label><input type="tel" id="pW" value="${esc(fmtWa(U.wa))}" placeholder="55 1234 5678"></div>
+  <div class="field"><label for="pE">Correo</label><input type="email" id="pE" value="${esc(U.email)}" placeholder="tu@correo.com"></div>
+  <div class="field"><label for="pZ">Zona</label><input type="text" id="pZ" value="${esc(U.zona)}"></div>
+  <button class="btn" type="button" id="pSave">${g?"Guardar mi cuenta":"Guardar cambios"}</button></div>
+  <div style="display:grid;gap:16px"><div class="box"><h2>${em("trophy")} Mi nivel</h2><div class="badges">${[["n1","Invitado"],["n2","Fiestero"],["n3","Alma de la fiesta"],["n4","Leyenda"]].map(([n,t],i)=>`<figure class="${i===0||(i===1&&U.events.length+(U.site?1:0)>=3)?"":"off"}"><img src="img/${n}.webp" alt=""><figcaption>${t}</figcaption></figure>`).join("")}</div><span class="hint">Subes de nivel con cada fiesta y cada solicitud completada.</span></div>
+  <div class="box"><h2>${em("shield")} Privacidad</h2><span class="hint">Tus datos son tuyos.</span><div class="row"><button class="btn ghost sm" type="button" id="pDl">Descargar mis datos</button><button class="btn ghost sm" type="button" id="pDel">Borrar mi cuenta</button></div>
+  <label class="chk"><input type="checkbox" id="pMk" ${U.marketing?"checked":""}><span>Recibir novedades, cursos y promociones.</span></label>
+  <button class="pill sm" type="button" id="pOut">Cerrar sesión</button></div></div></div>`;
+ $("pSave").onclick=()=>{const w=$("pW").value.replace(/\D/g,"").slice(-10),e=$("pE").value.trim();U.name=$("pN").value.trim()||U.name;U.zona=$("pZ").value.trim();
+  if(g){if(w.length!==10||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e))return toast("Escribe tu WhatsApp de 10 dígitos y un correo válido.");U.account="cuenta";track("cuenta_creada",{desde:"perfil"});}
+  if(w.length===10)U.wa=w;if(e)U.email=e;toast("✅ Guardado");drawAcct();drawTop();};
+ $("pDl").onclick=()=>toast("Te mandamos tus datos a tu correo (simulado).");$("pDel").onclick=()=>toast("Para borrar tu cuenta te confirmamos por WhatsApp (simulado).");
+ $("pMk").onchange=e=>U.marketing=e.target.checked;$("pOut").onclick=()=>{U=fresh();show("home");};}
+
+/* ======================= ATAJOS PAGADOS (concierge) ======================= */
+function concierge(lado){const host=lado==="anfitrion",price=host?PR.organizamelo:PR.haganmeloUstedes;const m=$("modal");let pref="WhatsApp";track("concierge_abierto",{lado});
+ const draw=()=>{m.innerHTML=`<form class="sheet" id="cF" novalidate><img src="img/${host?"c_07":"c_14"}.webp" alt="" style="width:90px">
+  <h2>${host?"Organízamelo":"Háganmelo ustedes"}</h2>
+  <span class="hint">${host?"Un experto de ¡Hay que vernos! arma contigo tu fiesta: servicios, presupuesto y planner. Nosotros llenamos todo por ti.":"Nuestro equipo arma tu sitio con tus fotos y precios, y te conecta con anfitriones. Tú solo nos mandas la información."}</span>
+  <ol class="steps"><li class="now"><i>1</i>Pagas y se crea tu cuenta</li><li><i>2</i>Te contactamos en menos de 24 h</li><li><i>3</i>${host?"En una sesión armamos tu cotización completa":"En una sesión armamos tu sitio y lo publicamos"}</li></ol>
+  <div class="field"><label for="cN">Tu nombre</label><input type="text" id="cN" value="${esc(U.name)}" autocomplete="name"></div>
+  <div class="field"><label for="cW">Tu WhatsApp</label><input type="tel" id="cW" value="${esc(fmtWa(U.wa))}" placeholder="55 1234 5678" inputmode="numeric"></div>
+  <div class="field"><label for="cE">Correo</label><input type="email" id="cE" value="${esc(U.email)}" placeholder="tu@correo.com"></div>
+  <div class="field"><span class="l">¿Cómo prefieres que te contactemos?</span><div class="chips">${["WhatsApp","Llamada","Zoom"].map(x=>`<button class="chip" type="button" data-p="${x}" aria-pressed="${x===pref}">${x}</button>`).join("")}</div></div>
+  <div class="field"><label for="cX">${host?"¿Qué celebras y cuándo, más o menos?":"¿Qué ofreces?"}</label><input type="text" id="cX" placeholder="${host?"Boda en marzo, unas 120 personas":"Mesas de dulces y pasteles"}"></div>
+  <p class="err" id="cErr" hidden></p>
+  <div class="row" style="justify-content:space-between"><span class="price">${money(price)}</span><button class="btn ${host?"host":""}" type="submit">Pagar ${money(price)} (simulado)</button></div>
+  <p class="legal">Precio provisional. Al pagar se crea tu cuenta de ¡Hay que vernos! con estos datos y aceptas los Términos y el Aviso de privacidad.</p>
+  <button class="pill sm" type="button" id="cCl">Ahora no</button></form>`;
+  m.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>{pref=b.dataset.p;["cN","cW","cE","cX"].forEach(i=>keep[i]=$(i).value);draw();["cN","cW","cE","cX"].forEach(i=>{if(keep[i]!=null)$(i).value=keep[i];});});
+  $("cCl").onclick=()=>m.hidden=true;
+  $("cF").onsubmit=ev=>{ev.preventDefault();const n=$("cN").value.trim(),w=$("cW").value.replace(/\D/g,"").slice(-10),e=$("cE").value.trim(),err=t=>{$("cErr").textContent=t;$("cErr").hidden=false;};
+   if(n.length<2)return err("Escribe tu nombre.");if(w.length!==10)return err("Tu WhatsApp debe tener 10 dígitos.");if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e))return err("Escribe un correo válido.");
+   Object.assign(U,{name:n,wa:w,email:e,account:"cuenta"});U.sides[host?"fiestas":"negocio"]=true;
+   if(!host&&!U.site)U.site={negocio:"Tu negocio (en construcción)",url:"hayquevernos.com/tunegocio",tipos:["services"],completo:10};
+   inbox(host?"fiestas":"negocio",`📞 Recibimos tu pago de ${host?"Organízamelo":"Háganmelo ustedes"}. Te contactamos por ${pref} en menos de 24 h.`);
+   track("concierge_pagado",{lado,pref});m.hidden=true;U.tab="bandeja";show("acct");confetti();toast("✅ ¡Listo! Te contactamos en menos de 24 h");};};
+ const keep={};draw();m.hidden=false;}
+
+/* ======================= ENTRAR (sin contraseña) ======================= */
+function login(){const m=$("modal");
+ m.innerHTML=`<form class="sheet" id="lF" novalidate><img src="img/ball.webp" alt="" style="width:70px"><h2>Entra a tu cuenta</h2><span class="hint">Una sola cuenta para tus fiestas y tu negocio. Sin contraseñas: te mandamos un código.</span>
+  <div class="field"><label for="lE">Tu correo o WhatsApp</label><input type="text" id="lE" placeholder="tu@correo.com o 55 1234 5678"></div>
+  <p class="err" id="lErr" hidden></p><button class="btn" type="submit">Mandarme un código</button><button class="pill sm" type="button" id="lX">Cancelar</button></form>`;
+ m.hidden=false;$("lX").onclick=()=>m.hidden=true;
+ $("lF").onsubmit=ev=>{ev.preventDefault();if($("lE").value.trim().length<5){$("lErr").textContent="Escribe tu correo o tu WhatsApp.";$("lErr").hidden=false;return;}
+  m.innerHTML=`<form class="sheet" id="cF2" novalidate><h2>Escribe tu código</h2><span class="hint">En el prototipo cualquier código de 6 dígitos funciona.</span><div class="field"><label for="cd6">Código</label><input type="text" id="cd6" inputmode="numeric" maxlength="6" placeholder="123456"></div><button class="btn" type="submit">Entrar</button></form>`;
+  $("cF2").onsubmit=e2=>{e2.preventDefault();if($("cd6").value.replace(/\D/g,"").length!==6)return;m.hidden=true;demoUser();};};}
+
+/* ======================= DEMO ======================= */
+function demoUser(){U=fresh();Object.assign(U,{account:"cuenta",name:"Diego Juárez",wa:"5512345678",email:"diego@ejemplo.com",founder:12,plan:"gratis"});
+ U.sides={fiestas:true,negocio:true};
+ const f={occ:"Cumpleaños",kind:"social",guests:60,date:new Date(now()+80*864e5).toISOString().slice(0,10),hours:5,total:84600,pp:1410,zona:"Álvaro Obregón",
+  rows:[{k:"Venue",e:"🏛️",label:"Venue (renta del espacio)",amt:26000},{k:"Alimentos",e:"🍽️",label:"Alimentos",subs:["Taquizas","Pasteles de celebración"],amt:15300},{k:"Música y espectáculos",e:"🎧",label:"Música y espectáculos",subs:["DJ"],amt:7500},{k:"Decoración y flores",e:"💐",label:"Decoración y flores",subs:["Decoración con globos"],amt:2800},{k:"Bebidas y barra",e:"🍹",label:"Bebidas y barra",subs:["Barra libre"],amt:19200}]};
+ const past={occ:"Baby shower",kind:"social",guests:35,date:new Date(now()-3*864e5).toISOString().slice(0,10),hours:4,total:21400,pp:611,zona:"Coyoacán",
+  rows:[{k:"Alimentos",e:"🍽️",label:"Alimentos",subs:["Catering de cóctel y canapés","Mesas de postres"],amt:10325},{k:"Bebidas y barra",e:"🍹",label:"Bebidas y barra",subs:["Coctelería sin alcohol"],amt:3850},{k:"Decoración y flores",e:"💐",label:"Decoración y flores",subs:["Decoración con globos"],amt:2800},{k:"Experiencias y actividades",e:"🎡",label:"Experiencias y actividades",subs:["Glitter bar"],amt:2500}]};
+ const pe=newEvent(past);pe.paid="prov";U.events=[newEvent(f),pe];
+ U.site={nombre:"Diego Juárez",negocio:"DJ Diego Fiestas",url:"hayquevernos.com/dj-diego-fiestas",tipos:["services","planner"],servicios:[{cat:"Música y espectáculos"}],completo:85};
+ U.postul=[{ev:"Boda · 120 invitados",svc:"DJ",pos:1,of:7,st:"Elegido"},{ev:"15 años · 150 invitados",svc:"DJ",pos:4,of:9,st:"No elegido esta vez"},{ev:"Baby shower · 30 invitados",svc:"DJ",pos:2,of:5,st:"Vista"}];
+ inbox("fiestas","🎉 ¿Cómo te fue en tu baby shower? Cuéntanos en 1 minuto.");
+ U.agenda=[{w:"Cumpleaños de mi mamá",d:new Date(now()+140*864e5).toISOString().slice(0,10)}];
+ inbox("fiestas","🎉 Tu cumpleaños quedó guardado. Ya hay proveedores interesados cerca de ti.");inbox("negocio","🔔 Tienes una nueva solicitud para Música.");
+ U.tab="fiestas";show("acct");toast("¡Hola, Diego! 👋");}
+$("demo").onclick=demoUser;
+$("reset").onclick=()=>{U=fresh();closeJourney();$("modal").hidden=true;show("home");};
+
+/* ======================= CONFETI ======================= */
+function confetti(){if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;const c=$("conf");c.hidden=false;const x=c.getContext("2d");c.width=innerWidth;c.height=innerHeight;
+ const cols=["#9146FF","#FA1ED2","#FAFA19","#BEFF00","#69FFC3","#1E69FF","#FF6905"],ps=Array.from({length:140},()=>({x:innerWidth/2,y:innerHeight*.35,vx:(Math.random()-.5)*14,vy:-Math.random()*13-3,r:4+Math.random()*5,c:cols[Math.floor(Math.random()*cols.length)],a:Math.random()*6}));
+ let f=0;(function tick(){x.clearRect(0,0,c.width,c.height);ps.forEach(p=>{p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.a+=.2;x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillStyle=p.c;x.beginPath();x.roundRect?x.roundRect(-p.r,-p.r/2,p.r*2,p.r,p.r/2):x.rect(-p.r,-p.r/2,p.r*2,p.r);x.fill();x.restore();});
+  if(++f<110)requestAnimationFrame(tick);else c.hidden=true;})();}
+
+drawTop();track("home_vista");
+</script>
