@@ -345,6 +345,37 @@ label.pick input[type=file]{position:absolute;inset:0;opacity:0;width:100%;curso
 .ms-emb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12.5px;font-weight:800}
 .ms-emb img{width:34px}
 
+/* ===== v14 · entregas ===== */
+.dlm-chips .chip{font-size:13px;padding:7px 12px}
+.dlc{border-radius:20px;background:rgba(255,255,255,.85);box-shadow:var(--hqv-clay-sm,0 4px 12px rgba(65,20,95,.08));margin-top:8px}
+.dlc.closed{padding:0}
+.dlc .dlh{display:flex;align-items:center;gap:8px;width:100%;border:0;background:none;text-align:left;font:inherit;padding:11px 14px;cursor:pointer}
+.dlc .dlh b{font-size:14px;white-space:nowrap}
+.dlc .dlh .sm{font-size:12px;color:var(--muted);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dlc .dlh .ed{font-size:12px;font-weight:800;color:#8205B4}
+.dlc .dlh .bad{color:#c0003c}
+.dlc.open{padding:4px 14px 12px;display:grid;gap:9px;outline:2px solid #BEAAFF}
+.dlc.open .dlh{padding:8px 0 0}
+.dlq{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-weight:800;font-size:14px}
+.dlrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.dlrow select{flex:1 1 190px;min-width:0}
+.dlrow input{flex:0 1 140px;min-width:90px}
+.dlrow .u{font-size:12px;color:var(--muted);font-weight:700}
+.dlz{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.dlz label{font-size:12px;color:var(--muted);font-weight:700;display:grid;gap:4px}
+.dlcd{display:flex;gap:8px;align-items:center}
+.dlcd select{flex:1 1 auto;min-width:0}.dlcd input{flex:0 0 110px}
+.dlcd .u{font-size:12px;font-weight:800;color:var(--muted);min-width:30px}
+.dl-ex{font-size:12.5px;background:#F0F0FF;border-radius:14px;padding:8px 11px;line-height:1.4}
+.dl-ex b{color:#8205B4}
+.dl-inc{font-size:13px;font-weight:800;color:#0a7a52;background:#E3FBF1;border-radius:12px;padding:6px 10px;justify-self:start}
+.dl-ok{justify-self:end}
+.sl-nolim{font-size:12px!important;padding:5px 10px!important}
+.vq{display:grid;gap:6px}
+.vq .row2{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.vq .row2 input{flex:0 0 110px}.vq .row2 select{flex:0 0 140px}
+@media(max-width:560px){.dlz{grid-template-columns:1fr}}
+
 /* ===== v12 · degradados de marca ===== */
 :root{--g-prov:linear-gradient(160deg,#9146FF 0%,#FA1ED2 100%);--g-host:linear-gradient(160deg,#FA1ED2 0%,#FF6905 100%);
  --g-cta:linear-gradient(135deg,#BEFF00 0%,#FAFA19 100%);--cta-ink:#1a1033;--wa:#25D366;--ok-solid:#00A884}
@@ -499,11 +530,11 @@ const blankLine=n=>({n,u:"",uo:"",price:"",yieldP:"",pkgP:"",pkgH:"",unit:""});
 function canonUnit(v){const t=norm(v).replace(/^por\s+/,"").trim();return Object.keys(UF).find(u=>{const c=norm(u).replace(/^por\s+/,"");return c===t||norm(uLabel(u))===norm(v);});}
 const scopeOk=t=>{const sc=S.svcScope||{};if(!sc.S&&!sc.E)return true;return(sc.S&&t.includes("S"))||(sc.E&&t.includes("E"));};
 function subOf(cat,n){const c=catOf(cat);return c&&c.s.find(x=>x.n===n);}
-function priceTxt(x){if(famOf(x.u)==="porcentaje")return`${esc(x.price)}% <small>${esc(uLabel(x.u).slice(2))}</small>`;return`${money(x.price)} <small>${esc(x.unit)}${+x.pkgP>0?` · ${esc(x.pkgP)} personas`:""}</small>`;}
+function priceTxt(x){if(famOf(x.u)==="porcentaje")return`${esc(x.price)}% <small>${esc(uLabel(x.u).slice(2))}</small>`;return`${money(x.price)} <small>${esc(x.unit)}${+x.pkgP>0?` · ${esc(x.pkgP)} personas`:x.pkgP==="sin"?" · sin límite de personas":""}${x.pkgH==="sin"?" · horas ilimitadas":+x.pkgH>0?` · ${esc(x.pkgH)} h`:""}</small>`;}
 function hostView(x,cat){const P=+x.price;if(!x.u||!(P>0))return"";const f=famOf(x.u),t=tOf(x.u);
  if(f==="porcentaje")return`<span class="hv">👀 El anfitrión verá: ${esc(x.price)}% ${esc(uLabel(x.u).slice(2))}, calculado sobre su fiesta.</span>`;
  if(f==="extra")return`<span class="hv">👀 Solo se suma si la fiesta se alarga: ${money(P)} por hora extra.</span>`;
- const r=hqvCost({cat,sub:x.n,u:x.u,price:P,guests:EXG,hours:EXH,rinde:x.yieldP,pkgP:x.pkgP});
+ const r=hqvCost({cat,sub:x.n,u:x.u,price:P,guests:EXG,hours:EXH,rinde:x.yieldP,pkgP:x.pkgP==="sin"?1e9:x.pkgP});
  if(r.pend)return`<span class="hv">👀 ${f==="otra"?"Revisamos esta unidad y te avisamos cómo se la mostramos al anfitrión.":"Dinos para cuántas personas alcanza y lo convertimos; si no, el anfitrión lo verá «por cotizar»."}</span>`;
  const def=!+x.yieldP&&(f==="cantidad"||f==="espacio")?" (con nuestro promedio; si sabes cuánto rinde, ponlo)":"";
  return`<span class="hv">👀 Así lo ve el anfitrión en una fiesta de ${EXG} personas${t==="hora"||t==="minuto"?` y ${EXH} h`:""}: <b>${money(Math.round(r.total/EXG))}</b> por persona · <b>${money(Math.round(r.total))}</b> en total${r.note?" · "+esc(r.note):""}${def}</span>`;}
@@ -524,18 +555,18 @@ const yearNow=2026;
 const blankZone=()=>({state:"",all:false,munis:[]});
 const blankPromo=()=>({has:null,what:"",terms:"",until:""});
 const blankMin=()=>({has:null,qty:"",unit:""});
-const blankSvc=()=>({cat:"",catNew:"",subs:[],desc:"",person:false,ship:false,shipMode:"",shipFixed:"",shipBase:"",shipBaseKm:"",shipPerKm:"",shipMaxKm:"",shipFreeFrom:"",min:blankMin(),specs:[],promo:blankPromo(),photos:[]});
+const blankSvc=()=>({cat:"",catNew:"",subs:[],desc:"",person:false,ship:false,shipMode:"",shipFixed:"",shipBase:"",shipBaseKm:"",shipPerKm:"",shipMaxKm:"",shipFreeFrom:"",dl:[],dlOpen:-1,min:blankMin(),specs:[],promo:blankPromo(),photos:[]});
 function samplePic(emoji,h1,h2,w=1200,h=900){try{const c=document.createElement("canvas");c.width=w;c.height=h;const x=c.getContext("2d");const g=x.createLinearGradient(0,0,w,h);g.addColorStop(0,h1);g.addColorStop(1,h2);x.fillStyle=g;x.fillRect(0,0,w,h);x.font=`${Math.round(h*.42)}px serif`;x.textAlign="center";x.textBaseline="middle";x.fillText(emoji,w/2,h/2);x.font=`600 ${Math.round(h*.06)}px sans-serif`;x.fillStyle="rgba(255,255,255,.9)";x.fillText("Foto de ejemplo",w/2,h*.88);return c.toDataURL("image/jpeg",.7);}catch(e){return null;}}
 const sp=(e,a,b)=>{const u=samplePic(e,a,b);return u?[{url:u,issues:[],before:2400000,after:Math.round(u.length*.75)}]:[];};
 function exampleState(){return{
  types:{services:true,venue:true,planner:true},
  biz:{owner:"Lupita Ramírez",name:"Lupita Dulces y Antojos",photo:samplePic("🍭","#D6338A","#7B2CBF",600,600),since:"2019",invoice:"no",about:"Mesas de dulces y carritos para que tu fiesta sea inolvidable. Montamos y recogemos 🍭",whatsapp:"55 1234 5678",instagram:"@lupitadulces",tiktok:"@lupita.dulces",facebook:"",addr:{cp:"01020",state:"Ciudad de México",muni:"Álvaro Obregón",col:"Guadalupe Inn",colOther:"",street:"Av. Revolución",num:"1500",int:"",ref:"",ok:true,manual:false},showAddr:"colonia"},
  svcScope:{S:true,E:false},
- services:[{cat:"Alimentos",catNew:"",subs:[{n:"Mesas de dulces",u:"Por paquete",uo:"",price:"3500",yieldP:"",pkgP:"50",pkgH:"5",unit:"por paquete"},{n:"Mesas de dulces",u:"Por persona",uo:"",price:"75",yieldP:"",pkgP:"",pkgH:"",unit:"por persona"},{n:"Galletas decoradas",u:"Por docena (12 piezas)",uo:"",price:"280",yieldP:"6",pkgP:"",pkgH:"",unit:"por docena (12 piezas)"},{n:"Carritos de alimentos",u:"Por hora",uo:"",price:"1200",yieldP:"",pkgP:"",pkgH:"",unit:"por hora"}],desc:"Para 30 a 80 invitados, decorada con el tema de tu fiesta.",person:true,ship:true,shipMode:"distancia",shipFixed:"",shipBase:"80",shipBaseKm:"5",shipPerKm:"12",shipMaxKm:"30",shipFreeFrom:"5000",min:{has:true,qty:"30",unit:"personas"},specs:["Galletas decoradas","Helado artesanal"],promo:{has:true,what:"10% de descuento",terms:"Contratando con 30 días de anticipación",until:"2026-12-15"},photos:[...sp("🍬","#FFB3D9","#FF6DB4"),...sp("🍦","#FFE29A","#FF9F68")]}],
+ services:[{cat:"Alimentos",catNew:"",subs:[{n:"Mesas de dulces",u:"Por paquete",uo:"",price:"3500",yieldP:"",pkgP:"50",pkgH:"5",unit:"por paquete"},{n:"Mesas de dulces",u:"Por persona",uo:"",price:"75",yieldP:"",pkgP:"",pkgH:"",unit:"por persona"},{n:"Galletas decoradas",u:"Por docena (12 piezas)",uo:"",price:"280",yieldP:"6",pkgP:"",pkgH:"",unit:"por docena (12 piezas)"},{n:"Carritos de alimentos",u:"Por hora",uo:"",price:"1200",yieldP:"",pkgP:"",pkgH:"",unit:"por hora"}],desc:"Para 30 a 80 invitados, decorada con el tema de tu fiesta.",person:true,ship:true,shipMode:"distancia",shipFixed:"",shipBase:"80",shipBaseKm:"5",shipPerKm:"12",shipMaxKm:"30",shipFreeFrom:"5000",dlOpen:-1,dl:[{m:"Envío a domicilio",desc:"",cobra:true,u:"Por kilómetro",rate:"12",z:{local:"",ext:"",fuera:""},uo:"",om:"fijo",oq:"",conds:[{c:"Tarifa mínima",v:"80"},{c:"Distancia máxima",v:"30"},{c:"Entrega gratuita desde",v:"5000"}]},{m:"Servicio presencial en el evento",desc:"",cobra:false,u:"",rate:"",z:{local:"",ext:"",fuera:""},uo:"",om:"fijo",oq:"",conds:[{c:"Anticipación requerida",v:"7"}]}],min:{has:true,qty:"30",unit:"personas"},specs:["Galletas decoradas","Helado artesanal"],promo:{has:true,what:"10% de descuento",terms:"Contratando con 30 días de anticipación",until:"2026-12-15"},photos:[...sp("🍬","#FFB3D9","#FF6DB4"),...sp("🍦","#FFE29A","#FF9F68")]}],
  svcZones:[{state:"Ciudad de México",all:false,munis:["Álvaro Obregón","Coyoacán","Benito Juárez","Tlalpan"]},{state:"Estado de México",all:false,munis:["Naucalpan de Juárez","Huixquilucan"]}],
  venue:{name:"Terraza Lupita",photo:samplePic("🌇","#FF9F68","#7B2CBF",600,600),addr:{cp:"01000",state:"Ciudad de México",muni:"Álvaro Obregón",col:"San Ángel",colOther:"",street:"Calle Sur 12",num:"45",int:"",ref:"Portón verde",ok:true,manual:false},instagram:"@terrazalupita",tiktok:"",facebook:"",
   type:"Terraza",seated:"60",standing:"90",area:"51 a 60 m²",features:["techado","aire","fumar","luz","agua","refri","calle","ninos"],baths:{m:"1",w:"1",g:"1"},
-  days:["jue","vie","sab","dom"],open:"12:00",limit:"23:00",hoursIncl:"5",extraHour:"1800",
+  days:["jue","vie","sab","dom"],open:"12:00",limit:"23:00",hoursIncl:"5",extraHour:"1800",setupN:"2",setupU:"Horas",ioN:"30",ioU:"Minutos",ioPaid:false,ioCost:"",
   mode:"renta",rent:{price:"9000",per:"evento",upTo:"60",perExtraGuest:"150"},packages:[],adj:{day:{sab:"10"},daytime:"-10"},spaces:[{name:"Salón interior",price:"2500"}],negotiable:true,
   policy:{"Comida":{offer:"no",price:"",per:"evento",own:"si",fee:""},"Con alcohol":{offer:"no",price:"",per:"evento",own:"cuota",fee:"1500"},"Sin alcohol":{offer:"no",price:"",per:"evento",own:"si",fee:""},"Postres":{offer:"no",price:"",per:"evento",own:"si",fee:""},"Música":{offer:"costo",price:"3500",per:"evento",own:"no",fee:""},"Luz y show":{offer:"no",price:"",per:"evento",own:"si",fee:""},"Mobiliario":{offer:"inc",price:"",per:"evento",own:"si",fee:""},"Decoración":{offer:"no",price:"",per:"evento",own:"si",fee:""},"Staff":{offer:"no",price:"",per:"evento",own:"si",fee:""}},
   deposit:"50%",advance:"15",guarantee:"2000",cancel:"Reembolso del anticipo con 30 días de aviso",corkage:"$150 por botella",docs:["INE","Contrato firmado"],docsOther:"",docsNone:false,rulesText:"Volumen moderado después de las 22:00. Sin confeti.",rulesFile:null,promo:{has:false,what:"",terms:"",until:""},photos:[...sp("🌇","#FFC83D","#D6338A"),...sp("🌙","#2E1F4A","#7B2CBF")]},
@@ -585,7 +616,7 @@ function emptyState(){return{types:{services:false,venue:false,planner:false},
  biz:{name:"",photo:null,since:"",invoice:"",about:"",whatsapp:"",instagram:"",tiktok:"",facebook:"",addr:blankAddr(),showAddr:""},
  svcScope:{S:false,E:false},services:[blankSvc()],svcZones:[blankZone()],
  venue:{name:"",photo:null,addr:blankAddr(),instagram:"",tiktok:"",facebook:"",type:"",seated:"",standing:"",area:"",features:[],baths:{m:"",w:"",g:""},
-  days:[],open:"",limit:"",hoursIncl:"5",extraHour:"",mode:"",rent:{price:"",per:"evento",upTo:"",perExtraGuest:""},packages:[],adj:{day:{},daytime:""},spaces:[],negotiable:null,
+  days:[],open:"",limit:"",hoursIncl:"5",extraHour:"",setupN:"",setupU:"Horas",ioN:"",ioU:"Minutos",ioPaid:false,ioCost:"",mode:"",rent:{price:"",per:"evento",upTo:"",perExtraGuest:""},packages:[],adj:{day:{},daytime:""},spaces:[],negotiable:null,
   policy:Object.fromEntries(POLICY_SVCS.map(([s])=>[s,{offer:"",price:"",per:"evento",own:"",fee:""}])),deposit:"",advance:"",guarantee:"",cancel:"",corkage:"",docs:[],docsOther:"",docsNone:false,rulesText:"",rulesFile:null,promo:blankPromo(),photos:[]},
  planner:{person:"",photo:null,since:"",bio:"",prompts:["","",""],fee:"",feeNote:"",specialties:[],zones:[blankZone()],promo:blankPromo(),photos:[]},
  account:{email:""}};}
@@ -609,7 +640,7 @@ function drawTypes(){$("types").innerHTML=[["services","🎉","Servicios para fi
 function stepList(){const l=[{id:"biz",t:"Mi negocio",e:"🏷️"}];
  if(S.types.services)l.push({id:"svc",t:"Mis servicios",e:"🎉",child:true});if(S.types.venue)l.push({id:"venue",t:"Mi venue",e:"🏡",child:true});if(S.types.planner)l.push({id:"planner",t:"Mi perfil de planner",e:"📋",child:true});
  l.push({id:"publish",t:"Publicar",e:"🚀"});return l;}
-const zonesOk=zs=>zs.some(z=>z.state&&(z.all||z.munis.length));
+const zonesOk=zs=>zs.some(z=>z.state==="__nac"||(z.state&&(z.all||z.munis.length)));
 const promoOk=p=>p.has===false||(p.has===true&&filled(p.what)&&filled(p.terms)&&filled(p.until));
 const minOk=m=>m.has===false||(m.has===true&&+m.qty>0&&filled(m.unit));
 function shipOk(s){if(!s.ship)return true;if(s.shipMode==="gratis")return true;if(s.shipMode==="fijo")return filled(s.shipFixed);if(s.shipMode==="distancia")return filled(s.shipBase)&&filled(s.shipBaseKm)&&filled(s.shipPerKm)&&filled(s.shipMaxKm);return false;}
@@ -619,8 +650,8 @@ function missing(id){const m=[];
  if(id==="svc"){const sc=S.svcScope||{};if(!sc.S&&!sc.E)m.push("Tipo de eventos: sociales, empresariales o ambos");
   S.services.forEach((s,i)=>{const n=catOf(s.cat)?s.cat:`Ficha ${i+1}`;
   if(!s.cat||s.cat==="__new")m.push(`${n}: categoría`);if(!s.subs.length)m.push(`${n}: qué ofreces`);
-  s.subs.forEach(x=>{if(!x.u||(x.u==="__otra"&&!filled(x.uo)))m.push(`${n}: cómo cobras ${x.n}`);else{if(!filled(x.price))m.push(`${n}: precio de ${x.n}`);if(famOf(x.u)==="paquete"&&!(+x.pkgP>0))m.push(`${n}: personas del paquete de ${x.n}`);}});
-  if(s.subs.length){if(!filled(s.desc))m.push(`${n}: descripción`);if(!s.person&&!s.ship)m.push(`${n}: cómo lo entregas`);if(!shipOk(s))m.push(`${n}: costo de envío`);
+  s.subs.forEach(x=>{if(!x.u||(x.u==="__otra"&&!filled(x.uo)))m.push(`${n}: cómo cobras ${x.n}`);else{if(!filled(x.price))m.push(`${n}: precio de ${x.n}`);if(famOf(x.u)==="paquete"&&!(+x.pkgP>0)&&x.pkgP!=="sin")m.push(`${n}: personas del paquete de ${x.n}`);}});
+  if(s.subs.length){if(!filled(s.desc))m.push(`${n}: descripción`);if(!(s.dl||[]).length)m.push(`${n}: cómo lo entregas`);(s.dl||[]).forEach(d=>{if(!dlOk(d))m.push(`${n}: entrega «${d.m}»`);});
   if(!minOk(s.min))m.push(`${n}: mínimo de compra`);if(!promoOk(s.promo))m.push(`${n}: promoción`);}});
   if(!zonesOk(S.svcZones))m.push("Zonas donde das tus servicios");}
  if(id==="venue"){const v=S.venue;if(!filled(v.name))m.push("Nombre del lugar");if(!addrOk(v.addr))m.push("Dirección del lugar confirmada");if(!v.type||(v.type==="__otro"&&!filled(v.typeOther)))m.push("Tipo de espacio");
@@ -663,17 +694,18 @@ function addrHtml(a,k,title){return addrBlock(a,k,title,MISS,k==="v");}
 function bindAddr(a,k,redraw){bindAddrBlock(a,k,changed,redraw);}
 function zonesHtml(zs,k,title){return`<div class="field"><span class="lbl">🗺️ ${title}</span><span class="hint">Elige el estado y luego los municipios o alcaldías.</span>
  <div style="display:grid;gap:8px">${zs.map((z,i)=>`<div class="sub-box${MISS(zonesOk(zs))}">
-  <div style="display:flex;gap:8px;align-items:center"><select id="zs-${k}-${i}" aria-label="Estado"><option value="">Elige un estado…</option>${Object.keys(MX).map(s=>`<option ${s===z.state?'selected':''}>${esc(s)}</option>`).join("")}</select>${zs.length>1?`<button type="button" class="link bad" data-zrm="${i}" aria-label="Quitar estado">✕</button>`:''}</div>
-  ${z.state?`<div class="chips"><button type="button" class="chip" id="za-${k}-${i}" aria-pressed="${z.all}">${TICK}Todo el estado</button></div>
+  <div style="display:flex;gap:8px;align-items:center"><select id="zs-${k}-${i}" aria-label="Estado"><option value="">Elige un estado…</option><option value="__nac" ${z.state==="__nac"?"selected":""}>🇲🇽 A nivel nacional (toda la República)</option>${Object.keys(MX).map(s=>`<option ${s===z.state?'selected':''}>${esc(s)}</option>`).join("")}</select>${zs.length>1?`<button type="button" class="link bad" data-zrm="${i}" aria-label="Quitar estado">✕</button>`:''}</div>
+  ${z.state==="__nac"?`<span class="hint">✅ Atiendes en los 32 estados. No tienes que elegir municipios.</span>`:''}
+  ${z.state&&z.state!=="__nac"?`<div class="chips"><button type="button" class="chip" id="za-${k}-${i}" aria-pressed="${z.all}">${TICK}Todo el estado</button></div>
   ${z.all?'':`<input type="search" id="zq-${k}-${i}" placeholder="Busca tu municipio o alcaldía" aria-label="Buscar municipio"><div class="zbox"><div class="chips" id="zl-${k}-${i}">${(MX[z.state]||[]).map(m=>`<button type="button" class="chip" data-m="${esc(m)}" aria-pressed="${z.munis.includes(m)}">${TICK}${esc(m)}</button>`).join("")}</div></div><span class="hint" id="zc-${k}-${i}">${z.munis.length} seleccionados</span>`}`:''}</div>`).join("")}</div>
- <button type="button" class="link" id="zadd-${k}">+ Agregar otro estado</button></div>`;}
+ <button type="button" class="link" id="zadd-${k}" ${zs.some(z=>z.state==="__nac")?"hidden":""}>+ Agregar otro estado</button></div>`;}
 function bindZones(zs,k,redraw){zs.forEach((z,i)=>{$(`zs-${k}-${i}`).onchange=e=>{z.state=e.target.value;z.munis=[];z.all=false;redraw();changed();};
   const a=$(`za-${k}-${i}`);if(a)a.onclick=()=>{z.all=!z.all;redraw();changed();};
   const l=$(`zl-${k}-${i}`);if(l){l.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{const m=c.dataset.m;z.munis=z.munis.includes(m)?z.munis.filter(x=>x!==m):[...z.munis,m];c.setAttribute("aria-pressed",z.munis.includes(m));$(`zc-${k}-${i}`).textContent=z.munis.length+" seleccionados";changed();});
    const q=$(`zq-${k}-${i}`);q.oninput=()=>{const t=norm(q.value);l.querySelectorAll(".chip").forEach(c=>c.hidden=!!t&&!norm(c.dataset.m).includes(t));};}});
  $(`zadd-${k}`).closest(".field").querySelectorAll("[data-zrm]").forEach(b=>b.onclick=()=>{zs.splice(+b.dataset.zrm,1);redraw();changed();});
  $(`zadd-${k}`).onclick=()=>{zs.push(blankZone());redraw();};}
-const zonesText=zs=>zs.filter(z=>z.state).map(z=>z.all?`Todo ${z.state}`:z.munis.length?`${z.munis.slice(0,3).join(", ")}${z.munis.length>3?` +${z.munis.length-3}`:''}`:z.state).join(" · ");
+const zonesText=zs=>zs.some(z=>z.state==="__nac")?"Todo México 🇲🇽":zs.filter(z=>z.state).map(z=>z.all?`Todo ${z.state}`:z.munis.length?`${z.munis.slice(0,3).join(", ")}${z.munis.length>3?` +${z.munis.length-3}`:''}`:z.state).join(" · ");
 
 function minHtml(m,k){return`<div class="field"><span class="lbl">🧾 ¿Tienes un mínimo de compra?</span><div class="${MISS(m.has!==null)}" style="width:fit-content;border-radius:99px">${ynHtml("mn-"+k,m.has)}</div>
  ${m.has?`<div class="row"><input type="number" min="1" id="mq-${k}" class="${MISS(+m.qty>0)}" value="${esc(m.qty)}" placeholder="Cantidad" aria-label="Cantidad mínima">
@@ -753,6 +785,86 @@ function bindSpecs(list,k,redraw){const inp=$("sp-"+k);if(!inp)return;const box=
  $("spn-"+k).onclick=()=>{inp.focus();inp.placeholder="Escribe tu especialidad y presiona Enter";};
  inp.closest(".field").querySelectorAll(".chip.rm").forEach(c=>c.onclick=()=>{list.splice(+c.dataset.j,1);redraw();changed();});}
 
+
+/* ===== v14 · entregas (lógica del Excel «Cotizador de entregas») ===== */
+const DL_MODS=[["Envío a domicilio","📦"],["Entrega con instalación","🛠️"],["Entrega y recolección","🔁"],["Servicio presencial en el evento","🙋"],["Servicio en establecimiento","🏪"],["Recolección en establecimiento","🛍️"],["Entrega digital","💻"],["Servicio remoto o virtual","🎥"],["Otro","✏️"]];
+/* unidad: [método, etiqueta de tarifa, cantidad del ejemplo, palabra de la cantidad] */
+const DL_U={"Tarifa fija":["fijo","$ por entrega"],"Por kilómetro":["mult","$ por km",20,"km"],"Por viaje":["mult","$ por viaje",2,"viajes (ida y vuelta)"],"Por hora":["mult","$ por hora",4,"horas"],"Por día":["mult","$ por día",1,"día"],
+ "Por persona del equipo":["mult","$ por persona",3,"personas del equipo"],"Por unidad":["mult","$ por pieza",10,"piezas"],"Por volumen (m³)":["mult","$ por m³",2.5,"m³"],"Por peso (kg)":["mult","$ por kg",40,"kg"],
+ "Por zona geográfica":["zona"],"Por porcentaje":["pct","% del servicio"],"Por evento":["fijo","$ por evento"],"Según cotización":["cot"],"Otro":["otro"]};
+const DL_ALL=Object.keys(DL_U),DL_LOCAL=["Tarifa fija","Por hora","Por día","Por persona del equipo","Por unidad","Por porcentaje","Por evento","Según cotización","Otro"];
+const DL_PRES=DL_ALL.filter(u=>u!=="Por volumen (m³)"&&u!=="Por peso (kg)");
+const dlUnits=m=>m==="Servicio presencial en el evento"?DL_PRES:["Servicio en establecimiento","Recolección en establecimiento","Entrega digital","Servicio remoto o virtual"].includes(m)?DL_LOCAL:DL_ALL;
+const DL_CONDS={"Compra mínima":"$","Entrega gratuita desde":"$","Tarifa mínima":"$","Cargo adicional":"$","Recargo (%)":"%","Distancia máxima":"km","Anticipación requerida":"días"};
+const DL_CONDS_INC=["Distancia máxima","Anticipación requerida"];
+const DL_OM=[["fijo","Fijo"],["mult","Multiplicar por cantidad"],["pct","Porcentaje del servicio"],["cot","Según cotización"]];
+const DL_EX={serv:4000,km:20,dias:10};
+const blankDl=m=>({m,desc:"",cobra:null,u:"",rate:"",z:{local:"",ext:"",fuera:""},uo:"",om:"fijo",oq:"",conds:[]});
+const dlEmo=m=>(DL_MODS.find(x=>x[0]===m)||["","🚚"])[1];
+const dlMeth=d=>d.u==="Otro"?d.om:(DL_U[d.u]||[])[0];
+function dlCondOk(d){return d.conds.every(c=>c.c&&filled(c.v));}
+function dlOk(d){if(d.m==="Otro"&&!filled(d.desc))return false;if(d.cobra===null)return false;if(!dlCondOk(d))return false;if(!d.cobra)return true;if(!d.u)return false;
+ const me=dlMeth(d);if(d.u==="Otro"&&!filled(d.uo))return false;if(me==="cot")return true;if(me==="zona")return filled(d.z.local);return filled(d.rate);}
+function dlCost(d,ex){const C=k=>{const c=d.conds.find(x=>x.c===k);return c&&filled(c.v)?+c.v:null;};
+ if(C("Distancia máxima")!==null&&ex.km>C("Distancia máxima"))return{st:"no",why:`está a ${ex.km} km y llegas hasta ${C("Distancia máxima")} km`};
+ if(C("Anticipación requerida")!==null&&ex.dias<C("Anticipación requerida"))return{st:"no",why:`pides ${C("Anticipación requerida")} días de anticipación`};
+ if(!d.cobra)return{st:"ok",v:0,inc:true};
+ if(C("Compra mínima")!==null&&ex.serv<C("Compra mínima"))return{st:"no",why:`la compra mínima es ${money(C("Compra mínima"))}`};
+ const me=dlMeth(d),U=DL_U[d.u]||[],q=d.u==="Otro"?(+d.oq||1):(U[2]||1);if(me==="cot")return{st:"cot"};
+ let b=me==="zona"?+d.z.local||0:me==="pct"?(+d.rate||0)/100*ex.serv:me==="mult"?(+d.rate||0)*q:+d.rate||0;const how=me==="mult"?`${q} ${d.u==="Otro"?esc(d.uo||"unidades"):U[3]} × ${money(+d.rate||0)}`:me==="pct"?`${d.rate||0}% de ${money(ex.serv)}`:me==="zona"?"zona local":"";
+ if(C("Tarifa mínima")!==null&&C("Tarifa mínima")>b)b=C("Tarifa mínima");b+=C("Cargo adicional")||0;b*=1+(C("Recargo (%)")||0)/100;
+ if(C("Entrega gratuita desde")!==null&&ex.serv>=C("Entrega gratuita desde"))return{st:"ok",v:0,free:true,how};
+ return{st:"ok",v:Math.round(b*100)/100,how};}
+function dlExample(d){if(d.cobra===null)return"";const r=dlCost(d,DL_EX),ctx=`una fiesta a ${DL_EX.km} km, con ${money(DL_EX.serv)} de servicio y reservada con ${DL_EX.dias} días`;
+ if(r.st==="no")return`👀 Ejemplo: en ${ctx}, el anfitrión verá <b>no disponible</b> (${r.why}).`;
+ if(r.st==="cot")return`👀 El anfitrión verá la entrega <b>por cotizar</b>; tú le mandas el precio.`;
+ if(r.inc)return`👀 Ejemplo: en ${ctx}, el anfitrión verá <b>entrega incluida</b>.`;
+ if(r.free)return`👀 Ejemplo: en ${ctx}, el anfitrión verá <b>entrega gratis</b> (alcanza tu monto de entrega gratuita).`;
+ return`👀 Ejemplo: en ${ctx}, el anfitrión verá entrega de <b>${money(r.v)}</b>${r.how?` <small>(${r.how}${d.conds.length?" + condiciones":""})</small>`:""}.`;}
+function dlText(d){const nm=d.m==="Otro"&&d.desc?d.desc:d.m;if(d.cobra===null)return nm;
+ const C=d.conds.filter(c=>c.c&&filled(c.v)).map(c=>{const u=DL_CONDS[c.c],v=u==="$"?money(+c.v):c.v+(u==="%"?"%":" "+u);return{"Compra mínima":`compra mín. ${v}`,"Entrega gratuita desde":`gratis desde ${v}`,"Tarifa mínima":`mín. ${v}`,"Cargo adicional":`+ ${v} de cargo`,"Recargo (%)":`+ ${v} recargo`,"Distancia máxima":`hasta ${v}`,"Anticipación requerida":`${v} de anticipación`}[c.c];});
+ let p;if(!d.cobra)p="incluida";else{const me=dlMeth(d),U=DL_U[d.u]||[];
+  p=!d.u?"":me==="cot"?"según cotización":me==="zona"?`por zona desde ${money(+d.z.local||0)}`:me==="pct"?`${d.rate||"—"}% del servicio`:d.u==="Otro"?`${money(+d.rate||0)} ${me==="mult"?"por "+(d.uo||"unidad"):"("+(d.uo||"otro")+")"}`:`${money(+d.rate||0)} ${me==="mult"?U[1].replace("$ ",""):d.u==="Por evento"?"por evento":"fijo"}`;}
+ return[nm,p,...C].filter(Boolean).join(" · ");}
+function dlCard(s,k,d,j){const open=s.dlOpen===j,ok=dlOk(d);
+ if(!open)return`<div class="dlc closed${MISS(ok)}" data-j="${j}"><button type="button" class="dlh dl-open"><b>${dlEmo(d.m)}</b><span class="sm"><b style="color:#1a1033">${esc(d.m==="Otro"&&d.desc?d.desc:d.m)}</b> · ${esc(dlText(d).split(" · ").slice(1).join(" · ")||"falta configurar")}</span><span class="ed">${ok?"✏️ Editar":"⚠️ Completar"}</span></button></div>`;
+ const me=dlMeth(d),U=DL_U[d.u]||[],used=d.conds.map(c=>c.c),pool=d.cobra?Object.keys(DL_CONDS):DL_CONDS_INC;
+ return`<div class="dlc open${MISS(ok)}" data-j="${j}">
+  <div class="dlh"><b>${dlEmo(d.m)} ${esc(d.m)}</b><span class="sm"></span><button type="button" class="link bad dl-x" aria-label="Quitar ${esc(d.m)}">✕ Quitar</button></div>
+  ${d.m==="Otro"?`<input type="text" class="dl-desc${MISS(filled(d.desc))}" value="${esc(d.desc)}" placeholder="¿Cómo entregas? Ej. Entrega en punto medio" aria-label="Describe la modalidad">`:""}
+  <div class="dlq">¿Cobras por la entrega? ${ynHtml(`dly-${k}-${j}`,d.cobra)}</div>
+  ${d.cobra===false?`<span class="dl-inc">✅ La entrega va incluida en tu precio</span>`:""}
+  ${d.cobra?`<span class="mini-l">¿Cómo lo cobras?</span>
+   <div class="dlrow"><select class="dl-u${MISS(!!d.u)}" aria-label="Unidad de cobro"><option value="">Elige la unidad…</option>${dlUnits(d.m).map(u=>`<option ${u===d.u?"selected":""}>${u}</option>`).join("")}</select>
+    ${d.u&&(me==="fijo"||me==="mult"||me==="pct")&&d.u!=="Otro"?`<input type="number" min="0" step="any" class="dl-rate${MISS(filled(d.rate))}" value="${esc(d.rate)}" placeholder="${me==="pct"?"%":"$"}" aria-label="${esc(U[1])}"><span class="u">${esc(U[1])}</span>`:""}</div>
+   ${me==="zona"?`<div class="dlz">${[["local","Zona local"],["ext","Zona extendida"],["fuera","Fuera de zona"]].map(([z,t])=>`<label>${t}<input type="number" min="0" class="dl-z${z==="local"?MISS(filled(d.z.local)):""}" data-z="${z}" value="${esc(d.z[z])}" placeholder="$"></label>`).join("")}</div><span class="hint">Usamos las zonas donde das servicio: local = tus municipios, extendida = colindantes, fuera = el resto.</span>`:""}
+   ${d.u==="Otro"?`<div class="dlrow"><input type="text" class="dl-uo${MISS(filled(d.uo))}" value="${esc(d.uo)}" placeholder="Tu unidad: por bulto, por carga…" style="flex:1 1 180px" aria-label="Describe la unidad"><select class="dl-om" aria-label="Cómo se calcula">${DL_OM.map(([v,t])=>`<option value="${v}" ${d.om===v?"selected":""}>${t}</option>`).join("")}</select></div>
+    ${d.om!=="cot"?`<div class="dlrow"><input type="number" min="0" step="any" class="dl-rate${MISS(filled(d.rate))}" value="${esc(d.rate)}" placeholder="${d.om==="pct"?"%":"$"}" aria-label="Tarifa"><span class="u">${d.om==="pct"?"% del servicio":d.om==="mult"?"$ por "+esc(d.uo||"unidad"):"$ fijo"}</span>${d.om==="mult"?`<input type="number" min="0" class="dl-oq" value="${esc(d.oq)}" placeholder="Ej. 5" aria-label="Cantidad típica"><span class="u">cantidad típica</span>`:""}</div>`:""}`:""}
+   ${me==="cot"?`<span class="hint">El anfitrión verá la entrega «por cotizar» y tú le mandas el precio.</span>`:""}`:""}
+  ${d.cobra!==null?`<span class="mini-l">Condiciones <span class="opt">(opcional · hasta 3)</span></span>
+   ${d.conds.map((c,ci)=>`<div class="dlcd" data-ci="${ci}"><select class="dc-c" aria-label="Condición">${pool.filter(x=>x===c.c||!used.includes(x)).map(x=>`<option ${x===c.c?"selected":""}>${x}</option>`).join("")}</select><input type="number" min="0" step="any" class="dc-v${MISS(filled(c.v))}" value="${esc(c.v)}" aria-label="Valor"><span class="u">${DL_CONDS[c.c]}</span><button type="button" class="link bad dc-x" aria-label="Quitar condición">✕</button></div>`).join("")}
+   ${d.conds.length<3&&pool.some(x=>!used.includes(x))?`<button type="button" class="link dc-add" style="justify-self:start">+ Agregar condición${d.cobra?" (compra mínima, entrega gratis desde, distancia máxima…)":" (distancia máxima, anticipación)"}</button>`:""}`:""}
+  <div class="dl-ex">${dlExample(d)}</div>
+  ${ok?`<button type="button" class="btn cta sm dl-ok">Listo ✓</button>`:""}</div>`;}
+function dlSync(s){s.person=s.dl.some(d=>/presencial|establecimiento|remoto/.test(d.m));s.ship=s.dl.some(d=>/Envío|Entrega/.test(d.m));}
+function bindDl(s,k,el,redraw){s.dl=s.dl||[];
+ el.querySelectorAll(".dlm").forEach(c=>c.onclick=()=>{const m=c.dataset.m,j=s.dl.findIndex(d=>d.m===m);if(j>=0){s.dl.splice(j,1);s.dlOpen=-1;}else{s.dl.push(blankDl(m));s.dlOpen=s.dl.length-1;}dlSync(s);redraw();changed();});
+ el.querySelectorAll(".dlc").forEach(C=>{const j=+C.dataset.j,d=s.dl[j];if(!d)return;const ex=()=>{const e=C.querySelector(".dl-ex");if(e)e.innerHTML=dlExample(d);};
+  const q=(c,f)=>C.querySelectorAll(c).forEach(f);
+  q(".dl-open",b=>b.onclick=()=>{s.dlOpen=j;redraw();});
+  q(".dl-ok",b=>b.onclick=()=>{s.dlOpen=-1;redraw();changed();});
+  q(".dl-x",b=>b.onclick=()=>{s.dl.splice(j,1);s.dlOpen=-1;dlSync(s);redraw();changed();});
+  bindYN(`dly-${k}-${j}`,v=>{d.cobra=v;if(!v){d.conds=d.conds.filter(c=>DL_CONDS_INC.includes(c.c));}redraw();changed();});
+  q(".dl-desc",x=>x.oninput=e=>{d.desc=e.target.value;changed();});
+  q(".dl-u",x=>x.onchange=e=>{d.u=e.target.value;d.rate="";redraw();changed();});
+  q(".dl-rate",x=>x.oninput=e=>{d.rate=e.target.value;ex();changed();});
+  q(".dl-z",x=>x.oninput=e=>{d.z[x.dataset.z]=e.target.value;ex();changed();});
+  q(".dl-uo",x=>x.oninput=e=>{d.uo=e.target.value;ex();changed();});
+  q(".dl-om",x=>x.onchange=e=>{d.om=e.target.value;redraw();changed();});
+  q(".dl-oq",x=>x.oninput=e=>{d.oq=e.target.value;ex();changed();});
+  q(".dlcd",R=>{const c=d.conds[+R.dataset.ci];R.querySelector(".dc-c").onchange=e=>{c.c=e.target.value;redraw();changed();};R.querySelector(".dc-v").oninput=e=>{c.v=e.target.value;ex();changed();};R.querySelector(".dc-x").onclick=()=>{d.conds.splice(+R.dataset.ci,1);redraw();changed();};});
+  q(".dc-add",b=>b.onclick=()=>{const pool=d.cobra?Object.keys(DL_CONDS):DL_CONDS_INC,used=d.conds.map(c=>c.c),nx=pool.find(x=>!used.includes(x));if(nx)d.conds.push({c:nx,v:""});redraw();});});}
+
 function shipCost(s,km){if(s.shipMode==="gratis")return 0;if(s.shipMode==="fijo")return +s.shipFixed||0;
  if(s.shipMode==="distancia"){if(+s.shipMaxKm&&km>+s.shipMaxKm)return null;return (+s.shipBase||0)+Math.max(0,km-(+s.shipBaseKm||0))*(+s.shipPerKm||0);}return null;}
 function shipText(s){if(!s.ship)return"";const fr=s.shipFreeFrom?` · gratis desde ${money(s.shipFreeFrom)}`:"";
@@ -820,7 +932,7 @@ function lineHtml(s,k,x,j){const f=famOf(x.u);
   ${x.u==="__otra"?`<input type="text" class="sl-uo${MISS(filled(x.uo))}" list="dlUnits" value="${esc(x.uo)}" placeholder="Escribe tu unidad: por charola, por metro…" aria-label="Otra unidad para ${esc(x.n)}">`:''}
   <div class="sl-f">
    <label class="sl-p"><span>${f==="porcentaje"?"%":"$"}</span><input type="number" min="0" step="any" class="sl-price${MISS(filled(x.price))}" value="${esc(x.price)}" placeholder="${f==="porcentaje"?"porcentaje":"precio"}" aria-label="Precio de ${esc(x.n)} ${esc(lineLabel(x))}"> <small class="opt">${esc(f==="porcentaje"?uLabel(x.u).slice(2):lineLabel(x))}</small></label>
-   ${f==="paquete"?`<label>¿Para cuántas personas? <input type="number" min="1" class="sl-pkgP${MISS(+x.pkgP>0)}" value="${esc(x.pkgP)}"></label><label>¿Cuántas horas incluye? <input type="number" min="0" step="any" class="sl-pkgH" value="${esc(x.pkgH)}"> <span class="opt">(opcional)</span></label>`:''}
+   ${f==="paquete"?`<label>¿Para cuántas personas? <input type="number" min="1" class="sl-pkgP${MISS(+x.pkgP>0||x.pkgP==="sin")}" value="${x.pkgP==="sin"?"":esc(x.pkgP)}" ${x.pkgP==="sin"?"disabled placeholder='∞'":""}><button type="button" class="chip sl-nolim" data-f="pkgP" aria-pressed="${x.pkgP==="sin"}">${TICK}Sin límite</button></label><label>¿Cuántas horas incluye? <input type="number" min="0" step="any" class="sl-pkgH" value="${x.pkgH==="sin"?"":esc(x.pkgH)}" ${x.pkgH==="sin"?"disabled placeholder='∞'":""}><button type="button" class="chip sl-nolim" data-f="pkgH" aria-pressed="${x.pkgH==="sin"}">${TICK}Sin límite</button> <span class="opt">(opcional)</span></label>`:''}
    ${f==="cantidad"||f==="espacio"||f==="otra"?`<label>Cada ${esc(uNoun(x))} alcanza para <input type="number" min="0" step="any" class="sl-yield" value="${esc(x.yieldP)}"> personas <span class="opt">(opcional)</span></label>`:''}
   </div><div class="sl-hv">${hostView(x,s.cat)}</div></div>`;}
 function groupHtml(s,k,n,idxs){const sub=subOf(s.cat,n),allowed=(sub&&sub.u.length?sub.u:COMMON_UNITS).slice().sort((p,q)=>urank(p)-urank(q));
@@ -845,12 +957,9 @@ function drawServices(){const list=$("svcList");if(!list)return;
   ${cat.n==="Espacios y hospedaje"?`<div class="vnote">🏡 ¿Rentas un salón, terraza, jardín o casa para fiestas? ${S.types.venue?"Tu venue tiene su propia sección con capacidad, horarios y paquetes.":`<button type="button" class="link" id="tv-${k}">Activa la ficha de venue</button> para registrar capacidad, horarios y paquetes.`}</div>`:''}</div>`:''}
  ${s.subs.length?`<div class="field"><span class="lbl">💲 ¿Cómo lo cobras?</span><span class="hint">¿Cobras de varias formas? Elige todas: cada una tiene su propio precio.</span><div class="slines" style="display:grid;gap:10px">${(()=>{const g=[];s.subs.forEach((x,j)=>{let G=g.find(y=>y.n===x.n);if(!G){G={n:x.n,idx:[]};g.push(G);}G.idx.push(j);});return g.map(G=>groupHtml(s,k,G.n,G.idx)).join("");})()}</div></div>
  <div class="field"><label class="lbl" for="d-${k}">💬 Descríbelo en una frase</label><input type="text" id="d-${k}" class="${MISS(filled(s.desc))}" value="${esc(s.desc)}" placeholder="Qué incluye y para cuántas personas"></div>
- <div class="field"><span class="lbl">🚚 ¿Cómo entregas este servicio? <span class="opt">Puedes elegir los dos</span></span><div class="chips${MISS(s.person||s.ship)}" style="width:fit-content;border-radius:99px"><button type="button" class="chip" id="dp-${k}" aria-pressed="${s.person}">${TICK}🙋 En persona</button><button type="button" class="chip" id="ds-${k}" aria-pressed="${s.ship}">${TICK}📦 Por envío a domicilio</button></div>
-  ${s.ship?`<div class="sub-box${MISS(shipOk(s))}"><span class="lbl">¿Cuánto cobras de envío?</span><div class="chips">${[["gratis","🎁 Gratis"],["fijo","💵 Costo fijo"],["distancia","📍 Según la distancia"]].map(([v,t])=>`<button type="button" class="chip shm" data-v="${v}" aria-pressed="${s.shipMode===v}">${TICK}${t}</button>`).join("")}</div>
-   ${s.shipMode==="fijo"?`<input type="number" min="0" id="sf-${k}" value="${esc(s.shipFixed)}" placeholder="$ costo del envío" aria-label="Costo fijo de envío">`:''}
-   ${s.shipMode==="distancia"?`<div class="row"><div class="field"><label class="hint" for="sb-${k}">Cobro base $</label><input type="number" min="0" id="sb-${k}" value="${esc(s.shipBase)}"></div><div class="field"><label class="hint" for="sk-${k}">Incluye hasta (km)</label><input type="number" min="0" id="sk-${k}" value="${esc(s.shipBaseKm)}"></div><div class="field"><label class="hint" for="sq-${k}">$ por km extra</label><input type="number" min="0" id="sq-${k}" value="${esc(s.shipPerKm)}"></div><div class="field"><label class="hint" for="sm-${k}">Llego hasta (km)</label><input type="number" min="0" id="sm-${k}" value="${esc(s.shipMaxKm)}"></div></div>
-    <div class="calc" id="calc-${k}"></div><span class="hint">Cuando un anfitrión cotice, calculamos la distancia entre tu negocio y su fiesta y le mostramos el envío exacto.</span>`:''}
-   ${s.shipMode&&s.shipMode!=="gratis"?`<div class="field"><label class="hint" for="sfr-${k}">Envío gratis en compras desde $ <span class="opt">(opcional)</span></label><input type="number" min="0" id="sfr-${k}" value="${esc(s.shipFreeFrom)}"></div>`:''}</div>`:''}</div>
+ <div class="field"><span class="lbl">🚚 ¿Cómo entregas este servicio? <span class="opt">Elige todas las que hagas</span></span>
+  <div class="chips dlm-chips${MISS((s.dl||[]).length>0)}" style="border-radius:14px">${DL_MODS.map(([m,e])=>`<button type="button" class="chip dlm" data-m="${esc(m)}" aria-pressed="${(s.dl||[]).some(d=>d.m===m)}">${TICK}${e} ${esc(m)}</button>`).join("")}</div>
+  ${(s.dl||[]).map((d,j)=>dlCard(s,k,d,j)).join("")}</div>
  ${minHtml(s.min,k)}
  ${specsHtml(s.specs,k)}
  ${promoHtml(s.promo,k,anchor)}
@@ -886,9 +995,11 @@ function drawServices(){const list=$("svcList");if(!list)return;
    const uo=L.querySelector(".sl-uo");if(uo){uo.oninput=e=>{x.uo=e.target.value;x.unit=lineLabel(x);changed();};
     uo.onchange=()=>{const v=x.uo.trim();if(!v)return;const cu=canonUnit(v);if(cu){x.u=cu;x.uo="";}else{NEW_UNITS.add(v);hqvTrack("catalogo_propuesta",{tipo:"unidad",sub:x.n,valor:v});}x.unit=lineLabel(x);redraw();changed();};}
    [["sl-price","price"],["sl-pkgP","pkgP"],["sl-pkgH","pkgH"],["sl-yield","yieldP"]].forEach(([c,f])=>{const q=L.querySelector("."+c);if(q)q.oninput=e=>{x[f]=e.target.value;hv();changed();};});
+   L.querySelectorAll(".sl-nolim").forEach(b=>b.onclick=e=>{e.preventDefault();const f=b.dataset.f;x[f]=x[f]==="sin"?"":"sin";redraw();changed();});
    L.querySelector(".sl-rm").onclick=()=>{const ids=s.subs.map((y,jj)=>y.n===x.n?jj:-1).filter(jj=>jj>=0);if(ids.length>1)s.subs.splice(j,1);else{x.u="";x.uo="";x.price="";x.unit="";}redraw();changed();};});
   const calc=()=>{const c=$("calc-"+k);if(c)c.innerHTML="Así se vería: "+[3,10,20,35].map(km=>{const v=shipCost(s,km);return`<span>${km} km: ${v===null?"fuera de zona":money(Math.round(v))}</span>`;}).join("");};
   [["d-","desc"],["sf-","shipFixed"],["sb-","shipBase"],["sk-","shipBaseKm"],["sq-","shipPerKm"],["sm-","shipMaxKm"],["sfr-","shipFreeFrom"]].forEach(([p,f])=>{const x=$(p+k);if(x)x.oninput=e=>{s[f]=e.target.value;calc();changed();};});calc();
+  bindDl(s,k,el,redraw);
   const dp=$("dp-"+k),ds=$("ds-"+k);if(dp)dp.onclick=()=>{s.person=!s.person;redraw();changed();};if(ds)ds.onclick=()=>{s.ship=!s.ship;redraw();changed();};
   el.querySelectorAll(".shm").forEach(c=>c.onclick=()=>{s.shipMode=c.dataset.v;redraw();changed();});
   if(s.subs.length){bindMin(s.min,k,redraw);bindSpecs(s.specs,k,redraw);bindPromo(s.promo,k,redraw);bindUploader(k,"photo",s.photos,redraw);}
@@ -933,7 +1044,13 @@ function drawVenue(){const v=S.venue,k="v",b=S.biz;const isR=v.mode==="renta"||v
    :`<div class="hrs">${days.map(([d,t])=>{const h=v.hoursByDay[d]||{open:v.open,limit:v.limit};return`<div class="hr" data-d="${d}"><b>${t}</b><input type="time" class="hd-o" value="${esc(h.open||"")}" aria-label="Desde, ${t}"><input type="time" class="hd-l" value="${esc(h.limit||"")}" aria-label="Hora límite, ${t}"></div>`;}).join("")||'<span class="hint">Primero elige los días.</span>'}</div>`}
   <div class="row"><div class="field"><label class="hint" for="v-hincl">Horas de fiesta incluidas</label><input type="number" id="v-hincl" min="1" max="24" class="${MISS(+v.hoursIncl>0)}" value="${esc(v.hoursIncl)}"></div>
    <div class="field"><label class="hint" for="v-xh">Cada hora extra $</label><input type="number" id="v-xh" min="0" class="${MISS(filled(v.extraHour))}" value="${esc(v.extraHour)}"></div></div>
-  <span class="hint">📏 Estándar ¡HQV!: además de las horas de fiesta, ½ hora para montar y ½ hora para desmontar sin costo.</span>
+  <div class="vq"><span class="lbl" style="font-size:14px">🛠️ ¿Cuánto tiempo tiene tu cliente para hacer montajes?</span>
+   <div class="row2"><input type="number" min="0" step="any" id="v-setn" value="${esc(v.setupN||"")}" placeholder="Ej. 2" aria-label="Tiempo de montaje"><select id="v-setu" aria-label="Unidad del tiempo de montaje">${["Horas","Días","Semanas","Meses"].map(u=>`<option ${(v.setupU||"Horas")===u?"selected":""}>${u}</option>`).join("")}</select></div>
+   <span class="hint">Sujeto a disponibilidad.</span></div>
+  <div class="vq"><span class="lbl" style="font-size:14px">🚪 ¿Cuánto tiempo ofreces para entrada y salida de asistentes?</span>
+   <div class="row2"><input type="number" min="0" step="any" id="v-ion" value="${esc(v.ioN||"")}" placeholder="Ej. 30" aria-label="Tiempo de entrada y salida"><select id="v-iou" aria-label="Unidad del tiempo de entrada y salida">${["Minutos","Horas"].map(u=>`<option ${(v.ioU||"Minutos")===u?"selected":""}>${u}</option>`).join("")}</select>
+    <div class="chips" style="width:fit-content;border-radius:99px">${[[0,"🎁 Gratis"],[1,"💲 Costo"]].map(([val,t])=>`<button type="button" class="chip vio" data-v="${val}" aria-pressed="${!!v.ioPaid===!!val}">${TICK}${t}</button>`).join("")}</div>
+    ${v.ioPaid?`<input type="number" min="0" id="v-ioc" class="${MISS(filled(v.ioCost))}" value="${esc(v.ioCost||"")}" placeholder="$ ¿de cuánto?" aria-label="Costo de entrada y salida">`:""}</div></div>
   <span class="lbl" style="font-size:14px">💲 ¿Cómo cobras?</span><div class="chips${MISS(!!v.mode)}" style="border-radius:14px">${[["renta","🏠 Renta del espacio"],["paquetes","📦 Paquetes"],["ambos","Las dos"]].map(([val,t])=>`<button type="button" class="chip vm" data-v="${val}" aria-pressed="${v.mode===val}">${TICK}${t}</button>`).join("")}</div>
   ${isR?`<div class="row"><input type="number" min="0" id="r-price" class="${MISS(filled(v.rent.price))}" value="${esc(v.rent.price)}" placeholder="$ precio de renta" aria-label="Precio de renta"><select id="r-per" aria-label="Cómo cobras la renta">${[["evento",`por evento (${v.hoursIncl||5} h incluidas)`],["hora","por hora"],["persona","por persona"]].map(([val,t])=>`<option value="${val}" ${v.rent.per===val?'selected':''}>${t}</option>`).join("")}</select></div>
    <div class="row"><div class="field"><label class="hint" for="r-upto">Incluye hasta (invitados) <span class="opt">opcional</span></label><input type="number" min="0" id="r-upto" value="${esc(v.rent.upTo)}" placeholder="Ej. 60"></div><div class="field"><label class="hint" for="r-pxg">Cada invitado extra $</label><input type="number" min="0" id="r-pxg" value="${esc(v.rent.perExtraGuest)}" placeholder="Ej. 150" ${filled(v.rent.upTo)?'':'disabled'}></div></div>`:''}
@@ -972,7 +1089,7 @@ function drawVenue(){const v=S.venue,k="v",b=S.biz;const isR=v.mode==="renta"||v
  ${navHtml()}</div>`;
  const redraw=()=>{const y=scrollY;drawVenue();scrollTo({top:y});};
  const ch=()=>{ensureState();changed();const bx=$("stdbox");if(bx)bx.innerHTML=venueStdRows(v);};
- [["v-name","name"],["v-area","area"],["v-open","open"],["v-limit","limit"],["v-hincl","hoursIncl"],["v-xh","extraHour"],["v-adv","advance"],["v-guar","guarantee"],["v-cancel","cancel"],["v-rules","rulesText"],["v-depn","depositN"],["v-depu","depositU"],["v-clink","cancelLink"],["v-grn","guarRetN"],["v-gru","guarRetU"],["v-tother","typeOther"],["v-extn","extAllNote"]].forEach(([i,f])=>{const el=$(i);if(el)el.oninput=el.onchange=e=>{v[f]=e.target.value;ch();};});
+ [["v-name","name"],["v-area","area"],["v-open","open"],["v-limit","limit"],["v-hincl","hoursIncl"],["v-xh","extraHour"],["v-adv","advance"],["v-guar","guarantee"],["v-cancel","cancel"],["v-rules","rulesText"],["v-depn","depositN"],["v-depu","depositU"],["v-clink","cancelLink"],["v-grn","guarRetN"],["v-gru","guarRetU"],["v-tother","typeOther"],["v-setn","setupN"],["v-setu","setupU"],["v-ion","ioN"],["v-iou","ioU"],["v-ioc","ioCost"],["v-extn","extAllNote"]].forEach(([i,f])=>{const el=$(i);if(el)el.oninput=el.onchange=e=>{v[f]=e.target.value;ch();};});
  $("v-guar").onchange=()=>redraw();
  $("v-seat").oninput=e=>{v.seated=e.target.value;v.standing=+v.seated>0?String(Math.round(+v.seated*1.5)):"";$("v-stand").value=v.standing;ch();};
  $("v-stand").oninput=e=>{v.standing=e.target.value;v.seated=+v.standing>0?String(Math.round(+v.standing/1.5)):"";$("v-seat").value=v.seated;ch();};
@@ -984,6 +1101,7 @@ function drawVenue(){const v=S.venue,k="v",b=S.biz;const isR=v.mode==="renta"||v
  document.querySelectorAll(".vd").forEach(c=>c.onclick=()=>{const d=c.dataset.d;v.days=v.days.includes(d)?v.days.filter(x=>x!==d):HQV.DAYS.map(x=>x[0]).filter(x=>x===d||v.days.includes(x));redraw();changed();});
  document.querySelectorAll(".sh").forEach(c=>c.onclick=()=>{v.sameHours=c.dataset.v==="1";redraw();changed();});
  document.querySelectorAll(".hr").forEach(r=>{const d=r.dataset.d,h=v.hoursByDay[d]=v.hoursByDay[d]||{open:v.open,limit:v.limit};r.querySelector(".hd-o").oninput=e=>{h.open=e.target.value;ch();};r.querySelector(".hd-l").oninput=e=>{h.limit=e.target.value;ch();};});
+ document.querySelectorAll(".vio").forEach(c=>c.onclick=()=>{v.ioPaid=c.dataset.v==="1";redraw();changed();});
  document.querySelectorAll(".vm").forEach(c=>c.onclick=()=>{v.mode=c.dataset.v;if((v.mode==="paquetes"||v.mode==="ambos")&&!v.packages.length)v.packages.push(blankPkg());redraw();changed();});
  const rp=$("r-price");if(rp){rp.oninput=e=>{v.rent.price=e.target.value;ch();};$("r-per").onchange=e=>{v.rent.per=e.target.value;ch();};$("r-upto").oninput=e=>{v.rent.upTo=e.target.value;$("r-pxg").disabled=!filled(v.rent.upTo);ch();};$("r-pxg").oninput=e=>{v.rent.perExtraGuest=e.target.value;ch();};}
  document.querySelectorAll(".pkg").forEach(box=>{const x=v.packages[+box.dataset.i];const q=s2=>box.querySelector(s2);
@@ -1088,7 +1206,7 @@ function siteHtml(){const b=S.biz,wa=b.whatsapp.replace(/\D/g,""),L=level(),yrs=
   out.push(VP("svc",`<div style="display:grid;gap:8px"><h3>🎉 Servicios</h3>${sv.length?sv.map(s=>{const c=catOf(s.cat);const i=S.services.indexOf(s);return`<div class="ms-item"><div class="ms-item-top"><b>${c?c.e+" "+esc(c.n):"✨"}</b></div>
    <div class="plist">${s.subs.map(x=>`<span>${esc(x.n)} <span class="price">${filled(x.price)&&x.u?priceTxt(x):'<small>Por cotizar</small>'}</span></span>`).join("")}</div>
    ${s.desc?`<small>${esc(s.desc)}</small>`:''}
-   <div class="feat">${s.person?'<span>🙋 En persona</span>':''}${s.ship?`<span>${esc(shipText(s))}</span>`:''}${minText(s.min)?`<span>🧾 ${esc(minText(s.min))}</span>`:''}${s.specs.map(t=>`<span>✨ ${esc(t)}</span>`).join("")}</div>
+   <div class="feat">${(s.dl||[]).map(d=>`<span>${dlEmo(d.m)} ${esc(dlText(d))}</span>`).join("")}${minText(s.min)?`<span>🧾 ${esc(minText(s.min))}</span>`:''}${s.specs.map(t=>`<span>✨ ${esc(t)}</span>`).join("")}</div>
    ${promoBlock(s.promo,"s"+(i+1))}${strip(s.photos)}</div>`;}).join(""):'<p class="empty">Aquí aparecerán tus servicios.</p>'}
    ${zonesText(S.svcZones)?`<small style="color:var(--muted);font-size:12px">🗺️ Servicio en: ${esc(zonesText(S.svcZones))}</small>`:''}</div>`));}
  if(S.types.venue){const v=S.venue,vt=VENUE_TYPES.find(x=>x[0]===v.type),bt=+v.baths.m+ +v.baths.w+ +v.baths.g,va=addrLine(v.addr,true);
@@ -1097,7 +1215,7 @@ function siteHtml(){const b=S.biz,wa=b.whatsapp.replace(/\D/g,""),L=level(),yrs=
    ${va?`<div class="loc"><span>📍 ${esc(va)}${v.addr.ref?` · ${esc(v.addr.ref)}`:''}</span><a href="${mapsLink(v.addr)}" target="_blank" rel="noopener">Cómo llegar</a></div>`:''}
    ${socialRow(v)}
    ${venuePriceHtml(v)}
-   <div class="feat">${v.seated?`<span>🪑 ${esc(v.seated)} sentadas</span>`:''}${v.standing?`<span>🕺 ${esc(v.standing)} de pie</span>`:''}${v.area?`<span>📐 ${esc(v.area)}</span>`:''}${v.days.length?`<span>🗓️ ${esc(v.days.map(d=>HQV.DAYS.find(x=>x[0]===d)[1]).join(" "))}</span>`:''}${v.sameHours===false?v.days.map(d=>{const h=v.hoursByDay[d];return h&&h.limit?`<span>🕒 ${HQV.DAYS.find(x=>x[0]===d)[1]} ${esc(h.open)}–${esc(h.limit)}</span>`:"";}).join(""):v.limit?`<span>🕒 ${esc(v.open||"")}${v.open?" a ":"Hasta las "}${esc(v.limit)}</span>`:''}${(v.featsOther||[]).filter(filled).map(x=>`<span>✨ ${esc(x)}</span>`).join("")}${v.hoursIncl?`<span>⏱️ ${esc(v.hoursIncl)} h de fiesta + ½ h montaje + ½ h desmontaje</span>`:''}${filled(v.extraHour)?`<span>⏰ Hora extra ${money(v.extraHour)}</span>`:''}${v.negotiable?'<span>🤝 Precio negociable</span>':''}
+   <div class="feat">${v.seated?`<span>🪑 ${esc(v.seated)} sentadas</span>`:''}${v.standing?`<span>🕺 ${esc(v.standing)} de pie</span>`:''}${v.area?`<span>📐 ${esc(v.area)}</span>`:''}${v.setupN?`<span>🛠️ Montaje: ${esc(v.setupN)} ${esc((v.setupU||"Horas").toLowerCase())} (sujeto a disponibilidad)</span>`:''}${v.ioN?`<span>🚪 Entrada y salida: ${esc(v.ioN)} ${esc((v.ioU||"Minutos").toLowerCase())} · ${v.ioPaid?money(v.ioCost||0):"gratis"}</span>`:''}${v.days.length?`<span>🗓️ ${esc(v.days.map(d=>HQV.DAYS.find(x=>x[0]===d)[1]).join(" "))}</span>`:''}${v.sameHours===false?v.days.map(d=>{const h=v.hoursByDay[d];return h&&h.limit?`<span>🕒 ${HQV.DAYS.find(x=>x[0]===d)[1]} ${esc(h.open)}–${esc(h.limit)}</span>`:"";}).join(""):v.limit?`<span>🕒 ${esc(v.open||"")}${v.open?" a ":"Hasta las "}${esc(v.limit)}</span>`:''}${(v.featsOther||[]).filter(filled).map(x=>`<span>✨ ${esc(x)}</span>`).join("")}${v.hoursIncl?`<span>⏱️ ${esc(v.hoursIncl)} h de fiesta + ½ h montaje + ½ h desmontaje</span>`:''}${filled(v.extraHour)?`<span>⏰ Hora extra ${money(v.extraHour)}</span>`:''}${v.negotiable?'<span>🤝 Precio negociable</span>':''}
     ${bt?`<span>${"Baños: "+[+v.baths.m>0?`🚹 ${v.baths.m}`:"",+v.baths.w>0?`🚺 ${v.baths.w}`:"",+v.baths.g>0?`🚻 ${v.baths.g}`:""].filter(Boolean).join(" ")}</span>`:''}${FEATURES.filter(f=>v.features.includes(f[0])).map(f=>`<span>${f[1]} ${esc(f[2])}</span>`).join("")}</div>
    <div class="ms-pol">${POLICY_SVCS.map(([s,e])=>{const p=v.policy[s];if(!p.offer&&!p.own)return"";return`<span>${e} ${esc(s)} <span style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end">${p.incl==="parte"?`<em class="st inc">Incluido en parte${p.detail?": "+esc(p.detail):""}</em>`:p.offer==="inc"?`<em class="st inc">Incluido${(p.subs||[]).length?": "+esc(p.subs.join(", ")):""}</em>`:p.offer==="costo"?`<em class="st ext">Lo ofrece ${filled(p.price)?money(p.price)+(p.per==="persona"?" c/u":""):""}</em>`:''}${p.own==="si"?'<em class="st inc">Puedes traerlo</em>':p.own==="cuota"?`<em class="st ext">Traerlo: cuota ${money(p.fee)}</em>`:p.own==="no"?'<em class="st no">Solo con su gente</em>':''}</span></span>`;}).join("")}</div>
    <div class="prompt" style="font-size:12px;display:grid;gap:2px"><small>Condiciones</small>${v.deposit?`<span>💳 Anticipo ${esc(v.deposit)}</span>`:''}${v.advance?`<span>📅 Reserva con ${esc(v.advance)} días de anticipación</span>`:''}${v.guarantee?`<span>🔐 Depósito en garantía ${money(v.guarantee)}${v.guarRetN?` · se devuelve en ${esc(v.guarRetN)} ${esc(v.guarRetU)}`:""}</span>`:''}${v.extAll?`<span>🚪 Proveedores externos: ${v.extAll==="si"?"sí, todos los que no se incluyen":v.extAll==="no"?"no":esc(v.extAllNote||"solo algunos")}</span>`:""}${v.cancelFile?`<span>📎 Política de cancelación (${esc(v.cancelFile.name)})</span>`:""}${v.cancelLink?`<span>🔗 Política de cancelación: ${esc(v.cancelLink)}</span>`:""}${v.corkage?`<span>🍾 Descorche: ${esc(v.corkage)}</span>`:''}${v.cancel?`<span>↩️ ${esc(v.cancel)}</span>`:''}
@@ -1120,7 +1238,7 @@ function preview(){ensureState();const st=$("site");const top=st.scrollTop;st.in
 function render(){ensureState();renderTimeline();renderStep();preview();}
 function publish(){const datos={nombre:S.biz.owner||"",negocio:S.biz.name,wa:S.biz.whatsapp.replace(/\D/g,"").slice(-10),email:S.account.email,marketing:!!S.account.mk,
   tipos:Object.keys(S.types).filter(k=>S.types[k]),ambito:{social:!!(S.svcScope||{}).S,empresarial:!!(S.svcScope||{}).E},
-  servicios:S.services.map(s=>({cat:s.cat,subs:s.subs.map(x=>({n:x.n,precio:x.price,unidad:x.u==="__otra"?null:x.u,unidadOtra:x.u==="__otra"?x.uo:null,familia:famOf(x.u),rinde:x.yieldP||null,paquetePersonas:x.pkgP||null,paqueteHoras:x.pkgH||null}))})).filter(s=>s.cat),
+  servicios:S.services.map(s=>({cat:s.cat,subs:s.subs.map(x=>({n:x.n,precio:x.price,unidad:x.u==="__otra"?null:x.u,unidadOtra:x.u==="__otra"?x.uo:null,familia:famOf(x.u),rinde:x.yieldP||null,paquetePersonas:x.pkgP||null,paqueteHoras:x.pkgH||null})),entregas:(s.dl||[]).map(d=>({modalidad:d.m,descripcion:d.desc||null,cobra:d.cobra,unidad:d.u||null,tarifa:d.rate||null,zonas:dlMeth(d)==="zona"?d.z:null,unidadOtra:d.uo||null,metodoOtra:d.u==="Otro"?d.om:null,condiciones:d.conds}))})).filter(s=>s.cat),
   propuestas:{categorias:[...NEW_CATS],subcategorias:[...NEW_SUBS],unidades:[...NEW_UNITS]},
   zona:(S.biz.addr&&(S.biz.addr.muni||S.biz.addr.state))||"",url:"hayquevernos.com/"+slug(S.biz.name),completo:completeness()};
  hqvTrack("sitio_publicado",{tipos:datos.tipos,completo:datos.completo});

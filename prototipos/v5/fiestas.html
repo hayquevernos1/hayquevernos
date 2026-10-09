@@ -291,6 +291,13 @@ html,body{overflow-x:clip}
 .paylegend{background:#FFF7D6;border-radius:16px;padding:10px 12px;font-size:13px;font-weight:700}
 .xtra textarea{width:100%;min-height:150px;border-radius:18px;border:1.5px solid var(--line);padding:12px;font:inherit;resize:vertical}
 .xtra .cnt{justify-self:end;font-size:12px;color:var(--muted)}
+
+/* ===== v14 · cotizador ===== */
+.payrow input{flex:0 0 84px!important;width:84px!important}.payrow select{flex:0 0 auto!important;width:auto!important;min-width:0}
+.payrow .ab{font-size:12px;font-weight:800;color:var(--muted)}
+.payrow .pg{display:flex;gap:6px;align-items:center;flex-wrap:nowrap}
+.payrow{gap:8px 14px!important}
+.break .rdisc{flex-basis:100%;margin:0;font-weight:400;white-space:normal;text-align:left}
 </style>
 <link rel="stylesheet" href="marca.css">
 <style>
@@ -479,7 +486,7 @@ const S={kind:"",occ:"",guests:40,date:addDays(75),start:"18:00",end:"23:00",
  need:{state:"Ciudad de México",all:false,munis:[],types:[],feats:[],featsOther:[],req:{},format:""},nameOk:false,plannerPick:null,plIdx:0,partyName:"",
  sel:{},meta:{},factor:{},more:"",suggestedFor:"",
  fact:{docs:[],docsOther:[],days:"",reqDate:"",terms:"",method:[],methodOther:[],biz:""},wantPlanner:false,planners:[],
- pay:{mode:"",ant:[{n:"",u:"porcentaje"}],liq:[{n:"",u:"porcentaje"}],how:[],howOther:""},extra:"",maxStage:0,
+ pay:{mode:"",ant:[{n:"",u:"%",t:"",tu:"días"}],liq:[{n:"",u:"%",t:"",tu:"días"}],how:[],howOther:""},extra:"",maxStage:0,
  name:"",wa:"",email:"",agenda:{},mine:[]};
 if(ACCT&&ACCT_NAME)S.name=ACCT_NAME;
 const OPENC=new Set(),ALLC=new Set();
@@ -593,8 +600,8 @@ function optimize(im){const M=1400,sc=Math.min(1,M/Math.max(im.width,im.height))
 /* ---------- Pantallas ---------- */
 
 /* v13 · condiciones y formas de pago */
-const PAY_UNITS=["porcentaje","horas","días","semanas","meses"];
-function payRows(k,lab){return S.pay[k].map((x,i)=>`<div class="payrow"><b>${lab} ${i+1}</b><input type="number" min="0" data-pn="${k}|${i}" value="${esc(x.n)}" placeholder="Número" aria-label="${lab} ${i+1}"><select data-pu="${k}|${i}" aria-label="Unidad">${PAY_UNITS.map(u=>`<option ${x.u===u?"selected":""}>${u}</option>`).join("")}</select>${S.pay[k].length>1?`<button type="button" class="link-btn" data-px="${k}|${i}">✕</button>`:""}</div>`).join("")+`<button type="button" class="link-btn" data-padd="${k}" style="justify-self:start">＋ Agregar otro ${lab.toLowerCase()}</button>`;}
+const PAY_UNITS=["%","$"],PAY_TIME=["horas","días","semanas","meses"];
+function payRows(k,lab){return S.pay[k].map((x,i)=>{if(!PAY_UNITS.includes(x.u))x.u="%";if(!x.tu)x.tu="días";return`<div class="payrow"><b>${lab} ${i+1}</b><span class="pg"><input type="number" min="0" data-pn="${k}|${i}" value="${esc(x.n)}" placeholder="Monto" aria-label="${lab} ${i+1}"><select data-pu="${k}|${i}" aria-label="Porcentaje o dinero">${PAY_UNITS.map(u=>`<option value="${u}" ${x.u===u?"selected":""}>${u==="%"?"% porcentaje":"$ pesos"}</option>`).join("")}</select></span><span class="pg"><input type="number" min="0" data-pt="${k}|${i}" value="${esc(x.t)}" placeholder="Tiempo" aria-label="Tiempo antes del evento"><select data-ptu="${k}|${i}" aria-label="Unidad de tiempo">${PAY_TIME.map(u=>`<option ${x.tu===u?"selected":""}>${u}</option>`).join("")}</select><span class="ab">antes del evento</span></span>${S.pay[k].length>1?`<button type="button" class="link-btn" data-px="${k}|${i}">✕</button>`:""}</div>`;}).join("")+`<button type="button" class="link-btn" data-padd="${k}" style="justify-self:start">＋ Agregar ${k==="liq"?"otra":"otro"} ${lab.toLowerCase()}</button>`;}
 function payHtml(){const P=S.pay,done=P.mode&&P.how.length;
  return`<div class="field"><span class="lbl">💳 ¿Cuál es el proceso de pago que te gustaría implementar?</span>
   <div class="chips${MISS(!!P.mode)}">${[["prov","Sigo las indicaciones de los proveedores"],["mine","Yo defino anticipos y liquidaciones"]].map(([v,t])=>`<button type="button" class="chip pm2" data-v="${v}" aria-pressed="${P.mode===v}">${t}</button>`).join("")}</div>
@@ -608,9 +615,11 @@ function bindPay(el){const P=S.pay,keep=()=>{const y=scrollY;render();scrollTo({
  const o=$("phO");if(o)o.oninput=e=>{P.howOther=e.target.value;refresh("detalles");};
  el.querySelectorAll("[data-pn]").forEach(x=>x.oninput=()=>{const[k,i]=x.dataset.pn.split("|");P[k][+i].n=x.value;refresh("detalles");});
  el.querySelectorAll("[data-pu]").forEach(x=>x.onchange=()=>{const[k,i]=x.dataset.pu.split("|");P[k][+i].u=x.value;});
- el.querySelectorAll("[data-padd]").forEach(x=>x.onclick=()=>{P[x.dataset.padd].push({n:"",u:"porcentaje"});keep();});
+ el.querySelectorAll("[data-pt]").forEach(x=>x.oninput=()=>{const[k,i]=x.dataset.pt.split("|");P[k][+i].t=x.value;});
+ el.querySelectorAll("[data-ptu]").forEach(x=>x.onchange=()=>{const[k,i]=x.dataset.ptu.split("|");P[k][+i].tu=x.value;});
+ el.querySelectorAll("[data-padd]").forEach(x=>x.onclick=()=>{P[x.dataset.padd].push({n:"",u:"%",t:"",tu:"días"});keep();});
  el.querySelectorAll("[data-px]").forEach(x=>x.onclick=()=>{const[k,i]=x.dataset.px.split("|");P[k].splice(+i,1);keep();});}
-function payText(){const P=S.pay;const r=(l,k)=>P[k].filter(x=>filled(x.n)).map((x,i)=>`${l} ${i+1}: ${x.n} ${x.u}`).join(" · ");
+function payText(){const P=S.pay;const r=(l,k)=>P[k].filter(x=>filled(x.n)).map((x,i)=>`${l} ${i+1}: ${x.u==="$"?money(+x.n):x.n+"%"}${filled(x.t)?` ${x.t} ${x.tu} antes del evento`:""}`).join(" · ");
  return{proceso:P.mode==="prov"?"Sigo las indicaciones de los proveedores":[r("Anticipo","ant"),r("Liquidación","liq")].filter(Boolean).join(" · "),formas:P.how.map(x=>x==="Otro"?(P.howOther||"Otro"):x)};}
 /* cargar una pre-cotización guardada para editarla */
 addEventListener("message",e=>{const d=e.data||{};if(d.hqv!=="cargar"||!d.state)return;try{const st=JSON.parse(JSON.stringify(d.state));Object.keys(st).forEach(k=>{S[k]=st[k];});S.maxStage=STAGES.length-1;S.nameOk=true;go("fiesta");}catch(_){}});
@@ -806,7 +815,7 @@ function render(){updateTop();const el=$("screen");
   ${S.hasPlace===false?venueResultHtml():''}
   <div class="card"><h3 style="font-size:19px">Así se reparte 👇</h3>
    <div class="break scroll">${rs.map(r=>`<div><span>${r.e} ${esc(r.label)}${r.subs?`<br><span class="sub">${r.subs.map(esc).join(" · ")}</span>`:''}</span><span>${r.pendOnly?"Por cotizar":`<span class="pp2"><b>${money(r.amt/S.guests)} por persona</b><small>${money(r.amt)} por el total de invitados${r.pend&&r.pend.length?" + por cotizar":""}</small></span>`}</span>
-    ${r.k!=="Planner"?`<div class="avail"><span>🔔 ${nAv(r.k)} proveedores que cumplen con lo que pides <b>están disponibles</b></span><button class="btn cta sm" type="button" data-ct="${esc(r.k)}">Contactar</button></div>`:''}</div>`).join("")}
+    ${r.k!=="Planner"?`<div class="avail"><span>🔔 ${nAv(r.k)} proveedores que cumplen con lo que pides <b>están disponibles</b></span><button class="btn cta sm" type="button" data-ct="${esc(r.k)}">Contactar</button></div>`:''}<p class="disc rdisc">Cálculo basado en el promedio del histórico de precios publicados/pagados por los proveedores/anfitriones de la comunidad ¡Hay que vernos!.</p></div>`).join("")}
    ${S.more?`<div><span>✏️ Pedido especial<br><span class="sub">${esc(S.more)}</span></span><span>Por cotizar</span></div>`:''}${S.extra?`<div><span>📝 Lo que agregaste<br><span class="sub">${esc(S.extra)}</span></span><span></span></div>`:''}</div>
    <h3 style="font-size:19px">Consejos de Vernie 🪩</h3><div id="tipsBox">${tipHtml(tips("result"))}</div></div>`;
   hqvTrack("calculo_visto",{occ:S.occ,invitados:S.guests,total:Math.round(t)});

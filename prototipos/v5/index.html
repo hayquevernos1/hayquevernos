@@ -468,6 +468,30 @@ button.link{border:0;background:none;color:#BE0078;font:inherit;font-weight:800;
 .dots i{height:5px;border-radius:99px;background:#e6e1f5}
 .dots .on{color:#1a1033}.dots .on i{background:#9146FF}.dots .ok i{background:#00A884}.dots .no i{background:#c0264b}.dots .mute i{background:#9b94b5}
 
+/* ===== v14 · tracker con brillo + pop-up de match ===== */
+.int .st.vis{background:linear-gradient(135deg,#BEFF00,#FAFA19);color:#1a1033;border-radius:99px;padding:3px 11px;font-weight:900;box-shadow:0 0 0 3px rgba(190,255,0,.3),0 0 18px rgba(190,255,0,.75);animation:lit .55s ease-out}
+.int .st.wait{color:#9146FF;font-weight:900}
+@keyframes lit{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.18)}100%{transform:scale(1)}}
+.trkm i{box-shadow:0 0 14px rgba(250,30,210,.8)}
+.sheet.mtc{max-width:460px;width:100%;text-align:center;justify-items:center;color:#fff;background:linear-gradient(165deg,#41145F 0%,#8205B4 55%,#FA1ED2 120%)!important;box-shadow:0 0 0 3px rgba(190,255,0,.35),0 24px 60px rgba(0,0,0,.45)}
+.sheet.mtc h2{color:#fff;font-size:22px;line-height:1.15}
+.sheet.mtc .mk{font-size:11px;font-weight:900;letter-spacing:.14em;color:#BEFF00;display:flex;gap:6px;align-items:center}
+.sheet.mtc .mk i{width:9px;height:9px;border-radius:50%;background:#BEFF00;box-shadow:0 0 10px #BEFF00;animation:pulse 1s infinite}
+.mnum{display:grid;justify-items:center;line-height:1}
+.mnum b{font-size:92px;font-weight:900;letter-spacing:-.04em;background:linear-gradient(135deg,#BEFF00,#FAFA19);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(190,255,0,.55));font-variant-numeric:tabular-nums}
+.mnum span{font-weight:900;font-size:15px;opacity:.9}
+.mnum b.bump{animation:bump .12s}@keyframes bump{50%{transform:scale(1.08)}}
+.mlines{display:grid;gap:6px;width:100%}
+.ml{display:flex;justify-content:space-between;align-items:center;gap:8px;background:rgba(255,255,255,.1);border-radius:14px;padding:8px 12px;font-weight:800;font-size:14px;transition:background .3s}
+.ml span{text-align:left}.ml b{font-size:13px;opacity:.7;white-space:nowrap}
+.ml.on{background:rgba(190,255,0,.16)}
+.ml.on b{opacity:1;color:#1a1033;background:linear-gradient(135deg,#BEFF00,#FAFA19);border-radius:99px;padding:3px 10px;box-shadow:0 0 14px rgba(190,255,0,.8);animation:lit .5s ease-out}
+.trkm.big{height:10px;width:100%;background:rgba(255,255,255,.15)}
+.trkm.big i{background:linear-gradient(90deg,#BEFF00,#FAFA19);box-shadow:0 0 16px rgba(190,255,0,.9);transition:width .15s}
+.mcta{display:grid;gap:8px;width:100%;animation:lit .5s ease-out}
+.mcta .hint{color:rgba(255,255,255,.85)!important}
+.mcta button.link{color:#fff}
+
 /* ===== v12 · degradados de marca ===== */
 :root{--g-prov:linear-gradient(160deg,#9146FF 0%,#FA1ED2 100%);--g-host:linear-gradient(160deg,#FA1ED2 0%,#FF6905 100%);
  --g-cta:linear-gradient(135deg,#BEFF00 0%,#FAFA19 100%);--cta-ink:#1a1033;--wa:#25D366;--ok-solid:#00A884}
@@ -509,7 +533,7 @@ button.link{border:0;background:none;color:#BE0078;font:inherit;font-weight:800;
 <script src="config.js"></script>
 <script src="qr.js"></script>
 
-<div class="proto" id="proto"><b style="background:var(--hqv-vainilla);color:#3A2E00">PROTOTIPO v13</b><span>Precios provisionales. No se cobra nada ni se guardan datos.</span><span class="sp"></span><span class="who"><button class="pill sm" type="button" id="demo">👀 Ver como anfitrión</button><button class="pill sm" type="button" id="demoP">👀 Ver como proveedor</button></span><button class="pill sm" type="button" id="reset">↺ Empezar de nuevo</button></div>
+<div class="proto" id="proto"><b style="background:var(--hqv-vainilla);color:#3A2E00">PROTOTIPO v14</b><span>Precios provisionales. No se cobra nada ni se guardan datos.</span><span class="sp"></span><span class="who"><button class="pill sm" type="button" id="demo">👀 Ver como anfitrión</button><button class="pill sm" type="button" id="demoP">👀 Ver como proveedor</button></span><button class="pill sm" type="button" id="reset">↺ Empezar de nuevo</button></div>
 
 <header class="top"><div class="wrap in">
   <img class="logo" id="logoBtn" src="img/logo.webp" alt="¡Hay que vernos! — Inicio" width="900" height="358">
@@ -912,10 +936,30 @@ function bindInterest(e){const on=(id,fn)=>{const b=$(id);if(b)b.onclick=fn;};
  on("plAsk",()=>plOffer(e));on("plChg",()=>plOffer(e,"swipe"));
  on("plSolo",()=>{e.opts.planner=false;e.planner.cur=null;track("planner_oferta",{si:false,despues:true});drawAcct();});
  document.querySelectorAll("#evRight [data-plprof]").forEach(x=>x.onclick=ev=>{ev.stopPropagation();plannerProfile(e.planner.cur);});
- if(!e.trk)startTracker(e);}
+ if(!e.trk){startTracker(e);const h=$("tkH");if(h&&innerWidth<820)setTimeout(()=>h.scrollIntoView({behavior:"smooth",block:"start"}),250);}}
+/* Pop-up de match: 2.º intento de conversión, después del pop-up del event planner */
+function matchPop(e){if(e.mAsked||e.paid)return;e.mAsked=true;const m=$("modal"),ks=Object.keys(e.provs),fast=matchMedia("(prefers-reduced-motion: reduce)").matches;
+ setTimeout(()=>{if(U.eventId!==e.id||U.tab!=="fiestas"||!m.hidden)return;const pl=e.opts.planner&&e.planner.cur,N=ks.reduce((a,k)=>a+e.provs[k].length,0);
+  const cum=[];ks.reduce((a,k,i)=>(cum[i]=a+e.provs[k].length),0);
+  m.innerHTML=`<div class="sheet mtc"><span class="mk"><i></i>BUSCANDO EN VIVO</span><h2 id="mtH">Estamos encontrando proveedores que hacen match con tu evento</h2>
+   <div class="mnum"><b id="mtN">0</b><span id="mtS">proveedores disponibles</span></div>
+   <div class="mlines">${ks.map((k,i)=>`<div class="ml" id="ml-${i}"><span>${e.provs[k][0].emo} ${esc(k)}</span><b>⏳ buscando…</b></div>`).join("")}</div>
+   <div class="trkm big"><i id="mtM" style="width:0"></i></div>
+   <div class="mcta" id="mtCta" hidden><button class="btn cta" type="button" id="mtGo" style="width:100%">${pl?`Contactar a ${esc(first(pl.n))} + ${N} proveedores →`:`Contactar a los ${N} proveedores →`}</button>
+    <span class="hint">Pago único: ${money(pl?PR.proveedoresMasPlanner:PR.desbloquearProveedores)} · ves sus datos y les escribes por WhatsApp.</span>
+    <button class="link" type="button" id="mtNo">Ahora no</button></div></div>`;
+  m.hidden=false;let n=0;const NE=$("mtN"),done=()=>{ks.forEach((k,i)=>{const r=$("ml-"+i);if(r&&!r.classList.contains("on")){r.classList.add("on");r.querySelector("b").textContent=`✅ ${e.provs[k].length}`;}});
+   NE.textContent=N;$("mtM").style.width="100%";const mk=m.querySelector(".mk");if(mk)mk.innerHTML="✅ MATCH LISTO";$("mtH").textContent=`¡${N} proveedores hacen match con tu evento! 🎉`;$("mtS").textContent="cumplen con lo que pides, cerca de ti y libres en tu fecha";$("mtCta").hidden=false;
+   $("mtGo").onclick=()=>{track("match_pop",{contactar:true});m.hidden=true;drawAcct();startPay(e);};
+   $("mtNo").onclick=()=>{track("match_pop",{contactar:false});m.hidden=true;drawAcct();};};
+  if(fast){done();return;}
+  const dt=Math.max(45,Math.min(120,2600/N)),tick=()=>{if(m.hidden)return;n++;NE.textContent=n;NE.classList.remove("bump");void NE.offsetWidth;NE.classList.add("bump");$("mtM").style.width=Math.round(n/N*100)+"%";
+   cum.forEach((c,i)=>{const r=$("ml-"+i);if(n>=c&&r&&!r.classList.contains("on")){r.classList.add("on");r.querySelector("b").textContent=`✅ ${e.provs[ks[i]].length}`;}});
+   if(n>=N)setTimeout(done,350);else setTimeout(tick,dt);};
+  setTimeout(tick,500);},fast?0:450);}
 /* Pop-up: primera mención del event planner, ya con la pre-cotización entregada */
 function plOffer(e,step){const m=$("modal");e.plAsked=true;step=step||"ask";const pool=PLANNERS.map(normPl);e.plI=(e.plI||0)%pool.length;const c=pool[e.plI],cur=e.planner.cur;
- const close=()=>{m.hidden=true;drawAcct();};
+ const close=()=>{m.hidden=true;drawAcct();matchPop(e);};
  if(step==="ask")m.innerHTML=`<div class="sheet plo"><img src="img/c_05.webp" alt="" style="width:110px"><h2>¿Quieres que un event planner organice tu fiesta?</h2><span>Ya tienes tu pre-cotización 🎉 Si prefieres no coordinar tú a ${e.interes} proveedores, un event planner de la comunidad ¡Hay que vernos! lo hace por ti, de principio a fin.</span><div class="soft" style="text-align:left"><span>💡 Su cobro lo acuerdas directo con él o ella. No lo pagas aquí ni junto con nada.</span></div><div class="yn2" style="width:100%"><button class="btn ghost" type="button" id="poNo">No, yo organizo</button><button class="btn cta" type="button" id="poYes">Sí, quiero conocerlos</button></div></div>`;
  if(step==="swipe")m.innerHTML=`<div class="sheet plo"><h2>Elige a tu event planner</h2><span class="hint">Desliza a la derecha si te gusta o a la izquierda para ver otra opción. Toca su foto para ver su perfil completo.</span>${plCardHtml(c,"",true)}<div class="yn2" style="width:100%"><button class="btn ghost" type="button" id="poNext">✕ Siguiente</button><button class="btn cta" type="button" id="poPick">💙 Lo quiero</button></div><span class="hint">${e.plI+1} de ${pool.length}</span><button class="pill sm" type="button" id="poX">Ahora no</button></div>`;
  if(step==="chosen")m.innerHTML=`<div class="sheet plo"><h2>¡Excelente elección! 💙</h2>${plCardHtml(cur)}<span>${esc(first(cur.n))} recibe tu pre-cotización completa y coordina por ti a tus ${e.interes} proveedores disponibles.</span><button class="btn cta" type="button" id="poGo" style="width:100%">Contactar a ${esc(first(cur.n))} + proveedores →</button><span class="hint">Pago único: ${money(PR.proveedoresMasPlanner)} · el cobro de ${esc(first(cur.n))} lo acuerdas directo con él o ella.</span><div class="row" style="gap:14px;justify-content:center"><button class="link" type="button" id="poOther">Ver otro planner</button><button class="link" type="button" id="poLater">Lo decido después</button></div></div>`;
