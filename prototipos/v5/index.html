@@ -433,12 +433,17 @@ body:has(#home:not([hidden])) .top .logo{visibility:hidden}
 .agd2 .grow{flex:1;min-width:150px;display:grid}
 .kpi3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.kpi3 div{background:var(--paper);border-radius:16px;padding:10px;display:grid;text-align:center}.kpi3 b{font-size:20px}
 .proto .who{display:flex;gap:4px}
+
+/* ===== v10 · una sola cuenta ===== */
+.hello .one{font-size:13px;color:var(--muted);font-weight:700}
+.subtabs .new{font-size:10px;background:var(--hqv-lima);color:#1A2600;border-radius:99px;padding:1px 7px;margin-left:4px}
+.inv.mini{max-width:none;border-radius:32px!important}
 </style>
 <link rel="stylesheet" href="marca.css">
 <script src="config.js"></script>
 <script src="qr.js"></script>
 
-<div class="proto" id="proto"><b style="background:var(--hqv-vainilla);color:#3A2E00">PROTOTIPO v8</b><span>Precios provisionales. No se cobra nada ni se guardan datos.</span><span class="sp"></span><span class="who"><button class="pill sm" type="button" id="demo">👀 Ver como anfitrión</button><button class="pill sm" type="button" id="demoP">👀 Ver como proveedor</button></span><button class="pill sm" type="button" id="reset">↺ Empezar de nuevo</button></div>
+<div class="proto" id="proto"><b style="background:var(--hqv-vainilla);color:#3A2E00">PROTOTIPO v10</b><span>Precios provisionales. No se cobra nada ni se guardan datos.</span><span class="sp"></span><span class="who"><button class="pill sm" type="button" id="demo">👀 Ver como anfitrión</button><button class="pill sm" type="button" id="demoP">👀 Ver como proveedor</button></span><button class="pill sm" type="button" id="reset">↺ Empezar de nuevo</button></div>
 
 <header class="top"><div class="wrap in">
   <img class="logo" id="logoBtn" src="img/logo.webp" alt="¡Hay que vernos! — Inicio" width="900" height="358">
@@ -567,7 +572,7 @@ function drawTop(){const r=$("topRight");
 /* ======================= JOURNEYS ======================= */
 let jKind=null;
 function openJourney(k,edit,editEv){jKind=k;U.editing=editEv||null;const f=$("jFrame");
- const q=new URLSearchParams({shell:"1"});if(edit&&U.account){q.set("cuenta","1");q.set("nombre",U.name);q.set("wa",U.wa);q.set("email",U.email);}
+ const q=new URLSearchParams({shell:"1"});if(U.account==="cuenta"||(edit&&U.account)){q.set("cuenta","1");q.set("nombre",U.name);q.set("wa",U.wa);q.set("email",U.email);}
  f.src=(k==="negocio"?"negocio.html":"fiestas.html")+"?"+q.toString();
  $("jNote").textContent=k==="fiestas"?"Se guarda solo, sin registrarte":"Tu cuenta se crea al publicar";
  $("journey").hidden=false;document.body.style.overflow="hidden";track(k==="negocio"?"journey_proveedor":"journey_anfitrion");}
@@ -639,7 +644,7 @@ function pubModal(x){const m=$("modal"),url=x.url||"hayquevernos.com/tu-negocio"
 function drawAcct(){const a=$("acct");
  const lvl=U.events.length+(U.site?1:0)>=3?"n2":"n1";
  a.innerHTML=`<div class="hello"><img class="lvl" src="img/${lvl}.webp" alt="Nivel ${lvl==="n2"?"Fiestero":"Invitado"}"><div style="display:grid;gap:4px"><h1>${U.name?`¡Hola, ${esc(first(U.name))}!`:"¡Hola!"}</h1>
-  <span class="row" style="gap:6px">${U.account==="invitado"?'<span class="tag2">Cuenta invitada</span>':'<span class="tag2 ok">✓ Cuenta verificada</span>'}<span class="hint">Nivel ${lvl==="n2"?"Fiestero":"Invitado"}</span></span></div></div>
+  <span class="row" style="gap:6px">${U.account==="invitado"?'<span class="tag2">Cuenta invitada</span>':'<span class="tag2 ok">✓ Cuenta verificada</span>'}<span class="hint">Nivel ${lvl==="n2"?"Fiestero":"Invitado"}</span></span><span class="one">Una sola cuenta para tus fiestas y tu negocio.</span></div></div>
  <nav class="tabs" role="tablist" aria-label="Mi cuenta">
   <button class="tab fs" role="tab" data-t="fiestas" aria-selected="${U.tab==="fiestas"}">${em("party_popper")} Mis fiestas${U.sides.fiestas?"":'<span class="new">Activar</span>'}</button>
   <button class="tab nb" role="tab" data-t="negocio" aria-selected="${U.tab==="negocio"}">${em("briefcase")} Mi negocio${U.sides.negocio?"":'<span class="new">Activar</span>'}</button>
@@ -648,8 +653,8 @@ function drawAcct(){const a=$("acct");
  <div id="pane"></div>`;
  a.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{U.tab=t.dataset.t;if(U.tab!=="fiestas")U.eventId=U.eventId;drawAcct();});
  const p=$("pane");
- if(U.tab==="fiestas"){if(!U.sides.fiestas&&!(U.plannerJobs||[]).length)return drawInvite(p,"fiestas");return drawFiestas(p);}
- if(U.tab==="negocio")return U.sides.negocio?drawNegocio(p):drawInvite(p,"negocio");
+ if(U.tab==="fiestas")return drawFiestas(p);
+ if(U.tab==="negocio")return drawNegocio(p);
  if(U.tab==="bandeja")return drawInbox(p);
  drawPerfil(p);}
 
@@ -673,15 +678,16 @@ function fichaHtml(e,on){const f=e.f;e.versions=e.versions||[{f,t:e.t||now()}];
   <span class="n"><b>${money(f.pp)}</b><span>por persona</span></span><small>Total aproximado ${money(f.total)}</small>${evState(e)}</div>
   <div class="fv">${e.versions.map((v,i)=>`<div class="vr"><span class="grow"><b>Versión ${e.versions.length-i}${i===0?" · actual":""}</b><small>${new Date(v.t).toLocaleDateString("es-MX",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})} · ${money(v.f.total)} · ${v.f.guests} invitados</small></span>
    <span class="ico"><button type="button" data-vw="${e.id}|${i}">Ver</button><button type="button" data-vd="${e.id}|${i}" aria-label="Descargar PDF" title="Descargar PDF">⬇️</button><button type="button" data-vx="${e.id}|${i}" aria-label="Borrar versión" title="Borrar">✕</button></span></div>`).join("")}</div></div>`;}
-function drawFiestas(p){const isPl=(U.site&&(U.site.tipos||[]).includes("planner"))||(U.plannerJobs||[]).length;U.sub=U.sub||"mias";if(!isPl)U.sub="mias";
+function drawFiestas(p){const isPl=(U.site&&(U.site.tipos||[]).includes("planner"))||(U.plannerJobs||[]).length;U.sub=U.sub||"mias";
  const done=e=>daysTo(e.f.date)<0&&e.surveyDone,act=U.events.filter(e=>!done(e)),cel=U.events.filter(done);
  if(!act.some(e=>e.id===U.eventId))U.eventId=act[0]?act[0].id:null;
  const mob=matchMedia("(max-width:860px)").matches,sel=act.find(e=>e.id===U.eventId);
  const det=`<div class="fdet"><span class="dtitle">Descripción del proyecto</span><div id="evRight" style="display:grid;gap:14px"></div></div>`;
- const tabs=isPl?`<div class="subtabs" role="tablist"><button type="button" role="tab" data-sub="mias" aria-selected="${U.sub==="mias"}">🎉 Mis fiestas personales</button><button type="button" role="tab" data-sub="otros" aria-selected="${U.sub==="otros"}">📋 Las fiestas de mis clientes</button></div>`:"";
+ const tabs=true?`<div class="subtabs" role="tablist"><button type="button" role="tab" data-sub="mias" aria-selected="${U.sub==="mias"}">🎉 Mis fiestas personales</button><button type="button" role="tab" data-sub="otros" aria-selected="${U.sub==="otros"}">📋 Las fiestas de mis clientes${isPl?"":'<span class="new">Activar</span>'}</button></div>`:"";
  if(U.sub==="otros"){p.innerHTML=`${tabs}<div class="fhead"><h2>${em("magic_wand")} Las fiestas de mis clientes</h2></div><span class="hint">Las fiestas que organizas como event planner, después de que aceptaste y tu cliente confirmó el trato.</span>
   <section class="tsec"><h3 class="tlab">🎈 En proceso</h3><div class="flist">${(U.plannerJobs||[]).map(j=>`<div class="fch"><div class="fh"><small>${esc(j.nombre)} · ${j.guests} invitados · ${fdate(j.date)}</small><span class="n"><b>${money(j.total/j.guests)}</b><span>por persona</span></span><small>Total pre-cotizado ${money(j.total)} · tu cobro ${money(j.cobro||0)}</small>${j.nuevo&&!j.conf?`<span class="st wait">Esperando a tu cliente</span>`:`<span class="st go">En progreso</span>`}</div>
-   <div class="fv"><div class="vr"><span class="grow"><b>Tu cliente: ${esc(j.cliente)}</b><small>Le das seguimiento por WhatsApp junto con sus proveedores.</small></span><span class="ico"><button type="button" data-job="${esc(j.nombre)}">Ver</button></span></div></div></div>`).join("")||'<div class="empty"><span class="hint">Cuando aceptes a un cliente en Mi negocio › Event planner, su fiesta aparece aquí.</span></div>'}</div></section>`;
+   <div class="fv"><div class="vr"><span class="grow"><b>Tu cliente: ${esc(j.cliente)}</b><small>Le das seguimiento por WhatsApp junto con sus proveedores.</small></span><span class="ico"><button type="button" data-job="${esc(j.nombre)}">Ver</button></span></div></div></div>`).join("")||(isPl?'<div class="empty"><span class="hint">Cuando aceptes a un cliente en Mi negocio › Event planner, su fiesta aparece aquí.</span></div>':plInvHtml())}</div></section>`;
+  const pa=$("plAct");if(pa)pa.onclick=()=>actVertical("planner");
   p.querySelectorAll("[data-sub]").forEach(b=>b.onclick=()=>{U.sub=b.dataset.sub;drawAcct();});
   p.querySelectorAll("[data-job]").forEach(b=>b.onclick=()=>{U.jobSel=b.dataset.job;drawAcct();});
   const jj=(U.plannerJobs||[]).find(j=>j.nombre===U.jobSel)||(U.plannerJobs||[])[0];if(jj){p.insertAdjacentHTML("beforeend",jobDetailHtml(jj));bindJob(jj);}return;}
@@ -695,7 +701,7 @@ function jobDetailHtml(j){const e=jobEvent(j);const lib=j.confirmado!==false;
   ${j.nuevo&&!j.conf?`<div class="box"><div class="lockd">${em("hourglass_not_done")}<span><b>Esperando a que ${esc(j.cliente)} confirme el trato y pague.</b> En cuanto lo haga, les liberamos a los dos los contactos de los proveedores y te avisamos aquí y por correo.</span></div><button class="sim" type="button" id="jConf">Simular: tu cliente confirmó y pagó</button></div>`:provListBox(e,false)}</section>`;}
 function bindJob(j){const c=$("jConf");if(c){c.onclick=()=>{j.conf=true;confetti();inbox("fiestas",`🔓 ${j.cliente} confirmó. Ya ves a sus proveedores.`);drawAcct();};return;}bindProvList(j.e);}
  if(!U.sides.fiestas){drawInvite(p,"fiestas");p.insertAdjacentHTML("afterbegin",tabs);p.querySelectorAll("[data-sub]").forEach(b=>b.onclick=()=>{U.sub=b.dataset.sub;drawAcct();});return;}
- p.innerHTML=`${tabs}<div class="fhead"><h2>${em("party_popper")} ${isPl?"Mis fiestas personales":"Mis fiestas"}</h2><button class="btn cta sm" type="button" id="newEv">＋ Pre-cotizar otra fiesta</button></div>
+ p.innerHTML=`${tabs}<div class="fhead"><h2>${em("party_popper")} Mis fiestas personales</h2><button class="btn cta sm" type="button" id="newEv">＋ Pre-cotizar otra fiesta</button></div>
   <section class="tsec"><h3 class="tlab">🔮 Por celebrar <span class="hint">Agenda las fiestas que quieres pre-cotizar más adelante. Te avisamos ${RG.diasRecordatorio} días antes.</span></h3>
    ${agendaBar()}${U.agenda.length?`<div class="list">${U.agenda.map(x=>`<div class="evc agd"><img class="em lg" src="img/e_birthday_cake.webp" alt=""><span class="grow"><b>${esc(x.w)}</b><span class="hint">${fdate(x.d)} · faltan ${Math.max(0,daysTo(x.d))} días</span></span><button class="btn ghost sm" type="button" data-agq="${esc(x.w)}">Pre-cotizar</button></div>`).join("")}</div>`:""}</section>
   <section class="tsec"><h3 class="tlab">🎈 En proceso <span class="hint">Tus pre-cotizaciones con sus versiones. Toca una ficha para ver la descripción del proyecto.</span></h3>
@@ -932,7 +938,23 @@ const NO_WHY=["Ya tengo esa fecha ocupada","No cubro esa zona","El presupuesto n
 const PL_WHY_OK=["El proyecto me encanta","Es mi especialidad","Buen presupuesto","Cliente claro y organizado","Otro"];
 const PL_WHY_NO=["Fecha ocupada","Fuera de mi zona","Presupuesto muy bajo","No es mi especialidad","Otro"];
 const STG=["Postulado","Visto","En WhatsApp"];
-function negState(){U.neg=U.neg||{vt:null,sol:[],post:[],agenda:[],removed:0,sel:null};const t=(U.site&&U.site.tipos)||["services"];const ok=VTS.filter(v=>t.includes(v[0]));if(!ok.some(v=>v[1]===U.neg.vt))U.neg.vt=ok[0][1];return ok;}
+function negState(){U.neg=U.neg||{vt:null,sol:[],post:[],agenda:[],removed:0,sel:null};const t=(U.site&&U.site.tipos)||[];const ok=VTS.filter(v=>t.includes(v[0]));if(!VTS.some(v=>v[1]===U.neg.vt))U.neg.vt=(ok[0]||VTS[0])[1];return ok;}
+function vtOn(id){const t=(U.site&&U.site.tipos)||[];return !!U.sides.negocio&&VTS.some(v=>v[1]===id&&t.includes(v[0]));}
+function negTabs(vt){return`<div class="subtabs nb-sub" role="tablist" style="margin-top:14px">${VTS.map(([,id,t])=>`<button type="button" role="tab" data-nv="${id}" aria-selected="${vt===id}">${t}${vtOn(id)?"":'<span class="new">Activar</span>'}</button>`).join("")}</div>`;}
+const VT_INV={svc:["c_01","¿Ofreces servicios para fiestas o eventos?","Comida, música, decoración, foto, mobiliario… Publica tus servicios con precios y recibe eventos que encajan contigo, directo en tu WhatsApp.",["Sitio web gratis para siempre","Precios por persona, por pieza o por hora","Solicitudes de clientes reales cerca de ti"]],
+ venue:["c_03","¿Tienes un venue?","Salón, jardín, terraza o casa para eventos. Publica capacidad, horarios, precios y políticas, y recibe solicitudes de fechas.",["Tu venue con fotos, horarios y precios","Políticas claras: qué incluye y qué no","Agenda de fechas cerradas"]],
+ planner:["c_05","¿Eres event planner?","Crea tu perfil de planner y deja que los anfitriones te elijan para organizar su fiesta completa.",["Tu récord, insignias y redes en un perfil","Clientes que ya pre-cotizaron su fiesta","Coordina a sus proveedores desde tu cuenta"]]};
+function actVertical(vt){track("invitacion_cruzada",{a:"proveedor",vt});if(U.site){U.addVt=vt;openJourney("negocio",true);}else{show("home");goSide("pv");}}
+function plInvHtml(){const v=VT_INV.planner;return`<div class="inv nb mini"><img src="img/${v[0]}.webp" alt="" style="width:90px"><h2>${v[1]}</h2><span style="font-size:16px">${v[2]} Las fiestas que organices para tus clientes aparecen aquí.</span><button class="btn cta" type="button" id="plAct">${U.site?"Agregar mi perfil de planner →":"Crear mi sitio web gratis →"}</button><span style="font-size:13px;font-weight:700;opacity:.95">Usamos tu misma cuenta: no tienes que volver a registrarte.</span></div>`;}
+function negHead(){const s=U.site||{},pro=U.plan==="pro";return`<div class="box" style="background:var(--prov);color:#fff"><div class="fhead" style="margin:0"><h2>${em("rocket")} ${esc(s.negocio||"Mi negocio")}</h2><span class="row" style="gap:6px">${U.founder?`<span class="tag2">⭐ Fundador #${U.founder}</span>`:""}<span class="tag2 ${pro?"ok":""}">Plan ${pro?"Pro":"Gratis"}</span></span></div>
+   <span style="background:rgba(255,255,255,.18);border-radius:99px;padding:4px 12px;font-weight:800;word-break:break-all;justify-self:start">${esc(s.url||"hayquevernos.com/minegocio")}</span>
+   <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn ghost sm" type="button" id="sEdit">✏️ Editar mi sitio</button></div></div>`;}
+function drawNegOff(p){const N=U.neg,vt=N.vt,v=VT_INV[vt],has=!!(U.sides.negocio&&U.site);
+ p.innerHTML=`${has?negHead():""}${negTabs(vt)}<div class="inv nb mini"><img src="img/${v[0]}.webp" alt="" style="width:100px"><h2>${v[1]}</h2><span style="font-size:16px">${v[2]}</span><ul>${v[3].map(x=>`<li>${x}</li>`).join("")}</ul>
+  <button class="btn cta" type="button" id="act">${has?"Agregar a mi sitio →":"Crear mi sitio web gratis →"}</button><span style="font-size:13px;font-weight:700;opacity:.95">Usamos tu misma cuenta: no tienes que volver a registrarte.</span></div>`;
+ const e=$("sEdit");if(e)e.onclick=()=>openJourney("negocio",true);
+ $("act").onclick=()=>actVertical(vt);
+ p.querySelectorAll("[data-nv]").forEach(b=>b.onclick=()=>{N.vt=b.dataset.nv;N.sel=null;drawAcct();});}
 function solFicha(r,on){return`<div class="solc ${on?"on":""}" id="sol-${r.id}"><div class="sh" data-so="${r.id}" role="button" tabindex="0"><small>${r.kind==="planner"?"📋 Te eligieron como event planner":"🔔 Evento que encaja contigo"} · quedan ${Math.max(0,Math.ceil((r.dl-now())/36e5))} h</small>
   <b style="font-size:16px">${esc(r.occ)} · ${r.guests} invitados · ${fdate(r.date)}</b><small>📍 ${esc(r.zona)} · a ${r.km} km${r.kind==="planner"?` · pre-cotización ${money(r.total)}`:` · ${esc(r.svc)}`}</small></div>
   <div class="sb"><b style="font-size:13.5px">${r.kind==="planner"?`Tu cliente te eligió entre ${r.interes} perfiles. Tienes 24 h para responder.`:`${r.interes} proveedores interesados en el evento de ${esc(r.cli.n)}. ¿Te sumas?`}</b>
@@ -963,7 +985,7 @@ function postHtml(x){const fin=x.fin;const cls=i=>i<=x.stage?"on":"";
   ${fin==="sin"?`<span class="hint">Pasaron 24 h sin respuesta. Puedes darle seguimiento por WhatsApp o borrarla.</span>`:""}
   ${fin==="sel"?`<span class="hint">🎉 ¡Quedaste! Marcamos ${fdate(x.date)} en tu agenda como fecha cerrada.</span>`:""}
   <div class="row" style="gap:6px;flex-wrap:wrap">${!fin?`<button class="sim" type="button" data-ps="${x.id}">Simular siguiente paso</button>`:""}<span style="flex:1"></span><button class="btn white sm" type="button" data-pdel="${x.id}">🗑️ Borrar</button></div></div></div>`;}
-function drawNegocio(p){const s=U.site||{},pro=U.plan==="pro",ok=negState(),N=U.neg,vt=N.vt,mob=matchMedia("(max-width:860px)").matches;
+function drawNegocio(p){negState();if(!vtOn(U.neg.vt))return drawNegOff(p);const s=U.site||{},pro=U.plan==="pro",ok=negState(),N=U.neg,vt=N.vt,mob=matchMedia("(max-width:860px)").matches;
  const sol=N.sol.filter(r=>r.vt===vt&&r.st!=="rechazada"&&r.st!=="aceptada"),post=N.post.filter(x=>x.vt===vt),ag=N.agenda.filter(a=>a.vt===vt).sort((a,b)=>a.d.localeCompare(b.d));
  if(!sol.some(r=>r.id===N.sel))N.sel=sol[0]?sol[0].id:null;const sel=sol.find(r=>r.id===N.sel);
  const det=sel?`<div class="fdet"><span class="dtitle">Descripción del proyecto</span>${solDesc(sel)}</div>`:"";
@@ -971,7 +993,7 @@ function drawNegocio(p){const s=U.site||{},pro=U.plan==="pro",ok=negState(),N=U.
  p.innerHTML=`<div class="box" style="background:var(--prov);color:#fff"><div class="fhead" style="margin:0"><h2>${em("rocket")} ${esc(s.negocio||"Mi negocio")}</h2><span class="row" style="gap:6px">${U.founder?`<span class="tag2">⭐ Fundador #${U.founder}</span>`:""}<span class="tag2 ${pro?"ok":""}">Plan ${pro?"Pro":"Gratis"}</span></span></div>
    <span style="background:rgba(255,255,255,.18);border-radius:99px;padding:4px 12px;font-weight:800;word-break:break-all;justify-self:start">${esc(s.url||"hayquevernos.com/minegocio")}</span>
    <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn ghost sm" type="button" id="sEdit">✏️ Editar mi sitio</button><button class="btn ghost sm" type="button" id="sCopy">🔗 Copiar link</button><button class="btn ghost sm" type="button" id="sImg">⬇️ Imagen para redes</button>${pro?"":`<button class="btn cta sm" type="button" id="sPro">⭐ Pasar a Pro</button>`}</div></div>
- ${ok.length>1?`<div class="subtabs nb-sub" role="tablist" style="margin-top:14px">${ok.map(([,id,t])=>`<button type="button" role="tab" data-nv="${id}" aria-selected="${vt===id}">${t}</button>`).join("")}</div>`:""}
+ ${negTabs(vt)}
  <section class="tsec"><h3 class="tlab">🔮 Por venir <span class="hint">Tu agenda. Las fechas cerradas les avisan a otros anfitriones si estás disponible.</span></h3>
   ${ag.map((a,i)=>`<div class="agd2"><img class="em lg" src="img/e_spiral_calendar.webp" alt="" onerror="this.remove()"><span class="grow"><b>${fdate(a.d)}</b><span class="hint">${esc(a.ev)}</span></span><div class="seg" role="group"><button type="button" data-ag="${a.d}|cerrada" aria-pressed="${a.st==="cerrada"}">Fecha cerrada</button><button type="button" data-ag="${a.d}|disp" aria-pressed="${a.st==="disp"}">Cerrada con disponibilidad</button></div></div>`).join("")||'<div class="empty"><span class="hint">Aún no tienes fechas. Cuando quedes seleccionado, la fecha se marca sola.</span></div>'}
   <div class="row" style="gap:8px"><input type="date" id="blD" aria-label="Fecha ocupada" style="flex:1 1 160px"><button class="btn ghost sm" type="button" id="blAdd">Cerrar una fecha</button></div></section>
