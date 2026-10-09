@@ -443,7 +443,7 @@ body:has(#home:not([hidden])) .top .logo{visibility:hidden}
 <script src="config.js"></script>
 <script src="qr.js"></script>
 
-<div class="proto" id="proto"><b style="background:var(--hqv-vainilla);color:#3A2E00">PROTOTIPO v10</b><span>Precios provisionales. No se cobra nada ni se guardan datos.</span><span class="sp"></span><span class="who"><button class="pill sm" type="button" id="demo">👀 Ver como anfitrión</button><button class="pill sm" type="button" id="demoP">👀 Ver como proveedor</button></span><button class="pill sm" type="button" id="reset">↺ Empezar de nuevo</button></div>
+<div class="proto" id="proto"><b style="background:var(--hqv-vainilla);color:#3A2E00">PROTOTIPO v11</b><span>Precios provisionales. No se cobra nada ni se guardan datos.</span><span class="sp"></span><span class="who"><button class="pill sm" type="button" id="demo">👀 Ver como anfitrión</button><button class="pill sm" type="button" id="demoP">👀 Ver como proveedor</button></span><button class="pill sm" type="button" id="reset">↺ Empezar de nuevo</button></div>
 
 <header class="top"><div class="wrap in">
   <img class="logo" id="logoBtn" src="img/logo.webp" alt="¡Hay que vernos! — Inicio" width="900" height="358">
@@ -653,7 +653,7 @@ function drawAcct(){const a=$("acct");
  <div id="pane"></div>`;
  a.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{U.tab=t.dataset.t;if(U.tab!=="fiestas")U.eventId=U.eventId;drawAcct();});
  const p=$("pane");
- if(U.tab==="fiestas")return drawFiestas(p);
+ if(U.tab==="fiestas")return U.sides.fiestas?drawFiestas(p):drawInvite(p,"fiestas");
  if(U.tab==="negocio")return drawNegocio(p);
  if(U.tab==="bandeja")return drawInbox(p);
  drawPerfil(p);}
@@ -678,19 +678,6 @@ function fichaHtml(e,on){const f=e.f;e.versions=e.versions||[{f,t:e.t||now()}];
   <span class="n"><b>${money(f.pp)}</b><span>por persona</span></span><small>Total aproximado ${money(f.total)}</small>${evState(e)}</div>
   <div class="fv">${e.versions.map((v,i)=>`<div class="vr"><span class="grow"><b>Versión ${e.versions.length-i}${i===0?" · actual":""}</b><small>${new Date(v.t).toLocaleDateString("es-MX",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})} · ${money(v.f.total)} · ${v.f.guests} invitados</small></span>
    <span class="ico"><button type="button" data-vw="${e.id}|${i}">Ver</button><button type="button" data-vd="${e.id}|${i}" aria-label="Descargar PDF" title="Descargar PDF">⬇️</button><button type="button" data-vx="${e.id}|${i}" aria-label="Borrar versión" title="Borrar">✕</button></span></div>`).join("")}</div></div>`;}
-function drawFiestas(p){const isPl=(U.site&&(U.site.tipos||[]).includes("planner"))||(U.plannerJobs||[]).length;U.sub=U.sub||"mias";
- const done=e=>daysTo(e.f.date)<0&&e.surveyDone,act=U.events.filter(e=>!done(e)),cel=U.events.filter(done);
- if(!act.some(e=>e.id===U.eventId))U.eventId=act[0]?act[0].id:null;
- const mob=matchMedia("(max-width:860px)").matches,sel=act.find(e=>e.id===U.eventId);
- const det=`<div class="fdet"><span class="dtitle">Descripción del proyecto</span><div id="evRight" style="display:grid;gap:14px"></div></div>`;
- const tabs=true?`<div class="subtabs" role="tablist"><button type="button" role="tab" data-sub="mias" aria-selected="${U.sub==="mias"}">🎉 Mis fiestas personales</button><button type="button" role="tab" data-sub="otros" aria-selected="${U.sub==="otros"}">📋 Las fiestas de mis clientes${isPl?"":'<span class="new">Activar</span>'}</button></div>`:"";
- if(U.sub==="otros"){p.innerHTML=`${tabs}<div class="fhead"><h2>${em("magic_wand")} Las fiestas de mis clientes</h2></div><span class="hint">Las fiestas que organizas como event planner, después de que aceptaste y tu cliente confirmó el trato.</span>
-  <section class="tsec"><h3 class="tlab">🎈 En proceso</h3><div class="flist">${(U.plannerJobs||[]).map(j=>`<div class="fch"><div class="fh"><small>${esc(j.nombre)} · ${j.guests} invitados · ${fdate(j.date)}</small><span class="n"><b>${money(j.total/j.guests)}</b><span>por persona</span></span><small>Total pre-cotizado ${money(j.total)} · tu cobro ${money(j.cobro||0)}</small>${j.nuevo&&!j.conf?`<span class="st wait">Esperando a tu cliente</span>`:`<span class="st go">En progreso</span>`}</div>
-   <div class="fv"><div class="vr"><span class="grow"><b>Tu cliente: ${esc(j.cliente)}</b><small>Le das seguimiento por WhatsApp junto con sus proveedores.</small></span><span class="ico"><button type="button" data-job="${esc(j.nombre)}">Ver</button></span></div></div></div>`).join("")||(isPl?'<div class="empty"><span class="hint">Cuando aceptes a un cliente en Mi negocio › Event planner, su fiesta aparece aquí.</span></div>':plInvHtml())}</div></section>`;
-  const pa=$("plAct");if(pa)pa.onclick=()=>actVertical("planner");
-  p.querySelectorAll("[data-sub]").forEach(b=>b.onclick=()=>{U.sub=b.dataset.sub;drawAcct();});
-  p.querySelectorAll("[data-job]").forEach(b=>b.onclick=()=>{U.jobSel=b.dataset.job;drawAcct();});
-  const jj=(U.plannerJobs||[]).find(j=>j.nombre===U.jobSel)||(U.plannerJobs||[])[0];if(jj){p.insertAdjacentHTML("beforeend",jobDetailHtml(jj));bindJob(jj);}return;}
 function jobEvent(j){if(j.e)return j.e;const f={nombre:j.nombre,occ:j.nombre.split(" de ")[0],kind:"social",guests:j.guests,date:j.date,hours:6,total:j.total,pp:Math.round(j.total/j.guests),zona:"Coyoacán",
   rows:[{k:"Venue",e:"🏛️",label:"Venue",amt:Math.round(j.total*.38)},{k:"Alimentos",e:"🍽️",label:"Alimentos",amt:Math.round(j.total*.24)},{k:"Música y espectáculos",e:"🎧",label:"Música y espectáculos",amt:Math.round(j.total*.08)},{k:"Decoración y flores",e:"💐",label:"Decoración y flores",amt:Math.round(j.total*.06)}]};
  const e=newEvent(f);e.paid="planner";e.planner.state="liberado";j.e=e;return e;}
@@ -699,9 +686,22 @@ function jobDetailHtml(j){const e=jobEvent(j);const lib=j.confirmado!==false;
   <div class="box"><div class="cli"><span class="av">${esc(j.cliente[0])}</span><span style="display:grid;flex:1"><span class="hint" style="font-weight:800">Tu cliente</span><b>${esc(j.cliente)}</b><span class="hint">${fdate(j.date)} · ${j.guests} invitados · pre-cotización ${money(j.total)} · tu cobro ${money(j.cobro||0)}</span></span><a class="btn wa sm" href="https://wa.me/525500000000" target="_blank" rel="noopener">💬 WhatsApp</a></div>
    <div class="contact-note">🤝 <span><b>Tanto los proveedores como tu cliente anfitrión esperan que tú des el primer paso.</b> Contáctalos y confirma quiénes quedan seleccionados en tu evento.</span></div></div>
   ${j.nuevo&&!j.conf?`<div class="box"><div class="lockd">${em("hourglass_not_done")}<span><b>Esperando a que ${esc(j.cliente)} confirme el trato y pague.</b> En cuanto lo haga, les liberamos a los dos los contactos de los proveedores y te avisamos aquí y por correo.</span></div><button class="sim" type="button" id="jConf">Simular: tu cliente confirmó y pagó</button></div>`:provListBox(e,false)}</section>`;}
-function bindJob(j){const c=$("jConf");if(c){c.onclick=()=>{j.conf=true;confetti();inbox("fiestas",`🔓 ${j.cliente} confirmó. Ya ves a sus proveedores.`);drawAcct();};return;}bindProvList(j.e);}
+function bindJob(j){const c=$("jConf");if(c){c.onclick=()=>{j.conf=true;confetti();inbox("negocio",`🔓 ${j.cliente} confirmó. Ya ves a sus proveedores.`);drawAcct();};return;}bindProvList(j.e);}
+function drawFiestas(p){const isPl=(U.site&&(U.site.tipos||[]).includes("planner"))||(U.plannerJobs||[]).length;U.sub="mias";
+ const done=e=>daysTo(e.f.date)<0&&e.surveyDone,act=U.events.filter(e=>!done(e)),cel=U.events.filter(done);
+ if(!act.some(e=>e.id===U.eventId))U.eventId=act[0]?act[0].id:null;
+ const mob=matchMedia("(max-width:860px)").matches,sel=act.find(e=>e.id===U.eventId);
+ const det=`<div class="fdet"><span class="dtitle">Descripción del proyecto</span><div id="evRight" style="display:grid;gap:14px"></div></div>`;
+ const tabs=false?`<div class="subtabs" role="tablist"><button type="button" role="tab" data-sub="mias" aria-selected="${U.sub==="mias"}">🎉 Mis fiestas personales</button><button type="button" role="tab" data-sub="otros" aria-selected="${U.sub==="otros"}">📋 Las fiestas de mis clientes${isPl?"":'<span class="new">Activar</span>'}</button></div>`:"";
+ if(U.sub==="otros"){p.innerHTML=`${tabs}<div class="fhead"><h2>${em("magic_wand")} Las fiestas de mis clientes</h2></div><span class="hint">Las fiestas que organizas como event planner, después de que aceptaste y tu cliente confirmó el trato.</span>
+  <section class="tsec"><h3 class="tlab">🎈 En proceso</h3><div class="flist">${(U.plannerJobs||[]).map(j=>`<div class="fch"><div class="fh"><small>${esc(j.nombre)} · ${j.guests} invitados · ${fdate(j.date)}</small><span class="n"><b>${money(j.total/j.guests)}</b><span>por persona</span></span><small>Total pre-cotizado ${money(j.total)} · tu cobro ${money(j.cobro||0)}</small>${j.nuevo&&!j.conf?`<span class="st wait">Esperando a tu cliente</span>`:`<span class="st go">En progreso</span>`}</div>
+   <div class="fv"><div class="vr"><span class="grow"><b>Tu cliente: ${esc(j.cliente)}</b><small>Le das seguimiento por WhatsApp junto con sus proveedores.</small></span><span class="ico"><button type="button" data-job="${esc(j.nombre)}">Ver</button></span></div></div></div>`).join("")||(isPl?'<div class="empty"><span class="hint">Cuando aceptes a un cliente en Mi negocio › Event planner, su fiesta aparece aquí.</span></div>':plInvHtml())}</div></section>`;
+  const pa=$("plAct");if(pa)pa.onclick=()=>actVertical("planner");
+  p.querySelectorAll("[data-sub]").forEach(b=>b.onclick=()=>{U.sub=b.dataset.sub;drawAcct();});
+  p.querySelectorAll("[data-job]").forEach(b=>b.onclick=()=>{U.jobSel=b.dataset.job;drawAcct();});
+  const jj=(U.plannerJobs||[]).find(j=>j.nombre===U.jobSel)||(U.plannerJobs||[])[0];if(jj){p.insertAdjacentHTML("beforeend",jobDetailHtml(jj));bindJob(jj);}return;}
  if(!U.sides.fiestas){drawInvite(p,"fiestas");p.insertAdjacentHTML("afterbegin",tabs);p.querySelectorAll("[data-sub]").forEach(b=>b.onclick=()=>{U.sub=b.dataset.sub;drawAcct();});return;}
- p.innerHTML=`${tabs}<div class="fhead"><h2>${em("party_popper")} Mis fiestas personales</h2><button class="btn cta sm" type="button" id="newEv">＋ Pre-cotizar otra fiesta</button></div>
+ p.innerHTML=`${tabs}<div class="fhead"><h2>${em("party_popper")} Mis fiestas</h2><button class="btn cta sm" type="button" id="newEv">＋ Pre-cotizar otra fiesta</button></div>
   <section class="tsec"><h3 class="tlab">🔮 Por celebrar <span class="hint">Agenda las fiestas que quieres pre-cotizar más adelante. Te avisamos ${RG.diasRecordatorio} días antes.</span></h3>
    ${agendaBar()}${U.agenda.length?`<div class="list">${U.agenda.map(x=>`<div class="evc agd"><img class="em lg" src="img/e_birthday_cake.webp" alt=""><span class="grow"><b>${esc(x.w)}</b><span class="hint">${fdate(x.d)} · faltan ${Math.max(0,daysTo(x.d))} días</span></span><button class="btn ghost sm" type="button" data-agq="${esc(x.w)}">Pre-cotizar</button></div>`).join("")}</div>`:""}</section>
   <section class="tsec"><h3 class="tlab">🎈 En proceso <span class="hint">Tus pre-cotizaciones con sus versiones. Toca una ficha para ver la descripción del proyecto.</span></h3>
@@ -966,7 +966,7 @@ function plDecide(r){const d=r.dec||{};return`<div class="rate"><b>¿Aceptas a e
   ${d.v==="si"?`<div class="soft"><b>🤝 ¡Bien! Cuéntanos en 10 segundos</b><span class="hint">Solo para fines de investigación: no se le muestra a nadie.</span>
    <div class="row" style="gap:8px;flex-wrap:wrap"><input type="number" min="0" id="pc-${r.id}" value="${esc(d.cobro||"")}" placeholder="$ ¿Cuánto vas a cobrar?" style="flex:1 1 140px"><select id="pu-${r.id}" style="flex:1 1 140px">${[["evento","por evento"],["hora","por hora"],["invitado","por invitado"],["porcentaje","% del total"]].map(([v,t])=>`<option value="${v}" ${d.unit===v?"selected":""}>${t}</option>`).join("")}</select></div>
    <span class="hint">La pre-cotización de ${money(r.total)} te pareció…</span><div class="seg" role="group">${[["corto","Corta"],["bien","Bien"],["sobrado","Sobrada"]].map(([v,t])=>`<button type="button" data-pq="${r.id}|${v}" aria-pressed="${d.q===v}">${t}</button>`).join("")}</div></div>`:""}
-  ${d.v?`<button class="btn ${d.v==="si"?"cta":"host"} sm" type="button" data-pok="${r.id}">${d.v==="si"?"Guardar y pasar a mis fiestas":"Guardar"}</button>`:""}</div>`;}
+  ${d.v?`<button class="btn ${d.v==="si"?"cta":"host"} sm" type="button" data-pok="${r.id}">${d.v==="si"?"Guardar y pasar a mis clientes":"Guardar"}</button>`:""}</div>`;}
 function solDesc(r){const pro=U.plan==="pro";const open=r.st==="postulada"&&pro;
  if(r.kind==="planner")return`<div class="box"><h2>${em("sparkles")} ${esc(r.occ)} de ${esc(r.cli.n)}</h2><span class="hint">${fdate(r.date)} · ${r.start}–${r.end} · ${r.guests} invitados · ${esc(r.zona)}</span>
   <div class="kpi3"><div><b>${money(r.total)}</b><span class="hint">pre-cotización</span></div><div><b>${money(Math.round(r.total/r.guests))}</b><span class="hint">por persona</span></div><div><b>${r.svcs.length}</b><span class="hint">servicios</span></div></div>
@@ -1002,7 +1002,9 @@ function drawNegocio(p){negState();if(!vtOn(U.neg.vt))return drawNegOff(p);const
   ${sol.length?`<div class="fgrid"><div class="flist">${sol.map(r=>solFicha(r,r.id===N.sel)+(mob&&r.id===N.sel?det:"")).join("")}</div>${!mob?det:""}</div>`:`<div class="empty"><span class="hint">No tienes solicitudes nuevas. Te avisamos aquí y por correo en cuanto llegue una.</span></div>`}
   ${N.removed?`<span class="hint">🗂️ ${N.removed} ${N.removed===1?"solicitud descartada":"solicitudes descartadas"}.</span>`:""}
   <div class="row"><button class="sim" type="button" id="sReq">Simular: me llegó una solicitud</button></div>
-  ${vt!=="planner"?`<b style="margin-top:8px">${em("trophy")} Mis postulaciones</b>${post.length?`<div class="flist">${post.map(postHtml).join("")}</div>`:'<div class="empty"><span class="hint">Cuando te postules a un evento, aquí ves en qué va.</span></div>'}`:`<span class="hint">Los clientes que aceptes pasan a <b>Mis fiestas › Las fiestas de mis clientes</b>.</span>`}</section>
+  ${vt!=="planner"?`<b style="margin-top:8px">${em("trophy")} Mis postulaciones</b>${post.length?`<div class="flist">${post.map(postHtml).join("")}</div>`:'<div class="empty"><span class="hint">Cuando te postules a un evento, aquí ves en qué va.</span></div>'}`:`<b style="margin-top:8px">${em("handshake")} Mis clientes</b><span class="hint">Las fiestas que organizas como event planner. Cuando tu cliente confirma el trato, aquí ves a sus proveedores.</span>
+   ${(U.plannerJobs||[]).length?`<div class="flist">${U.plannerJobs.map(j=>`<div class="fch ${j.nombre===U.jobSel?"on":""}"><div class="fh" data-job="${esc(j.nombre)}" role="button" tabindex="0" style="background:var(--prov)"><small>${esc(j.nombre)} · ${j.guests} invitados · ${fdate(j.date)}</small><span class="n"><b>${money(j.total/j.guests)}</b><span>por persona</span></span><small>Total pre-cotizado ${money(j.total)} · tu cobro ${money(j.cobro||0)}</small>${j.nuevo&&!j.conf?`<span class="st wait">Esperando a tu cliente</span>`:`<span class="st go">En progreso</span>`}</div>
+   <div class="fv"><div class="vr"><span class="grow"><b>Tu cliente: ${esc(j.cliente)}</b><small>Le das seguimiento por WhatsApp junto con sus proveedores.</small></span><span class="ico"><button type="button" data-job="${esc(j.nombre)}">Ver</button></span></div></div></div>`).join("")}</div><div id="jobBox"></div>`:'<div class="empty"><span class="hint">Cuando aceptes a un cliente, su fiesta aparece aquí.</span></div>'}`}</section>
  <section class="tsec"><h3 class="tlab">🏅 Celebradas <span class="hint">Tu récord con ¡Hay que vernos!</span></h3>
   <div class="kpi3"><div><b>${cel}</b><span class="hint">eventos celebrados</span></div><div><b>${cel?"⭐ 4.9":"—"}</b><span class="hint">calificación promedio</span></div><div><b>${post.filter(x=>x.fin==="sel").length}</b><span class="hint">veces seleccionado</span></div></div>
   <div class="badges">${[["fundador","Fundador",!!U.founder],["perfil_100","Perfil 100%",(s.completo||0)>=100],["responde_ya","Responde ya",false],["verificado","Verificado",false],["consentido","Consentido",false],["50_fiestas","50 fiestas",false]].map(([b,t,on])=>`<figure class="${on?"":"off"}"><img src="img/b_${b}.webp" alt=""><figcaption>${t}</figcaption></figure>`).join("")}</div>
@@ -1012,6 +1014,8 @@ function drawNegocio(p){negState();if(!vtOn(U.neg.vt))return drawNegOff(p);const
  $("sImg").onclick=async()=>{const u=await hqvShareImage({logo:"img/logo.webp",kicker:"Encuéntranos en ¡Hay que vernos!",title:s.negocio||"Mi negocio",url:s.url||"hayquevernos.com",foot:"Escanea, conoce mis servicios y cotiza por WhatsApp"});hqvDownload(u,"sitio.png");};
  const pb=$("sPro");if(pb)pb.onclick=()=>planModal();
  p.querySelectorAll("[data-nv]").forEach(b=>b.onclick=()=>{N.vt=b.dataset.nv;N.sel=null;drawAcct();});
+ if(vt==="planner"&&(U.plannerJobs||[]).length){const jj=U.plannerJobs.find(j=>j.nombre===U.jobSel)||U.plannerJobs[0];U.jobSel=jj.nombre;$("jobBox").innerHTML=jobDetailHtml(jj);bindJob(jj);
+  p.querySelectorAll("[data-job]").forEach(b=>b.onclick=()=>{U.jobSel=b.dataset.job;drawAcct();setTimeout(()=>{const d=$("jobBox");d&&d.scrollIntoView({behavior:"smooth",block:"start"});},50);});}
  p.querySelectorAll("[data-so]").forEach(b=>b.onclick=()=>{N.sel=+b.dataset.so;drawAcct();if(mob)setTimeout(()=>{const d=$("sol-"+N.sel);d&&d.scrollIntoView({behavior:"smooth",block:"start"});},50);});
  const R=id=>N.sol.find(r=>r.id===+id);
  p.querySelectorAll("[data-sno]").forEach(b=>b.onclick=()=>{R(b.dataset.sno).rej=true;drawAcct();});
@@ -1029,8 +1033,8 @@ function drawNegocio(p){negState();if(!vtOn(U.neg.vt))return drawNegOff(p);const
   d.cobro=($("pc-"+id)||{}).value||d.cobro;d.unit=($("pu-"+id)||{}).value||d.unit||"evento";if(!d.cobro){toast("Dinos cuánto vas a cobrar");return;}if(!d.q){toast("Dinos qué te pareció la pre-cotización");return;}
   r.st="aceptada";U.plannerJobs=U.plannerJobs||[];U.plannerJobs.unshift({nombre:`${r.occ} de ${r.cli.n}`,cliente:r.cli.n,guests:r.guests,date:r.date,total:r.total,cobro:+d.cobro,unit:d.unit,svcs:r.svcs,nuevo:true});
   N.agenda.push({d:r.date,ev:`${r.occ} de ${r.cli.n} (event planner)`,st:"cerrada",vt:"planner"});
-  track("planner_acepta",{motivos:d.why,cobro:+d.cobro,unidad:d.unit,precotizacion:d.q});inbox("fiestas",`📋 «${r.occ} de ${r.cli.n}» ya está en Mis fiestas › Las fiestas de mis clientes. Esperamos la confirmación de tu cliente.`);
-  toast("🤝 ¡Aceptado! Lo encuentras en Mis fiestas › Las fiestas de mis clientes.");U.tab="fiestas";U.sub="otros";U.jobSel=U.plannerJobs[0].nombre;drawAcct();});
+  track("planner_acepta",{motivos:d.why,cobro:+d.cobro,unidad:d.unit,precotizacion:d.q});inbox("negocio",`📋 «${r.occ} de ${r.cli.n}» ya está en Mi negocio › Event planner › Mis clientes. Esperamos la confirmación de tu cliente.`);
+  toast("🤝 ¡Aceptado! Lo encuentras abajo, en Mis clientes.");U.tab="negocio";U.jobSel=U.plannerJobs[0].nombre;drawAcct();setTimeout(()=>{const d=$("jobBox");d&&d.scrollIntoView({behavior:"smooth",block:"start"});},80);});
  p.querySelectorAll("[data-ps]").forEach(b=>b.onclick=()=>{const x=N.post.find(y=>y.id===+b.dataset.ps);
   if(x.stage<2){x.stage++;toast(x.stage===1?"👀 El anfitrión vio tu perfil.":"💬 El anfitrión te escribió por WhatsApp.");}
   else{const k=(N.post.indexOf(x))%3;x.fin=["sel","nosel","sin"][k];if(x.fin==="sel"){N.agenda.push({d:x.date,ev:x.ev,st:"cerrada",vt:x.vt});toast("🎉 ¡Te seleccionaron!");}

@@ -101,8 +101,7 @@ const D=n=>new Date(Date.now()+n*864e5).toISOString().slice(0,10);
  await st('past',async()=>{await p.evaluate(()=>document.getElementById('evPast').click());await p.waitForTimeout(600);await p.evaluate(()=>{document.querySelectorAll('[data-ps$="|5"]').forEach(x=>x.click());const s=document.querySelector('[data-st="5"]');s&&s.click();});await p.fill('#svNote','La barra se acabó antes de las 12, todo lo demás perfecto');});
  await shot(p,'C13_encuesta_un_dia_despues');
  await st('send',async()=>{await p.evaluate(()=>document.getElementById('svSend').click());await p.waitForTimeout(900);});await shot(p,'C14_mis_fiestas_celebrada');
- await st('cli',async()=>{await p.evaluate(()=>{U.tab="fiestas";U.sub="otros";drawAcct();});});await shot(p,'C15_fiestas_de_mis_clientes_invitacion_planner');
- for(const [vt,n] of [['svc','C16'],['venue','C17'],['planner','C18']]){await p.evaluate(vt=>{U.tab="negocio";negState();U.neg.vt=vt;drawAcct();},vt);await shot(p,n+'_mi_negocio_'+vt+'_invitacion');}
+  for(const [vt,n] of [['svc','C16'],['venue','C17'],['planner','C18']]){await p.evaluate(vt=>{U.tab="negocio";negState();U.neg.vt=vt;drawAcct();},vt);await shot(p,n+'_mi_negocio_'+vt+'_invitacion');}
  await p.evaluate(()=>{U.tab="bandeja";drawAcct();});await shot(p,'C19_bandeja');
  await p.evaluate(()=>{U.tab="perfil";drawAcct();});await shot(p,'C20_perfil');
  await p.evaluate(()=>{U.tab="negocio";U.neg.vt="svc";drawAcct();});
@@ -126,9 +125,9 @@ const D=n=>new Date(Date.now()+n*864e5).toISOString().slice(0,10);
  await q.evaluate(()=>{U.neg.vt="planner";U.neg.sel=null;drawAcct();});await shot(q,'D07_mi_negocio_planner_solicitud');
  await st('pdno',async()=>{await q.click('[data-pd$="|no"]');await q.waitForTimeout(300);await q.click('[data-pw$="|Presupuesto muy bajo"]');});await shot(q,'D08_planner_rechaza_con_motivo');
  await st('pdsi',async()=>{await q.click('[data-pd$="|si"]');await q.waitForTimeout(300);await q.click('[data-pw$="|Es mi especialidad"]');await q.fill('[id^="pc-"]','14000');await q.click('[data-pq$="|bien"]');await q.waitForTimeout(300);});await shot(q,'D09_planner_acepta_cobro_y_calidad');
- await st('pok',async()=>{await q.click('[data-pok]');await q.waitForTimeout(800);});await shot(q,'D10_fiestas_de_mis_clientes_esperando');
- await st('jconf',async()=>{await q.click('#jConf');await q.waitForTimeout(1500);});await shot(q,'D11_fiestas_de_mis_clientes_proveedores_liberados');
- await st('mias',async()=>{await q.evaluate(()=>{U.sub="mias";drawAcct();});});await shot(q,'D12_mis_fiestas_personales_invitacion_azul');
+ await st('pok',async()=>{await q.click('[data-pok]');await q.waitForTimeout(800);});await shot(q,'D10_mis_clientes_esperando_confirmacion');
+ await st('jconf',async()=>{await q.click('#jConf');await q.waitForTimeout(1500);});await shot(q,'D11_mis_clientes_proveedores_liberados');
+ await st('mias',async()=>{await q.evaluate(()=>{U.tab="fiestas";drawAcct();});});await shot(q,'D12_mis_fiestas_invitacion_azul');
  await q.evaluate(()=>{U.tab="bandeja";drawAcct();});await shot(q,'D13_bandeja');
  await q.evaluate(()=>{U.tab="perfil";drawAcct();});await shot(q,'D14_perfil');
  // cuenta con un solo tipo activado: las otras pestañas invitan
@@ -139,7 +138,7 @@ const D=n=>new Date(Date.now()+n*864e5).toISOString().slice(0,10);
  // ================= CELULAR
  const m=await page(390,844);await m.goto(BASE+'index.html');await m.waitForTimeout(600);
  await m.evaluate(()=>demoUser());await m.waitForTimeout(500);await m.evaluate(()=>{U.tab="fiestas";U.sub="mias";U.eventId=null;drawAcct();});await shot(m,'M01_mis_fiestas_celular');
- await m.evaluate(()=>{U.sub="otros";drawAcct();});await shot(m,'M02_fiestas_de_mis_clientes_celular');
+ await m.evaluate(()=>{U.tab="negocio";negState();U.neg.vt="planner";drawAcct();});await shot(m,'M02_mi_negocio_planner_mis_clientes_celular');
  await m.evaluate(()=>{U.tab="negocio";U.neg=null;negState();U.neg.vt="venue";drawAcct();});await shot(m,'M03_mi_negocio_venue_activar_celular');
  await m.evaluate(()=>demoProv());await m.waitForTimeout(400);await m.evaluate(()=>{drawAcct();});await shot(m,'M04_mi_negocio_servicios_celular');
  await m.evaluate(()=>{U.tab="fiestas";U.sub="mias";drawAcct();});await shot(m,'M05_mis_fiestas_invitacion_celular');
