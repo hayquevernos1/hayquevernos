@@ -438,12 +438,49 @@ body:has(#home:not([hidden])) .top .logo{visibility:hidden}
 .hello .one{font-size:13px;color:var(--muted);font-weight:700}
 .subtabs .new{font-size:10px;background:var(--hqv-lima);color:#1A2600;border-radius:99px;padding:1px 7px;margin-left:4px}
 .inv.mini{max-width:none;border-radius:32px!important}
+
+/* ===== v12 · degradados de marca ===== */
+:root{--g-prov:linear-gradient(160deg,#9146FF 0%,#FA1ED2 100%);--g-host:linear-gradient(160deg,#FA1ED2 0%,#FF6905 100%);
+ --g-cta:linear-gradient(135deg,#BEFF00 0%,#FAFA19 100%);--cta-ink:#1a1033;--wa:#25D366;--ok-solid:#00A884}
+@media not (prefers-color-scheme:dark){
+ body{background:radial-gradient(1100px 700px at 0% 0%,#E6DCFF 0,rgba(230,220,255,0) 62%),radial-gradient(900px 600px at 100% 8%,#FDE0F6 0,rgba(253,224,246,0) 58%),radial-gradient(1200px 800px at 50% 105%,#DDF3FF 0,rgba(221,243,255,0) 62%),#F0F0FF!important;background-attachment:fixed!important}
+}
+.btn.cta,.rbar .save .btn.cta{background:var(--g-cta)!important;color:var(--cta-ink)!important;box-shadow:inset 3px 3px 6px rgba(255,255,255,.55),inset -3px -4px 8px rgba(70,80,0,.18),0 8px 18px rgba(120,140,0,.28)!important}
+.btn.cta:hover{filter:brightness(1.04)}
+.btn.big{background:var(--g-cta)!important;color:var(--cta-ink)!important;box-shadow:inset 3px 3px 6px rgba(255,255,255,.55),inset -3px -4px 8px rgba(70,80,0,.18),0 8px 18px rgba(120,140,0,.28)!important}
+.btn.wa,a.wa,.wa.btn{background:#25D366!important;color:#fff!important}
+.cta-g,#goProv,.door .go,.plc .sw-r{background:var(--g-cta)!important;color:var(--cta-ink)!important;box-shadow:inset 3px 3px 6px rgba(255,255,255,.55),inset -3px -4px 8px rgba(70,80,0,.18),0 8px 18px rgba(120,140,0,.28)!important}
+#goProv[disabled],#goProv:disabled{filter:grayscale(.6);opacity:.55}
+
+:root{--host:#BE0078}
+.btn.host,.pill.host{background:var(--g-host)!important;color:#fff!important}
+.badge{background:#FA1ED2}
+.door.pv .band{background:var(--g-prov)!important}
+.door.hs .band{background:var(--g-host)!important}
+.door.pv .emph{border-left-color:#9146FF!important;background:#EFE6FF!important}
+.home .door.hs .emph{background:#FFE6F3!important;border-left-color:#FA1ED2!important}
+.tab[aria-selected="true"].fs{background:var(--g-host)!important}
+.tab[aria-selected="true"].nb{background:var(--g-prov)!important}
+.subtabs button[aria-selected="true"]{background:var(--g-host)!important;color:#fff!important}
+.nb-sub button[aria-selected="true"]{background:var(--g-prov)!important}
+.hero{background:var(--g-host)!important}
+.fch .fh{background:var(--g-host)!important}
+.fch.on{outline-color:#FA1ED2}
+.solc .sh{background:var(--g-prov)!important}
+.inv.fs{background:var(--g-host)!important}
+.inv.nb{background:var(--g-prov)!important}
+[style*="background:var(--prov)"]{background:var(--g-prov)!important}
+[style*="background:var(--host)"]{background:var(--g-host)!important}
+.steps li.now i,.nsteps li::before{background:var(--g-host)!important}
+.trk span.ok i{background:var(--ok-solid)!important}
+.plan .pro{background:var(--g-prov)!important}
+.doc .pp{color:#BE0078}
 </style>
 <link rel="stylesheet" href="marca.css">
 <script src="config.js"></script>
 <script src="qr.js"></script>
 
-<div class="proto" id="proto"><b style="background:var(--hqv-vainilla);color:#3A2E00">PROTOTIPO v11</b><span>Precios provisionales. No se cobra nada ni se guardan datos.</span><span class="sp"></span><span class="who"><button class="pill sm" type="button" id="demo">👀 Ver como anfitrión</button><button class="pill sm" type="button" id="demoP">👀 Ver como proveedor</button></span><button class="pill sm" type="button" id="reset">↺ Empezar de nuevo</button></div>
+<div class="proto" id="proto"><b style="background:var(--hqv-vainilla);color:#3A2E00">PROTOTIPO v12</b><span>Precios provisionales. No se cobra nada ni se guardan datos.</span><span class="sp"></span><span class="who"><button class="pill sm" type="button" id="demo">👀 Ver como anfitrión</button><button class="pill sm" type="button" id="demoP">👀 Ver como proveedor</button></span><button class="pill sm" type="button" id="reset">↺ Empezar de nuevo</button></div>
 
 <header class="top"><div class="wrap in">
   <img class="logo" id="logoBtn" src="img/logo.webp" alt="¡Hay que vernos! — Inicio" width="900" height="358">
