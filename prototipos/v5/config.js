@@ -10,7 +10,7 @@ window.HQV_CONFIG = {
     plannerDespues: 99,              // anfitrión: cuota de conexión si contrata planner después (POR DEFINIR)
     organizamelo: 499,               // anfitrión: servicio consultivo
     haganmeloUstedes: 499,           // proveedor: armamos tu sitio
-    proMensual: 299, proFundadorMensual: 199, descuentoAnual: 0.10
+    proMensual: 99, proFundadorMensual: 99, descuentoAnual: 0.10   // anual = 99×12 −10% = $1,069
   },
   reglas: {
     horasRespuestaPlanner: 24,

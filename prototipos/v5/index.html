@@ -345,11 +345,77 @@ body:has(#home:not([hidden])) .top .logo{visibility:hidden}
 .svsvc input{padding:7px 10px}
 .emb{display:flex;gap:12px;align-items:center}
 .emb img{width:64px}
+
+/* ===== v8 · cuenta ===== */
+:root{--cta:#0E8F45;--cta-d:#0B7639}
+.btn.cta{background:var(--cta)!important;color:#fff!important;box-shadow:0 8px 18px rgba(14,143,69,.28)}
+.btn.cta:hover{background:var(--cta-d)!important}
+.fhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.fhead h2{font-size:clamp(22px,3vw,28px)}
+.tsec{display:grid;gap:12px;margin-top:22px}
+.tlab{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;font-size:18px;font-weight:900;margin:0}
+.tlab .hint{font-weight:600}
+.tsec .agbar{margin:0}
+.fgrid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:18px;align-items:start}
+.flist{display:grid;gap:12px;align-content:start}
+.fch{background:var(--card);border-radius:24px;box-shadow:var(--hqv-clay-sm);overflow:hidden;outline:3px solid transparent;transition:outline-color .2s}
+.fch.on{outline-color:var(--host)}
+.fch .fh{background:var(--host);color:#fff;padding:14px 16px;display:grid;gap:2px;cursor:pointer;position:relative}
+.fch .fh small{font-size:12px;opacity:.92}
+.fch .fh .n{display:flex;align-items:baseline;gap:8px}
+.fch .fh .n b{font-size:30px;font-weight:900;line-height:1.05}
+.fch .fh .st{justify-self:start;margin-top:6px}
+.fch .fv{display:grid;gap:6px;padding:10px 12px 12px}
+.vr{display:flex;align-items:center;gap:8px;background:var(--paper);border-radius:14px;padding:8px 10px}
+.vr .grow{flex:1;min-width:0;display:grid}
+.vr .grow small{color:var(--muted);font-size:12px}
+.vr .ico button{width:auto;min-width:34px;padding:0 10px;height:32px;font-size:13px;font-weight:800}
+.fdet{display:grid;gap:14px;align-content:start}
+.fdet .dtitle{font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+@media (max-width:860px){.fgrid{grid-template-columns:1fr}.flist .fdet{background:var(--paper);border-radius:22px;padding:12px;margin-top:-4px}}
+.donec{display:flex;gap:12px;align-items:center;background:var(--hqv-menta);border-radius:20px;padding:12px 14px}
+.donec .grow{flex:1;display:grid}
+.empty{display:grid;justify-items:start;gap:8px;background:var(--paper);border-radius:20px;padding:14px}
+.why{display:flex;flex-wrap:wrap;gap:6px}
+.why .chip{font-size:12.5px}
+.contact-note{display:flex;gap:10px;align-items:flex-start;background:var(--hqv-cielo);color:#00283A;border-radius:18px;padding:12px 14px;font-size:14px}
+.plcard .av{cursor:pointer}
+.plcard.hint-anim{animation:plcHint 2.4s ease-in-out 2 .6s}
+@keyframes plcHint{0%,100%{transform:none}15%{transform:translateX(26px) rotate(3deg)}30%{transform:none}45%{transform:translateX(-26px) rotate(-3deg)}60%{transform:none}}
+@media (prefers-reduced-motion:reduce){.plcard.hint-anim{animation:none}}
+.swl{display:flex;justify-content:space-between;font-size:12px;font-weight:900;color:var(--muted)}
+.doc{background:#fff;color:#1a1033;border-radius:10px;box-shadow:0 2px 0 #e7e3f3,0 18px 40px rgba(30,20,90,.18);padding:26px 24px;display:grid;gap:12px;max-width:560px;width:100%;text-align:left;font-size:13.5px}
+.doc .dh{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:2px solid #efeaff;padding-bottom:10px}
+.doc .dh img{height:40px}
+.doc table{width:100%;border-collapse:collapse}
+.doc td{padding:6px 0;border-bottom:1px solid #f0edf7;vertical-align:top}
+.doc td:last-child{text-align:right;white-space:nowrap}
+.doc .tot{display:flex;justify-content:space-between;font-weight:900;font-size:16px}
+.doc .pp{font-size:28px;font-weight:900;color:var(--host)}
+.doc .foot{font-size:11px;color:#6b6585}
+.sheet.wide{max-width:640px}
+.ppf{display:grid;gap:12px;text-align:left}
+.ppf .top{display:flex;gap:14px;align-items:center}
+.ppf .top .av{width:84px;height:84px;border-radius:50%;overflow:hidden;background:var(--paper);display:grid;place-items:center;font-size:42px}
+.ppf .top .av img{width:100%}
+.ppf .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ppf .kpis div{background:var(--paper);border-radius:14px;padding:8px;text-align:center;display:grid}
+.ppf .kpis b{font-size:18px}
+.ppf .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.ppf .gal span{aspect-ratio:1;border-radius:12px;display:grid;place-items:center;font-size:30px;background:var(--hqv-cielo)}
+.ppf .embs{display:flex;gap:10px;flex-wrap:wrap}
+.ppf .embs img{width:46px}
+.inv{border-radius:32px;color:#fff;padding:28px;display:grid;gap:14px;justify-items:start;box-shadow:var(--hqv-clay);max-width:760px}
+.inv h2{font-size:clamp(26px,4vw,36px);line-height:1.1}
+.inv.fs{background:var(--host)}.inv.nb{background:var(--prov)}
+.inv ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.inv .btn{font-size:17px;padding:15px 22px}
 </style>
 <link rel="stylesheet" href="marca.css">
 <script src="config.js"></script>
 
-<div class="proto" id="proto"><b style="background:var(--hqv-vainilla);color:#3A2E00">PROTOTIPO v6</b><span>Precios provisionales. No se cobra nada ni se guardan datos.</span><span class="sp"></span><button class="pill sm" type="button" id="demo">Ver con datos de ejemplo</button><button class="pill sm" type="button" id="reset">↺ Empezar de nuevo</button></div>
+<div class="proto" id="proto"><b style="background:var(--hqv-vainilla);color:#3A2E00">PROTOTIPO v8</b><span>Precios provisionales. No se cobra nada ni se guardan datos.</span><span class="sp"></span><button class="pill sm" type="button" id="demo">Ver con datos de ejemplo</button><button class="pill sm" type="button" id="reset">↺ Empezar de nuevo</button></div>
 
 <header class="top"><div class="wrap in">
   <img class="logo" id="logoBtn" src="img/logo.webp" alt="¡Hay que vernos! — Inicio" width="900" height="358">
@@ -529,7 +595,7 @@ function normPl(p){if(!p)return null;return{n:p.n,img:p.c?`img/c_${p.c}.webp`:nu
 function newEvent(f){seed=Math.floor(f.total)%9973+11;const rows=(f.rows||[]).filter(r=>r.k!=="Planner"&&(r.amt>0||r.pend));
  const provs={};rows.forEach(r=>provs[r.k]=providersFor(r));const interes=Object.values(provs).reduce((a,l)=>a+l.length,0);
  const pl=normPl(f.planner);
- return{id:"e"+now(),t:now(),f,provs,interes,opts:{prov:true,planner:!!pl},paid:null,
+ return{id:"e"+now()+"_"+Math.floor(Math.random()*1e6),t:now(),f,provs,interes,opts:{prov:true,planner:!!pl},paid:null,
   planner:{state:null,cur:pl,tried:[],round:1,extra:false},late:false,showAll:{},rate:{},removed:0,check:{}};}
 const getEv=()=>U.events.find(e=>e.id===U.eventId);
 
@@ -547,43 +613,97 @@ function drawAcct(){const a=$("acct");
  <div id="pane"></div>`;
  a.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{U.tab=t.dataset.t;if(U.tab!=="fiestas")U.eventId=U.eventId;drawAcct();});
  const p=$("pane");
- if(U.tab==="fiestas"){if(!U.sides.fiestas)return drawInvite(p,"fiestas");p.insertAdjacentHTML("beforebegin",agendaBar());bindAgenda();return U.eventId&&getEv()?drawEvent(p):drawFiestas(p);}
+ if(U.tab==="fiestas"){if(!U.sides.fiestas&&!(U.plannerJobs||[]).length)return drawInvite(p,"fiestas");return drawFiestas(p);}
  if(U.tab==="negocio")return U.sides.negocio?drawNegocio(p):drawInvite(p,"negocio");
  if(U.tab==="bandeja")return drawInbox(p);
  drawPerfil(p);}
 
 function drawInvite(p,k){const fs=k==="fiestas";
- p.innerHTML=`<div class="box" style="max-width:620px;background:${fs?"var(--host)":"var(--prov)"};color:#fff">
-  <img src="img/${fs?"c_05":"c_01"}.webp" alt="" style="width:120px">
-  <h2 style="font-size:28px">${fs?"¿Vas a celebrar algo?":"¿Tienes un negocio de fiestas?"}</h2>
-  <span>${fs?"Calcula gratis cuánto cuesta tu fiesta y encuentra a los proveedores que sí cumplen lo que pides.":"Crea tu sitio web gratis para siempre y recibe clientes reales por WhatsApp."}</span>
-  <button class="btn ghost" type="button" id="act" style="justify-self:start">${fs?"Pre-cotizar mi evento gratis →":"Crear mi sitio web gratis →"}</button>
-  <span style="font-size:13px;font-weight:700">Usamos tu misma cuenta: no tienes que volver a registrarte.</span></div>`;
- $("act").onclick=()=>openJourney(k,true);}
-
+ p.innerHTML=`<div class="inv ${fs?"fs":"nb"}">
+  <img src="img/${fs?"c_05":"c_01"}.webp" alt="" style="width:110px">
+  <h2>${fs?"¿Y tu próxima fiesta?":"¿Tienes un negocio de fiestas o eventos?"}</h2>
+  <span style="font-size:16px">${fs?"Además de trabajar en fiestas, también puedes organizar las tuyas. Calcula gratis cuánto cuesta y encuentra a los proveedores que sí cumplen lo que pides.":"Crea tu sitio web gratis y recibe pre-cotizaciones de clientes reales, directo en tu WhatsApp."}</span>
+  <ul>${(fs?["Presupuesto en minutos, gratis","Precios reales del mercado","Proveedores que cumplen lo que pides"]:["Sitio web gratis para siempre","Más visibilidad y clientes","Servicios, venue y event planner en un mismo lugar"]).map(x=>`<li>${x}</li>`).join("")}</ul>
+  <button class="btn cta" type="button" id="act">${fs?"Pre-cotizar mi fiesta gratis →":"Crear mi sitio web gratis →"}</button>
+  <span style="font-size:13px;font-weight:700;opacity:.95">Usamos tu misma cuenta: no tienes que volver a registrarte.</span></div>`;
+ $("act").onclick=()=>{track("invitacion_cruzada",{a:fs?"anfitrion":"proveedor"});show("home");goSide(fs?"hs":"pv");};}
 /* ---------- Mis fiestas ---------- */
 function evCard(e){const f=e.f,v=(e.versions||[]).length||1,past=daysTo(f.date)<0;
  if(past&&e.surveyDone)return`<div class="evc done"><img class="em lg" src="img/e_party_popper.webp" alt=""><span class="grow"><b>🏅 Fiesta celebrada</b><span class="hint">${esc(f.nombre||f.occ)} · ${fdate(f.date)}</span></span></div>`;
  return`<div class="evc"><span class="grow" style="cursor:pointer" data-ev="${e.id}"><b>${esc(f.nombre||f.occ)}<span class="ver">v${v}</span></b><span class="hint">${esc(f.occ)} · ${f.guests} invitados · ${fdate(f.date)}</span><span class="hint">Calculada el ${new Date((e.versions&&e.versions[0]&&e.versions[0].t)||e.t||now()).toLocaleDateString("es-MX",{day:"numeric",month:"short"})} · ${money(f.total)}</span></span>
   ${evState(e)}<span class="ico"><button type="button" data-send="${e.id}" title="Reenviar a mi correo" aria-label="Reenviar">📤</button><button type="button" data-dl="${e.id}" title="Descargar PDF" aria-label="Descargar">⬇️</button><button type="button" data-del="${e.id}" title="Borrar" aria-label="Borrar">🗑️</button></span>
   <button class="btn host sm" type="button" data-ev="${e.id}">Abrir →</button></div>`;}
-function drawFiestas(p){const isPl=U.site&&(U.site.tipos||[]).includes("planner");U.sub=U.sub||"mias";
- const mine=U.events.slice().sort((a,b)=>(a.f.nombre||a.f.occ).localeCompare(b.f.nombre||b.f.occ)||b.t-a.t),celebradas=U.events.filter(e=>daysTo(e.f.date)<0&&e.surveyDone).length;
- p.innerHTML=`${isPl?`<div class="subtabs" role="tablist"><button type="button" role="tab" data-sub="mias" aria-selected="${U.sub==="mias"}">🎉 Mis fiestas</button><button type="button" role="tab" data-sub="otros" aria-selected="${U.sub==="otros"}">📋 Organizo para otros</button></div>`:""}
- ${U.sub==="otros"&&isPl?`<div class="box"><h2>${em("magic_wand")} Fiestas que organizo</h2><span class="hint">Las fiestas de tus clientes, después de que aceptaste y ambos confirmaron el trato.</span>
-   <div class="list">${(U.plannerJobs||[]).map(j=>`<div class="evc"><span class="grow"><b>${esc(j.nombre)}</b><span class="hint">Cliente: ${esc(j.cliente)} · ${j.guests} invitados · ${fdate(j.date)}</span><span class="hint">Pre-cotización: ${money(j.total)} · cobraste ${money(j.cobro||0)}</span></span><span class="st go">En progreso</span></div>`).join("")||'<span class="hint">Cuando aceptes a un cliente en Mi negocio, su fiesta aparece aquí.</span>'}</div></div>`:
- `<div class="box"><h2>${em("party_popper")} Mis fiestas</h2><span class="hint">Tus pre-cotizaciones se guardan aquí con sus versiones. Se borran solas un día después de cada fiesta.</span>
-   <div class="list">${mine.map(evCard).join("")||'<span class="hint">Aún no tienes fiestas.</span>'}</div>
-   ${celebradas?`<span class="hint">🏅 ${celebradas} ${celebradas===1?"fiesta celebrada":"fiestas celebradas"} con ¡Hay que vernos!</span>`:""}
-   <button class="btn host" type="button" id="newEv">＋ Pre-cotizar otra fiesta</button></div>
-  ${U.agenda.length?`<div class="box"><h3>${em("spiral_calendar")} Fechas agendadas</h3><div class="list">${U.agenda.map(x=>`<div class="evc agd"><img class="em lg" src="img/e_birthday_cake.webp" alt=""><span class="grow"><b>${esc(x.w)}</b><span class="hint">${fdate(x.d)} · te avisamos ${RG.diasRecordatorio} días antes</span></span><button class="btn ghost sm" type="button" data-agq="${esc(x.w)}">Pre-cotizar</button></div>`).join("")}</div></div>`:""}`}`;
+function fichaHtml(e,on){const f=e.f;e.versions=e.versions||[{f,t:e.t||now()}];
+ return`<div class="fch ${on?"on":""}" id="f-${e.id}"><div class="fh" data-ev="${e.id}" role="button" tabindex="0" aria-label="Ver la descripción de ${esc(f.nombre||f.occ)}"><small>${esc(f.nombre||f.occ)} · ${f.guests.toLocaleString("es-MX")} invitados · ${fdate(f.date)}</small>
+  <span class="n"><b>${money(f.pp)}</b><span>por persona</span></span><small>Total aproximado ${money(f.total)}</small>${evState(e)}</div>
+  <div class="fv">${e.versions.map((v,i)=>`<div class="vr"><span class="grow"><b>Versión ${e.versions.length-i}${i===0?" · actual":""}</b><small>${new Date(v.t).toLocaleDateString("es-MX",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})} · ${money(v.f.total)} · ${v.f.guests} invitados</small></span>
+   <span class="ico"><button type="button" data-vw="${e.id}|${i}">Ver</button><button type="button" data-vd="${e.id}|${i}" aria-label="Descargar PDF" title="Descargar PDF">⬇️</button><button type="button" data-vx="${e.id}|${i}" aria-label="Borrar versión" title="Borrar">✕</button></span></div>`).join("")}</div></div>`;}
+function drawFiestas(p){const isPl=(U.site&&(U.site.tipos||[]).includes("planner"))||(U.plannerJobs||[]).length;U.sub=U.sub||"mias";if(!isPl)U.sub="mias";
+ const done=e=>daysTo(e.f.date)<0&&e.surveyDone,act=U.events.filter(e=>!done(e)),cel=U.events.filter(done);
+ if(!act.some(e=>e.id===U.eventId))U.eventId=act[0]?act[0].id:null;
+ const mob=matchMedia("(max-width:860px)").matches,sel=act.find(e=>e.id===U.eventId);
+ const det=`<div class="fdet"><span class="dtitle">Descripción del proyecto</span><div id="evRight" style="display:grid;gap:14px"></div></div>`;
+ const tabs=isPl?`<div class="subtabs" role="tablist"><button type="button" role="tab" data-sub="mias" aria-selected="${U.sub==="mias"}">🎉 Mis fiestas personales</button><button type="button" role="tab" data-sub="otros" aria-selected="${U.sub==="otros"}">📋 Las fiestas de mis clientes</button></div>`:"";
+ if(U.sub==="otros"){p.innerHTML=`${tabs}<div class="fhead"><h2>${em("magic_wand")} Las fiestas de mis clientes</h2></div><span class="hint">Las fiestas que organizas como event planner, después de que aceptaste y tu cliente confirmó el trato.</span>
+  <section class="tsec"><h3 class="tlab">🎈 En proceso</h3><div class="flist">${(U.plannerJobs||[]).map(j=>`<div class="fch"><div class="fh"><small>${esc(j.nombre)} · ${j.guests} invitados · ${fdate(j.date)}</small><span class="n"><b>${money(j.total/j.guests)}</b><span>por persona</span></span><small>Total pre-cotizado ${money(j.total)} · tu cobro ${money(j.cobro||0)}</small><span class="st go">En progreso</span></div>
+   <div class="fv"><div class="vr"><span class="grow"><b>Tu cliente: ${esc(j.cliente)}</b><small>Le das seguimiento por WhatsApp junto con sus proveedores.</small></span><span class="ico"><button type="button" data-job="${esc(j.nombre)}">Ver</button></span></div></div></div>`).join("")||'<div class="empty"><span class="hint">Cuando aceptes a un cliente en Mi negocio › Event planner, su fiesta aparece aquí.</span></div>'}</div></section>`;
+  p.querySelectorAll("[data-sub]").forEach(b=>b.onclick=()=>{U.sub=b.dataset.sub;drawAcct();});
+  p.querySelectorAll("[data-job]").forEach(b=>b.onclick=()=>toast("📋 Aquí verás la descripción del proyecto de tu cliente."));return;}
+ p.innerHTML=`${tabs}<div class="fhead"><h2>${em("party_popper")} ${isPl?"Mis fiestas personales":"Mis fiestas"}</h2><button class="btn cta sm" type="button" id="newEv">＋ Pre-cotizar otra fiesta</button></div>
+  <section class="tsec"><h3 class="tlab">🔮 Por celebrar <span class="hint">Agenda las fiestas que quieres pre-cotizar más adelante. Te avisamos ${RG.diasRecordatorio} días antes.</span></h3>
+   ${agendaBar()}${U.agenda.length?`<div class="list">${U.agenda.map(x=>`<div class="evc agd"><img class="em lg" src="img/e_birthday_cake.webp" alt=""><span class="grow"><b>${esc(x.w)}</b><span class="hint">${fdate(x.d)} · faltan ${Math.max(0,daysTo(x.d))} días</span></span><button class="btn ghost sm" type="button" data-agq="${esc(x.w)}">Pre-cotizar</button></div>`).join("")}</div>`:""}</section>
+  <section class="tsec"><h3 class="tlab">🎈 En proceso <span class="hint">Tus pre-cotizaciones con sus versiones. Toca una ficha para ver la descripción del proyecto.</span></h3>
+   ${act.length?`<div class="fgrid"><div class="flist">${act.map(e=>fichaHtml(e,e.id===U.eventId)+(mob&&e.id===U.eventId?det:"")).join("")}</div>${!mob&&sel?det:""}</div>`:`<div class="empty"><span class="hint">No tienes fiestas en proceso.</span><button class="btn cta sm" type="button" data-agq="nueva">Pre-cotizar una fiesta</button></div>`}</section>
+  <section class="tsec"><h3 class="tlab">🏅 Celebradas <span class="hint">Tu récord con ¡Hay que vernos!: cada fiesta te acerca a nuevas insignias.</span></h3>
+   ${cel.length?`<div class="list">${cel.map(e=>`<div class="donec"><img class="em lg" src="img/e_party_popper.webp" alt=""><span class="grow"><b>${esc(e.f.nombre||e.f.occ)}</b><span class="hint">${fdate(e.f.date)} · ${e.f.guests} invitados</span></span><img src="img/b_fundador.webp" alt="Insignia Co-constructor" style="width:42px"></div>`).join("")}</div><span class="hint">🏅 ${cel.length} ${cel.length===1?"fiesta celebrada":"fiestas celebradas"} · faltan ${Math.max(0,3-cel.length)} para el nivel Fiestero.</span>`:'<div class="empty"><span class="hint">Aquí quedarán las fiestas que ya celebraste. Cuéntanos cómo te fue en cada una y gana insignias.</span></div>'}</section>`;
+ bindAgenda();
  p.querySelectorAll("[data-sub]").forEach(b=>b.onclick=()=>{U.sub=b.dataset.sub;drawAcct();});
- p.querySelectorAll("[data-ev]").forEach(b=>b.onclick=()=>{U.eventId=b.dataset.ev;drawAcct();});
- p.querySelectorAll("[data-send]").forEach(b=>b.onclick=()=>toast("📤 Te la reenviamos a tu correo."));
- p.querySelectorAll("[data-dl]").forEach(b=>b.onclick=()=>toast("⬇️ En el sitio real aquí se descarga el PDF."));
- p.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{U.events=U.events.filter(x=>x.id!==b.dataset.del);toast("🗑️ Pre-cotización borrada");drawAcct();});
+ p.querySelectorAll(".fh[data-ev]").forEach(b=>{const go=()=>{U.eventId=b.dataset.ev;drawAcct();if(mob)setTimeout(()=>{const d=$("f-"+U.eventId);if(d)d.scrollIntoView({behavior:"smooth",block:"start"});},50);};b.onclick=go;b.onkeydown=ev=>{if(ev.key==="Enter")go();};});
+ p.querySelectorAll("[data-vw]").forEach(b=>b.onclick=()=>{const[id,i]=b.dataset.vw.split("|");docModal(U.events.find(x=>x.id===id),+i);});
+ p.querySelectorAll("[data-vd]").forEach(b=>b.onclick=()=>toast("⬇️ En el sitio real aquí se descarga el PDF de esta versión."));
+ p.querySelectorAll("[data-vx]").forEach(b=>b.onclick=()=>{const[id,i]=b.dataset.vx.split("|"),e=U.events.find(x=>x.id===id),last=e.versions.length===1;
+  confirmModal(last?`¿Borrar «${esc(e.f.nombre||e.f.occ)}»? Es su única versión, así que se borra la fiesta completa.`:`¿Borrar la versión ${e.versions.length-(+i)} de «${esc(e.f.nombre||e.f.occ)}»?`,last?"Sí, borrar la fiesta":"Sí, borrar la versión",()=>{
+   if(last){U.events=U.events.filter(x=>x.id!==id);toast("🗑️ Fiesta borrada");}else{e.versions.splice(+i,1);e.f=e.versions[0].f;toast("🗑️ Versión borrada");}drawAcct();});});
  p.querySelectorAll("[data-agq]").forEach(b=>b.onclick=()=>openJourney("fiestas",true));
- const n=$("newEv");if(n)n.onclick=()=>openJourney("fiestas",true);}
+ const n=$("newEv");if(n)n.onclick=()=>openJourney("fiestas",true);
+ if(sel)renderDetail(sel);}
+function confirmModal(msg,yes,fn){const m=$("modal");m.innerHTML=`<div class="sheet"><h2>¿Seguro?</h2><span>${msg}</span><div class="yn2"><button class="btn ghost" type="button" id="cfNo">Cancelar</button><button class="btn" type="button" id="cfYes" style="background:var(--bad);color:#fff">${yes}</button></div></div>`;
+ m.hidden=false;$("cfNo").onclick=()=>m.hidden=true;$("cfYes").onclick=()=>{m.hidden=true;fn();};}
+function docModal(e,i){const v=e.versions[i]||e.versions[0],f=v.f,m=$("modal");
+ m.innerHTML=`<div class="sheet wide" style="background:var(--paper)"><div class="doc"><div class="dh"><img src="img/logo.webp" alt="¡Hay que vernos!"><span style="text-align:right"><b>Pre-cotización</b><br><small>Versión ${e.versions.length-i} · ${new Date(v.t).toLocaleDateString("es-MX",{day:"numeric",month:"long",year:"numeric"})}</small></span></div>
+  <div><b style="font-size:17px">${esc(f.nombre||f.occ)}</b><br>${esc(f.occ)} · ${f.guests.toLocaleString("es-MX")} invitados · ${fdate(f.date)}${f.start?` · ${f.start} a ${f.end}`:""}${f.zona?` · ${esc(f.zona)}`:""}<br>Para: ${esc(U.name)} ${esc(U.last||"")}</div>
+  <div><span class="pp">${money(f.pp)}</span> por persona<br><small>Total aproximado ${money(f.total)} por el total de invitados</small></div>
+  <table>${(f.rows||[]).map(r=>`<tr><td>${r.e} ${esc(r.label)}${r.subs&&r.subs.length?`<br><small style="color:#6b6585">${r.subs.map(esc).join(" · ")}</small>`:""}</td><td>${r.pend?"Por cotizar":`${money(r.amt/f.guests)} p/p<br><small>${money(r.amt)}</small>`}</td></tr>`).join("")}</table>
+  <div class="tot"><span>Total aproximado</span><span>${money(f.total)}</span></div>
+  ${f.planner?`<div>📋 Event planner elegido: <b>${esc(f.planner.n)}</b></div>`:""}
+  <p class="foot">Cálculo con precios promedio del mercado en tu zona. No es una cotización formal: el precio final lo acuerdas con cada proveedor. hayquevernos.com</p></div>
+  <div class="yn2"><button class="btn ghost" type="button" id="dX">Cerrar</button><button class="btn" type="button" id="dD">⬇️ Descargar PDF</button></div></div>`;
+ m.hidden=false;$("dX").onclick=()=>m.hidden=true;$("dD").onclick=()=>toast("⬇️ En el sitio real aquí se descarga el PDF.");track("pdf_visto");}
+function plannerProfile(pk,onBack){const m=$("modal");const p=pk||{};
+ m.innerHTML=`<div class="sheet wide"><div class="ppf"><div class="top"><span class="av">${p.img?`<img src="${p.img}" alt="">`:p.emo||"📋"}</span><span style="display:grid;gap:2px"><span class="hint">Perfil de event planner</span><b style="font-size:22px">${esc(p.n)}</b><span>⭐ ${p.r} · ${p.y} años de experiencia · ${esc(p.z||"")}</span><span class="hint">hayquevernos.com/${esc(String(p.n||"").toLowerCase().replace(/[^a-z]+/g,"-"))}</span></span></div>
+  <span>${esc(p.b||"Me encargo de que tu fiesta salga como la imaginas: tiempos, proveedores y presupuesto bajo control.")}</span>
+  <div class="kpis"><div><b>${Math.round((p.y||3)*4.5)}</b><span class="hint">eventos cerrados con ¡HQV!</span></div><div><b>⭐ ${p.r}</b><span class="hint">calificación global</span></div><div><b>Desde ${money(p.fee||5000)}</b><span class="hint">por evento</span></div></div>
+  <div><b>Especialidades</b><br><span class="hint">${esc(p.sp||"Bodas · Cumpleaños · Corporativos")}</span></div>
+  <div class="gal"><span>💐</span><span>🎂</span><span>🥂</span></div>
+  <div><b>Insignias</b><div class="embs"><img src="img/b_fundador.webp" alt="Fundador"><img src="img/b_responde_ya.webp" alt="Responde ya"><img src="img/b_verificado.webp" alt="Verificado"></div></div></div>
+  <button class="btn ghost" type="button" id="ppBack">← Regresar</button></div>`;
+ m.hidden=false;$("ppBack").onclick=()=>{m.hidden=true;onBack&&onBack();};track("perfil_planner_visto");}
+function renderDetail(e){const R=$("evRight");if(!R)return;const f=e.f,past=daysTo(f.date)<0,P=e.planner;
+ let h="";
+ if(past)h=e.surveyDone?`<div class="box" style="background:var(--hqv-menta)"><h2>${em("glowing_star")} ¡Gracias por contarnos!</h2><span>Ganaste la insignia <b>Co-constructor ¡HQV!</b> y créditos para tu próxima fiesta.</span></div>`:surveyBox(e);
+ else if(!e.paid)h=interestBox(e,true);
+ else if(e.paid==="planner"&&!["liberado","propio"].includes(P.state))h=plannerBox(e)+interestBox(e,false);
+ else h=(P.state==="liberado"?plannerBox(e):e.paid==="prov"||P.state==="propio"?provSteps():"")+provListBox(e,P.state==="liberado")+(P.state==="propio"||e.paid==="prov"?`<div class="box"><h3>${em("magic_wand")} ¿Quieres un event planner?</h3><span class="hint">Puedes sumar a uno cuando quieras. Conoce 3 perfiles por ${money(PR.plannerDespues)}; cuando ambos confirmen el trato, le liberamos tus proveedores.</span><button class="btn ghost" type="button" id="late">Conocer event planners · ${money(PR.plannerDespues)}</button></div>`:"");
+ h+=`<details class="box"><summary><b>Así se reparte</b> <span class="hint">· ${money(f.total)}</span></summary><div class="brk" style="margin-top:8px">${f.rows.map(r=>`<div><span>${r.e} ${esc(r.label)}</span><span>${r.pend?"Por cotizar":`${money(r.amt/f.guests)} por persona · ${money(r.amt)}`}</span></div>`).join("")}</div></details>
+  <div class="row" style="gap:8px;flex-wrap:wrap"><button class="pill sm" type="button" id="evEdit">🔄 Recalcular (crea una versión nueva)</button>${past?"":`<button class="sim" type="button" id="evPast">Simular: ya pasó mi fiesta</button>`}</div>`;
+ R.innerHTML=h;
+ $("evEdit").onclick=()=>openJourney("fiestas",true,e.id);
+ const ep=$("evPast");if(ep)ep.onclick=()=>{f.date=new Date(now()-2*864e5).toISOString().slice(0,10);inbox("fiestas",`🎉 ¿Cómo te fue en «${f.nombre||f.occ}»? Cuéntanos y gana tu insignia.`);drawAcct();};
+ if(past){if(!e.surveyDone)bindSurvey(e);return;}
+ if(!e.paid){const c=$("contact");if(c)c.onclick=()=>startPay(e);return;}
+ if(e.paid==="planner"&&!["liberado","propio"].includes(P.state)){bindPlanner(e);return;}
+ if(P.state==="liberado")bindPlanner(e);bindProvList(e);const l=$("late");if(l)l.onclick=()=>startPay(e,"late");}
+function provSteps(){return`<div class="box"><h2>${em("rocket")} Siguientes pasos</h2><ol class="nsteps"><li><span><b>CONTACTO</b>Escríbeles por WhatsApp desde aquí. Los proveedores ya saben de tu fiesta y esperan que tú des el primer paso.</span></li><li><span><b>CONFIRMACIÓN</b>Cuando platiques con cada uno, dinos si quedó o no en tu evento. Así le avisamos y liberas tu lista.</span></li><li><span><b>CALIFICACIÓN</b>Un día después de tu fiesta te pedimos calificar a quienes sí trabajaron contigo.</span></li></ol></div>`;}
 function evState(e){if(daysTo(e.f.date)<0)return e.surveyDone?'<span class="st go">Celebrada ✓</span>':'<span class="st wait">Cuéntanos cómo te fue</span>';if(!e.paid)return'<span class="st new">Pre-cotizada</span>';const s=e.planner.state;if(e.paid==="prov"||s==="liberado"||s==="propio")return'<span class="st go">Organizando</span>';return'<span class="st wait">Con tu planner</span>';}
 const fdate=d=>d?new Date(d+"T12:00").toLocaleDateString("es-MX",{day:"numeric",month:"long",year:"numeric"}):"Sin fecha";
 const daysTo=d=>Math.round((new Date(d+"T12:00")-new Date())/864e5);
@@ -592,24 +712,28 @@ function agendaBox(){return"";}
 function bindAgenda(){const f=$("agF");if(!f)return;f.onsubmit=ev=>{ev.preventDefault();const w=$("agW").value.trim(),d=$("agD").value;if(!w||!d){$("agMsg").hidden=false;$("agMsg").textContent="Escribe qué celebras y la fecha.";return;}U.agenda.push({w,d});track("agenda_fecha");drawAcct();toast("📅 Listo. Te avisamos "+RG.diasRecordatorio+" días antes, aquí y por correo.");};}
 /* Encuesta post-fiesta: valida los promedios con lo que pasó de verdad (1 minuto) */
 const FIT=[["falto","😬 Faltó"],["justo","👌 Justo"],["sobro","🤷 Sobró"]];
-function surveyBox(e){const f=e.f;const svcs=(f.servicios&&f.servicios.length?f.servicios.flatMap(c=>c.subs.map(x=>({k:c.cat,n:x.n,est:x.estimado}))):f.rows.filter(r=>r.k!=="Venue").map(r=>({k:r.k,n:r.label,est:r.amt}))).slice(0,8);
- const v=e.sv||(e.sv={real:Object.fromEntries(svcs.map(x=>[x.n,x.est||""])),fit:{},stars:0,note:""});
+function surveyBox(e){const f=e.f,rate=e.rate||{};
+ let sel=[];Object.keys(e.provs).forEach(k=>e.provs[k].forEach(x=>{if(rate[x.nm]&&rate[x.nm].sel)sel.push({n:x.nm,k,est:x.price||0});}));
+ if(!sel.length)Object.keys(e.provs).forEach(k=>{const x=e.provs[k][0];if(x)sel.push({n:x.nm,k,est:x.price||0,ej:true});});
+ const pl=e.planner&&e.planner.state==="liberado"&&e.planner.cur;if(pl)sel.unshift({n:pl.n,k:"Event planner",est:pl.fee||0,pl:true});
+ sel=sel.slice(0,8);
+ const v=e.sv||(e.sv={real:Object.fromEntries(sel.map(x=>[x.n,x.est||""])),st:{},stars:0,note:""});
  return`<div class="box" id="svBox" style="background:var(--hqv-vainilla)"><h2>${em("party_popper")} ¿Cómo te fue en tu fiesta?</h2>
-  <div class="emb"><img src="img/b_fundador.webp" alt=""><span class="hint">Cuéntanos lo que realmente pagaste por cada servicio y gana la insignia <b>Co-constructor ¡HQV!</b> y créditos para tu próxima fiesta. Con tus datos, todos calculamos mejor.</span></div>
-  <div class="svq"><b>💸 ¿Cuánto pagaste por cada servicio?</b><span class="hint">Ya pusimos nuestro cálculo; corrígelo si fue distinto.</span>
-   ${svcs.map(x=>`<div class="svsvc"><span>${esc(x.n)}</span><input type="number" min="0" data-real="${esc(x.n)}" value="${esc(v.real[x.n])}" aria-label="Pagado por ${esc(x.n)}"></div>`).join("")}
-   <div class="svsvc"><b>Total</b><b id="svTot">${money(Object.values(v.real).reduce((a,b)=>a+(+b||0),0))}</b></div></div>
-  ${svcs.slice(0,4).map(x=>`<div class="svq"><b>¿Alcanzó ${esc(x.n.toLowerCase())}?</b><div class="seg" data-fit="${esc(x.n)}">${FIT.map(([k,t])=>`<button type="button" data-v="${k}" aria-pressed="${v.fit[x.n]===k}">${t}</button>`).join("")}</div></div>`).join("")}
+  <div class="emb"><img src="img/b_fundador.webp" alt=""><span class="hint">Califica a quienes trabajaron en tu fiesta y cuéntanos cuánto pagaste. Ganas la insignia <b>Co-constructor ¡HQV!</b> y créditos para tu próxima fiesta.${pl?` Si ${esc(first(pl.n))} ya la contestó, aquí lo verás.`:""}</span></div>
+  ${sel.map(x=>`<div class="svq"><b>${x.pl?"📋 ":""}${esc(x.n)} <span class="hint">· ${esc(x.k)}${x.ej?" (ejemplo)":""}</span></b>
+   <div class="stars">${[1,2,3,4,5].map(n=>`<button type="button" data-ps="${esc(x.n)}|${n}" aria-pressed="${(v.st[x.n]||0)>=n}" aria-label="${n} estrellas">⭐</button>`).join("")}</div>
+   <div class="svsvc"><span>¿Cuánto le pagaste?</span><input type="number" min="0" data-real="${esc(x.n)}" value="${esc(v.real[x.n])}" aria-label="Pagado a ${esc(x.n)}"></div></div>`).join("")}
+  <div class="svsvc"><b>Total pagado</b><b id="svTot">${money(Object.values(v.real).reduce((a,b)=>a+(+b||0),0))}</b></div>
   <div class="svq"><b>⭐ ¿Cómo calificas tu fiesta en general?</b><div class="stars">${[1,2,3,4,5].map(n=>`<button type="button" data-st="${n}" aria-pressed="${v.stars>=n}" aria-label="${n} estrellas">⭐</button>`).join("")}</div>
    <input type="text" id="svNote" value="${esc(v.note)}" placeholder="¿Algo que debamos saber? (opcional)"></div>
-  <button class="btn host" type="button" id="svSend">Enviar y ganar mi insignia</button></div>`;}
+  <button class="btn cta" type="button" id="svSend">Enviar y ganar mi insignia</button></div>`;}
 function bindSurvey(e){const v=e.sv,b=$("svBox");if(!b)return;
  b.querySelectorAll("[data-real]").forEach(i=>i.oninput=()=>{v.real[i.dataset.real]=+i.value||0;$("svTot").textContent=money(Object.values(v.real).reduce((a,x)=>a+(+x||0),0));});
  $("svNote").oninput=x=>{v.note=x.target.value;};
- b.querySelectorAll("[data-fit]").forEach(g=>g.querySelectorAll("button").forEach(x=>x.onclick=()=>{v.fit[g.dataset.fit]=x.dataset.v;g.querySelectorAll("button").forEach(y=>y.setAttribute("aria-pressed",y===x));}));
+ b.querySelectorAll("[data-ps]").forEach(x=>x.onclick=()=>{const[n,k]=x.dataset.ps.split("|");v.st[n]=+k;x.parentNode.querySelectorAll("button").forEach(y=>y.setAttribute("aria-pressed",+y.dataset.ps.split("|")[1]<=+k));});
  b.querySelectorAll("[data-st]").forEach(x=>x.onclick=()=>{v.stars=+x.dataset.st;b.querySelectorAll("[data-st]").forEach(y=>y.setAttribute("aria-pressed",+y.dataset.st<=v.stars));});
  $("svSend").onclick=()=>{if(!v.stars){toast("⭐ Califica tu fiesta para enviar");return;}e.surveyDone=true;const real=Object.values(v.real).reduce((a,x)=>a+(+x||0),0);
-  track("encuesta_post_fiesta",{occ:e.f.occ,invitados:e.f.guests,estimado:e.f.total,real,diferencia_pct:e.f.total?Math.round((real-e.f.total)/e.f.total*100):0,por_servicio:v.real,alcanzo:v.fit,estrellas:v.stars});
+  track("encuesta_post_fiesta",{occ:e.f.occ,invitados:e.f.guests,estimado:e.f.total,real,diferencia_pct:e.f.total?Math.round((real-e.f.total)/e.f.total*100):0,por_proveedor:v.real,estrellas_proveedores:v.st,estrellas:v.stars});
   U.hostBadge=true;inbox("fiestas","🏅 Ganaste la insignia Co-constructor ¡HQV! y créditos para tu próxima fiesta.");confetti();drawAcct();};}
 function drawEvent(p){const e=getEv(),f=e.f;const past=daysTo(f.date)<0;e.versions=e.versions||[{f,t:e.t||now()}];
  p.innerHTML=`<button class="pill sm" type="button" id="evBack">← Mis fiestas</button>
@@ -630,7 +754,7 @@ function drawEvent(p){const e=getEv(),f=e.f;const past=daysTo(f.date)<0;e.versio
  p.querySelectorAll("[data-vs]").forEach(b=>b.onclick=()=>toast("📤 Te reenviamos esta versión a tu correo."));
  p.querySelectorAll("[data-vd]").forEach(b=>b.onclick=()=>toast("⬇️ En el sitio real aquí se descarga el PDF."));
  p.querySelectorAll("[data-vx]").forEach(b=>b.onclick=()=>{e.versions.splice(+b.dataset.vx,1);e.f=e.versions[0].f;drawAcct();});
- const ep=$("evPast");if(ep)ep.onclick=()=>{f.date=new Date(now()-864e5).toISOString().slice(0,10);inbox("fiestas",`🎉 ¿Cómo te fue en «${f.nombre||f.occ}»? Cuéntanos y gana tu insignia.`);drawAcct();};
+ const ep=$("evPast");if(ep)ep.onclick=()=>{f.date=new Date(now()-2*864e5).toISOString().slice(0,10);inbox("fiestas",`🎉 ¿Cómo te fue en «${f.nombre||f.occ}»? Cuéntanos y gana tu insignia.`);drawAcct();};
  const R=$("evRight");
  if(past){R.innerHTML=e.surveyDone?`<div class="box" style="background:var(--hqv-menta)"><h2>${em("glowing_star")} ¡Gracias por contarnos!</h2><span>Ganaste la insignia <b>Co-constructor ¡HQV!</b> y créditos para tu próxima fiesta. Tu información ayuda a que todos calculemos mejor.</span></div>`:surveyBox(e);bindSurvey(e);return;}
  if(!e.paid){R.innerHTML=interestBox(e,true);const c=$("contact");if(c)c.onclick=()=>startPay(e);return;}
@@ -638,38 +762,42 @@ function drawEvent(p){const e=getEv(),f=e.f;const past=daysTo(f.date)<0;e.versio
  R.innerHTML=(e.planner.state==="liberado"?plannerBox(e):"")+provListBox(e,e.planner.state==="liberado")+(e.planner.state==="propio"||e.paid==="prov"?`<div class="box"><h3>${em("magic_wand")} ¿Quieres un event planner?</h3><span class="hint">Puedes sumar a uno cuando quieras. Conoce 3 perfiles por ${money(PR.plannerDespues)}; cuando ambos confirmen el trato, le liberamos tus proveedores.</span><button class="btn ghost" type="button" id="late">Conocer event planners · ${money(PR.plannerDespues)}</button></div>`:"");
  if(e.planner.state==="liberado")bindPlanner(e);bindProvList(e);const l=$("late");if(l)l.onclick=()=>startPay(e,"late");}
 function interestBox(e,pre){const ks=Object.keys(e.provs),pl=e.opts.planner&&e.planner.cur;
- return`<div class="box"><h2>${em("star-struck")} ${e.interes} proveedores interesados</h2><span class="hint">Cerca de ti y disponibles para tu fecha. ${pre?"Sus datos se muestran al contactarlos.":"Se liberan cuando tu planner confirme el trato."}</span>
- <div class="int">${ks.map(k=>`<div class="ln"><span>${e.provs[k][0].emo} ${esc(k)}</span><span class="st vis">${e.provs[k].length} interesados</span></div>`).join("")}</div>
+ return`<div class="box"><h2>${em("star-struck")} ${pl?`${esc(first(pl.n))} y ${e.interes} proveedores más están disponibles para tu evento.`:`${e.interes} proveedores están disponibles para tu evento.`}</h2><span class="hint">${pre?"Cumplen con lo que pides, están cerca de ti y libres en tu fecha. Contáctalos.":"Se liberan en cuanto tu event planner confirme el trato."}</span>
+ <div class="int">${ks.map(k=>`<div class="ln"><span>${e.provs[k][0].emo} ${esc(k)}</span><span class="st vis">${e.provs[k].length} disponibles</span></div>`).join("")}</div>
  <div class="list">${ks.slice(0,2).map(k=>e.provs[k].slice(0,2).map((x,i)=>provCard(x,i,true,e)).join("")).join("")}</div>
- ${pre?`<button class="btn host" type="button" id="contact" style="justify-self:stretch">${pl?`Contactar a ${esc(first(pl.n))} + proveedores →`:"Contactar proveedores →"}</button><span class="hint" style="text-align:center">Pago único: ${money(pl?PR.proveedoresMasPlanner:PR.desbloquearProveedores)}</span>`:`<div class="lock">${em("locked")}<span>Tu planner y tú los verán al mismo tiempo.</span></div>`}</div>`;}
-function provCard(x,i,blur,e){const wa=`https://wa.me/525500000000?text=${encodeURIComponent(`Hola, vi tu perfil en ¡Hay que vernos! Este anfitrión cotiza con ${Math.max(0,daysTo(e.f.date))} días de anticipación para conseguir precios preferentes.`)}`;
- const key=x.nm,r=(e.rate||{})[key];
- return`<div class="prov"><div class="tp"><span class="av">${x.emo}</span><span class="grow" style="flex:1;min-width:0"><span class="rk">#${i+1} en compatibilidad${x.nuevo?" · Nuevo":""}</span><b class="${blur?"blur":""}">${esc(x.nm)}</b></span><b>${x.price==null?"Por cotizar":money(x.price)}</b></div>
- <div class="why"><span>📍 a ${x.km} km</span><span>⚡ responde en ${x.resp<60?x.resp+" min":Math.round(x.resp/60)+" h"}</span><span>⭐ ${x.rate} (${x.rev})</span>${x.fit>.8?"<span>✅ dentro de tu presupuesto</span>":""}${x.badges.map(b=>`<span><img src="img/b_${b}.webp" alt=""> ${{fundador:"Fundador",verificado:"Verificado",responde_ya:"Responde ya"}[b]}</span>`).join("")}</div>
- ${blur?"":`<div class="row"><a class="btn wa sm" href="${wa}" target="_blank" rel="noopener">💬 WhatsApp</a><span class="hint">¿Quedó en tu evento?</span><span class="yn2" style="flex:0 0 auto"><button class="btn sm ${r&&r.sel===true?"host":"ghost"}" type="button" data-sel="${esc(key)}|1">Sí</button><button class="btn sm ${r&&r.sel===false?"host":"ghost"}" type="button" data-sel="${esc(key)}|0">No</button></span></div>
-  ${r&&r.sel!=null&&!r.done?`<div class="rate"><b>Califica a ${esc(x.nm)}</b><div class="stars">${[1,2,3,4,5].map(n=>`<button type="button" data-rs="${esc(key)}|${n}" aria-pressed="${(r.stars||0)>=n}" aria-label="${n} estrellas">⭐</button>`).join("")}</div>
-   <div class="chips">${["Contratado","Cotizamos pero no cerramos","No respondió","Otro"].map(t=>`<button class="chip" type="button" data-rst="${esc(key)}|${t}" aria-pressed="${r.st===t}">${t}</button>`).join("")}</div>
-   <input type="text" data-rpub="${esc(key)}" value="${esc(r.pub||"")}" placeholder="Comentario público (aparece en su sitio)">
-   <input type="text" data-rpri="${esc(key)}" value="${esc(r.pri||"")}" placeholder="Comentario privado (solo lo ve el proveedor)">
-   <button class="btn host sm" type="button" data-rok="${esc(key)}">Guardar calificación</button></div>`:""}
-  ${r&&r.done?`<span class="st go" style="justify-self:start">✓ Calificado · ${"⭐".repeat(r.stars)}</span>`:""}`}</div>`;}
+ ${pre?`<button class="btn cta" type="button" id="contact" style="justify-self:stretch">${pl?`Contactar a ${esc(first(pl.n))} + proveedores →`:"Contactar proveedores →"}</button><span class="hint" style="text-align:center">Pago único: ${money(pl?PR.proveedoresMasPlanner:PR.desbloquearProveedores)}</span>`:`<div class="lock">${em("locked")}<span>Tu planner y tú los verán al mismo tiempo.</span></div>`}</div>`;}
+const WHY_NO=["Precio fuera de mi presupuesto", "No tenía mi fecha", "Elegí a otro proveedor", "Tardó en responder", "No respondió", "No ofrece lo que busco", "Pocas fotos o reseñas", "Condiciones de pago o anticipo", "Le queda lejos / cobra traslado", "Cambió o se canceló mi evento", "Otro"];
+function provCard(x,i,blur,e){const wa=`https://wa.me/525500000000?text=${encodeURIComponent(`Hola, vi tu perfil en ¡Hay que vernos! y me interesa para mi evento.`)}`;
+ const key=x.nm,r=(e.rate||{})[key],pl=e.planner&&e.planner.state==="liberado"&&e.planner.cur;
+ const top=`<div class="tp"><span class="av">${x.emo}</span><span class="grow" style="flex:1;min-width:0"><span class="rk">#${i+1} en compatibilidad${x.nuevo?" · Nuevo":""}</span><b class="${blur?"blur":""}">${esc(x.nm)}</b></span><b>${x.price==null?"Por cotizar":money(x.price)}</b></div>
+ <div class="why"><span>📍 a ${x.km} km</span><span>⚡ responde en ${x.resp<60?x.resp+" min":Math.round(x.resp/60)+" h"}</span><span>⭐ ${x.rate} (${x.rev})</span>${x.fit>.8?"<span>✅ dentro de tu presupuesto</span>":""}${x.badges.map(b=>`<span><img src="img/b_${b}.webp" alt=""> ${{fundador:"Fundador",verificado:"Verificado",responde_ya:"Responde ya"}[b]}</span>`).join("")}</div>`;
+ if(blur)return`<div class="prov">${top}</div>`;
+ let low="";
+ if(r&&r.byPlanner)low=`<span class="st go" style="justify-self:start">✓ ${r.sel?"Seleccionado":"No seleccionado"} · evaluado por ${esc(first(pl?pl.n:"tu planner"))}</span>`;
+ else if(r&&r.sel===true)low=`<span class="st go" style="justify-self:start">✅ Seleccionado · lo calificas un día después de tu fiesta</span>`;
+ else if(r&&r.sel===false&&r.done)low="";
+ else low=`<div class="row"><a class="btn wa sm" href="${wa}" target="_blank" rel="noopener" data-wa="${esc(key)}">💬 WhatsApp</a><span class="hint">¿Quedó en tu evento?</span><span class="yn2" style="flex:0 0 auto"><button class="btn sm ${r&&r.sel===true?"host":"ghost"}" type="button" data-sel="${esc(key)}|1">Sí</button><button class="btn sm ${r&&r.sel===false?"host":"ghost"}" type="button" data-sel="${esc(key)}|0">No</button></span></div>
+  ${r&&r.sel===false?`<div class="rate"><b>¿Por qué no quedó ${esc(x.nm)}?</b><span class="hint">Elige una o varias. Le ayuda a mejorar y nos ayuda a medir.</span><div class="chips why">${WHY_NO.map(t=>`<button class="chip" type="button" data-rw="${esc(key)}|${t}" aria-pressed="${(r.why||[]).includes(t)}">${t}</button>`).join("")}</div>
+   <input type="text" data-rpub="${esc(key)}" value="${esc(r.pub||"")}" placeholder="Comentario para el proveedor (opcional)">
+   <button class="btn host sm" type="button" data-rok="${esc(key)}">Guardar</button></div>`:""}`;
+ return`<div class="prov">${top}${low}</div>`;}
 function provListBox(e,withPlanner){const ks=Object.keys(e.provs),N=RG.proveedoresVisiblesPorServicio,pl=e.planner.cur;
- return`<div class="box"><h2>${em("handshake")} Tus proveedores</h2><span class="hint">${withPlanner&&pl?`${esc(first(pl.n))} también ve estos contactos y les dará seguimiento.`:"Ordenados para ti: cercanía, presupuesto, calificación, insignias y rapidez."} Cuando platiques con cada uno, dinos si quedó en tu evento y califícalo.</span>
- ${e.removed?`<span class="hint">🗂️ ${e.removed} ${e.removed===1?"proveedor descartado y calificado":"proveedores descartados y calificados"}.</span>`:""}
- ${ks.map(k=>{const l=e.provs[k],all=e.showAll[k];if(!l.length)return"";return`<div class="svc-h"><h3>${l[0].emo} ${esc(k)}</h3><span class="hint">${l.length} interesados</span></div>
+ if(withPlanner&&pl&&!e.plDemo){e.plDemo=true;const k=ks[1]||ks[0];if(k&&e.provs[k][0]){e.rate=e.rate||{};e.rate[e.provs[k][0].nm]={sel:true,done:true,byPlanner:true};}}
+ return`<div class="box"><h2>${em("handshake")} Tus proveedores</h2><span class="hint">${withPlanner&&pl?`${esc(first(pl.n))} también ve estos contactos y les dará seguimiento; lo que califique uno se refleja en la cuenta del otro.`:"Ordenados para ti: cercanía, presupuesto, calificación, insignias y rapidez."} Dinos quién quedó en tu evento.</span>
+ ${e.removed?`<span class="hint">🗂️ ${e.removed} ${e.removed===1?"proveedor descartado":"proveedores descartados"}.</span>`:""}
+ ${ks.map(k=>{const l=e.provs[k],all=e.showAll[k];if(!l.length)return"";return`<div class="svc-h"><h3>${l[0].emo} ${esc(k)}</h3><span class="hint">${l.length} disponibles</span></div>
   <div class="list">${l.slice(0,all?l.length:Math.min(N,3)).map((x,i)=>provCard(x,i,false,e)).join("")}</div>
-  ${l.length>3&&!all?`<button class="pill sm" type="button" data-all="${esc(k)}">Ver a los ${l.length} interesados →</button>`:""}`;}).join("")}</div>`;}
+  ${l.length>3&&!all?`<button class="pill sm" type="button" data-all="${esc(k)}">Ver a los ${l.length} disponibles →</button>`:""}`;}).join("")}</div>`;}
 function bindProvList(e){e.rate=e.rate||{};const R=k=>e.rate[k]=e.rate[k]||{};
  document.querySelectorAll("[data-all]").forEach(b=>b.onclick=()=>{e.showAll[b.dataset.all]=true;drawAcct();});
- document.querySelectorAll("[data-sel]").forEach(b=>b.onclick=()=>{const[k,v]=b.dataset.sel.split("|");Object.assign(R(k),{sel:v==="1",done:false});drawAcct();});
- document.querySelectorAll("[data-rs]").forEach(b=>b.onclick=()=>{const[k,n]=b.dataset.rs.split("|");R(k).stars=+n;b.parentNode.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",+x.dataset.rs.split("|")[1]<=+n));});
- document.querySelectorAll("[data-rst]").forEach(b=>b.onclick=()=>{const[k,t]=b.dataset.rst.split("|");R(k).st=t;b.parentNode.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));});
+ document.querySelectorAll("[data-wa]").forEach(b=>b.addEventListener("click",()=>{R(b.dataset.wa).wa=true;track("whatsapp_proveedor");}));
+ document.querySelectorAll("[data-sel]").forEach(b=>b.onclick=()=>{const[k,v]=b.dataset.sel.split("|");const r=R(k);r.sel=v==="1";r.done=r.sel;
+  if(r.sel){track("proveedor_seleccionado");toast("🎉 ¡Listo! Le avisamos al proveedor y marcamos tu fecha en su agenda.");}drawAcct();});
+ document.querySelectorAll("[data-rw]").forEach(b=>b.onclick=()=>{const[k,t]=b.dataset.rw.split("|"),r=R(k);r.why=r.why||[];r.why=r.why.includes(t)?r.why.filter(x=>x!==t):[...r.why,t];b.setAttribute("aria-pressed",r.why.includes(t));});
  document.querySelectorAll("[data-rpub]").forEach(i=>i.oninput=()=>{R(i.dataset.rpub).pub=i.value;});
- document.querySelectorAll("[data-rpri]").forEach(i=>i.oninput=()=>{R(i.dataset.rpri).pri=i.value;});
- document.querySelectorAll("[data-rok]").forEach(b=>b.onclick=()=>{const k=b.dataset.rok,r=R(k);if(!r.stars||!r.st){toast("⭐ Pon estrellas y cómo quedó la conversación");return;}r.done=true;
-  track("proveedor_calificado",{seleccionado:r.sel,estrellas:r.stars,estatus:r.st});
-  if(r.sel===false){Object.keys(e.provs).forEach(c=>{e.provs[c]=e.provs[c].filter(x=>x.nm!==k);});e.removed=(e.removed||0)+1;toast("🗂️ Gracias. Le avisamos al proveedor y lo quitamos de tu lista.");}
-  else toast("🎉 ¡Listo! Le avisamos al proveedor.");drawAcct();});}
+ document.querySelectorAll("[data-rok]").forEach(b=>b.onclick=()=>{const k=b.dataset.rok,r=R(k);if(!(r.why||[]).length){toast("Elige al menos un motivo");return;}r.done=true;
+  track("proveedor_no_seleccionado",{motivos:r.why,comentario:!!r.pub});
+  Object.keys(e.provs).forEach(c=>{e.provs[c]=e.provs[c].filter(x=>x.nm!==k);});e.removed=(e.removed||0)+1;toast("🗂️ Gracias. Le avisamos al proveedor y lo quitamos de tu lista.");drawAcct();});}
 function checklistBox(e){if(!e.paid)return"";const ks=Object.keys(e.provs),S=["Contactado","Apartado","Pagado"];
  return`<div class="box"><h3>${em("check_mark_button")} Yo organizo</h3><span class="hint">Tu tablero para llevar el control de cada proveedor.</span>
  <div class="list">${ks.map(k=>`<div class="item"><span class="grow"><b>${e.provs[k][0].emo} ${esc(k)}</b></span><div class="chips">${S.map(s=>`<button class="chip" type="button" data-ck="${esc(k)}|${s}" aria-pressed="${(e.check[k]||[]).includes(s)}">${s}</button>`).join("")}</div></div>`).join("")}</div></div>`;}
@@ -678,17 +806,19 @@ function bindChecklist(e){document.querySelectorAll("[data-ck]").forEach(b=>b.on
 /* ---------- Planner: elegir uno, 24 h, aceptar o cambiar, doble confirmación ---------- */
 function plCardHtml(p,extra=""){return`<div class="plcard" id="plcard"><div class="hd"><span class="av">${p.img?`<img src="${p.img}" alt="">`:p.emo}</span><span style="flex:1;min-width:0"><b style="font-size:17px">${esc(p.n)}</b><span class="hint" style="display:block">⭐ ${p.r} · ${p.y} años · ${esc(p.z||"")}</span></span><b>Desde ${money(p.fee)}</b></div>${p.b?`<span>${esc(p.b)}</span>`:""}<span class="hint">${esc(p.sp||"")}</span>${extra}</div>`;}
 function plPool(e){const t=e.planner.tried.map(x=>x.n);return PLANNERS.map(normPl).filter(p=>!t.includes(p.n)&&(!e.planner.cur||p.n!==e.planner.cur.n));}
+function plCardHtml(p,extra="",anim=false){return`<div class="plcard${anim?" hint-anim":""}" id="plcard">${anim?'<div class="swl"><span>← Siguiente</span><span>Lo quiero →</span></div>':""}<div class="hd"><span class="av" data-plprof="1" title="Ver su perfil completo">${p.img?`<img src="${p.img}" alt="">`:p.emo}</span><span style="flex:1;min-width:0;cursor:pointer" data-plprof="1"><b style="font-size:17px">${esc(p.n)}</b><span class="hint" style="display:block">⭐ ${p.r} · ${p.y} años · ${esc(p.z||"")} · <u>ver perfil</u></span></span><b>Desde ${money(p.fee)}</b></div>${p.b?`<span>${esc(p.b)}</span>`:""}<span class="hint">${esc(p.sp||"")}</span>${extra}</div>`;}
+function plPool(e){const t=e.planner.tried.map(x=>x.n);return PLANNERS.map(normPl).filter(p=>!t.includes(p.n)&&(!e.planner.cur||p.n!==e.planner.cur.n));}
 function plannerBox(e){const P=e.planner,pk=P.cur,H=RG.horasRespuestaPlanner,usados=P.tried.length%3,quedan=3-usados;
- const pasos=`<ol class="nsteps"><li><span><b>CONTACTO</b>Tu event planner te contactará por WhatsApp en menos de ${H} h para platicar la pre-cotización y negociar entre ustedes.</span></li><li><span><b>CONFIRMACIÓN</b>Después de platicar, dinos si quieres o no hacer equipo con él o ella. Tienes 3 opciones en total.</span></li><li><span><b>ACCIÓN</b>Cuando tengamos su confirmación, les liberamos los contactos de los proveedores a los dos.</span></li></ol>`;
- let body="";const st=P.state||"esperando";
- if(st==="esperando")body=`${pasos}${plCardHtml(pk)}<button class="sim" type="button" id="sOk">Simular: ${esc(first(pk.n))} te escribió por WhatsApp</button>`;
- if(st==="decidir")body=`${plCardHtml(pk)}<b>¿Harás equipo con ${esc(first(pk.n))}?</b><div class="yn2"><button class="btn host" type="button" id="pYes">Sí, trabajaremos juntos</button><button class="btn ghost" type="button" id="pNo">No, quiero otra opción</button></div><span class="hint">Te ${quedan===1?"queda 1 opción":`quedan ${quedan} opciones`} de esta ronda.</span>`;
- if(st==="confirmando")body=`${plCardHtml(pk)}<div class="soft"><b>Perfecto.</b><span>Una vez que tu event planner nos confirme el trato, liberaremos el contacto de los proveedores.</span></div><button class="sim" type="button" id="sConf">Simular: ${esc(first(pk.n))} confirmó el trato</button>`;
+ const pasos=`<ol class="nsteps"><li><span><b>CONTACTO</b>Tu event planner te escribirá por WhatsApp en menos de ${H} h para platicar tu pre-cotización y negociar entre ustedes.</span></li><li><span><b>CONFIRMACIÓN</b>Después de platicar, dinos si quieres o no hacer equipo con él o ella. Tienes 3 opciones.</span></li><li><span><b>ACCIÓN</b>Cuando tengamos su confirmación, les liberamos a los dos los contactos de tus proveedores.</span></li></ol>`;
+ let body="",title="Tu event planner";const st=P.state||"esperando";
+ if(st==="esperando"){title="Siguientes pasos";body=`${pasos}${plCardHtml(pk)}<button class="sim" type="button" id="sOk">Simular: ${esc(first(pk.n))} te escribió por WhatsApp</button>`;}
+ if(st==="decidir")body=`${plCardHtml(pk)}<b>¿Harás equipo con ${esc(first(pk.n))}?</b><div class="yn2"><button class="btn ghost" type="button" id="pNo">No, quiero otra opción</button><button class="btn cta" type="button" id="pYes">Sí, trabajaremos juntos</button></div><span class="hint">Te ${quedan===1?"queda 1 opción":`quedan ${quedan} opciones`} de esta ronda. Toca su foto para ver su perfil completo.</span>`;
+ if(st==="confirmando")body=`${plCardHtml(pk)}<div class="soft"><b>⏳ Falta que ${esc(first(pk.n))} confirme el trato.</b><span>Ya le avisamos. En cuanto confirme, les liberamos a los dos los contactos de tus proveedores y te avisamos aquí y por correo.</span></div><button class="sim" type="button" id="sConf">Simular: ${esc(first(pk.n))} confirmó el trato</button>`;
  if(st==="elige"){const pool=plPool(e);P.idx=(P.idx||0)%Math.max(1,pool.length);const c=pool[P.idx];
-  body=c?`<span class="hint">Elige a otra persona. Desliza o usa los botones.</span>${plCardHtml(c)}<div class="yn2"><button class="btn ghost" type="button" id="plNext">✕ Siguiente</button><button class="btn host" type="button" id="plPick">💙 Elegir</button></div>`:`<span class="hint">Ya no hay más perfiles disponibles en tu zona.</span>`;}
- if(st==="agotado")body=`<div class="soft"><b>Ya conociste a tus 3 opciones.</b><span>¿Quieres conocer 3 perfiles más o prefieres ser tu propio event planner?</span></div><div class="yn2"><button class="btn host" type="button" id="plMore">Ver 3 perfiles más · ${money(PR.plannerDespues)}</button><button class="btn ghost" type="button" id="plOwn">Yo organizo</button></div><span class="hint">Si organizas tú, te liberamos tus proveedores ahora y la invitación a contratar un planner queda abierta.</span>`;
- if(st==="liberado")body=`${plCardHtml(pk,`<span class="st go" style="justify-self:start">Hicieron equipo · ya ve a tus proveedores</span>`)}`;
- return`<div class="box"><h2>${em("magic_wand")} ${st==="esperando"?"Siguientes pasos":"Tu event planner"}</h2>${body}</div>`;}
+  body=c?`<span class="hint">Elige a otra persona. Desliza a la derecha si te gusta o a la izquierda para ver la siguiente.</span>${plCardHtml(c,"",true)}<div class="yn2"><button class="btn ghost" type="button" id="plNext">✕ Siguiente</button><button class="btn cta" type="button" id="plPick">💙 La quiero</button></div>`:`<span class="hint">Ya no hay más perfiles disponibles en tu zona.</span>`;}
+ if(st==="agotado")body=`<div class="soft"><b>Ya conociste a tus 3 opciones.</b><span>¿Quieres conocer 3 perfiles más o prefieres ser tu propio event planner?</span></div><div class="yn2"><button class="btn ghost" type="button" id="plOwn">Yo organizo</button><button class="btn cta" type="button" id="plMore">Ver 3 perfiles más · ${money(PR.plannerDespues)}</button></div><span class="hint">Si organizas tú, te liberamos tus proveedores ahora y la invitación a contratar un planner queda abierta.</span>`;
+ if(st==="liberado")body=`${plCardHtml(pk,`<span class="st go" style="justify-self:start">Hicieron equipo · ya ve a tus proveedores</span>`)}<div class="contact-note">💙 <span><b>${esc(first(pk.n))} es tu contacto principal.</b> No es necesario que tú contactes a los proveedores: te abrimos sus datos porque pagaste por ellos, pero quien les da seguimiento es tu event planner.</span></div>`;
+ return`<div class="box"><h2>${em("magic_wand")} ${title}</h2>${body}</div>`;}
 let pTick=null;
 function bindPlanner(e){const P=e.planner;clearInterval(pTick);const on=(id,fn)=>{const b=$(id);if(b)b.onclick=fn;};const nm=()=>first(P.cur.n);
  on("sOk",()=>{P.state="decidir";inbox("fiestas",`💬 1. CONTACTO: ${P.cur.n} te escribió por WhatsApp.`);drawAcct();});
@@ -698,6 +828,7 @@ function bindPlanner(e){const P=e.planner;clearInterval(pTick);const on=(id,fn)=
  on("plNext",()=>{P.idx=(P.idx||0)+1;drawAcct();});
  on("plPick",()=>{const c=plPool(e)[P.idx||0];P.cur=c;P.state="esperando";inbox("fiestas",`📋 Le avisamos a ${c.n}. Te escribirá en menos de ${RG.horasRespuestaPlanner} h.`);drawAcct();});
  on("plMore",()=>startPay(e,"more"));
+ document.querySelectorAll("[data-plprof]").forEach(x=>x.onclick=ev=>{ev.stopPropagation();const c=P.state==="elige"?plPool(e)[P.idx||0]:P.cur;plannerProfile(c);});
  on("plOwn",()=>{P.state="propio";e.opts.planner=false;track("propio_planner");inbox("fiestas","🔓 Eres tu propio planner: ya puedes contactar a tus proveedores.");confetti();drawAcct();});
  const cd=$("plcard");if(cd&&$("plNext")){let x0=null;cd.onpointerdown=ev=>{x0=ev.clientX;cd.setPointerCapture(ev.pointerId);};cd.onpointermove=ev=>{if(x0!==null)cd.style.transform=`translateX(${ev.clientX-x0}px) rotate(${(ev.clientX-x0)/20}deg)`;};
   cd.onpointerup=ev=>{const dx=ev.clientX-(x0??ev.clientX);x0=null;cd.style.transform="";if(dx>90)$("plPick").click();else if(dx<-90)$("plNext").click();};}}
@@ -717,22 +848,22 @@ function onboarding(ev){const m=$("modal"),f=ev.f,txt=encodeURIComponent(`Mi pre
    <span>🗂️ <b>Aquí se guardan tus pre-cotizaciones</b>: si recalculas, guardamos cada versión.</span>
    <span>🔔 <b>Te avisamos aquí y por correo</b> cuando tu planner o tus proveedores respondan.</span></div>
   <a class="btn ghost" href="https://wa.me/?text=${txt}" target="_blank" rel="noopener">💬 Enviármela a mi WhatsApp</a>
-  <button class="btn host" type="button" id="obOk">Ver mi fiesta →</button></div>`;
+  <button class="btn cta" type="button" id="obOk">Continuar</button></div>`;
  m.hidden=false;$("obOk").onclick=()=>{m.hidden=true;};track("onboarding_visto");}
 function accountModal(next,why,onClose){const m=$("modal");
- m.innerHTML=`<form class="sheet" id="acF" novalidate><img src="img/ball.webp" alt="" style="width:70px"><h2>Crea tu cuenta</h2><span class="hint">${esc(why||"Para recibir en tu WhatsApp / correo tu pre-cotización, sumarte a nuestra comunidad de anfitriones y acceder a beneficios exclusivos.")}</span>
-  <div class="field"><label for="acN">Tu nombre</label><input type="text" id="acN" value="${esc(U.name)}" autocomplete="name"></div>
+ m.innerHTML=`<form class="sheet" id="acF" novalidate><img src="img/ball.webp" alt="" style="width:70px"><h2>Crea tu cuenta</h2><span class="hint">${why?esc(why):"Para recibir tu pre-cotización más <b>beneficios exclusivos</b>."}</span>
+  <div class="row" style="gap:10px;flex-wrap:wrap"><div class="field" style="flex:1 1 160px"><label for="acN">Nombre(s)</label><input type="text" id="acN" value="${esc(U.name)}" autocomplete="given-name"></div><div class="field" style="flex:1 1 160px"><label for="acL">Apellidos</label><input type="text" id="acL" value="${esc(U.last||"")}" autocomplete="family-name"></div></div>
   <div class="field"><label for="acW">Tu WhatsApp</label><input type="tel" id="acW" value="${esc(fmtWa(U.wa))}" inputmode="numeric" placeholder="55 1234 5678" autocomplete="tel-national"></div>
   <div class="field"><label for="acE">Correo</label><input type="email" id="acE" value="${esc(U.email)}" placeholder="tu@correo.com" autocomplete="email"></div>
   <label class="chk"><input type="checkbox" id="acM"><span>Quiero recibir pre-cotizaciones, opciones de proveedores y beneficios exclusivos.</span></label>
   <p class="err" id="acErr" hidden></p>
-  <button class="btn host" type="submit">Guardar y continuar</button>
+  <button class="btn cta" type="submit">Guardar y continuar</button>
   <p class="legal">Al continuar se crea tu cuenta de ¡Hay que vernos! con estos datos y aceptas los Términos y el Aviso de privacidad. Para entrar después te mandamos un código, sin contraseñas.</p>
   <button class="pill sm" type="button" id="acX">Ahora no</button></form>`;
  m.hidden=false;$("acX").onclick=()=>{m.hidden=true;onClose&&onClose();};
  $("acF").onsubmit=ev=>{ev.preventDefault();const n=$("acN").value.trim(),w=$("acW").value.replace(/\D/g,"").slice(-10),em_=$("acE").value.trim(),err=t=>{$("acErr").textContent=t;$("acErr").hidden=false;};
-  if(n.length<2)return err("Escribe tu nombre.");if(w.length!==10)return err("Tu WhatsApp debe tener 10 dígitos.");if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em_))return err("Escribe un correo válido, por ejemplo tu@correo.com.");
-  Object.assign(U,{name:n,wa:w,email:em_,account:"cuenta",marketing:$("acM").checked});track("cuenta_creada",{desde:why?"pago":"pre-cotizacion"});drawTop();m.hidden=true;next();};}
+  if(n.length<2)return err("Escribe tu nombre.");if($("acL").value.trim().length<2)return err("Escribe tus apellidos.");if(w.length!==10)return err("Tu WhatsApp debe tener 10 dígitos.");if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em_))return err("Escribe un correo válido, por ejemplo tu@correo.com.");
+  Object.assign(U,{name:n,last:$("acL").value.trim(),wa:w,email:em_,account:"cuenta",marketing:$("acM").checked});track("cuenta_creada",{desde:why?"pago":"pre-cotizacion"});drawTop();m.hidden=true;next();};}
 function payModal(e,kind){const pl=e.opts.planner&&e.planner.cur;
  const amt=kind==="late"||kind==="more"?PR.plannerDespues:pl?PR.proveedoresMasPlanner:PR.desbloquearProveedores;
  const what=kind==="more"?"3 perfiles más de event planner":kind==="late"?"Conoce event planners":pl?"Contactos de Event Planner + Proveedores":"Contacto de proveedores";
@@ -741,7 +872,7 @@ function payModal(e,kind){const pl=e.opts.planner&&e.planner.cur;
   <div class="soft"><span class="row" style="justify-content:space-between"><b>${esc(e.f.nombre||e.f.occ)}</b><b>${money(amt)}</b></span><span class="hint">${fdate(e.f.date)} · ${e.f.guests} invitados${pl&&!kind?` · con ${esc(pl.n)}`:""}</span></div>
   <div class="field"><span class="l">¿Cómo quieres pagar?</span><div class="chips">${["Tarjeta","Transferencia","OXXO"].map(x=>`<button class="chip" type="button" data-m="${x}" aria-pressed="${x===method}">${x}</button>`).join("")}</div></div>
   <div class="soft hint">En el prototipo no se piden ni se guardan datos de pago. En el sitio real esta parte la procesa una pasarela de pagos certificada.</div>
-  <button class="btn host" type="button" id="doPay">Pagar ${money(amt)} (simulado)</button><button class="pill sm" type="button" id="pX">Cancelar</button></div>`;
+  <button class="btn cta" type="button" id="doPay">Pagar ${money(amt)} (simulado)</button><button class="pill sm" type="button" id="pX">Cancelar</button></div>`;
   m.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{method=b.dataset.m;draw();});$("pX").onclick=()=>m.hidden=true;
   $("doPay").onclick=()=>{m.hidden=true;track("pago",{tipo:kind||(pl?"planner":"prov"),monto:amt});
    if(kind==="more"){e.planner.state="elige";e.planner.idx=0;inbox("fiestas","📋 Elige entre 3 perfiles nuevos de event planner.");}
@@ -809,7 +940,7 @@ function planModal(){const m=$("modal");let bill="anual";
   <div class="seg" role="group" aria-label="Periodo"><button type="button" data-b="mensual" aria-pressed="${bill==="mensual"}">Mensual</button><button type="button" data-b="anual" aria-pressed="${bill==="anual"}">Anual −${PR.descuentoAnual*100}%</button></div>
   <div class="plan"><div><b>Gratis</b><span class="price">$0</span><span class="hint">Sitio web, catálogo y link para compartir.</span></div>
    <div class="pro"><b>Pro${U.founder?" fundador":""}</b><span class="price">${money(bill==="anual"?an:mo)}</span><span>${bill==="anual"?"al año":"al mes"}</span><span style="font-size:13px">Datos de los anfitriones, prioridad en el orden y estadísticas.</span></div></div>
-  <button class="btn" type="button" id="goPro">Activar Pro (simulado)</button><button class="pill sm" type="button" id="prX">Ahora no</button><p class="legal">Precios provisionales de prototipo.</p></div>`;
+  <button class="btn cta" type="button" id="goPro">Activar Pro (simulado)</button><button class="pill sm" type="button" id="prX">Ahora no</button><p class="legal">Precios provisionales de prototipo.</p></div>`;
   m.querySelectorAll("[data-b]").forEach(b=>b.onclick=()=>{bill=b.dataset.b;draw();});$("prX").onclick=()=>m.hidden=true;
   $("goPro").onclick=()=>{U.plan="pro";m.hidden=true;track("plan_pro",{bill});inbox("negocio","⭐ Ya eres Pro. Ahora ves los datos de cada anfitrión interesado.");confetti();drawAcct();};};
  draw();m.hidden=false;}
@@ -882,7 +1013,7 @@ function demoUser(){U=fresh();Object.assign(U,{account:"cuenta",name:"Diego Juá
   rows:[{k:"Alimentos",e:"🍽️",label:"Alimentos",subs:["Catering de cóctel y canapés","Mesas de postres"],amt:10325},{k:"Bebidas y barra",e:"🍹",label:"Bebidas y barra",subs:["Coctelería sin alcohol"],amt:3850},{k:"Decoración y flores",e:"💐",label:"Decoración y flores",subs:["Decoración con globos"],amt:2800},{k:"Experiencias y actividades",e:"🎡",label:"Experiencias y actividades",subs:["Glitter bar"],amt:2500}]};
  f.nombre="El cumple 40 de Diego";f.planner={n:"Ana",e:"👩🏻",z:"CDMX sur",y:9,r:4.9,f:6000,sp:["Bodas pequeñas","Cumpleaños"],b:"Ex coordinadora de hotel. Me obsesionan los tiempos y que nadie note el estrés."};past.nombre="Baby shower de Sofi";
  const pe=newEvent(past);pe.paid="prov";const fe=newEvent(f);fe.versions=[{f,t:now()-2*864e5}];U.events=[fe,pe];
- U.plannerJobs=[{nombre:"Los XV de Valeria",cliente:"Laura M.",guests:150,date:new Date(now()+60*864e5).toISOString().slice(0,10),total:186000,cobro:12000}];
+ U.last=U.last||"Juárez";U.plannerJobs=[{nombre:"Los XV de Valeria",cliente:"Laura M.",guests:150,date:new Date(now()+60*864e5).toISOString().slice(0,10),total:186000,cobro:12000}];
  U.site={nombre:"Diego Juárez",negocio:"DJ Diego Fiestas",url:"hayquevernos.com/dj-diego-fiestas",tipos:["services","planner"],servicios:[{cat:"Música y espectáculos"}],completo:85};
  U.postul=[{ev:"Boda · 120 invitados",svc:"DJ",pos:1,of:7,st:"Elegido"},{ev:"15 años · 150 invitados",svc:"DJ",pos:4,of:9,st:"No elegido esta vez"},{ev:"Baby shower · 30 invitados",svc:"DJ",pos:2,of:5,st:"Vista"}];
  inbox("fiestas","🎉 ¿Cómo te fue en tu baby shower? Cuéntanos en 1 minuto.");

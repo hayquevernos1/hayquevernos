@@ -19,6 +19,6 @@ def build(src,out,doctype=True):
 for f in ['catalogo.js','catalogo_servicios.js','conversiones.js','venue_draw.js','config.js','marca.css','cp.txt']: shutil.copy(V/f,O/f)
 if (O/'img').exists(): shutil.rmtree(O/'img')
 shutil.copytree(V/'img',O/'img')
-build('reg6.html' if (V/'reg6.html').exists() else 'reg5.html','negocio.html'); build('cot7.html' if (V/'cot7.html').exists() else 'cot6.html','fiestas.html')
+build('reg6.html' if (V/'reg6.html').exists() else 'reg5.html','negocio.html'); build(next(x for x in ['cot8.html','cot7.html','cot6.html'] if (V/x).exists()),'fiestas.html')
 if (V/'shell.html').exists(): build('shell.html','index.html',doctype=False)
 if (V/'pagos5.html').exists(): build('pagos5.html','pagos.html')
