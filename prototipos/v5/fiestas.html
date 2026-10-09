@@ -276,6 +276,21 @@ html,body{overflow-x:clip}
 .plc .sw-l{left:12px;background:#fff;color:#1a1033;box-shadow:var(--hqv-clay-sm)}
 .plc .sw-r{right:12px;background:var(--cta);color:#fff}
 @media (prefers-reduced-motion:reduce){.plc.hint-anim{animation:none}}
+
+/* ===== v13 · cotizador ===== */
+.stages{grid-template-columns:repeat(6,1fr)!important}
+.stages span.go{cursor:pointer}
+.stages span.go:hover i{text-decoration:underline}
+.tnav{display:flex;justify-content:space-between;gap:8px;margin-top:6px}
+.tnav button{border:0;background:rgba(255,255,255,.75);border-radius:99px;padding:6px 12px;font-weight:900;font-size:13px;color:#1a1033;box-shadow:var(--hqv-clay-sm)}
+.tnav button[disabled]{opacity:.35}
+.disc{font-size:11px;color:var(--muted);line-height:1.35}
+.payrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.payrow input{flex:0 0 96px}.payrow select{flex:0 0 150px}
+.payrow b{font-size:13px;min-width:92px}
+.paylegend{background:#FFF7D6;border-radius:16px;padding:10px 12px;font-size:13px;font-weight:700}
+.xtra textarea{width:100%;min-height:150px;border-radius:18px;border:1.5px solid var(--line);padding:12px;font:inherit;resize:vertical}
+.xtra .cnt{justify-self:end;font-size:12px;color:var(--muted)}
 </style>
 <link rel="stylesheet" href="marca.css">
 <style>
@@ -348,7 +363,7 @@ html,body{overflow-x:clip}
 <div class="app">
   <div class="proto"><b>PROTOTIPO</b><span>Precios y proveedores de ejemplo. Nada se guarda ni se envía.</span></div>
   <div class="top" id="top" hidden>
-    <div class="stages" id="stages" aria-hidden="true"></div>
+    <div class="stages" id="stages"></div><div class="tnav" id="tnav"></div>
     <div class="basics" id="basics">
       <label>👥 Invitados<input type="number" id="hg" min="2" inputmode="numeric"></label>
       <label>📅 Fecha<input type="date" id="hd"></label>
@@ -463,12 +478,13 @@ const S={kind:"",occ:"",guests:40,date:addDays(75),start:"18:00",end:"23:00",
  hasPlace:null,place:{type:"",owner:"",addr:blankAddr(),floor:"",floorOther:"",up:"",upOther:"",cover:"",coverOther:"",parking:"",parkingOther:"",feats:[],featsOther:[],baths:{m:"",w:"",g:""},photos:[]},
  need:{state:"Ciudad de México",all:false,munis:[],types:[],feats:[],featsOther:[],req:{},format:""},nameOk:false,plannerPick:null,plIdx:0,partyName:"",
  sel:{},meta:{},factor:{},more:"",suggestedFor:"",
- fact:{docs:[],docsOther:[],days:"",reqDate:"",terms:"",method:[],methodOther:[],biz:""},wantPlanner:null,planners:[],
+ fact:{docs:[],docsOther:[],days:"",reqDate:"",terms:"",method:[],methodOther:[],biz:""},wantPlanner:false,planners:[],
+ pay:{mode:"",ant:[{n:"",u:"porcentaje"}],liq:[{n:"",u:"porcentaje"}],how:[],howOther:""},extra:"",maxStage:0,
  name:"",wa:"",email:"",agenda:{},mine:[]};
 if(ACCT&&ACCT_NAME)S.name=ACCT_NAME;
 const OPENC=new Set(),ALLC=new Set();
 let screen="fiesta",showMiss=false,lastPP=0,chosenPlanner=null;
-const STAGES=["fiesta","lugar","servicios","presupuesto","detalles"];
+const STAGES=["fiesta","lugar","servicios","presupuesto","detalles","extra"];
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const money=n=>"$"+Math.round(n).toLocaleString("es-MX");
@@ -529,7 +545,10 @@ const say=m=>`<div class="vernie"><img src="${BALL}" alt=""><div class="bubble">
 function syncBasics(){$("hg").value=S.guests;$("hd").value=S.date;$("hs").value=S.start;$("he").value=S.end;}
 function updateTop(){const i=STAGES.indexOf(screen);const show=(i>0||(i===0&&S.occ))&&screen!=="result";$("top").hidden=!show;
  $("basics").hidden=!(i>0||screen==="result");
- $("stages").innerHTML=STAGES.map((s,j)=>`<span class="${screen==="result"||j<i?'done':j===i?'on':''}"><i>${["Tu fiesta","Lugar","Servicios","Presupuesto","Detalles"][j]}</i></span>`).join("");
+ if(i>S.maxStage)S.maxStage=i;
+ $("stages").innerHTML=STAGES.map((s,j)=>`<span class="${screen==="result"||j<i?'done':j===i?'on':''}${j!==i&&j<=S.maxStage?' go':''}" ${j!==i&&j<=S.maxStage?`data-st="${s}" role="button" tabindex="0"`:''}><i>${["Tu fiesta","Lugar","Servicios","Presupuesto","Detalles","Algo más"][j]}</i></span>`).join("");$("tnav").innerHTML=screen==="result"||i<0?"":`<button type="button" id="tBack" ${i<=0?"disabled":""}>← Atrás</button><button type="button" id="tFwd" ${i>=S.maxStage?"disabled":""}>Adelante →</button>`;
+ $("stages").querySelectorAll("[data-st]").forEach(x=>x.onclick=()=>{showMiss=false;go(x.dataset.st);});
+ const tb=$("tBack"),tf=$("tFwd");if(tb)tb.onclick=()=>{showMiss=false;go(STAGES[Math.max(0,i-1)]);};if(tf)tf.onclick=()=>{showMiss=false;go(STAGES[Math.min(S.maxStage,i+1)]);};
  const u=urgency();$("urg").hidden=!u||!(i>0||screen==="result");if(u){$("urg").className="urg u"+u.k;$("urg").innerHTML=`<span class="emo">${u.e}</span><span>${esc(u.t)}</span>`;}
  const t=total(),pp=t/S.guests;$("pricebar").classList.toggle("empty",!t);$("pp").innerHTML=t?`${money(pp)} <em>por persona</em>`:"$0";$("tot").textContent=money(t);$("ppl").textContent=t?"Tu presupuesto por persona":(STAGES.indexOf(screen)<STAGES.indexOf("presupuesto")?"Tu presupuesto empieza en $0":"Mueve las barras para asignar");
  if(Math.round(pp)!==lastPP){$("pp").classList.remove("bump");void $("pp").offsetWidth;$("pp").classList.add("bump");lastPP=Math.round(pp);}}
@@ -546,12 +565,12 @@ function missing(st){const m=[];
  if(st==="servicios"){const cs=Object.keys(S.sel);if(!cs.length&&S.hasPlace!==false)m.push("Elige al menos un servicio");
   cs.forEach(c=>{const md=S.meta[c]||{};if(!S.sel[c].length)m.push(`${c}: qué necesitas`);if(S.hasPlace===false&&hasPolicy(c)&&!md.who)m.push(`${c}: ¿lo pone el venue o lo llevas tú?`);if(md.inv===undefined)m.push(`${c}: ¿necesitas factura?`);});}
  if(st==="presupuesto"){const un=rows().filter(r=>!r.set);if(un.length)m.push("Asigna presupuesto a: "+un.map(r=>r.label).join(", "));}
- if(st==="detalles"){if(needInvoice()){const f=S.fact;if(!f.docs.length&&!f.docsOther.some(filled))m.push("Documentos que pedirás");if(!f.reqDate)m.push("Fecha en que necesitas los requisitos");if(!f.terms)m.push("Condiciones de pago");if(!f.method.length&&!f.methodOther.some(filled))m.push("Forma de pago");}
+ if(st==="detalles"){if(needInvoice()){const f=S.fact;if(!f.docs.length&&!f.docsOther.some(filled))m.push("Documentos que pedirás");if(!f.reqDate)m.push("Fecha en que necesitas los requisitos");}const P=S.pay;if(!P.mode)m.push("Proceso de pago");if(P.mode==="mine"&&!P.ant.concat(P.liq).some(x=>filled(x.n)))m.push("Tus anticipos o liquidaciones");if(!P.how.length)m.push("¿Cómo te gustaría pagar?");if(P.how.includes("Otro")&&!filled(P.howOther))m.push("Otra forma de pago");
   }
  return m;}
 const needInvoice=()=>Object.values(S.meta).some(x=>x.inv===true);
 const MISS=ok=>showMiss&&!ok?" miss":"";
-function navHtml(st,label="Siguiente →"){const n=missing(st).length;return`<div id="missBox"></div><div class="nav"><button class="btn ghost" type="button" id="back">← Atrás</button><button class="btn ${n?'off':''}" type="button" id="next" aria-disabled="${n>0}">${label}</button></div>`;}
+function navHtml(st,label="Siguiente →"){const n=missing(st).length;return`<div id="missBox"></div><div class="nav"><button class="btn ghost" type="button" id="back">← Atrás</button><button class="btn cta ${n?'off':''}" type="button" id="next" aria-disabled="${n>0}">${label}</button></div>`;}
 const missMsg=m=>m.length?`<div class="tip bad"><span class="emo">✋</span><span><b>Te falta:</b> ${m.map(esc).join(" · ")}</span></div>`:"";
 function bindNav(st,prev,next){$("back").onclick=()=>{showMiss=false;go(prev);};$("next").onclick=()=>{const m=missing(st);if(m.length){showMiss=true;render();$("missBox").innerHTML=missMsg(m);const f=document.querySelector(".miss");(f||$("missBox")).scrollIntoView({behavior:"smooth",block:"center"});return;}showMiss=false;go(next);};}
 function refresh(st){drawVenueLive();const n=$("next");if(n){const m=missing(st);n.classList.toggle("off",m.length>0);n.setAttribute("aria-disabled",String(m.length>0));if(showMiss)$("missBox").innerHTML=missMsg(m);}updateTop();}
@@ -572,6 +591,29 @@ function quality(im){const W=200,sc=W/Math.max(im.width,im.height),w=Math.max(8,
 function optimize(im){const M=1400,sc=Math.min(1,M/Math.max(im.width,im.height));const c=document.createElement("canvas");c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);c.getContext("2d").drawImage(im,0,0,c.width,c.height);let u=c.toDataURL("image/webp",.8);if(!u.startsWith("data:image/webp"))u=c.toDataURL("image/jpeg",.8);return u;}
 
 /* ---------- Pantallas ---------- */
+
+/* v13 · condiciones y formas de pago */
+const PAY_UNITS=["porcentaje","horas","días","semanas","meses"];
+function payRows(k,lab){return S.pay[k].map((x,i)=>`<div class="payrow"><b>${lab} ${i+1}</b><input type="number" min="0" data-pn="${k}|${i}" value="${esc(x.n)}" placeholder="Número" aria-label="${lab} ${i+1}"><select data-pu="${k}|${i}" aria-label="Unidad">${PAY_UNITS.map(u=>`<option ${x.u===u?"selected":""}>${u}</option>`).join("")}</select>${S.pay[k].length>1?`<button type="button" class="link-btn" data-px="${k}|${i}">✕</button>`:""}</div>`).join("")+`<button type="button" class="link-btn" data-padd="${k}" style="justify-self:start">＋ Agregar otro ${lab.toLowerCase()}</button>`;}
+function payHtml(){const P=S.pay,done=P.mode&&P.how.length;
+ return`<div class="field"><span class="lbl">💳 ¿Cuál es el proceso de pago que te gustaría implementar?</span>
+  <div class="chips${MISS(!!P.mode)}">${[["prov","Sigo las indicaciones de los proveedores"],["mine","Yo defino anticipos y liquidaciones"]].map(([v,t])=>`<button type="button" class="chip pm2" data-v="${v}" aria-pressed="${P.mode===v}">${t}</button>`).join("")}</div>
+  ${P.mode==="mine"?`<span class="hint">Útil sobre todo en eventos de empresa, donde el cliente define cómo paga.</span><div style="display:grid;gap:8px">${payRows("ant","Anticipo")}</div><div style="display:grid;gap:8px">${payRows("liq","Liquidación")}</div>`:""}</div>
+ <div class="field"><span class="lbl">💵 ¿Cómo te gustaría pagar?</span><div class="chips${MISS(P.how.length>0)}">${["Pago con tarjeta","Transferencia SPEI","Efectivo","Otro"].map(t=>`<button type="button" class="chip ph2" aria-pressed="${P.how.includes(t)}">${t}</button>`).join("")}</div>
+  ${P.how.includes("Otro")?`<input type="text" id="phO" value="${esc(P.howOther)}" placeholder="¿Cuál?" class="${MISS(filled(P.howOther))}">`:""}</div>
+ ${done?`<div class="paylegend">📝 Estas condiciones de pago serán expresadas a los proveedores de la comunidad ¡Hay que vernos! y estarán sujetas a su aprobación, previa negociación directa entre ustedes como particulares.</div>`:""}`;}
+function bindPay(el){const P=S.pay,keep=()=>{const y=scrollY;render();scrollTo({top:y});};
+ el.querySelectorAll(".pm2").forEach(b=>b.onclick=()=>{P.mode=b.dataset.v;keep();});
+ el.querySelectorAll(".ph2").forEach(b=>b.onclick=()=>{const t=b.textContent.replace("✓","").trim();P.how=P.how.includes(t)?P.how.filter(x=>x!==t):[...P.how,t];keep();});
+ const o=$("phO");if(o)o.oninput=e=>{P.howOther=e.target.value;refresh("detalles");};
+ el.querySelectorAll("[data-pn]").forEach(x=>x.oninput=()=>{const[k,i]=x.dataset.pn.split("|");P[k][+i].n=x.value;refresh("detalles");});
+ el.querySelectorAll("[data-pu]").forEach(x=>x.onchange=()=>{const[k,i]=x.dataset.pu.split("|");P[k][+i].u=x.value;});
+ el.querySelectorAll("[data-padd]").forEach(x=>x.onclick=()=>{P[x.dataset.padd].push({n:"",u:"porcentaje"});keep();});
+ el.querySelectorAll("[data-px]").forEach(x=>x.onclick=()=>{const[k,i]=x.dataset.px.split("|");P[k].splice(+i,1);keep();});}
+function payText(){const P=S.pay;const r=(l,k)=>P[k].filter(x=>filled(x.n)).map((x,i)=>`${l} ${i+1}: ${x.n} ${x.u}`).join(" · ");
+ return{proceso:P.mode==="prov"?"Sigo las indicaciones de los proveedores":[r("Anticipo","ant"),r("Liquidación","liq")].filter(Boolean).join(" · "),formas:P.how.map(x=>x==="Otro"?(P.howOther||"Otro"):x)};}
+/* cargar una pre-cotización guardada para editarla */
+addEventListener("message",e=>{const d=e.data||{};if(d.hqv!=="cargar"||!d.state)return;try{const st=JSON.parse(JSON.stringify(d.state));Object.keys(st).forEach(k=>{S[k]=st[k];});S.maxStage=STAGES.length-1;S.nameOk=true;go("fiesta");}catch(_){}});
 function render(){updateTop();const el=$("screen");
  if(screen==="intro"){el.innerHTML=`<div class="card" style="text-align:center;justify-items:center">
   <img src="${LOGO}" alt="¡Hay que vernos!" style="width:min(220px,60vw)"><img src="${BALL}" alt="" style="width:104px;animation:bob 3s ease-in-out infinite">
@@ -594,11 +636,6 @@ function render(){updateTop();const el=$("screen");
   const card=i=>{const p=PLANNERS[i];return`<div class="plc hint-anim" id="plc"><span class="sw-l">← Siguiente</span><span class="sw-r">Lo quiero →</span><div style="display:flex;gap:12px;align-items:center;margin-top:28px"><span class="ph">${p.e}</span><div><b style="font-size:18px">${esc(p.n)}</b><br><small>⭐ ${p.r} · ${p.y} años de experiencia · ${esc(p.z)}</small></div></div>
    <span>${esc(p.b)}</span><div class="tags">${p.sp.map(x=>`<span>${esc(x)}</span>`).join("")}</div><b>Desde ${money(p.f)}</b><small class="hint">${i+1} de ${PLANNERS.length} · desliza o usa los botones</small></div>`;};
   el.innerHTML=`<div class="card">${say(`¡Mucho gusto, <b>${first}</b>! Cuéntame de tu fiesta.`)}
-  <div class="field"><span class="lbl">📋 ¿Quieres la ayuda de un event planner?</span><div class="seg${MISS(S.wantPlanner!==null)}" id="wpl"><button type="button" data-v="0" aria-pressed="${S.wantPlanner===false}">No. Yo organizo</button><button type="button" data-v="1" aria-pressed="${S.wantPlanner===true}">Sí, que me ayude</button></div>
-   ${S.wantPlanner===true&&S.plannerPick==null?`${card(S.plIdx)}<div class="plc-nav"><button class="btn ghost" type="button" id="plNo">✕ Siguiente</button><button class="btn cta" type="button" id="plYes">💙 Lo quiero</button></div>`:''}
-   ${pl?`<div class="plpick"><span class="ph">${pl.e}</span><span style="flex:1"><b>Tu event planner: ${esc(pl.n)}</b><br><small>⭐ ${pl.r} · desde ${money(pl.f)}</small></span><button class="link-btn" type="button" id="plCh">Cambiar</button></div>`:''}</div>
-  ${S.wantPlanner===false?`<div class="note">✅ <span><b>De acuerdo. Eres tu propio event planner.</b> Ahora comienza a configurar tu fiesta para conseguir tu pre-cotización. (Si aún no tienes decisiones definitivas, no te preocupes. Puedes editar todo lo que necesites en el momento que quieras).</span></div>`:''}
-  ${pl?`<div class="note">💙 <span><b>¡Perfecto! Te apoyarás en un event planner.</b> Ahora comienza a configurar tu fiesta para conseguir tu pre-cotización y explicarle a tu eventual planner lo que quieres. (Si aún no tienes decisiones definitivas, no te preocupes. Tu event planner te ayudará a editar todo lo necesario hasta conseguir tu fiesta ideal).</span></div>`:''}
   ${S.wantPlanner===false||pl?`
   <div class="field"><span class="lbl">Tu evento es…</span><div class="seg${MISS(!!S.kind)}" id="kind"><button type="button" data-v="social" aria-pressed="${S.kind==="social"}">🎉 Social</button><button type="button" data-v="empresa" aria-pressed="${S.kind==="empresa"}">🏢 De empresa</button></div></div>
   ${S.kind?`<div class="field"><span class="lbl">${S.kind==="empresa"?"¿Qué tipo de evento es?":"¿Qué celebras?"}</span><input type="search" class="evq" id="evq" placeholder="🔎 Busca: boda, congreso, posada…" aria-label="Buscar tipo de evento"><div class="tiles${MISS(!!S.occ)}" id="evTiles">${OCC[S.kind].map(([o,e],i)=>`<button type="button" class="tile occ${i>=11&&S.occ!==o&&o!=="Otro"?" more":""}" data-o="${esc(o)}" aria-pressed="${S.occ===o}"><span class="emo">${e}</span>${esc(o)}</button>`).join("")}</div><button type="button" class="link-btn" id="evAll" style="justify-self:start">Ver los ${OCC[S.kind].length} tipos de evento</button></div>`:''}
@@ -640,7 +677,7 @@ function render(){updateTop();const el=$("screen");
     ${p.floor&&p.floor!=="pb"?`<span class="mini-l">¿Cómo se sube?</span><div class="chips${MISS(!!p.up)}">${[["elevador","🛗 Elevador"],["elevadorc","📦 Elevador de carga"],["escaleras","🪜 Solo escaleras"],["otro","✏️ Otro"]].map(([v,t])=>`<button type="button" class="chip upb" data-v="${v}" aria-pressed="${p.up===v}">${t}</button>`).join("")}</div>${p.up==="otro"?oth1("p","upOther","¿Cómo se sube?"):''}<span class="hint">Muchos proveedores cobran extra por subir equipo por escaleras.</span>`:''}
     <span class="mini-l">El espacio es…</span><div class="chips${MISS(!!p.cover)}">${[["techado","☂️ Techado"],["aire","🌤️ Al aire libre"],["mixto","⛅ Mixto"],["otro","✏️ Otro"]].map(([v,t])=>`<button type="button" class="chip cv" data-v="${v}" aria-pressed="${p.cover===v}">${t}</button>`).join("")}</div>${p.cover==="otro"?oth1("p","coverOther","Cuéntanos cómo es"):''}
     <span class="mini-l">¿Hay dónde estacionarse para descargar?</span><div class="chips${MISS(!!p.parking)}">${[["si","🚗 Sí, dentro"],["calle","🅿️ En la calle"],["otro","✏️ Otro"]].map(([v,t])=>`<button type="button" class="chip pk" data-v="${v}" aria-pressed="${p.parking===v}">${t}</button>`).join("")}</div>${p.parking==="otro"?oth1("p","parkingOther","Ej. estacionamiento público a 1 cuadra"):''}</div>
-   <div class="field"><span class="lbl">🏠 ¿Con qué cuenta?</span><div class="chips${MISS(p.feats.length>0)}">${FEATURES.map(([id,e,t])=>`<button type="button" class="chip pf" data-f="${id}" aria-pressed="${p.feats.includes(id)}">${e} ${esc(t)}</button>`).join("")}</div>${othList("pf","¿Con qué más cuenta?")}
+   <div class="field"><span class="lbl">🏠 ¿Con qué cuenta?</span><div class="chips${MISS(p.feats.length>0)}">${FEATURES.filter(x=>!["techado","aire"].includes(x[0])).map(([id,e,t])=>`<button type="button" class="chip pf" data-f="${id}" aria-pressed="${p.feats.includes(id)}">${e} ${esc(t)}</button>`).join("")}</div>${othList("pf","¿Con qué más cuenta?")}
     <span class="mini-l">🚻 ¿Cuántos baños hay?</span><div class="row${MISS(!(p.baths.m===""&&p.baths.w===""&&p.baths.g===""))}" style="border-radius:12px">${[["m","🚹 Hombres"],["w","🚺 Mujeres"],["g","🚻 Generales"]].map(([f,t])=>`<label class="mini-l" style="display:grid;gap:4px">${t}<input type="number" min="0" id="pb-${f}" value="${esc(p.baths[f])}" placeholder="0"></label>`).join("")}</div></div>
    <div class="field"><span class="lbl">📷 Fotos del espacio ${p.photos.length?'':'<span class="pdg">⏳ Pendiente</span>'}</span><span class="hint">Opcional. Puedes subirlas después desde tu cuenta; con fotos los proveedores cotizan con más precisión.</span><div class="up"><label class="pick">📷 Subir fotos<input type="file" id="pup" accept="image/jpeg,image/png,image/webp,.heic,.heif" multiple></label><span class="specs"><span><b>JPG, PNG o WebP</b></span><span>hasta <b>8 MB</b></span><span>hasta <b>6 fotos</b></span></span><div id="pmsg" style="display:grid;gap:6px"></div>
     ${p.photos.length?`<div class="photos">${p.photos.map((x,i)=>`<div class="ph"><img src="${x.url}" alt="Foto ${i+1}"><div class="q">${x.issues.length?x.issues.map(t=>`<span class="meh">${t}</span>`).join(""):'<span class="good">✅ Se ve bien</span>'}</div><button type="button" data-rm="${i}">Quitar</button></div>`).join("")}</div>`:''}</div></div>`:''}
@@ -684,7 +721,7 @@ function render(){updateTop();const el=$("screen");
   el.innerHTML=`<div class="card">${say(PLN()?`Te dejé marcado lo más común para <b>${esc(S.occ.toLowerCase())}</b> ✨ Elige lo que quieres que <b>${esc(PLN().n)}</b> consiga para tu fiesta.`:`Te dejé marcado lo más común para <b>${esc(S.occ.toLowerCase())}</b> ✨ Busca lo que necesites o explóralo por categoría.`)}
   <div class="field qwrap"><label class="lbl" for="sq">🔎 ¿Qué necesitas?</label><input type="search" id="sq" autocomplete="off" placeholder="Ej. taquiza, DJ, meseros, carpa, fotógrafo…"><div id="sqr" class="qres" hidden></div></div>
   ${nSel?`<div class="field"><span class="lbl">✅ Tu selección <span class="opt">${nSel} ${nSel===1?"servicio":"servicios"} · toca para quitar</span></span><div class="chips">${Object.keys(S.sel).flatMap(c=>S.sel[c].map(s=>chip(c,s))).join("")}</div></div>`:''}
-  <div class="field"><span class="lbl">📂 Explora por categoría</span><span class="mkt">💡 Los precios son el promedio del mercado en tu zona.</span>
+  <div class="field"><span class="lbl">📂 Explora por categoría</span><span class="mkt">💡 Precios promedio de la comunidad de proveedores de ¡Hay que vernos! en tu zona.</span>
    <div class="cgrid">${CATS.map(c=>{const vs=visibleSubs(c.n,ex);if(!vs.length)return"";const sel=(S.sel[c.n]||[]).length,open=OPENC.has(c.n);
     const extra=(S.sel[c.n]||[]).filter(s=>!vs.includes(s));const list=[...vs,...extra];
     return`<details class="cbox" data-c="${esc(c.n)}"${open?" open":""}><summary><span class="emo">${c.e}</span><b>${esc(c.n)}</b><small class="${sel?"on":""}">${sel?sel+" elegidos":list.length+" opciones"}</small></summary><div class="inner">
@@ -693,7 +730,7 @@ function render(){updateTop();const el=$("screen");
      <div class="chips">${list.map((s,i)=>chip(c.n,s).replace('class="chip sb"',`class="chip sb${i>=12&&!(S.sel[c.n]||[]).includes(s)&&!ALLC.has(c.n)?" hide more":""}"`)).join("")}${list.length>12&&!ALLC.has(c.n)?`<button type="button" class="chip all" data-c="${esc(c.n)}">Ver las ${list.length}</button>`:''}</div></div></details>`;}).join("")}</div></div>
   <div style="display:grid;gap:10px">${CATS.filter(c=>(S.sel[c.n]||[]).length).map(c=>{const md=S.meta[c.n]||(S.meta[c.n]={});return`<div class="svc"><div class="svc-head"><b>${c.e} ${esc(c.n)}</b><button type="button" class="btn ghost sm rmc" data-c="${esc(c.n)}">Quitar</button></div>
    <div>${S.sel[c.n].map(s=>`<div class="sline"><span>${esc(s)}</span><span>${priceTxt(c.n,s)}</span></div>`).join("")}</div>
-   ${venue&&hasPolicy(c.n)?`<span class="mini-l">¿Quién lo pone?</span><div class="seg${MISS(!!md.who)}" data-c="${esc(c.n)}" data-f="who"><button type="button" data-v="venue" aria-pressed="${md.who==="venue"}">🏛️ Que lo ponga el venue</button><button type="button" data-v="yo" aria-pressed="${md.who==="yo"}">🙋 Lo llevo yo</button></div><span class="hint">${md.who==="yo"?"Solo te mostraremos venues que dejen entrar a tu proveedor.":md.who==="venue"?"Buscaremos venues que lo incluyan o lo vendan.":"¿No sabes? Elige \"que lo ponga el venue\": muchos ya lo incluyen."}</span>`:''}
+   ${venue&&hasPolicy(c.n)?`<span class="mini-l">¿Quién lo pone?</span><div class="seg${MISS(!!md.who)}" data-c="${esc(c.n)}" data-f="who"><button type="button" data-v="venue" aria-pressed="${md.who==="venue"}">🏛️ Que lo ponga el venue</button><button type="button" data-v="yo" aria-pressed="${md.who==="yo"}">🙋 Lo pongo yo y/o proveedor externo</button></div><span class="hint">${md.who==="yo"?"Solo te mostraremos venues que dejen entrar a tu proveedor.":md.who==="venue"?"Buscaremos venues que lo incluyan o lo vendan.":"¿No sabes? Elige \"que lo ponga el venue\": muchos ya lo incluyen."}</span>`:''}
    <span class="mini-l">¿Necesitas factura de este proveedor?</span><div class="seg${MISS(md.inv!==undefined)}" data-c="${esc(c.n)}" data-f="inv"><button type="button" data-v="1" aria-pressed="${md.inv===true}">🧾 Sí</button><button type="button" data-v="0" aria-pressed="${md.inv===false}">No</button></div>
    <input type="text" class="cm" data-c="${esc(c.n)}" value="${esc(md.note||"")}" placeholder="💬 Cuéntale algo al proveedor (opcional): sin gluten, tema vaquero, música de los 80…" aria-label="Comentario para ${esc(c.n)}">
    </div>`;}).join("")}</div>
@@ -727,11 +764,11 @@ function render(){updateTop();const el=$("screen");
    <div class="avg" id="av-${esc(r.k)}"></div>
    <div class="track${r.set?'':' unset'}" id="tr-${esc(r.k)}"><span class="mark" style="left:calc(${(100-50)/150*100}% - 1px)"></span><input type="range" min="50" max="200" step="5" value="${Math.round(r.f*100)}" data-k="${esc(r.k)}" aria-label="Presupuesto de ${esc(r.label)}"></div>
    <div class="zones"><span>💰 Económico</span><span>⭐ Promedio</span><span>💎 Premium</span></div>
-   <div class="lvl-row"><span class="lvl" id="l-${esc(r.k)}"></span>${r.set?'':`<button type="button" class="link-btn useavg" data-k="${esc(r.k)}">Usar el promedio</button>`}</div></div>`).join("")}</div>
-  ${navHtml("presupuesto",needInvoice()?"Siguiente →":"Ver mi fiesta 🎉")}</div>`;
+   <div class="lvl-row"><span class="lvl" id="l-${esc(r.k)}"></span>${r.set?'':`<button type="button" class="link-btn useavg" data-k="${esc(r.k)}">Usar el promedio</button>`}</div><span class="disc">Cálculo basado en el promedio del histórico de precios publicados/pagados por los proveedores/anfitriones de la comunidad ¡Hay que vernos!.</span></div>`).join("")}</div>
+  ${navHtml("presupuesto")}</div>`;
   el.querySelectorAll("input[type=range]").forEach(i=>i.oninput=()=>{S.factor[i.dataset.k]=+i.value/100;const t=$("tr-"+i.dataset.k);if(t)t.classList.remove("unset");const u=i.closest(".bud").querySelector(".useavg");if(u)u.remove();drawBudgetAmounts();refresh("presupuesto");});
   el.querySelectorAll(".useavg").forEach(b=>b.onclick=()=>{S.factor[b.dataset.k]=1;const t=$("tr-"+b.dataset.k);if(t){t.classList.remove("unset");t.querySelector("input").value=100;}b.remove();drawBudgetAmounts();refresh("presupuesto");});
-  drawBudgetAmounts();bindNav("presupuesto","servicios",needInvoice()?"detalles":"result");return;}
+  drawBudgetAmounts();bindNav("presupuesto","servicios","detalles");return;}
 
  if(screen==="detalles"){const u=urgency(),nSvc=Object.keys(S.sel).length,big=S.guests>=150;
   const why=u&&u.k>=2?`Faltan ${daysTo()} días: un planner consigue proveedores rápido porque ya conoce a quién llamar y negocia por ti.`:nSvc>=5?`Tienes ${nSvc} servicios: un planner coordina a todos para que tú solo disfrutes.`:big?`Con ${S.guests.toLocaleString("es-MX")} invitados la logística se complica: un planner se encarga de los tiempos, accesos y proveedores.`:"Un planner se encarga de coordinar a los proveedores y de que todo salga a tiempo.";
@@ -739,16 +776,23 @@ function render(){updateTop();const el=$("screen");
   ${needInvoice()?`<div class="field"><span class="lbl">🧾 Para facturar, ¿qué le vas a pedir al proveedor?</span><span class="hint">Así los proveedores saben desde el principio si pueden cumplir tus requisitos.</span>
    <span class="mini-l">Documentos</span><div class="chips${MISS(S.fact.docs.length>0)}">${FACT_DOCS.map(d=>`<button type="button" class="chip fd" aria-pressed="${S.fact.docs.includes(d)}">${esc(d)}</button>`).join("")}</div>${othList("fd","Otro documento")}
    <div class="row"><div class="field"><label class="mini-l" for="fdate">📅 ¿En qué fecha necesitas estos requisitos?</label><input type="date" id="fdate" min="${addDays(0)}" value="${esc(S.fact.reqDate)}" class="${MISS(!!S.fact.reqDate)}"></div><div class="field"><label class="mini-l" for="fbiz">Razón social <span class="opt">(opcional)</span></label><input type="text" id="fbiz" value="${esc(S.fact.biz)}"></div></div>
-   <span class="mini-l">¿Cómo y cuándo pagas?</span><div class="chips${MISS(!!S.fact.terms)}">${["Anticipo y liquidación el día del evento","Pago a 15 días","Pago a 30 días","Pago a 60 días"].map(t=>`<button type="button" class="chip ft2" aria-pressed="${S.fact.terms===t}">${esc(t)}</button>`).join("")}</div>
-   <div class="chips${MISS(S.fact.method.length>0)}">${["Transferencia","Tarjeta corporativa","Cheque"].map(t=>`<button type="button" class="chip fm" aria-pressed="${S.fact.method.includes(t)}">${esc(t)}</button>`).join("")}</div>${othList("fm","Otra forma de pago")}</div>`:''}
-  ${navHtml("detalles","Ver mi fiesta 🎉")}</div>`;
+   </div>`:''}
+  ${payHtml()}
+  ${navHtml("detalles")}</div>`;
+  bindPay(el);
   el.querySelectorAll(".fd").forEach(b=>b.onclick=()=>{const d=b.textContent.replace("✓","").trim();S.fact.docs=S.fact.docs.includes(d)?S.fact.docs.filter(x=>x!==d):[...S.fact.docs,d];b.setAttribute("aria-pressed",S.fact.docs.includes(d));refresh("detalles");});
   el.querySelectorAll(".ft2").forEach(b=>b.onclick=()=>{S.fact.terms=b.textContent.replace("✓","").trim();el.querySelectorAll(".ft2").forEach(x=>x.setAttribute("aria-pressed",x===b));refresh("detalles");});
   el.querySelectorAll(".fm").forEach(b=>b.onclick=()=>{const t=b.textContent.replace("✓","").trim();S.fact.method=S.fact.method.includes(t)?S.fact.method.filter(x=>x!==t):[...S.fact.method,t];b.setAttribute("aria-pressed",S.fact.method.includes(t));refresh("detalles");});
   bindOth(el,"detalles");const fd=$("fdate");if(fd){fd.oninput=fd.onchange=e=>{S.fact.reqDate=e.target.value;refresh("detalles");};$("fbiz").oninput=e=>{S.fact.biz=e.target.value;};}
   el.querySelectorAll("#wp button").forEach(b=>b.onclick=()=>{S.wantPlanner=b.dataset.v==="1";if(!S.wantPlanner)S.planners=[];render();});
   el.querySelectorAll(".pc").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;S.planners=S.planners.includes(i)?S.planners.filter(x=>x!==i):[...S.planners,i];b.setAttribute("aria-pressed",S.planners.includes(i));b.querySelector(".like").textContent=S.planners.includes(i)?"💜 Me interesa":"🤍 Me interesa";refresh("detalles");});
-  bindNav("detalles","presupuesto","result");return;}
+  bindNav("detalles","presupuesto","extra");return;}
+ if(screen==="extra"){el.innerHTML=`<div class="card xtra">${say("¿Quieres agregar algo? Explícame aquí. ✍️")}
+  <span class="hint">Lo que no te preguntamos y quieres que sepan tus proveedores: ideas, temática, restricciones, sorpresas… (opcional)</span>
+  <textarea id="xt" maxlength="500" placeholder="Ej. Es sorpresa para mi mamá: que nadie le escriba directo. Queremos temática años 80.">${esc(S.extra)}</textarea><span class="cnt" id="xc">${S.extra.length}/500</span>
+  ${navHtml("extra","Ver mi fiesta 🎉")}</div>`;
+  $("xt").oninput=e=>{S.extra=e.target.value.slice(0,500);$("xc").textContent=S.extra.length+"/500";};
+  bindNav("extra","detalles","result");return;}
 
  if(screen==="result"){const rs=rows(),t=total(),pl=PLN();
   const nAv=k=>3+((k.length*7+S.guests)%6);
@@ -763,7 +807,7 @@ function render(){updateTop();const el=$("screen");
   <div class="card"><h3 style="font-size:19px">Así se reparte 👇</h3>
    <div class="break scroll">${rs.map(r=>`<div><span>${r.e} ${esc(r.label)}${r.subs?`<br><span class="sub">${r.subs.map(esc).join(" · ")}</span>`:''}</span><span>${r.pendOnly?"Por cotizar":`<span class="pp2"><b>${money(r.amt/S.guests)} por persona</b><small>${money(r.amt)} por el total de invitados${r.pend&&r.pend.length?" + por cotizar":""}</small></span>`}</span>
     ${r.k!=="Planner"?`<div class="avail"><span>🔔 ${nAv(r.k)} proveedores que cumplen con lo que pides <b>están disponibles</b></span><button class="btn cta sm" type="button" data-ct="${esc(r.k)}">Contactar</button></div>`:''}</div>`).join("")}
-   ${S.more?`<div><span>✏️ Pedido especial<br><span class="sub">${esc(S.more)}</span></span><span>Por cotizar</span></div>`:''}</div>
+   ${S.more?`<div><span>✏️ Pedido especial<br><span class="sub">${esc(S.more)}</span></span><span>Por cotizar</span></div>`:''}${S.extra?`<div><span>📝 Lo que agregaste<br><span class="sub">${esc(S.extra)}</span></span><span></span></div>`:''}</div>
    <h3 style="font-size:19px">Consejos de Vernie 🪩</h3><div id="tipsBox">${tipHtml(tips("result"))}</div></div>`;
   hqvTrack("calculo_visto",{occ:S.occ,invitados:S.guests,total:Math.round(t)});
   $("pname").oninput=e=>{S.partyName=e.target.value;};
@@ -771,9 +815,10 @@ function render(){updateTop();const el=$("screen");
     zona:S.hasPlace?((S.place.addr&&(S.place.addr.muni||S.place.addr.state))||""):(S.need.all?S.need.state:S.need.munis.join(", ")),venue:S.hasPlace===false,lugarDe:S.hasPlace?S.place.owner:null,
     planner:pl?{n:pl.n,e:pl.e,z:pl.z,y:pl.y,r:pl.r,f:pl.f,sp:pl.sp,b:pl.b}:null,
     rows:rs.map(r=>({k:r.k,e:r.e,label:r.label,subs:r.subs||[],amt:Math.round(r.amt),pend:!!r.pendOnly,disp:nAv(r.k)})),early:earlyPct(),
+    pago:payText(),nota:S.extra||"",
     servicios:Object.keys(S.sel).map(c=>({cat:c,subs:S.sel[c].map(s=>{const x=lineCalc(c,s,S.guests),r=REF[c+"|"+s];return{n:s,unidad:r?r[0]:null,estimado:Math.round(x.total||0),cantidad:x.qty||null};})}))};
    hqvTrack("guardar_y_enviar",{occ:S.occ,cta});
-   if(parent!==window){try{parent.postMessage({hqv:"fiesta-lista",fiesta,nombre:S.name,cta},"*");}catch(_){}}
+   if(parent!==window){try{parent.postMessage({hqv:"fiesta-lista",fiesta,nombre:S.name,cta,state:JSON.parse(JSON.stringify(S))},"*");}catch(_){}}
    else alert("En el sitio real aquí se abre «Crea tu cuenta» y luego tu cuenta.");};
   $("send").onclick=()=>send("guardar");el.querySelectorAll("[data-ct]").forEach(b=>b.onclick=()=>send("contactar:"+b.dataset.ct));confetti();return;}
 
@@ -816,10 +861,10 @@ function venueResultHtml(){const vm=venueMatch(),ef=earlyFactor(),f=S.factor.Ven
   <div class="tip info"><span class="emo">📋</span><span><b>Lo que te pedirán:</b> anticipo de ${deps.join(" a ")||"—"}${advs.length?` · reservar con ${rng(advs,x=>x)} días de anticipación`:''}${guar.length?` · depósito en garantía de ${rng(guar,money)}`:''}${docs.length?` · documentos: ${esc(docs.join(", "))}`:''}.</span></div>`
   :`<div class="tip warn"><span class="emo">🔎</span><span>Todavía no hay venues en la red que cumplan todo lo que pides. Usamos el promedio general; prueba con más zonas, otro tipo de lugar o que algún servicio lo ponga el venue.</span></div>`}
   </div>`;}
-function drawBudgetAmounts(){const pct=earlyPct();const pz=$("prize");if(pz)pz.innerHTML=pct?`<div class="prize"><span class="emo">🎁</span><span><b>Premio por anticipación:</b> como estás reservando con ${daysTo()} días de anticipación, tu promedio es ${pct}% más bajo que el del mercado. ¡Así se planea una fiesta!</span></div>`:(urgency()&&urgency().k>=2?`<div class="tip orange"><span class="emo">⏱️</span><span>Con menos de un mes, los precios promedio suelen subir. Reservando con 2 meses o más obtienes hasta 10% de descuento en el promedio.</span></div>`:'');
+function drawBudgetAmounts(){const pct=earlyPct();const pz=$("prize");if(pz)pz.innerHTML=pct?`<div class="prize"><span class="emo">🎁</span><span><b>¡Felicitaciones!</b> Como estás organizando con ${daysTo()} días de anticipación, tu promedio es ${pct}% más bajo. ¡Así se planea una fiesta!</span></div>`:(urgency()&&urgency().k>=2?`<div class="tip orange"><span class="emo">⏱️</span><span>Con menos de un mes, los precios promedio suelen subir. Reservando con 2 meses o más obtienes hasta 10% de descuento en el promedio.</span></div>`:'');
  rows().forEach(r=>{const a=$("a-"+r.k);if(!a)return;a.textContent=r.set?money(r.amt/S.guests):"$0";$("ap-"+r.k).textContent=r.set?"por persona · "+money(r.amt)+" total":"aún sin asignar";
-  $("av-"+r.k).innerHTML=pct?`Promedio del mercado <s>${money(r.mkt/S.guests)}</s> · <b>tu promedio ${money(r.avg/S.guests)}</b> por persona`:`Promedio del mercado: ${money(r.avg/S.guests)} por persona`;
-  const L=!r.set?["un","⚪ Sin asignar: mueve la barra a lo que quieres gastar"]:r.f<.85?["lo","💰 Por debajo del promedio: puede que pocos proveedores acepten"]:r.f<=1.15?["mid","⭐ En el promedio del mercado"]:["hi","💎 Por encima del promedio: acceso a proveedores de mayor nivel"];const l=$("l-"+r.k);l.className="lvl "+L[0];l.textContent=L[1];});updateTop();}
+  $("av-"+r.k).innerHTML=`Promedio de la comunidad ¡Hay que vernos!: <b>${money(r.avg/S.guests)}</b> por persona`;
+  const L=!r.set?["un","⚪ Sin asignar: mueve la barra a lo que quieres gastar"]:r.f<.85?["lo","💰 Por debajo del promedio: puede que pocos proveedores acepten"]:r.f<=1.15?["mid","⭐ En el promedio de la comunidad"]:["hi","💎 Por encima del promedio: acceso a proveedores de mayor nivel"];const l=$("l-"+r.k);l.className="lvl "+L[0];l.textContent=L[1];});updateTop();}
 function applySuggestions(){const id=S.kind+"|"+S.occ;if(S.suggestedFor===id)return;const K=KEY(),sg=(CONV.sug[K]||{})[S.occ]||CONV.sug["def"+K]||[];const ex=excluded();
  S.sel={};S.meta={};OPENC.clear();sg.forEach(k=>{const [c,s]=k.split("|");if(!subVisible(c,s,ex))return;(S.sel[c]=S.sel[c]||[]).push(s);S.meta[c]=S.meta[c]||{};});S.suggestedFor=id;}
 
