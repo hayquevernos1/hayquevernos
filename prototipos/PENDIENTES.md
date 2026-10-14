@@ -1,5 +1,8 @@
 # Pendientes del prototipo · lado proveedor
 
+> ✅ **Aplicados en v15 (14 oct 2026)** junto con el catálogo v2 (`v5/catalogo_v2.js`, generado de `Catalogo_eventos_concentrado_v2.xlsx` con `gen_cat2.py`). Variabilidad ± reemplaza «¿es negociable?» por decisión de Diego.
+> Siguiente: llevar el catálogo v2 al lado anfitrión (cotizador) para que ambos lados usen las mismas categorías.
+
 Diego los dejó el 9 oct 2026 (15:22). **No aplicar todavía.** Se aplican cuando Diego entregue el catálogo de categorías y subcategorías y diga «aplícalos». Lado anfitrión: 100% cerrado en v14.
 
 ## Mi venue

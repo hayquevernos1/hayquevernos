@@ -492,6 +492,22 @@ button.link{border:0;background:none;color:#BE0078;font:inherit;font-weight:800;
 .mcta .hint{color:rgba(255,255,255,.85)!important}
 .mcta button.link{color:#fff}
 
+/* ===== v15 · pop-ups del proveedor ===== */
+.sheet.celeb{max-width:460px;text-align:center;justify-items:center;background:linear-gradient(165deg,#41145F 0%,#8205B4 50%,#FA1ED2 115%)!important;color:#fff;box-shadow:0 0 0 3px rgba(190,255,0,.35),0 24px 60px rgba(0,0,0,.45)}
+.sheet.celeb h2{color:#fff;font-size:23px;line-height:1.15;margin:0}
+.sheet.celeb .mk{font-size:11px;font-weight:900;letter-spacing:.14em;color:#BEFF00}
+.sheet.celeb .big{font-size:56px;line-height:1;filter:drop-shadow(0 6px 14px rgba(0,0,0,.3));animation:lit .6s ease-out}
+.sheet.celeb .lead{display:grid;gap:6px;width:100%;background:rgba(255,255,255,.12);border-radius:18px;padding:12px 14px;text-align:left}
+.sheet.celeb .lead b{font-size:16px}.sheet.celeb .lead span{font-size:13.5px;opacity:.92}
+.sheet.celeb .lead .kv{display:flex;flex-wrap:wrap;gap:6px}.sheet.celeb .lead .kv i{font-style:normal;background:rgba(255,255,255,.16);border-radius:99px;padding:3px 10px;font-size:12.5px;font-weight:800}
+.sheet.celeb .clock{background:#BEFF00;color:#1a1033;border-radius:99px;padding:4px 12px;font-weight:900;font-size:13px}
+.sheet.celeb .todo{display:grid;gap:8px;width:100%;text-align:left}
+.sheet.celeb .todo div{display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,.12);border-radius:16px;padding:10px 12px;font-size:13.5px;line-height:1.35}
+.sheet.celeb .todo div b{display:block;font-size:14.5px}
+.sheet.celeb .todo .n{flex:0 0 26px;height:26px;border-radius:50%;background:#BEFF00;color:#1a1033;display:grid;place-items:center;font-weight:900}
+.sheet.celeb .hint{color:rgba(255,255,255,.85)!important}
+.sheet.celeb button.link{color:#fff}
+
 /* ===== v12 · degradados de marca ===== */
 :root{--g-prov:linear-gradient(160deg,#9146FF 0%,#FA1ED2 100%);--g-host:linear-gradient(160deg,#FA1ED2 0%,#FF6905 100%);
  --g-cta:linear-gradient(135deg,#BEFF00 0%,#FAFA19 100%);--cta-ink:#1a1033;--wa:#25D366;--ok-solid:#00A884}
@@ -533,7 +549,7 @@ button.link{border:0;background:none;color:#BE0078;font:inherit;font-weight:800;
 <script src="config.js"></script>
 <script src="qr.js"></script>
 
-<div class="proto" id="proto"><b style="background:var(--hqv-vainilla);color:#3A2E00">PROTOTIPO v14</b><span>Precios provisionales. No se cobra nada ni se guardan datos.</span><span class="sp"></span><span class="who"><button class="pill sm" type="button" id="demo">👀 Ver como anfitrión</button><button class="pill sm" type="button" id="demoP">👀 Ver como proveedor</button></span><button class="pill sm" type="button" id="reset">↺ Empezar de nuevo</button></div>
+<div class="proto" id="proto"><b style="background:var(--hqv-vainilla);color:#3A2E00">PROTOTIPO v15</b><span>Precios provisionales. No se cobra nada ni se guardan datos.</span><span class="sp"></span><span class="who"><button class="pill sm" type="button" id="demo">👀 Ver como anfitrión</button><button class="pill sm" type="button" id="demoP">👀 Ver como proveedor</button></span><button class="pill sm" type="button" id="reset">↺ Empezar de nuevo</button></div>
 
 <header class="top"><div class="wrap in">
   <img class="logo" id="logoBtn" src="img/logo.webp" alt="¡Hay que vernos! — Inicio" width="900" height="358">
@@ -778,7 +794,7 @@ function jobDetailHtml(j){const e=jobEvent(j);const lib=j.confirmado!==false;
   <div class="box"><div class="cli"><span class="av">${esc(j.cliente[0])}</span><span style="display:grid;flex:1"><span class="hint" style="font-weight:800">Tu cliente</span><b>${esc(j.cliente)}</b><span class="hint">${fdate(j.date)} · ${j.guests} invitados · pre-cotización ${money(j.total)} · tu cobro ${money(j.cobro||0)}</span></span><a class="btn wa sm" href="https://wa.me/525500000000" target="_blank" rel="noopener">💬 WhatsApp</a></div>
    <div class="contact-note">🤝 <span><b>Tanto los proveedores como tu cliente anfitrión esperan que tú des el primer paso.</b> Contáctalos y confirma quiénes quedan seleccionados en tu evento.</span></div></div>
   ${j.nuevo&&!j.conf?`<div class="box"><div class="lockd">${em("hourglass_not_done")}<span><b>Esperando a que ${esc(j.cliente)} confirme el trato y pague.</b> En cuanto lo haga, les liberamos a los dos los contactos de los proveedores y te avisamos aquí y por correo.</span></div><button class="sim" type="button" id="jConf">Simular: tu cliente confirmó y pagó</button></div>`:provListBox(e,false)}</section>`;}
-function bindJob(j){const c=$("jConf");if(c){c.onclick=()=>{j.conf=true;confetti();inbox("negocio",`🔓 ${j.cliente} confirmó. Ya ves a sus proveedores.`);drawAcct();};return;}bindProvList(j.e);}
+function bindJob(j){const c=$("jConf");if(c){c.onclick=()=>{j.conf=true;inbox("negocio",`🔓 ${j.cliente} confirmó. Ya ves a sus proveedores. Te toca dar el primer paso.`);drawAcct();plannerSelPop(j);};return;}bindProvList(j.e);}
 function drawFiestas(p){const isPl=(U.site&&(U.site.tipos||[]).includes("planner"))||(U.plannerJobs||[]).length;U.sub="mias";
  const done=e=>daysTo(e.f.date)<0&&e.surveyDone,act=U.events.filter(e=>!done(e)),cel=U.events.filter(done);
  if(!act.some(e=>e.id===U.eventId))U.eventId=act[0]?act[0].id:null;
@@ -1151,9 +1167,9 @@ function drawNegocio(p){negState();if(!vtOn(U.neg.vt))return drawNegOff(p);const
    <span style="background:rgba(255,255,255,.18);border-radius:99px;padding:4px 12px;font-weight:800;word-break:break-all;justify-self:start">${esc(s.url||"hayquevernos.com/minegocio")}</span>
    <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn ghost sm" type="button" id="sEdit">✏️ Editar mi sitio</button><button class="btn ghost sm" type="button" id="sCopy">🔗 Copiar link</button><button class="btn ghost sm" type="button" id="sImg">⬇️ Imagen para redes</button>${pro?"":`<button class="btn cta sm" type="button" id="sPro">⭐ Pasar a Pro</button>`}</div></div>
  ${negTabs(vt)}
- <section class="tsec"><h3 class="tlab">🔮 Por venir <span class="hint">Tu agenda. Las fechas cerradas les avisan a otros anfitriones si estás disponible.</span></h3>
-  ${ag.map((a,i)=>`<div class="agd2"><img class="em lg" src="img/e_spiral_calendar.webp" alt="" onerror="this.remove()"><span class="grow"><b>${fdate(a.d)}</b><span class="hint">${esc(a.ev)}</span></span><div class="seg" role="group"><button type="button" data-ag="${a.d}|cerrada" aria-pressed="${a.st==="cerrada"}">Fecha cerrada</button><button type="button" data-ag="${a.d}|disp" aria-pressed="${a.st==="disp"}">Cerrada con disponibilidad</button></div></div>`).join("")||'<div class="empty"><span class="hint">Aún no tienes fechas. Cuando quedes seleccionado, la fecha se marca sola.</span></div>'}
-  <div class="row" style="gap:8px"><input type="date" id="blD" aria-label="Fecha ocupada" style="flex:1 1 160px"><button class="btn ghost sm" type="button" id="blAdd">Cerrar una fecha</button></div></section>
+ <section class="tsec"><h3 class="tlab">🔮 Por venir <span class="hint">Tu agenda. Las fechas bloqueadas les avisan a otros anfitriones si estás disponible.</span></h3>
+  ${ag.map((a,i)=>`<div class="agd2"><img class="em lg" src="img/e_spiral_calendar.webp" alt="" onerror="this.remove()"><span class="grow"><b>${fdate(a.d)}</b><span class="hint">${esc(a.ev)}</span></span><div class="seg" role="group"><button type="button" data-ag="${a.d}|cerrada" aria-pressed="${a.st==="cerrada"}">Fecha bloqueada</button><button type="button" data-ag="${a.d}|disp" aria-pressed="${a.st==="disp"}">Bloqueada con disponibilidad</button></div></div>`).join("")||'<div class="empty"><span class="hint">Aún no tienes fechas. Cuando quedes seleccionado, la fecha se marca sola.</span></div>'}
+  <div class="row" style="gap:8px"><input type="date" id="blD" aria-label="Fecha ocupada" style="flex:1 1 160px"><button class="btn ghost sm" type="button" id="blAdd">Bloquear una fecha</button></div></section>
  <section class="tsec"><h3 class="tlab">🎈 En proceso <span class="hint">${vt==="planner"?"Clientes que te eligieron como su event planner.":"Eventos que encajan contigo. Postúlate y el anfitrión verá tu WhatsApp."}</span></h3>
   <b>${em("megaphone")} Solicitudes</b>
   ${sol.length?`<div class="fgrid"><div class="flist">${sol.map(r=>solFicha(r,r.id===N.sel)+(mob&&r.id===N.sel?det:"")).join("")}</div>${!mob?det:""}</div>`:`<div class="empty"><span class="hint">No tienes solicitudes nuevas. Te avisamos aquí y por correo en cuanto llegue una.</span></div>`}
@@ -1194,12 +1210,43 @@ function drawNegocio(p){negState();if(!vtOn(U.neg.vt))return drawNegOff(p);const
   toast("🤝 ¡Aceptado! Lo encuentras abajo, en Mis clientes.");U.tab="negocio";U.jobSel=U.plannerJobs[0].nombre;drawAcct();setTimeout(()=>{const d=$("jobBox");d&&d.scrollIntoView({behavior:"smooth",block:"start"});},80);});
  p.querySelectorAll("[data-ps]").forEach(b=>b.onclick=()=>{const x=N.post.find(y=>y.id===+b.dataset.ps);
   if(x.stage<2){x.stage++;toast(x.stage===1?"👀 El anfitrión vio tu perfil.":"💬 El anfitrión te escribió por WhatsApp.");}
-  else{const k=(N.post.indexOf(x))%3;x.fin=["sel","nosel","sin"][k];if(x.fin==="sel"){N.agenda.push({d:x.date,ev:x.ev,st:"cerrada",vt:x.vt});toast("🎉 ¡Te seleccionaron!");}
+  else{const k=(N.post.indexOf(x))%3;x.fin=["sel","nosel","sin"][k];if(x.fin==="sel"){N.agenda.push({d:x.date,ev:x.ev,st:"cerrada",vt:x.vt});setTimeout(()=>svcSelPop(x),60);}
    if(x.fin==="nosel"){x.why=["Precio fuera de mi presupuesto","Elegí a otro proveedor"];x.com="Nos encantó tu propuesta, pero se salió del presupuesto.";}}drawAcct();});
  p.querySelectorAll("[data-pdel]").forEach(b=>b.onclick=()=>confirmModal("¿Borrar esta postulación de tu lista?","Sí, borrar",()=>{N.post=N.post.filter(y=>y.id!==+b.dataset.pdel);drawAcct();}));
- p.querySelectorAll("[data-ag]").forEach(b=>b.onclick=()=>{const[d,st]=b.dataset.ag.split("|");const a=N.agenda.find(x=>x.d===d&&x.vt===vt);a.st=st;toast(st==="disp"?"🟢 Seguirás saliendo en búsquedas con «Fecha cerrada con disponibilidad».":"🔒 Saldrás con «Fecha cerrada» en esa fecha.");drawAcct();});
- $("blAdd").onclick=()=>{const d=$("blD").value;if(!d)return;N.agenda.push({d,ev:"Fecha ocupada (fuera de ¡HQV!)",st:"cerrada",vt});drawAcct();toast("📅 Fecha cerrada");};
- $("sReq").onclick=()=>{seedSol(vt,1);inbox("negocio",vt==="planner"?"📋 Un anfitrión te eligió como su event planner. Tienes 24 h.":"🔔 Un evento encaja contigo. Tienes 24 h para postularte.");drawAcct();};}
+ p.querySelectorAll("[data-ag]").forEach(b=>b.onclick=()=>{const[d,st]=b.dataset.ag.split("|");const a=N.agenda.find(x=>x.d===d&&x.vt===vt);a.st=st;toast(st==="disp"?"🟢 Seguirás saliendo en búsquedas con «Bloqueada con disponibilidad».":"🔒 Saldrás con «Fecha bloqueada» en esa fecha.");drawAcct();});
+ $("blAdd").onclick=()=>{const d=$("blD").value;if(!d)return;N.agenda.push({d,ev:"Fecha ocupada (fuera de ¡HQV!)",st:"cerrada",vt});drawAcct();toast("📅 Fecha bloqueada");};
+ $("sReq").onclick=()=>{seedSol(vt,1);inbox("negocio",vt==="planner"?"📋 Un anfitrión te eligió como su event planner. Tienes 24 h.":"🔔 Un evento encaja contigo. Tienes 24 h para postularte.");drawAcct();leadPop(U.neg.sol[0],vt);};}
+
+/* Pop-ups con confeti para el proveedor */
+function celebPop(html,bind){const m=$("modal");m.innerHTML=`<div class="sheet celeb">${html}</div>`;m.hidden=false;try{confetti();}catch(_){}bind(m);}
+function leadPop(r,vt){if(!r)return;const pl=vt==="planner";
+ celebPop(`<span class="mk">${pl?"📋 TE ELIGIERON":"🔔 NUEVA OPORTUNIDAD"}</span><div class="big">${pl?"🥳":"🎉"}</div>
+  <h2>${pl?`¡${esc(r.cli.n)} te eligió como su event planner!`:`¡Te llegó una oportunidad de trabajo!`}</h2>
+  <div class="lead"><b>${esc(r.occ)} · ${r.guests} invitados</b><span>${fdate(r.date)} · ${esc(r.zona)} · a ${r.km} km de ti</span>
+   <div class="kv">${pl?`<i>💰 Presupuesto ${money(r.total)}</i>`:`<i>${esc(r.svc)}</i><i>💰 ${money(r.est)} estimado</i>`}<i>⭐ ${r.cli.stars} anfitrión ${r.cli.ver?"verificado":""}</i></div></div>
+  <span class="clock">⏳ Tienes 24 h para ${pl?"aceptar":"postularte"}</span>
+  <button class="btn cta" type="button" id="lpGo" style="width:100%">${pl?"Ver la solicitud y aceptar →":"Ver la solicitud y postularme →"}</button>
+  <button class="link" type="button" id="lpLater">Más tarde</button>`,m=>{
+  $("lpGo").onclick=()=>{track("lead_popup",{abrir:true,vt});m.hidden=true;U.neg.sel=r.id;drawAcct();setTimeout(()=>{const f=document.querySelector(".ficha.on,.ficha[aria-pressed='true']");f&&f.scrollIntoView({behavior:"smooth",block:"center"});},80);};
+  $("lpLater").onclick=()=>{track("lead_popup",{abrir:false,vt});m.hidden=true;};});}
+function plannerSelPop(j){const n=esc(j.cliente),np=(j.e&&j.e.interes)||"tus";
+ celebPop(`<span class="mk">✅ TRATO CONFIRMADO</span><div class="big">🏆</div><h2>¡${n} confirmó y pagó! Ahora te toca a ti 💪</h2>
+  <div class="todo">
+   <div><span class="n">1</span><span><b>Da el primer paso hoy</b>${n} ya te eligió y no hará nada más: está esperando tu mensaje.</span></div>
+   <div><span class="n">2</span><span><b>Los contactos son solo tuyos</b>Liberamos a ${np} proveedores únicamente para ti. Tu cliente no tiene sus datos.</span></div>
+   <div><span class="n">3</span><span><b>Tú eres el contacto principal</b>Desde ahora coordinas con los proveedores. El rumbo y el éxito del proyecto dependen 100% de ti.</span></div></div>
+  <button class="btn wa" type="button" id="spWa" style="width:100%">💬 Escribirle a ${n} por WhatsApp</button>
+  <button class="link" type="button" id="spProv">Primero quiero ver a los proveedores</button>`,m=>{
+  $("spWa").onclick=()=>{track("planner_primer_contacto");m.hidden=true;toast("📲 Abriríamos WhatsApp con tu cliente (simulado)");};
+  $("spProv").onclick=()=>{m.hidden=true;};});}
+function svcSelPop(x){celebPop(`<span class="mk">🏆 ¡GANASTE!</span><div class="big">🎉</div><h2>¡Te seleccionaron para ${esc(x.ev)}!</h2>
+  <span>Tu cliente ya tiene tu WhatsApp y puede escribirte. ¿Quieres adelantarte?</span>
+  <div class="lead"><b>⚡ Los proveedores que escriben en menos de 1 hora se quedan con más proyectos.</b><span>Preséntate, confirma la fecha y pregunta cómo quiere que te lleguen los detalles.</span></div>
+  <button class="btn wa" type="button" id="ssWa" style="width:100%">💬 Escribirle ahora</button>
+  <button class="link" type="button" id="ssLater">Prefiero esperar su mensaje</button>`,m=>{
+  $("ssWa").onclick=()=>{track("proveedor_primer_contacto");m.hidden=true;toast("📲 Abriríamos WhatsApp con tu cliente (simulado)");};
+  $("ssLater").onclick=()=>{m.hidden=true;};});}
+
 function seedSol(vt,n){U.neg=U.neg||{vt,sol:[],post:[],agenda:[],removed:0,sel:null};const C=[{n:"Mariana López",stars:4.8,ev:2,ver:true},{n:"Laura Méndez",stars:5,ev:1,ver:true},{n:"Grupo Andrés",stars:4.6,ev:4,ver:false},{n:"Carlos Pérez",stars:4.9,ev:3,ver:true}];
  const E=[["Boda",120,"Jardín en San Ángel"],["15 años",150,"Salón en Coyoacán"],["Cumpleaños",40,"Casa en Tlalpan"],["Posada de oficina",80,"Terraza en Polanco"]];
  const SV={svc:[["Mesas de dulces",["Mesas de dulces","Galletas decoradas"],10500],["Carritos de alimentos",["Carritos de alimentos"],7200]],venue:[["Renta del venue",["Terraza","Mobiliario incluido"],26000]],planner:[["Event planner",[],0]]};

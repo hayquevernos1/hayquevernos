@@ -2,7 +2,7 @@
    Una sola lista de tipos de venue, características y servicios para que los dos lados hablen el mismo idioma,
    y el motor del "precio estándar ¡HQV!": convierte cualquier forma de cobro de un venue a un precio comparable. */
 const HQV=(()=>{
-const VENUE_TYPES=[["Terraza","🌇"],["Jardín","🌳"],["Salón","🏛️"],["Roof garden","🏙️"],["Casa o depa","🏠"],["Patio","🪴"],["Restaurante o bar","🍸"],["Club o centro social","🎾"],["Foro o bodega","🏭"],["Oficina o coworking","🏢"],["Locación","📍"]];
+const VENUE_TYPES=[["Salón","🏛️"],["Jardín","🌳"],["Terraza","🌇"],["Patio","🪴"],["Roof garden","🏙️"],["Hacienda o quinta","🐎"],["Hotel sede","🏨"],["Casa o depa","🏠"],["Club o centro social","🎾"],["Restaurante o bar","🍸"],["Foro o bodega","🏭"],["Centro de convenciones","🏟️"],["Coworking o sala de juntas","🏢"],["Carpas y estructuras temporales","⛺"],["Locación especial (playa, museo, viñedo…)","📍"]];
 // Lo que el venue TIENE (proveedor) y lo que el anfitrión NECESITA salen de esta misma lista
 const VENUE_FEATS=[["techado","☂️","Techado"],["aire","🌤️","Área al aire libre"],["estac","🚗","Estacionamiento"],["cocina","🍳","Cocina equipada"],["accesible","♿","Accesible"],["ninos","🧸","Zona para niños"],["pet","🐶","Pet friendly"],["fumar","🚬","Área para fumar"],["sonido","🔊","Sonido instalado"],["luz","💡","Luz y contactos"],["agua","🚰","Agua corriente"],["refri","❄️","Refrigerador"],["almacen","📦","Almacenamiento"],["calle","🚪","Acceso directo a la calle"],["elevador","🛗","Elevador"],["wifi","📶","Wifi"]];
 const NEED_KEYS=["techado","aire","estac","cocina","accesible","ninos","pet","fumar","sonido"];

@@ -376,6 +376,44 @@ label.pick input[type=file]{position:absolute;inset:0;opacity:0;width:100%;curso
 .vq .row2 input{flex:0 0 110px}.vq .row2 select{flex:0 0 140px}
 @media(max-width:560px){.dlz{grid-template-columns:1fr}}
 
+/* ===== v15 · catálogo v2 ===== */
+.dlc,.dlc .dlh,.dlc .dlh .sm,#svcList .box,#svcList .field,#svcList .field>*,.ofc{min-width:0}
+.dlc.closed .dlh{overflow:hidden}.ofc .dlh .of-x{flex:0 0 auto}
+.dlc .dlh .sm{flex:1 1 0}
+.ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;border-radius:18px}
+.way{display:flex;gap:10px;align-items:center;text-align:left;border:0;border-radius:20px;padding:12px 14px;background:#fff;box-shadow:var(--hqv-clay-sm,0 4px 12px rgba(65,20,95,.08));font:inherit;cursor:pointer;color:#1a1033}
+.way .emo{font-size:26px}.way b{display:block;font-size:14.5px}.way small{display:block;font-size:12px;color:var(--muted);line-height:1.3}
+.way[aria-pressed="true"]{background:linear-gradient(160deg,#9146FF,#FA1ED2);color:#fff}.way[aria-pressed="true"] small{color:rgba(255,255,255,.88)}
+.chips.cmini .chip{font-size:12.5px;padding:6px 11px}
+.ofc .mini-l{margin-top:4px}
+.incr{display:grid;grid-template-columns:56px 1fr 1.3fr auto;gap:6px;align-items:center}
+.incr.ex{grid-template-columns:56px 1fr 1.1fr 112px auto}
+.incr input{min-width:0;padding:9px 10px;font-size:14px}
+.incr .r-c{display:flex;align-items:center;gap:4px;font-weight:900;color:#8205B4}
+.tmr{display:grid;grid-template-columns:120px auto 1fr auto;gap:6px;align-items:center}
+.tmr input{min-width:0;padding:9px 10px;font-size:14px}
+.tmr .yn button{padding:6px 10px;font-size:12px}
+.durr{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.durr input{width:80px}.durr select{width:auto}
+.tarr{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:#F7F4FF;border-radius:16px;padding:8px 10px}
+.tarr .sl-p{display:flex;align-items:center;gap:4px;font-weight:900;color:#8205B4}.tarr .sl-p input{width:110px}
+.tarr select{width:auto;min-width:0;flex:0 1 auto}
+.tarr .ta-uo{flex:1 1 140px}
+.tarr .ta-al{font-size:12.5px;color:var(--muted);font-weight:700;display:flex;align-items:center;gap:4px}.tarr .ta-al input{width:64px;padding:6px 8px}
+.tarr .ta-hv{flex-basis:100%}.tarr .rn{font-size:13.5px;min-width:120px}
+.hv .pm,.pmv{background:#E6FFF4;color:#00684A;border-radius:99px;padding:1px 7px;font-weight:900;font-size:11.5px}
+.newrow{display:flex;gap:8px}
+.varr{display:flex;gap:12px;align-items:center;justify-content:space-between}
+.varr .hint{font-size:12px}
+.pmf{display:flex;align-items:center;gap:4px;font-weight:900;font-size:20px;color:#8205B4;flex:0 0 auto}.pmf input{width:76px;font-size:17px;font-weight:900;text-align:center}
+.viat{display:block;margin:-6px 0 10px;background:#FFF7D6;border-radius:12px;padding:8px 11px;font-size:12.5px;color:#3A2E00}
+.hrow{display:flex;gap:8px;align-items:center}.hrow input{flex:1 1 auto;min-width:0}.hrow select{flex:0 0 auto;width:auto}
+.vq .row2 .lab{font-size:13px;font-weight:800;min-width:62px}
+.plist .po{display:grid!important;gap:2px;justify-content:stretch!important}.plist .poh{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+.plist .inc{display:block;font-size:11.5px;color:var(--muted);font-weight:600;margin-top:2px}
+@media(max-width:560px){.incr,.incr.ex{grid-template-columns:48px 1fr 24px;grid-template-areas:"q u x" "w w w" "c c c"}.incr .r-q{grid-area:q}.incr .r-u{grid-area:u}.incr .r-x{grid-area:x}.incr .r-w{grid-area:w}.incr .r-c{grid-area:c}
+.tmr{grid-template-columns:1fr auto 24px;grid-template-areas:"n s x" "d d d"}.tmr .t-n{grid-area:n}.tmr .sd{grid-area:s}.tmr .t-x{grid-area:x}.tmr .t-d{grid-area:d}
+.ofc .dlh .of-x{white-space:nowrap}.varr{flex-direction:column;align-items:flex-start}}
+
 /* ===== v12 · degradados de marca ===== */
 :root{--g-prov:linear-gradient(160deg,#9146FF 0%,#FA1ED2 100%);--g-host:linear-gradient(160deg,#FA1ED2 0%,#FF6905 100%);
  --g-cta:linear-gradient(135deg,#BEFF00 0%,#FAFA19 100%);--cta-ink:#1a1033;--wa:#25D366;--ok-solid:#00A884}
@@ -468,6 +506,7 @@ label.pick input[type=file]{position:absolute;inset:0;opacity:0;width:100%;curso
 <script src="config.js"></script>
 <script src="catalogo.js"></script>
 <script src="catalogo_servicios.js"></script>
+<script src="catalogo_v2.js"></script>
 <script src="conversiones.js"></script>
 <script src="qr.js"></script>
 <script>
@@ -517,6 +556,224 @@ function bindAddrBlock(a,k,changed,redraw){const g=id=>document.getElementById(i
 
 const SVC=window.HQV_SVC,UF=SVC.units;
 const CATS=SVC.cats.map(c=>({n:c.n,e:c.e,s:c.s.map(([n,t,u])=>({n,t,u}))}));
+const C2=window.HQV_CAT2,CAT2=C2.cats;
+/* ===== v15 · Servicios con el catálogo v2: servicio completo / staff / solo renta =====
+   Un solo motor para todas las categorías (qué incluye · tarifa · extras) y catering con formatos,
+   tiempos o variedades y bebidas. Variabilidad ± y temporada alta con calendario a nivel paso. */
+const WAYS=[["full","🎁","Servicio completo","Llevo todo: equipo, insumos y personal"],["staff","🙋","Solo mi talento (staff)","Voy yo o mi equipo; el lugar o el cliente pone lo demás"],["rent","📦","Solo renta","Rento el equipo o los artículos, sin operarlos"]];
+const FOOD_FMT=["Banquete","Buffet","Cóctel","Estación","Box lunch","Mesa de postres y pastel","Comida para staff y proveedores","Coffee break"];
+const FMT_EMO={"Banquete":"🍽️","Buffet":"🥘","Cóctel":"🍢","Estación":"🌮","Box lunch":"🥡","Barra de bebidas":"🍹","Coffee break":"☕","Mesa de postres y pastel":"🎂","Comida para staff y proveedores":"🍱"};
+const MONTHS=[["ene","Ene"],["feb","Feb"],["mar","Mar"],["abr","Abr"],["may","May"],["jun","Jun"],["jul","Jul"],["ago","Ago"],["sep","Sep"],["oct","Oct"],["nov","Nov"],["dic","Dic"]];
+const HIGH_STD=["may","jun","oct","nov","dic"];
+const GASTROS=[...new Set([...Object.keys(C2.cocina.Salado),...Object.keys(C2.cocina.Dulce)])];
+const U_FULL=["Por persona","Por evento","Por paquete","Por pieza","Por hora","Por caja","Por kilo","Por litro","Por mesa","Por docena (12 piezas)","Por ciento (100 piezas)","Por estación","Por día","Por menú"];
+const U_STAFF=[["Por hora","por hora"],["Por turno","por turno (5 h)"],["Por evento","por evento"],["Por día","por día"]];
+const U_RENT=[["Por pieza","por pieza"],["Por juego","por juego"],["Por evento","por evento"],["Por día","por día"]];
+const TPL={"Banquete":[["3","tiempos","de menú"],["1","mesero","por cada 15 invitados"],["","Loza, cristalería y mantelería",""]],
+ "Buffet":[["4","guisados","a elegir"],["2","guarniciones",""],["1","mesero","por cada 25 invitados"]],
+ "Cóctel":[["8","piezas","por persona"],["1","mesero","por cada 25 invitados"]],
+ "Estación":[["1","estación","montada con cocinero"],["3","salsas y complementos",""]],
+ "Box lunch":[["1","caja","por persona"],["1","bebida",""],["1","postre",""]],
+ "Barra de bebidas":[["1","barra","montada"],["1","bartender","por cada 50 invitados"],["","Hielo, vasos y popotes",""]],
+ "Coffee break":[["2","bebidas calientes","ilimitadas"],["3","bocadillos","por persona"]],
+ "Mesa de postres y pastel":[["6","variedades","de postres"],["3","piezas","por persona"],["","Montaje y decoración de mesa",""]],
+ "Comida para staff y proveedores":[["1","platillo","por persona"],["1","bebida",""]]};
+const UDEF={"Estación":"Por evento","Mesa de postres y pastel":"Por paquete"};
+const TIEMPOS={"Banquete":[["Entrada","Salado"],["Plato fuerte","Salado"],["Postre","Dulce"]],"Buffet":[["Variedad 1","Salado"],["Variedad 2","Salado"]],"Cóctel":[["Variedad 1","Salado"],["Variedad 2","Salado"]],
+ "Estación":[["Variedad 1","Salado"]],"Box lunch":[["Variedad 1","Salado"]],"Mesa de postres y pastel":[["Variedad 1","Dulce"],["Variedad 2","Dulce"]],"Comida para staff y proveedores":[["Variedad 1","Salado"]],"Coffee break":[["Bocadillo 1","Salado"]]};
+const isFood=n=>FOOD_FMT.includes(n),isDrink=n=>n==="Barra de bebidas"||n==="Coffee break";
+const DISH_LIST={};["Salado","Dulce"].forEach(k=>{const s=new Set();Object.values(C2.cocina[k]).forEach(g=>Object.entries(g).forEach(([e,ps])=>{s.add(e);ps.forEach(p=>s.add(p));}));DISH_LIST[k]=[...s].sort((a,b)=>a.localeCompare(b,"es"));});
+const DRINK_VARS=[...new Set(C2.bebidas.flatMap(b=>b.v))].sort((a,b)=>a.localeCompare(b,"es"));
+function blankOffer(n){const t=TPL[n]||[["5","horas","de servicio"]];
+ return{n,inc:t.map(([q,u,w])=>({q,u,w})),dur:/Box lunch|Mesa de postres/.test(n)?"":"5",durU:"horas",tar:[{price:"",u:UDEF[n]||(isFood(n)||n==="Barra de bebidas"?"Por persona":"Por evento"),uo:"",alc:""}],ext:[],
+  gas:[],tiempos:(TIEMPOS[n]||[]).map(([nm,k])=>({n:nm,k,d:""})),dserv:n==="Barra de bebidas"?["Barra"]:[],drinks:n==="Coffee break"?["Café","Tés, tisanas e infusiones"]:[],dvar:""};}
+function svcDefaults(s){if(!s.ways)s.ways={full:false,staff:false,rent:false};if(!s.offers)s.offers=[];if(!s.staff)s.staff=[];if(!s.rent)s.rent=[];if(s.open===undefined)s.open="";if(s.descEdited===undefined)s.descEdited=filled(s.desc);}
+function tarUnitLabel(t){return t.u==="__otra"?(t.uo?"por "+t.uo.replace(/^por\s+/i,""):"otra unidad"):uLabel(t.u);}
+function syncSubs(s){svcDefaults(s);const L=[];
+ if(s.ways.full)s.offers.forEach(o=>o.tar.forEach(t=>{if(t.u)L.push({n:o.n,u:t.u,uo:t.uo||"",price:t.price,yieldP:t.alc||"",pkgP:t.alc||"",pkgH:o.dur||"",unit:tarUnitLabel(t)});}));
+ if(s.ways.staff)s.staff.forEach(r=>L.push({n:r.n,u:r.u,uo:"",price:r.price,yieldP:"",pkgP:"",pkgH:r.min||"",unit:uLabel(r.u)}));
+ if(s.ways.rent)s.rent.forEach(r=>L.push({n:r.n,u:r.u,uo:"",price:r.price,yieldP:"",pkgP:"",pkgH:"",unit:uLabel(r.u)}));
+ s.subs=L;if(!s.descEdited)s.desc=autoDesc(s);}
+function joinY(a){a=a.filter(Boolean);return a.length<2?a.join(""):a.slice(0,-1).join(", ")+" y "+a[a.length-1];}
+function autoDesc(s){const p=[];if(s.ways.full&&s.offers.length)p.push(joinY(s.offers.map(o=>o.n.toLowerCase())));if(s.ways.staff&&s.staff.length)p.push(joinY(s.staff.map(r=>r.n.toLowerCase())));if(s.ways.rent&&s.rent.length)p.push("renta de "+joinY(s.rent.map(r=>r.n.toLowerCase())));
+ if(!p.length)return"";const t=joinY(p);return t.charAt(0).toUpperCase()+t.slice(1)+" para tu fiesta.";}
+function incText(o){return o.inc.filter(r=>filled(r.u)||filled(r.w)).map(r=>[r.q,r.u,r.w].filter(filled).join(" ")).join(" · ");}
+const VAR=()=>+S.svcVar||0,HIGH=()=>S.svcHigh&&+S.svcHigh.pct>0?+S.svcHigh.pct:0;
+function offerHost(o,t,cat){if(!(+t.price>0))return"";const x={n:o.n,u:t.u,uo:t.uo,price:t.price,yieldP:t.alc,pkgP:t.alc};
+ if(t.u==="__otra")return`<span class="hv">👀 Unidad nueva: el anfitrión la verá tal cual y tú le confirmas el total.</span>`;
+ const r=hqvCost({cat,sub:o.n,u:t.u,price:+t.price,guests:EXG,hours:+o.dur||EXH,rinde:t.alc,pkgP:t.alc});
+ if(r.pend)return`<span class="hv">👀 Dinos para cuántas personas alcanza y lo convertimos; si no, el anfitrión lo verá «por cotizar».</span>`;
+ const pp=Math.round(r.total/EXG),v=VAR(),h=HIGH();
+ return`<span class="hv">👀 En una fiesta de ${EXG} personas el anfitrión ve <b>${money(pp)}</b> por persona · <b>${money(Math.round(r.total))}</b> en total${v?` <span class="pm">± ${v}%</span>`:""}${h?` · temporada alta ${money(Math.round(r.total*(1+h/100)))}`:""}${r.note?" · "+esc(r.note):""}</span>`;}
+function offerOk(o){return o.tar.length&&o.tar.every(t=>filled(t.price)&&t.u&&(t.u!=="__otra"||filled(t.uo)))&&o.ext.every(e=>filled(e.w||e.u)&&filled(e.cost));}
+function staffOk(r){return filled(r.price)&&!!r.u;}
+function offerSummary(o){const t=o.tar.find(x=>filled(x.price));return[incText(o),t?`${money(t.price)} ${tarUnitLabel(t)}`:""].filter(Boolean).join(" · ");}
+function rowsInc(o,j,k,cost){const list=cost?o.ext:o.inc,cls=cost?"ex":"in";
+ return list.map((r,ri)=>`<div class="incr ${cls}" data-ri="${ri}"><input type="text" inputmode="decimal" class="r-q" value="${esc(r.q)}" placeholder="#" aria-label="Cantidad"><input type="text" class="r-u" list="dlIncU" value="${esc(r.u)}" placeholder="${cost?"pastel, hora extra…":"piezas, meseros, horas…"}" aria-label="Unidad"><input type="text" class="r-w" value="${esc(r.w)}" placeholder="${cost?"detalle (opcional)":"detalle: de menú, por persona…"}" aria-label="Detalle">${cost?`<label class="r-c"><span>$</span><input type="number" min="0" class="r-cost${MISS(filled(r.cost))}" value="${esc(r.cost)}" aria-label="Costo del extra"></label>`:""}<button type="button" class="link bad r-x" aria-label="Quitar renglón">✕</button></div>`).join("")+
+  `<button type="button" class="link r-add" data-l="${cls}" style="justify-self:start">+ ${cost?"Agregar extra":"Agregar otro"}</button>`;}
+function offerCard(s,k,o,j,cat){const open=s.open==="f"+j,ok=offerOk(o),emo=FMT_EMO[o.n]||"✨";
+ if(!open)return`<div class="dlc closed ofc${MISS(ok)}" data-j="${j}"><button type="button" class="dlh of-open"><b>${emo}</b><span class="sm"><b style="color:#1a1033">${esc(o.n)}</b> · ${esc(offerSummary(o)||"falta tu precio")}</span><span class="ed">${ok?"✏️ Editar":"⚠️ Completar"}</span></button></div>`;
+ const food=isFood(o.n)&&o.n!=="Coffee break",drink=isDrink(o.n),tl=o.n==="Banquete"?"tiempo":o.n==="Coffee break"?"bocadillo":"variedad";
+ return`<div class="dlc open ofc${MISS(ok)}" data-j="${j}">
+  <div class="dlh"><b>${emo} ${esc(o.n)}</b><span class="sm"></span><button type="button" class="link bad of-x" aria-label="Quitar ${esc(o.n)}">✕ Quitar</button></div>
+  ${food?`<span class="mini-l">🌎 ¿Qué cocina? <span class="opt">(opcional)</span></span><div class="chips cmini">${GASTROS.map(g=>`<button type="button" class="chip of-g" data-g="${esc(g)}" aria-pressed="${o.gas.includes(g)}">${TICK}${esc(g)}</button>`).join("")}</div>`:""}
+  ${drink?`<span class="mini-l">🍹 ¿Cómo lo sirves?</span><div class="chips cmini">${C2.bebidasServicio.map(g=>`<button type="button" class="chip of-ds" data-v="${esc(g)}" aria-pressed="${o.dserv.includes(g)}">${TICK}${esc(g)}</button>`).join("")}</div>
+   <span class="mini-l">¿Qué bebidas? <span class="opt">Toca todas las que sirvas</span></span><div class="chips cmini">${C2.bebidas.map(b=>`<button type="button" class="chip of-dr" data-v="${esc(b.n)}" aria-pressed="${o.drinks.includes(b.n)}">${TICK}${b.alc.includes("Con alcohol")&&!b.alc.includes("Sin alcohol")?"🍸 ":b.alc.includes("Con alcohol")?"":"🧃 "}${esc(b.n)}</button>`).join("")}</div>
+   <input type="text" class="of-dv" list="dlDrinks" value="${esc(o.dvar)}" placeholder="Variedades (opcional): margarita, carajillo, agua de jamaica…" aria-label="Variedades de bebidas">`:""}
+  ${o.tiempos.length||food?`<span class="mini-l">🍴 ${o.n==="Banquete"?"Tiempos":o.n==="Coffee break"?"Bocadillos":"Variedades"} <span class="opt">(opcional · si no los defines, el anfitrión ve lo que incluye)</span></span>
+   ${o.tiempos.map((t,ti)=>`<div class="tmr" data-ti="${ti}"><input type="text" class="t-n" value="${esc(t.n)}" aria-label="Nombre del ${tl}"><div class="yn sd" role="group"><button type="button" data-k="Salado" aria-pressed="${t.k==="Salado"}">Salado</button><button type="button" data-k="Dulce" aria-pressed="${t.k==="Dulce"}">Dulce</button></div><input type="text" class="t-d" list="dl${t.k}" value="${esc(t.d)}" placeholder="¿Qué sirves? Escribe y elige: tacos, crema de elote, tiramisú…" aria-label="Platillo"><button type="button" class="link bad t-x" aria-label="Quitar ${tl}">✕</button></div>`).join("")}
+   <button type="button" class="link t-add" style="justify-self:start">+ Agregar ${tl}</button>`:""}
+  <span class="mini-l">✅ ¿Qué incluye? <span class="opt">Ya va dentro de tu precio · edita o borra lo que no aplique</span></span>
+  ${rowsInc(o,j,k,false)}
+  <div class="durr"><span class="mini-l" style="margin:0">⏱️ Duración del servicio</span><input type="number" min="0" step="any" class="of-dur" value="${esc(o.dur)}" placeholder="—" aria-label="Duración"><select class="of-duru" aria-label="Unidad de duración">${["minutos","horas","días"].map(u=>`<option ${o.durU===u?"selected":""}>${u}</option>`).join("")}</select></div>
+  <span class="mini-l">💲 Tarifa <span class="opt">¿Cobras de varias formas? Agrega otra tarifa</span></span>
+  ${o.tar.map((t,ti)=>`<div class="tarr" data-ti="${ti}"><label class="sl-p"><span>$</span><input type="number" min="0" step="any" class="ta-p${MISS(filled(t.price))}" value="${esc(t.price)}" placeholder="precio" aria-label="Precio"></label>
+   <select class="ta-u" aria-label="Cómo lo cobras">${U_FULL.map(u=>`<option value="${esc(u)}" ${t.u===u?"selected":""}>${esc(uLabel(u))}</option>`).join("")}<option value="__otra" ${t.u==="__otra"?"selected":""}>✏️ otra unidad…</option></select>
+   ${t.u==="__otra"?`<input type="text" class="ta-uo${MISS(filled(t.uo))}" list="dlUnits" value="${esc(t.uo)}" placeholder="por charola, por metro…" aria-label="Otra unidad">`:""}
+   ${t.u!=="Por persona"?`<label class="ta-al">alcanza para <input type="number" min="0" class="ta-a" value="${esc(t.alc)}" placeholder="#" aria-label="Alcanza para cuántas personas"> personas</label>`:""}
+   ${o.tar.length>1?`<button type="button" class="link bad ta-x" aria-label="Quitar tarifa">✕</button>`:""}<div class="ta-hv">${offerHost(o,t,s.cat)}</div></div>`).join("")}
+  <button type="button" class="link ta-add" style="justify-self:start">+ Otra tarifa</button>
+  <span class="mini-l">➕ Extras <span class="opt">(opcional · lo que el anfitrión puede sumar con costo)</span></span>
+  ${rowsInc(o,j,k,true)}
+  ${ok?`<button type="button" class="btn cta sm dl-ok of-ok">Listo ✓</button>`:""}</div>`;}
+function staffCard(s,k,cat){const open=s.open==="st",ok=s.staff.length&&s.staff.every(staffOk);
+ if(!open)return`<div class="dlc closed ofc${MISS(ok)}"><button type="button" class="dlh st-open"><b>🙋</b><span class="sm"><b style="color:#1a1033">Staff</b> · ${esc(s.staff.map(r=>r.n+(filled(r.price)?` ${money(r.price)} ${uLabel(r.u)}`:"")).join(" · ")||"elige tus perfiles")}</span><span class="ed">${ok?"✏️ Editar":"⚠️ Completar"}</span></button></div>`;
+ const names=[...new Set([...(cat?cat.staff:[]),...s.staff.map(r=>r.n)])];
+ return`<div class="dlc open ofc${MISS(ok)}"><div class="dlh"><b>🙋 Solo mi talento (staff)</b><span class="sm"></span></div>
+  <span class="mini-l">¿Qué perfiles ofreces? <span class="opt">Tú pones el talento; el lugar o el cliente pone el equipo</span></span>
+  <div class="chips cmini">${names.map(n=>`<button type="button" class="chip st-c" data-n="${esc(n)}" aria-pressed="${s.staff.some(r=>r.n===n)}">${TICK}${esc(n)}</button>`).join("")}<button type="button" class="chip new st-new">✏️ Otro</button></div>
+  <div class="newrow" hidden><input type="text" class="st-in" list="dlStaff" placeholder="Ej. Taquero, Bartender…" aria-label="Otro perfil"><button type="button" class="btn sm st-addb">Agregar</button></div>
+  ${s.staff.map((r,ri)=>`<div class="tarr st-r" data-ri="${ri}"><b class="rn">${esc(r.n)}</b><label class="sl-p"><span>$</span><input type="number" min="0" class="sr-p${MISS(filled(r.price))}" value="${esc(r.price)}" placeholder="precio" aria-label="Precio de ${esc(r.n)}"></label><select class="sr-u" aria-label="Cómo lo cobras">${U_STAFF.map(([u,t])=>`<option value="${u}" ${r.u===u?"selected":""}>${t} c/u</option>`).join("")}</select>${r.u==="Por hora"?`<label class="ta-al">mínimo <input type="number" min="0" class="sr-m" value="${esc(r.min)}" placeholder="#" aria-label="Horas mínimas"> h</label>`:""}<div class="ta-hv">${filled(r.price)?`<span class="hv">👀 El anfitrión ve: 1 ${esc(r.n.toLowerCase().replace(/(es|s)$/,""))} por ${r.u==="Por hora"?(+r.min||5)+" h":uLabel(r.u).replace("por ","")} = <b>${money((+r.price||0)*(r.u==="Por hora"?(+r.min||5):1))}</b>${VAR()?` <span class="pm">± ${VAR()}%</span>`:""}</span>`:""}</div></div>`).join("")}
+  ${ok?`<button type="button" class="btn cta sm dl-ok of-ok">Listo ✓</button>`:""}</div>`;}
+function rentCard(s,k,cat){const open=s.open==="rt",ok=s.rent.length&&s.rent.every(staffOk);
+ if(!open)return`<div class="dlc closed ofc${MISS(ok)}"><button type="button" class="dlh rt-open"><b>📦</b><span class="sm"><b style="color:#1a1033">Renta</b> · ${esc(s.rent.map(r=>r.n+(filled(r.price)?` ${money(r.price)} ${uLabel(r.u)}`:"")).join(" · ")||"elige lo que rentas")}</span><span class="ed">${ok?"✏️ Editar":"⚠️ Completar"}</span></button></div>`;
+ const names=[...new Set([...(cat?cat.rent:[]),...s.rent.map(r=>r.n)])];
+ return`<div class="dlc open ofc${MISS(ok)}"><div class="dlh"><b>📦 Solo renta</b><span class="sm"></span></div>
+  <span class="mini-l">¿Qué rentas?</span><div class="chips cmini">${names.map(n=>`<button type="button" class="chip rt-c" data-n="${esc(n)}" aria-pressed="${s.rent.some(r=>r.n===n)}">${TICK}${esc(n)}</button>`).join("")}<button type="button" class="chip new rt-new">✏️ Otro</button></div>
+  <div class="newrow" hidden><input type="text" class="rt-in" placeholder="Ej. Pista de baile iluminada" aria-label="Otro artículo"><button type="button" class="btn sm rt-addb">Agregar</button></div>
+  ${s.rent.map((r,ri)=>`<div class="tarr rt-r" data-ri="${ri}"><b class="rn">${esc(r.n)}</b><label class="sl-p"><span>$</span><input type="number" min="0" class="sr-p${MISS(filled(r.price))}" value="${esc(r.price)}" placeholder="precio" aria-label="Precio de ${esc(r.n)}"></label><select class="sr-u" aria-label="Cómo lo cobras">${U_RENT.map(([u,t])=>`<option value="${u}" ${r.u===u?"selected":""}>${t}</option>`).join("")}</select><label class="ta-al">tengo <input type="number" min="0" class="sr-m" value="${esc(r.min)}" placeholder="#" aria-label="Cantidad disponible"> disponibles <span class="opt">(opcional)</span></label></div>`).join("")}
+  ${ok?`<button type="button" class="btn cta sm dl-ok of-ok">Listo ✓</button>`:""}</div>`;}
+function addOffer(s,n){svcDefaults(s);s.ways.full=true;let j=s.offers.findIndex(o=>o.n===n);if(j<0){s.offers.push(blankOffer(n));j=s.offers.length-1;}s.open="f"+j;}
+function addPerson(s,list,n,u){svcDefaults(s);if(!s[list].some(r=>r.n===n))s[list].push({n,price:"",u,min:""});s.ways[list==="staff"?"staff":"rent"]=true;s.open=list==="staff"?"st":"rt";}
+function boxFor(cat){let i=S.services.findIndex(s=>s.cat===cat);if(i<0){i=S.services.findIndex(s=>!s.cat);if(i<0){S.services.push(blankSvc());i=S.services.length-1;}S.services[i].cat=cat;}svcDefaults(S.services[i]);return i;}
+function priceBoxHtml(){const h=S.svcHigh;return`<div class="field pricebox"><span class="lbl">💸 Tus precios</span>
+  <div class="sub-box" style="display:grid;gap:10px">
+   <div class="varr"><span><b>¿Cuánto puede variar tu precio al negociar?</b><span class="hint" style="display:block">El anfitrión ve precios estandarizados de la comunidad. Lo que pongas aquí es tu margen al platicar y queda bajo tu responsabilidad. Recomendamos <b>±20%</b>.</span></span><label class="pmf"><span>±</span><input type="number" min="0" max="100" id="svcVar" class="${MISS(filled(S.svcVar))}" value="${esc(S.svcVar)}" aria-label="Variabilidad en porcentaje"><span>%</span></label></div>
+   <div class="varr"><span><b>🔥 En temporada alta cobro</b><span class="hint" style="display:block">Calendario estándar ¡Hay que vernos! (bodas, XV y posadas). Edítalo si tu temporada es otra. Pon 0 si cobras igual todo el año.</span></span><label class="pmf"><span>+</span><input type="number" min="0" max="100" id="svcHigh" value="${esc(h.pct)}" aria-label="Aumento en temporada alta"><span>%</span></label></div>
+   ${+h.pct>0?`<div class="chips cmini months">${MONTHS.map(([m,t])=>`<button type="button" class="chip mo" data-m="${m}" aria-pressed="${h.months.includes(m)}">${TICK}${t}</button>`).join("")}</div>`:""}
+  </div></div>`;}
+function bindPriceBox(redraw){const v=$("svcVar");if(v)v.oninput=e=>{S.svcVar=e.target.value;document.querySelectorAll(".pm").forEach(x=>x.textContent="± "+(+S.svcVar||0)+"%");changed();};
+ const h=$("svcHigh");if(h){h.oninput=e=>{S.svcHigh.pct=e.target.value;changed();};h.onchange=()=>redraw();}
+ document.querySelectorAll(".mo").forEach(c=>c.onclick=()=>{const m=c.dataset.m,M=S.svcHigh.months;S.svcHigh.months=M.includes(m)?M.filter(x=>x!==m):MONTHS.map(x=>x[0]).filter(x=>x===m||M.includes(x));c.setAttribute("aria-pressed",S.svcHigh.months.includes(m));changed();});}
+const VIATICOS=`<span class="hint viat">🚗 Si hay viáticos o costos adicionales por traslado fuera de tu zona, se acuerdan en la conversación directa con el anfitrión.</span>`;
+function svcPlist(s){svcDefaults(s);const v=+S.svcVar||0,out=[];
+ if(s.ways.full)s.offers.forEach(o=>{const t=o.tar.filter(x=>filled(x.price));out.push(`<span class="po"><span class="poh"><b>${FMT_EMO[o.n]||"✨"} ${esc(o.n)}</b> <span class="price">${t.length?t.map(x=>`${money(x.price)} <small>${esc(tarUnitLabel(x))}${+x.alc>0?` · ${esc(x.alc)} personas`:""}</small>`).join(" · "):"<small>Por cotizar</small>"}${v&&t.length?` <small class="pmv">± ${v}%</small>`:""}</span></span>${incText(o)?`<small class="inc">Incluye: ${esc(incText(o))}${o.tiempos.some(x=>filled(x.d))?` · ${esc(o.tiempos.filter(x=>filled(x.d)).map(x=>x.n+": "+x.d).join(" · "))}`:""}</small>`:""}${o.ext.length?`<small class="inc">Extras: ${esc(o.ext.map(e=>[e.q,e.u,e.w].filter(filled).join(" ")+(filled(e.cost)?" "+money(e.cost):"")).join(" · "))}</small>`:""}</span>`);});
+ if(s.ways.staff&&s.staff.length)out.push(`<span class="po"><span class="poh"><b>🙋 Staff</b> <span class="price">${s.staff.map(r=>`${esc(r.n)} ${filled(r.price)?money(r.price):""} <small>${esc(uLabel(r.u))}</small>`).join(" · ")}</span></span></span>`);
+ if(s.ways.rent&&s.rent.length)out.push(`<span class="po"><span class="poh"><b>📦 Renta</b> <span class="price">${s.rent.map(r=>`${esc(r.n)} ${filled(r.price)?money(r.price):""} <small>${esc(uLabel(r.u))}</small>`).join(" · ")}</span></span></span>`);
+ return out.join("");}
+function drawServices(){const list=$("svcList");if(!list)return;
+ list.innerHTML=S.services.map((s,i)=>{svcDefaults(s);const cat=catOf(s.cat),k="s"+i,anchor="s"+(i+1),fl=FLASH&&FLASH.i===i?FLASH.msg:"";
+ const shown=CAT2.filter(c=>scopeOk(c.t)||S.services.some(y=>y.cat===c.n)),hid=CAT2.length-shown.length;
+ const fulls=cat?[...new Set([...(cat.full||[]),...s.offers.map(o=>o.n)])]:[];
+ const any=(s.ways.full&&s.offers.length)||(s.ways.staff&&s.staff.length)||(s.ways.rent&&s.rent.length);
+ return`<div class="box" data-i="${i}"><div class="box-head"><h3>${cat?cat.e+" "+esc(cat.n):"Ficha "+(i+1)}</h3><span style="display:flex;gap:14px">${cat?`<button type="button" class="link ch-cat">Cambiar categoría</button>`:''}${S.services.length>1?`<button type="button" class="link bad rm-svc">Quitar</button>`:''}</span></div>
+ ${fl?`<div class="flash">${esc(fl)}</div>`:''}
+ ${!cat?`<div class="field"><span class="lbl">1. Elige tu categoría</span><div class="cats big${MISS(!!cat)}">${shown.map(c=>{const used=S.services.some((y,ii)=>ii!==i&&y.cat===c.n);return`<button type="button" class="cat" data-c="${esc(c.n)}" aria-pressed="${s.cat===c.n}"><span class="emo">${c.e}</span><span>${esc(c.n)}${used?' <small>· ya la tienes</small>':''}</span></button>`;}).join("")}</div>${hid?`<span class="hint">Ocultamos ${hid} categorías que son para otro tipo de eventos.</span>`:""}</div>`:''}
+ ${cat?`<div class="field"><span class="lbl">¿Cómo trabajas? <span class="opt">Puedes elegir varias</span></span><div class="ways${MISS(s.ways.full||s.ways.staff||s.ways.rent)}">${WAYS.filter(w=>w[0]!=="rent"||(cat.rent||[]).length||s.ways.rent).filter(w=>w[0]!=="staff"||(cat.staff||[]).length).map(([w,e,t,d])=>`<button type="button" class="way" data-w="${w}" aria-pressed="${!!s.ways[w]}"><span class="emo">${e}</span><span><b>${t}</b><small>${d}</small></span></button>`).join("")}</div></div>
+  ${s.ways.full?`<div class="field"><span class="lbl">🎁 ¿Qué ofreces como servicio completo? <span class="opt">Cada uno se configura en su ficha</span></span><div class="chips${MISS(s.offers.length>0)}" style="border-radius:14px">${fulls.map(n=>`<button type="button" class="chip of-c" data-n="${esc(n)}" aria-pressed="${s.offers.some(o=>o.n===n)}">${TICK}${FMT_EMO[n]?FMT_EMO[n]+" ":""}${esc(n)}</button>`).join("")}<button type="button" class="chip new of-new">✏️ Otro</button></div>
+   <div class="newrow" hidden><input type="text" class="of-in" list="dlFull" placeholder="¿Cómo se llama tu servicio?" aria-label="Otro servicio"><button type="button" class="btn sm of-addb">Agregar</button></div>
+   ${s.offers.map((o,j)=>offerCard(s,k,o,j,cat)).join("")}</div>`:""}
+  ${s.ways.staff?`<div class="field">${staffCard(s,k,cat)}</div>`:""}
+  ${s.ways.rent?`<div class="field">${rentCard(s,k,cat)}</div>`:""}`:''}
+ ${any?`<div class="field"><label class="lbl" for="d-${k}">💬 Descríbelo en una frase <span class="opt">${s.descEdited?"":"✨ te la escribimos; cámbiala si quieres"}</span></label><input type="text" id="d-${k}" class="${MISS(filled(s.desc))}" value="${esc(s.desc)}" placeholder="Qué incluye y para cuántas personas"></div>
+ <div class="field"><span class="lbl">🚚 ¿Cómo entregas este servicio? <span class="opt">Elige todas las que hagas</span></span>
+  <div class="chips dlm-chips${MISS((s.dl||[]).length>0)}" style="border-radius:14px">${DL_MODS.map(([m,e])=>`<button type="button" class="chip dlm" data-m="${esc(m)}" aria-pressed="${(s.dl||[]).some(d=>d.m===m)}">${TICK}${e} ${esc(m)}</button>`).join("")}</div>
+  ${(s.dl||[]).map((d,j)=>dlCard(s,k,d,j)).join("")}</div>
+ ${minHtml(s.min,k)}
+ ${promoHtml(s.promo,k,anchor)}
+ <div class="field"><span class="lbl">📷 Fotos de este servicio</span>${uploaderHtml(k,"photo",s.photos,s.photos.length>0)}</div>`:''}
+ </div>`;}).join("");
+ FLASH=null;
+ list.querySelectorAll(".box").forEach(el=>{const i=+el.dataset.i,s=S.services[i],k="s"+i,redraw=()=>{syncSubs(s);const y=scrollY;drawServices();scrollTo({top:y});},cat=catOf(s.cat);
+  const on=(sel,f)=>el.querySelectorAll(sel).forEach(x=>x.onclick=ev=>{f(x,ev);redraw();changed();});
+  el.querySelectorAll(".cat").forEach(t=>t.onclick=()=>{const c=t.dataset.c;const o=S.services.findIndex((y,ii)=>ii!==i&&y.cat===c);
+   if(o>=0){S.services.splice(i,1);goBox(o>i?o-1:o,"Ya tenías esta categoría; aquí está.");return;}
+   s.cat=c;s.ways={full:false,staff:false,rent:false};s.offers=[];s.staff=[];s.rent=[];const cc=catOf(c);if(cc&&!(cc.staff||[]).length&&!(cc.rent||[]).length)s.ways.full=true;redraw();changed();});
+  const chc=el.querySelector(".ch-cat");if(chc)chc.onclick=()=>{s.cat="";redraw();changed();};
+  on(".way",x=>{const w=x.dataset.w;s.ways[w]=!s.ways[w];if(s.ways[w])s.open=w==="full"?(s.offers.length?"f0":""):w==="staff"?"st":"rt";});
+  on(".of-c",x=>{const n=x.dataset.n,j=s.offers.findIndex(o=>o.n===n);if(j>=0){s.offers.splice(j,1);s.open="";}else addOffer(s,n);});
+  el.querySelectorAll(".of-new,.st-new,.rt-new").forEach(b=>b.onclick=()=>{const r=b.closest(".field,.dlc").querySelector(".newrow");r.hidden=false;r.querySelector("input").focus();});
+  const addNew=(inp,f)=>{const v=(inp.value||"").trim();if(!v)return;NEW_SUBS.add(v);hqvTrack("catalogo_propuesta",{tipo:"servicio",cat:s.cat,valor:v});f(v);redraw();changed();};
+  [[".of-in",".of-addb",v=>addOffer(s,v)],[".st-in",".st-addb",v=>addPerson(s,"staff",v,"Por hora")],[".rt-in",".rt-addb",v=>addPerson(s,"rent",v,"Por pieza")]].forEach(([iq,bq,f])=>{const inp=el.querySelector(iq),b=el.querySelector(bq);if(!inp)return;b.onclick=()=>addNew(inp,f);inp.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addNew(inp,f);}};});
+  on(".of-open",x=>{s.open="f"+x.closest(".ofc").dataset.j;});on(".st-open",()=>{s.open="st";});on(".rt-open",()=>{s.open="rt";});on(".of-ok",()=>{s.open="";});
+  on(".st-c",x=>{const n=x.dataset.n,j=s.staff.findIndex(r=>r.n===n);if(j>=0)s.staff.splice(j,1);else s.staff.push({n,price:"",u:"Por hora",min:"5"});});
+  on(".rt-c",x=>{const n=x.dataset.n,j=s.rent.findIndex(r=>r.n===n);if(j>=0)s.rent.splice(j,1);else s.rent.push({n,price:"",u:"Por pieza",min:""});});
+  el.querySelectorAll(".st-r,.rt-r").forEach(R=>{const r=(R.classList.contains("st-r")?s.staff:s.rent)[+R.dataset.ri];R.querySelector(".sr-p").oninput=e=>{r.price=e.target.value;syncSubs(s);changed();};R.querySelector(".sr-u").onchange=e=>{r.u=e.target.value;redraw();changed();};const m=R.querySelector(".sr-m");if(m)m.oninput=e=>{r.min=e.target.value;changed();};});
+  el.querySelectorAll(".ofc.open[data-j]").forEach(C=>{const o=s.offers[+C.dataset.j];if(!o)return;const q=(sel,f)=>C.querySelectorAll(sel).forEach(f);
+   q(".of-x",b=>b.onclick=()=>{s.offers.splice(+C.dataset.j,1);s.open="";redraw();changed();});
+   q(".of-g",b=>b.onclick=()=>{const g=b.dataset.g;o.gas=o.gas.includes(g)?o.gas.filter(x=>x!==g):[...o.gas,g];b.setAttribute("aria-pressed",o.gas.includes(g));changed();});
+   q(".of-ds",b=>b.onclick=()=>{const g=b.dataset.v;o.dserv=o.dserv.includes(g)?o.dserv.filter(x=>x!==g):[...o.dserv,g];b.setAttribute("aria-pressed",o.dserv.includes(g));changed();});
+   q(".of-dr",b=>b.onclick=()=>{const g=b.dataset.v;o.drinks=o.drinks.includes(g)?o.drinks.filter(x=>x!==g):[...o.drinks,g];b.setAttribute("aria-pressed",o.drinks.includes(g));changed();});
+   q(".of-dv",x=>x.oninput=e=>{o.dvar=e.target.value;changed();});
+   q(".tmr",R=>{const t=o.tiempos[+R.dataset.ti];R.querySelector(".t-n").oninput=e=>{t.n=e.target.value;changed();};R.querySelector(".t-d").oninput=e=>{t.d=e.target.value;changed();};
+    R.querySelectorAll(".sd button").forEach(b=>b.onclick=()=>{t.k=b.dataset.k;redraw();});R.querySelector(".t-x").onclick=()=>{o.tiempos.splice(+R.dataset.ti,1);redraw();changed();};});
+   q(".t-add",b=>b.onclick=()=>{const n=o.tiempos.length+1;o.tiempos.push({n:o.n==="Banquete"?`Tiempo ${n}`:o.n==="Coffee break"?`Bocadillo ${n}`:`Variedad ${n}`,k:o.n==="Mesa de postres y pastel"?"Dulce":"Salado",d:""});redraw();});
+   q(".incr",R=>{const L=R.classList.contains("ex")?o.ext:o.inc,r=L[+R.dataset.ri];[["r-q","q"],["r-u","u"],["r-w","w"],["r-cost","cost"]].forEach(([c,f])=>{const x=R.querySelector("."+c);if(x)x.oninput=e=>{r[f]=e.target.value;syncSubs(s);changed();};});R.querySelector(".r-x").onclick=()=>{L.splice(+R.dataset.ri,1);redraw();changed();};});
+   q(".r-add",b=>b.onclick=()=>{(b.dataset.l==="ex"?o.ext:o.inc).push(b.dataset.l==="ex"?{q:"1",u:"",w:"",cost:""}:{q:"",u:"",w:""});redraw();setTimeout(()=>{const l=[...document.querySelectorAll(`.box[data-i="${i}"] .ofc.open .incr.${b.dataset.l} .r-u`)].pop();l&&l.focus();},0);});
+   q(".of-dur",x=>x.oninput=e=>{o.dur=e.target.value;changed();});q(".of-duru",x=>x.onchange=e=>{o.durU=e.target.value;changed();});
+   q(".tarr",R=>{const t=o.tar[+R.dataset.ti],hv=()=>{const h=R.querySelector(".ta-hv");if(h)h.innerHTML=offerHost(o,t,s.cat);};
+    R.querySelector(".ta-p").oninput=e=>{t.price=e.target.value;hv();syncSubs(s);changed();};R.querySelector(".ta-u").onchange=e=>{t.u=e.target.value;redraw();changed();};
+    const uo=R.querySelector(".ta-uo");if(uo){uo.oninput=e=>{t.uo=e.target.value;changed();};uo.onchange=()=>{const cu=canonUnit(t.uo);if(cu){t.u=cu;t.uo="";if(!U_FULL.includes(cu))U_FULL.push(cu);redraw();}else NEW_UNITS.add(t.uo);};}
+    const a=R.querySelector(".ta-a");if(a)a.oninput=e=>{t.alc=e.target.value;hv();syncSubs(s);changed();};const x=R.querySelector(".ta-x");if(x)x.onclick=()=>{o.tar.splice(+R.dataset.ti,1);redraw();changed();};});
+   q(".ta-add",b=>b.onclick=()=>{o.tar.push({price:"",u:"Por evento",uo:"",alc:""});redraw();});});
+  const d=$("d-"+k);if(d)d.oninput=e=>{s.desc=e.target.value;s.descEdited=true;changed();};
+  bindDl(s,k,el,redraw);
+  if(cat&&((s.ways.full&&s.offers.length)||(s.ways.staff&&s.staff.length)||(s.ways.rent&&s.rent.length))){bindMin(s.min,k,redraw);bindPromo(s.promo,k,redraw);bindUploader(k,"photo",s.photos,redraw);}
+  const rm=el.querySelector(".rm-svc");if(rm)rm.onclick=()=>{S.services.splice(i,1);drawServices();changed();};});}
+function drawSvcStep(){const sc=S.svcScope=S.svcScope||{S:false,E:false};
+ $("stepBody").innerHTML=`<div class="panel"><span class="crumb">Mi negocio › Servicios</span><h2>Mis servicios 🎉</h2><p class="sub">Pon el precio como tú lo cobras. Nosotros se lo mostramos al anfitrión por persona y en total.</p>
+ <div class="svc-top">
+  <div class="field"><span class="lbl">¿Para qué tipo de eventos? <span class="opt">Puedes elegir los dos</span></span><div class="chips${MISS(sc.S||sc.E)}" style="width:fit-content;border-radius:99px"><button type="button" class="chip scp" data-v="S" aria-pressed="${!!sc.S}">${TICK}🎉 Sociales</button><button type="button" class="chip scp" data-v="E" aria-pressed="${!!sc.E}">${TICK}💼 Empresariales</button></div></div>
+  <div class="field qwrap"><label class="lbl" for="svcQ">🔎 Busca lo que ofreces <span class="opt">o elige abajo por categoría</span></label><input type="search" id="svcQ" autocomplete="off" placeholder="Ej. banquete, tacos al pastor, DJ, meseros, sillas…"><div id="svcQr" class="qres" hidden></div></div>
+ </div>
+ <div id="svcList" style="display:grid;gap:14px"></div><button type="button" class="btn ghost" id="addSvc">+ Agregar otra categoría</button>
+ ${priceBoxHtml()}
+ ${zonesHtml(S.svcZones,"svc","¿Dónde das estos servicios?")}${VIATICOS}${navHtml()}</div>`;
+ document.querySelectorAll(".scp").forEach(c=>c.onclick=()=>{sc[c.dataset.v]=!sc[c.dataset.v];drawSvcStep();changed();});
+ const q=$("svcQ"),qr=$("svcQr"),WE={full:"🎁",staff:"🙋",rent:"📦"},WT={full:"servicio completo",staff:"staff",rent:"renta"};
+ const search=()=>{const v=norm(q.value).trim();if(v.length<2){qr.hidden=true;return;}const toks=v.split(/\s+/),res=[];
+  CAT2.forEach(c=>{if(!scopeOk(c.t))return;[["full",c.full],["staff",c.staff],["rent",c.rent]].forEach(([w,l])=>l.forEach(n=>{const h=norm(n+" "+c.n);if(toks.every(t=>h.includes(t)))res.push({c,n,w,r:norm(n).startsWith(v)?0:1});}));});
+  if(res.length<6)["Salado","Dulce"].forEach(kd=>DISH_LIST[kd].forEach(d=>{if(res.length<8&&toks.every(t=>norm(d).includes(t)))res.push({c:CAT2[0],n:kd==="Dulce"?"Mesa de postres y pastel":"Estación",w:"full",r:2,dish:d});}));
+  res.sort((a,b)=>a.r-b.r);
+  qr.innerHTML=res.slice(0,8).map((x,ix)=>`<button type="button" data-ix="${ix}"><span>${x.c.e}</span><span><b>${esc(x.dish||x.n)}</b> <small>· ${esc(x.c.n)} · ${WE[x.w]} ${x.dish?esc(x.n.toLowerCase()):WT[x.w]}</small></span></button>`).join("")
+   ||`<span class="hint" style="padding:8px">No lo encontramos. Elige la categoría más cercana y usa <b>✏️ Otro</b>: lo sumamos solito al catálogo.</span>`;
+  qr.hidden=false;qr.querySelectorAll("button").forEach(btn=>btn.onclick=()=>{const x=res[+btn.dataset.ix],i=boxFor(x.c.n),s=S.services[i];
+   if(x.w==="full"){addOffer(s,x.n);if(x.dish){const o=s.offers[+s.open.slice(1)],t=o.tiempos.find(t=>!filled(t.d));if(t)t.d=x.dish;else o.tiempos.push({n:`Variedad ${o.tiempos.length+1}`,k:"Salado",d:x.dish});}}
+   else addPerson(s,x.w==="staff"?"staff":"rent",x.n,x.w==="staff"?"Por hora":"Por pieza");
+   syncSubs(s);q.value="";qr.hidden=true;hqvTrack("servicio_buscado",{sub:x.n});goBox(i);});};
+ q.oninput=search;q.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();const f=qr.querySelector("button");f&&f.click();}if(e.key==="Escape"){qr.hidden=true;}};
+ drawServices();$("addSvc").onclick=()=>{S.services.push(blankSvc());drawServices();changed();const l=$("svcList").lastElementChild;l&&l.scrollIntoView({behavior:"smooth",block:"start"});};
+ bindPriceBox(drawSvcStep);bindZones(S.svcZones,"svc",drawSvcStep);bindNav();}
+
+
+/* Venue: los servicios se eligen por categoría (igual que el anfitrión) y luego se pregunta lo demás */
+const POL_LABEL={"Comida":"Alimentos (catering)","Con alcohol":"Bebidas con alcohol","Sin alcohol":"Bebidas sin alcohol","Postres":"Postres y pastel","Música":"Música","Luz y show":"Audio, iluminación y show","Mobiliario":"Mobiliario y cristalería","Decoración":"Decoración y ambientación","Staff":"Staff (meseros, bartenders…)"};
+function polSubs(x){const cat=n=>(CAT2.find(c=>c.n===n)||{});const drinks=a=>C2.bebidas.filter(b=>b.alc.includes(a)).map(b=>b.n);
+ return({"Comida":["Banquete","Buffet","Cóctel","Estación","Box lunch"],"Con alcohol":drinks("Con alcohol"),"Sin alcohol":drinks("Sin alcohol"),"Postres":["Mesa de postres","Pastel","Mesa de dulces"],
+  "Música":cat("Música").full,"Luz y show":cat("Audio, iluminación, foto y video").full,"Mobiliario":[...(cat("Mobiliario y montaje").rent||[]),...(cat("Cristalería y cubertería").rent||[])],"Decoración":cat("Decoración y ambientación").full,"Staff":cat("Catering").staff}[x]||[]).slice(0,14);}
+function polCard(s,e,p,k){const subs=polSubs(s);const inc=p.incl&&p.incl!=="noinc";
+ return`<div class="polc${MISS(polOk(p))}" data-s="${esc(s)}"><b>${e} ${esc(POL_LABEL[s]||s)}</b>
+  <span class="q">¿Cómo lo ofreces?</span><div class="chips">${[["inc","✅ Incluido en tu renta o paquetes"],["parte","🟡 Incluido en parte"],["costo","💲 Con costo extra"]].map(([v,t])=>`<button type="button" class="chip p-in" data-v="${v}" aria-pressed="${p.incl===v}">${TICK}${t}</button>`).join("")}</div>
+  ${p.incl==="parte"?`<input type="text" class="p-det" value="${esc(p.detail)}" placeholder="¿Qué parte incluye? Ej. 60 sillas y 6 mesas" aria-label="Detalle de lo incluido">`:""}
+  ${p.incl==="costo"?`<div class="row"><input type="number" min="0" class="ppr" value="${esc(p.price)}" placeholder="$ precio" aria-label="Precio"><select class="pper" aria-label="Cómo lo cobras">${[["evento","por evento"],["persona","por persona"],["hora","por hora"]].map(([v,t])=>`<option value="${v}" ${p.per===v?"selected":""}>${t}</option>`).join("")}</select></div>`:""}
+  ${p.incl&&subs.length?`<span class="q">¿Qué incluye? <span class="opt">(opcional)</span></span><div class="chips cmini">${subs.map(n=>`<button type="button" class="chip p-sub" data-n="${esc(n)}" aria-pressed="${(p.subs||[]).includes(n)}">${TICK}${esc(n)}</button>`).join("")}</div>`:""}
+  ${p.incl?`<span class="q">¿El cliente puede traer su propio proveedor de esto?</span><div class="chips">${[["si","Sí"],["no","No"],["parcial","Parcial"],["otro","Otro"]].map(([v,t])=>`<button type="button" class="chip p-sb" data-v="${v}" aria-pressed="${p.subst===v}">${TICK}${t}</button>`).join("")}</div>
+   ${p.subst==="otro"||p.subst==="parcial"?`<input type="text" class="p-sbo" value="${esc(p.substOther)}" placeholder="${p.subst==="parcial"?"¿Qué sí puede traer?":"Explícalo"}" aria-label="Detalle de sustitución">`:""}
+   ${p.subst==="si"||p.subst==="parcial"?`<div class="chips">${[["libre","🆓 Libre"],["cuota","🎟️ Con cuota"],["otro","Otro"]].map(([v,t])=>`<button type="button" class="chip p-sm" data-v="${v}" aria-pressed="${p.substMode===v}">${TICK}${t}</button>`).join("")}</div>
+    ${p.substMode==="cuota"?`<div class="row"><input type="number" min="0" class="pfee" value="${esc(p.fee)}" placeholder="$ cuota" aria-label="Cuota"><select class="pfu" aria-label="Unidad de la cuota">${["evento","persona","botella","hora"].map(u=>`<option value="${u}" ${p.feeUnit===u?"selected":""}>por ${u}</option>`).join("")}</select></div><input type="text" class="pfn" value="${esc(p.feeNote)}" placeholder="Nota: descorche, derecho de piso… (opcional)" aria-label="Nota de la cuota">`:""}
+    ${p.substMode==="otro"?`<input type="text" class="pmo" value="${esc(p.modeOther)}" placeholder="Explícalo" aria-label="Otra condición">`:""}`:""}`:""}
+  ${inc||p.incl===""?"":""}</div>`;}
+
 const EXG=50,EXH=5; /* fiesta de ejemplo para mostrar la conversión */
 const COMMON_UNITS=["Por persona","Por evento","Por paquete","Por pieza","Por hora"];
 let SPECS=["Chiles en nogada","Pasta","Lasaña","Pozole","Barbacoa","Cochinita pibil","Tacos al pastor","Sushi","Paella","Mezcal","Micheladas","Azulitos","Carajillos","Gin tonic","Pastel fondant","Pastel de tres leches","Cupcakes","Galletas decoradas","Palomitas gourmet","Helado artesanal","Churros","Crepas","Arco de globos orgánico","Globos con helio","Flores naturales","Flores preservadas","Neón personalizado","Sillas Tiffany","Sillas crossback","Cabina 360","Batucada","Pinta caritas","Mago","Inflable","Karaoke"];
@@ -555,7 +812,7 @@ const yearNow=2026;
 const blankZone=()=>({state:"",all:false,munis:[]});
 const blankPromo=()=>({has:null,what:"",terms:"",until:""});
 const blankMin=()=>({has:null,qty:"",unit:""});
-const blankSvc=()=>({cat:"",catNew:"",subs:[],desc:"",person:false,ship:false,shipMode:"",shipFixed:"",shipBase:"",shipBaseKm:"",shipPerKm:"",shipMaxKm:"",shipFreeFrom:"",dl:[],dlOpen:-1,min:blankMin(),specs:[],promo:blankPromo(),photos:[]});
+const blankSvc=()=>({cat:"",catNew:"",subs:[],desc:"",person:false,ship:false,shipMode:"",shipFixed:"",shipBase:"",shipBaseKm:"",shipPerKm:"",shipMaxKm:"",shipFreeFrom:"",dl:[],dlOpen:-1,ways:{full:false,staff:false,rent:false},offers:[],staff:[],rent:[],open:"",descEdited:false,min:blankMin(),specs:[],promo:blankPromo(),photos:[]});
 function samplePic(emoji,h1,h2,w=1200,h=900){try{const c=document.createElement("canvas");c.width=w;c.height=h;const x=c.getContext("2d");const g=x.createLinearGradient(0,0,w,h);g.addColorStop(0,h1);g.addColorStop(1,h2);x.fillStyle=g;x.fillRect(0,0,w,h);x.font=`${Math.round(h*.42)}px serif`;x.textAlign="center";x.textBaseline="middle";x.fillText(emoji,w/2,h/2);x.font=`600 ${Math.round(h*.06)}px sans-serif`;x.fillStyle="rgba(255,255,255,.9)";x.fillText("Foto de ejemplo",w/2,h*.88);return c.toDataURL("image/jpeg",.7);}catch(e){return null;}}
 const sp=(e,a,b)=>{const u=samplePic(e,a,b);return u?[{url:u,issues:[],before:2400000,after:Math.round(u.length*.75)}]:[];};
 function exampleState(){return{
@@ -599,6 +856,12 @@ function ensureState(){const b=S.biz,v=S.venue,p=S.planner;
  if(v.guarRetN===undefined){v.guarRetN="";v.guarRetU="días";}
  if(!p.fees)p.fees=[{amount:p.fee||"",unit:"evento",other:"",note:p.feeNote||""}];
  if(p.depositN===undefined){p.depositN="";p.depositU="%";}if(p.negotiable===undefined)p.negotiable=null;
+ if(v.var===undefined)v.var=v.negotiable===false?"0":"20";v.negotiable=+v.var>0;if(p.var===undefined)p.var=p.negotiable===false?"0":"20";p.negotiable=+p.var>0;
+ if(v.inN===undefined){v.inN=v.ioN||"";v.inU=v.ioU||"Minutos";v.outN=v.ioN||"";v.outU=v.ioU||"Minutos";}
+ if(!v.polSel)v.polSel=POLICY_SVCS.map(([x])=>x).filter(x=>v.policy[x].incl&&v.policy[x].incl!=="noinc");
+ POLICY_SVCS.forEach(([x])=>{if(!v.polSel.includes(x)){v.policy[x].incl="noinc";syncPol(v.policy[x],v.extAll);}});
+ if(S.svcVar===undefined)S.svcVar="20";if(!S.svcHigh)S.svcHigh={pct:"15",months:HIGH_STD.slice()};
+ S.services.forEach(x=>{svcDefaults(x);syncSubs(x);});
  p.fee=p.fees[0]?p.fees[0].amount:"";v.deposit=v.depositN?(v.depositU==="%"?v.depositN+"%":money(v.depositN)):"";}
 const __exampleState=exampleState;
 exampleState=function(){const x=__exampleState();x.biz.links=[{t:"Sitio web",u:"lupitadulces.mx"}];x.biz.visits=true;
@@ -610,6 +873,12 @@ exampleState=function(){const x=__exampleState();x.biz.links=[{t:"Sitio web",u:"
  v.policy["Música"].subs=["DJ"];
  const p=x.planner;p.socialFromBiz=true;p.fees=[{amount:"6000",unit:"evento",other:"",note:"Hasta 50 invitados"},{amount:"10",unit:"porcentaje",other:"",note:"Fiestas de más de 100 invitados"}];p.depositN="30";p.depositU="%";p.negotiable=true;
  p.bio="Me encanta que nadie note que hubo estrés detrás de una fiesta perfecta. Mi superpoder en una fiesta es leer a los invitados y saber cuándo subir la música.";
+ {const s0=x.services[0];Object.assign(s0,{cat:"Catering",ways:{full:true,staff:true,rent:false},open:"",descEdited:true,
+  offers:[Object.assign(blankOffer("Mesa de postres y pastel"),{gas:["Mexicana"],tiempos:[{n:"Variedad 1",k:"Dulce",d:"Galletas decoradas"},{n:"Variedad 2",k:"Dulce",d:"Cupcakes"},{n:"Variedad 3",k:"Dulce",d:"Gelatinas artísticas"}],tar:[{price:"3500",u:"Por paquete",uo:"",alc:"50"},{price:"75",u:"Por persona",uo:"",alc:""}],ext:[{q:"1",u:"pastel",w:"de 3 pisos",cost:"1800"}]}),
+   Object.assign(blankOffer("Estación"),{gas:["Mexicana"],tiempos:[{n:"Variedad 1",k:"Salado",d:"Tacos al pastor"},{n:"Variedad 2",k:"Salado",d:"Esquites"}],tar:[{price:"1200",u:"Por hora",uo:"",alc:""}]})],
+  staff:[{n:"Meseros",price:"350",u:"Por hora",min:"5"}],rent:[]});}
+ x.svcVar="20";x.svcHigh={pct:"15",months:["may","jun","oct","nov","dic"]};
+ v.inN="45";v.inU="Minutos";v.outN="30";v.outU="Minutos";v.ioPaid=true;v.ioCost="800";v.var="15";p.var="10";
  return x;};
 
 function emptyState(){return{types:{services:false,venue:false,planner:false},
@@ -628,7 +897,7 @@ const money=n=>n!==""&&n!=null&&!isNaN(+n)?"$"+Number(n).toLocaleString("es-MX")
 const slug=s=>(s||"tu-negocio").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"tu-negocio";
 const initials=s=>(s||"?").split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join("")||"?";
 const norm=x=>String(x).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
-const catOf=n=>CATS.find(c=>c.n===n);
+const catOf=n=>CAT2.find(c=>c.n===n)||CATS.find(c=>c.n===n);
 const filled=v=>String(v??"").trim()!=="";
 const MISS=ok=>showMiss&&!ok?" miss":"";
 
@@ -648,21 +917,25 @@ const EMAIL_OK=e=>/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e||"");
 function missing(id){const m=[];
  if(id==="biz"){const b=S.biz;if(!filled(b.name))m.push("Nombre");if(!filled(b.owner||""))m.push("Tu nombre");if(!EMAIL_OK(S.account.email))m.push("Tu correo");if(b.whatsapp.replace(/\D/g,"").length!==10)m.push("WhatsApp de 10 dígitos");if(!b.since)m.push("Año en que empezaste");if(!b.invoice)m.push("¿Facturas?");if(!filled(b.about))m.push("Frase de qué haces");if(!addrOk(b.addr))m.push("Dirección confirmada");if(!b.showAddr)m.push("Qué parte de tu dirección mostrar");if(b.visits===null||b.visits===undefined)m.push("¿Recibes clientes en tu negocio?");}
  if(id==="svc"){const sc=S.svcScope||{};if(!sc.S&&!sc.E)m.push("Tipo de eventos: sociales, empresariales o ambos");
-  S.services.forEach((s,i)=>{const n=catOf(s.cat)?s.cat:`Ficha ${i+1}`;
-  if(!s.cat||s.cat==="__new")m.push(`${n}: categoría`);if(!s.subs.length)m.push(`${n}: qué ofreces`);
-  s.subs.forEach(x=>{if(!x.u||(x.u==="__otra"&&!filled(x.uo)))m.push(`${n}: cómo cobras ${x.n}`);else{if(!filled(x.price))m.push(`${n}: precio de ${x.n}`);if(famOf(x.u)==="paquete"&&!(+x.pkgP>0)&&x.pkgP!=="sin")m.push(`${n}: personas del paquete de ${x.n}`);}});
+  S.services.forEach((s,i)=>{svcDefaults(s);const n=catOf(s.cat)?s.cat:`Ficha ${i+1}`;
+  if(!s.cat||s.cat==="__new"){m.push(`${n}: categoría`);return;}
+  if(!s.ways.full&&!s.ways.staff&&!s.ways.rent)m.push(`${n}: cómo trabajas`);
+  if(s.ways.full){if(!s.offers.length)m.push(`${n}: qué ofreces`);s.offers.forEach(o=>{if(!offerOk(o))m.push(`${n}: tarifa de ${o.n}`);});}
+  if(s.ways.staff){if(!s.staff.length)m.push(`${n}: perfiles de staff`);else if(!s.staff.every(staffOk))m.push(`${n}: precio del staff`);}
+  if(s.ways.rent){if(!s.rent.length)m.push(`${n}: qué rentas`);else if(!s.rent.every(staffOk))m.push(`${n}: precio de renta`);}
   if(s.subs.length){if(!filled(s.desc))m.push(`${n}: descripción`);if(!(s.dl||[]).length)m.push(`${n}: cómo lo entregas`);(s.dl||[]).forEach(d=>{if(!dlOk(d))m.push(`${n}: entrega «${d.m}»`);});
   if(!minOk(s.min))m.push(`${n}: mínimo de compra`);if(!promoOk(s.promo))m.push(`${n}: promoción`);}});
+  if(!filled(S.svcVar))m.push("Cuánto puede variar tu precio");
   if(!zonesOk(S.svcZones))m.push("Zonas donde das tus servicios");}
  if(id==="venue"){const v=S.venue;if(!filled(v.name))m.push("Nombre del lugar");if(!addrOk(v.addr))m.push("Dirección del lugar confirmada");if(!v.type||(v.type==="__otro"&&!filled(v.typeOther)))m.push("Tipo de espacio");
   if(!(+v.seated>0)||!(+v.standing>0))m.push("Capacidad");if(!v.area)m.push("Tamaño");if(!v.days.length)m.push("Días que rentas");if(v.sameHours?(!filled(v.open)||!filled(v.limit)):v.days.some(d=>!(v.hoursByDay[d]&&filled(v.hoursByDay[d].open)&&filled(v.hoursByDay[d].limit))))m.push("Horario");if(!(+v.hoursIncl>0))m.push("Horas incluidas");if(!filled(v.extraHour))m.push("Costo de hora extra");
-  if(!v.mode)m.push("Cómo cobras");if((v.mode==="renta"||v.mode==="ambos")&&!filled(v.rent.price))m.push("Precio de renta");if((v.mode==="paquetes"||v.mode==="ambos")&&!(v.packages.length&&v.packages.every(pkgOk)))m.push("Nombre y precio de cada paquete");if(v.negotiable===null)m.push("¿Precio negociable?");
+  if(!v.mode)m.push("Cómo cobras");if((v.mode==="renta"||v.mode==="ambos")&&!filled(v.rent.price))m.push("Precio de renta");if((v.mode==="paquetes"||v.mode==="ambos")&&!(v.packages.length&&v.packages.every(pkgOk)))m.push("Nombre y precio de cada paquete");if(!filled(v.var))m.push("Cuánto puede variar tu precio");
   if(!v.features.length&&!(v.featsOther||[]).some(filled))m.push("Con qué cuenta tu espacio");if(!(+v.baths.m+ +v.baths.w+ +v.baths.g>0))m.push("Baños");
   POLICY_SVCS.forEach(([sv])=>{if(!polOk(v.policy[sv]))m.push(`${sv}: si está incluido y si pueden sustituirlo`);});if(!v.extAll)m.push("¿Pueden traer los servicios que no incluyes?");
   if(!filled(v.depositN))m.push("Anticipo");if(!filled(v.advance))m.push("Días de anticipación");if(!v.docsNone&&!v.docs.length&&!filled(v.docsOther))m.push("Documentos que pides");
   if(!filled(v.rulesText)&&!v.rulesFile)m.push("Reglas del lugar");if(!promoOk(v.promo))m.push("Promoción");}
  if(id==="planner"){const p=S.planner;if(!filled(p.person))m.push("Tu nombre");if(!p.since)m.push("Desde cuándo organizas");if(!filled(p.bio))m.push("Tu bio");
-  if(!(p.fees||[]).length||!p.fees.every(f=>filled(f.amount)&&(f.unit!=="otro"||filled(f.other))))m.push("Tarifa");if(!filled(p.depositN))m.push("Anticipo");if(p.negotiable===null||p.negotiable===undefined)m.push("¿Costos negociables?");if(!p.specialties.length)m.push("Especialidad");if(!zonesOk(p.zones))m.push("Zonas donde trabajas");if(!promoOk(p.promo))m.push("Promoción");}
+  if(!(p.fees||[]).length||!p.fees.every(f=>filled(f.amount)&&(f.unit!=="otro"||filled(f.other))))m.push("Tarifa");if(!filled(p.depositN))m.push("Anticipo");if(!filled(p.var))m.push("Cuánto pueden variar tus costos");if(!p.specialties.length)m.push("Especialidad");if(!zonesOk(p.zones))m.push("Zonas donde trabajas");if(!promoOk(p.promo))m.push("Promoción");}
  return m;}
 function completeness(){const ids=stepList().map(s=>s.id).filter(i=>i!=="publish");let ok=0;ids.forEach(i=>{const n=missing(i).length;ok+=n===0?1:Math.max(0,1-n/12);});return Math.round(ok/ids.length*100);}
 
@@ -907,7 +1180,7 @@ function drawBiz(){const b=S.biz,yrs=[];for(let y=yearNow;y>=1960;y--)yrs.push(y
  document.querySelectorAll(".sa").forEach(c=>c.onclick=()=>{b.showAddr=c.dataset.v;document.querySelectorAll(".sa").forEach(x=>x.setAttribute("aria-pressed",x===c));changed();});
  bindAvatar(b,"biz","avatar");bindSocial(b,"biz",drawBiz);bindYN("bv",x=>{b.visits=x;drawBiz();changed();});bindAddr(b.addr,"biz",drawBiz);bindNav();}
 
-function drawSvcStep(){const sc=S.svcScope=S.svcScope||{S:false,E:false};
+function drawSvcStepOld(){const sc=S.svcScope=S.svcScope||{S:false,E:false};
  $("stepBody").innerHTML=`<div class="panel"><span class="crumb">Mi negocio › Servicios</span><h2>Mis servicios 🎉</h2><p class="sub">Pon el precio como tú lo cobras. Nosotros se lo mostramos al anfitrión por persona y en total.</p>
  <div class="svc-top">
   <div class="field"><span class="lbl">¿Para qué tipo de eventos? <span class="opt">Puedes elegir los dos</span></span><div class="chips${MISS(sc.S||sc.E)}" style="width:fit-content;border-radius:99px"><button type="button" class="chip scp" data-v="S" aria-pressed="${!!sc.S}">${TICK}🎉 Sociales</button><button type="button" class="chip scp" data-v="E" aria-pressed="${!!sc.E}">${TICK}💼 Empresariales</button></div></div>
@@ -942,7 +1215,7 @@ function groupHtml(s,k,n,idxs){const sub=subOf(s.cat,n),allowed=(sub&&sub.u.leng
   <span class="mini-l">¿Cómo lo cobras? <span class="opt">Elige una o varias formas</span></span>
   <div class="chips unit-chips${MISS(set.length>0)}">${allowed.map(u=>`<button type="button" class="chip sg-u" data-u="${esc(u)}" aria-pressed="${has(u)}">${TICK}${esc(uLabel(u))}</button>`).join("")}<button type="button" class="chip new sg-u" data-u="__otra" aria-pressed="${has("__otra")}">${TICK}✏️ Otra</button></div>
   ${set.map(j=>lineHtml(s,k,s.subs[j],j)).join("")}</div>`;}
-function drawServices(){const list=$("svcList");if(!list)return;
+function drawServicesOld(){const list=$("svcList");if(!list)return;
  list.innerHTML=S.services.map((s,i)=>{const cat=catOf(s.cat),k="s"+i,anchor="s"+(i+1),fl=FLASH&&FLASH.i===i?FLASH.msg:"";
  const subs=cat?cat.s.filter(x=>scopeOk(x.t)||s.subs.some(y=>y.n===x.n)):[],hid=cat?cat.s.length-subs.length:0;
  return`<div class="box" data-i="${i}"><div class="box-head"><h3>${cat?cat.e+" "+esc(cat.n):"Ficha "+(i+1)}</h3><span style="display:flex;gap:14px">${cat?`<button type="button" class="link ch-cat">Cambiar categoría</button>`:''}${S.services.length>1?`<button type="button" class="link bad rm-svc">Quitar</button>`:''}</span></div>
@@ -1005,7 +1278,7 @@ function drawServices(){const list=$("svcList");if(!list)return;
   if(s.subs.length){bindMin(s.min,k,redraw);bindSpecs(s.specs,k,redraw);bindPromo(s.promo,k,redraw);bindUploader(k,"photo",s.photos,redraw);}
   const rm=el.querySelector(".rm-svc");if(rm)rm.onclick=()=>{S.services.splice(i,1);redraw();changed();};});}
 
-function polCard(s,e,p,k){const cat=POL_MAP[s],subs=cat&&catOf(cat)?catOf(cat).s.map(x=>x.n).slice(0,14):[];const inc=p.incl&&p.incl!=="noinc";
+function polCardOld(s,e,p,k){const cat=POL_MAP[s],subs=cat&&catOf(cat)?catOf(cat).s.map(x=>x.n).slice(0,14):[];const inc=p.incl&&p.incl!=="noinc";
  return`<div class="polc${MISS(polOk(p))}" data-s="${esc(s)}"><b>${e} ${esc(s)}</b>
   <span class="q">¿Está incluido en tu renta o paquetes?</span><div class="chips">${[["inc","✅ Incluido"],["parte","🟡 Incluido en parte"],["costo","💲 Con costo extra"],["noinc","➖ No incluido"]].map(([v,t])=>`<button type="button" class="chip p-in" data-v="${v}" aria-pressed="${p.incl===v}">${TICK}${t}</button>`).join("")}</div>
   ${p.incl==="parte"?`<input type="text" class="p-det" value="${esc(p.detail)}" placeholder="¿Qué parte incluye? Ej. 60 sillas y 6 mesas" aria-label="Detalle de lo incluido">`:""}
@@ -1016,8 +1289,8 @@ function polCard(s,e,p,k){const cat=POL_MAP[s],subs=cat&&catOf(cat)?catOf(cat).s
    ${p.subst==="si"||p.subst==="parcial"?`<div class="chips">${[["libre","🆓 Libre"],["cuota","🎟️ Con cuota"],["otro","Otro"]].map(([v,t])=>`<button type="button" class="chip p-sm" data-v="${v}" aria-pressed="${p.substMode===v}">${TICK}${t}</button>`).join("")}</div>
     ${p.substMode==="cuota"?`<div class="row"><input type="number" min="0" class="pfee" value="${esc(p.fee)}" placeholder="$ cuota" aria-label="Cuota"><select class="pfu" aria-label="Unidad de la cuota">${["evento","persona","botella","hora"].map(u=>`<option value="${u}" ${p.feeUnit===u?"selected":""}>por ${u}</option>`).join("")}</select></div><input type="text" class="pfn" value="${esc(p.feeNote)}" placeholder="Nota: descorche, derecho de piso… (opcional)" aria-label="Nota de la cuota">`:""}
     ${p.substMode==="otro"?`<input type="text" class="pmo" value="${esc(p.modeOther)}" placeholder="Explícalo" aria-label="Otra condición">`:""}`:""}`:""}</div>`;}
-function drawVenue(){const v=S.venue,k="v",b=S.biz;const isR=v.mode==="renta"||v.mode==="ambos",isP=v.mode==="paquetes"||v.mode==="ambos";
- const pol=POLICY_SVCS.map(([x,e])=>polCard(x,e,v.policy[x],k)).join("");
+function drawVenue(){const v=S.venue,k="v",b=S.biz;if(!v.addrTouched&&!addrOk(v.addr)&&addrOk(b.addr)){v.addr=JSON.parse(JSON.stringify(b.addr));v.addrFromBiz=true;}const isR=v.mode==="renta"||v.mode==="ambos",isP=v.mode==="paquetes"||v.mode==="ambos";
+ const pol=POLICY_SVCS.filter(([x])=>(v.polSel||[]).includes(x)).map(([x,e])=>polCard(x,e,v.policy[x],k)).join("");
  const pk=v.packages.map((x,i)=>`<div class="pkg${MISS(pkgOk(x))}" data-i="${i}"><div class="row"><input type="text" class="pk-n" value="${esc(x.name)}" placeholder="Nombre: Paquete 1, Plata, Básico…" aria-label="Nombre del paquete"><input type="number" min="0" class="pk-p" value="${esc(x.price)}" placeholder="$ precio" aria-label="Precio del paquete"></div>
   <div class="row"><select class="pk-per" aria-label="Cómo se cobra">${[["persona","por persona"],["total","precio total"]].map(([val,t])=>`<option value="${val}" ${x.per===val?'selected':''}>${t}</option>`).join("")}</select><input type="number" min="0" class="pk-m" value="${esc(x.min)}" placeholder="Mínimo de invitados (opcional)" aria-label="Mínimo de invitados"></div>
   <span class="mini-l">Este paquete incluye</span><div class="chips">${POLICY_SVCS.map(([s2,e])=>`<button type="button" class="chip pk-i" data-s="${esc(s2)}" aria-pressed="${x.inc.includes(s2)}">${TICK}${e} ${esc(s2)}</button>`).join("")}</div>
@@ -1028,7 +1301,7 @@ function drawVenue(){const v=S.venue,k="v",b=S.biz;const isR=v.mode==="renta"||v
  <div class="field"><label class="lbl" for="v-name">Nombre del lugar</label><input type="text" id="v-name" class="${MISS(filled(v.name))}" value="${esc(v.name)}" placeholder="Terraza Las Flores"></div>
  ${avatarHtml(v,"vav","avatar","🖼️ Foto de logo o perfil del lugar")}
  ${socialHtml(v,"v",v.socialFromBiz?"Pusimos las redes de tu negocio. Si tu venue tiene redes propias, cámbialas aquí y solo se actualizan en la sección del venue.":"Estas redes son solo de tu venue.")}
- ${addrHtml(v.addr,"v","Dirección del lugar")}
+ ${v.addrFromBiz?`<div class="alert info" style="margin-bottom:-6px">📍 <span>Pusimos la dirección de tu negocio. Si tu venue está en otro lugar, cámbiala aquí.</span></div>`:""}${addrHtml(v.addr,"v","Dirección del lugar")}
  <div class="field"><span class="lbl">Tipo de espacio</span><div class="cats${MISS(!!v.type&&(v.type!=="__otro"||filled(v.typeOther)))}">${HQV.VENUE_TYPES.map(([t,e])=>`<button type="button" class="cat vt" data-t="${esc(t)}" aria-pressed="${v.type===t}"><span class="emo">${e}</span><span>${esc(t)}</span></button>`).join("")}<button type="button" class="cat vt" data-t="__otro" aria-pressed="${v.type==="__otro"}"><span class="emo">✏️</span><span>Otro</span></button></div>
   ${v.type==="__otro"?`<input type="text" id="v-tother" value="${esc(v.typeOther)}" placeholder="¿Qué tipo de espacio es?" aria-label="Otro tipo de espacio">`:""}</div>
  <div class="field"><span class="lbl">👥 ¿Cuántas personas caben?</span><div class="row"><div class="field"><label class="hint" for="v-seat">🪑 Sentadas</label><input type="number" id="v-seat" min="1" class="${MISS(+v.seated>0)}" value="${esc(v.seated)}"></div><div class="field"><label class="hint" for="v-stand">🕺 De pie</label><input type="number" id="v-stand" min="1" class="${MISS(+v.standing>0)}" value="${esc(v.standing)}"></div></div><span class="hint">Calculamos uno con el otro (de pie ≈ 1.5 × sentadas). Ajústalo si en tu lugar es distinto.</span></div>
@@ -1044,18 +1317,20 @@ function drawVenue(){const v=S.venue,k="v",b=S.biz;const isR=v.mode==="renta"||v
    :`<div class="hrs">${days.map(([d,t])=>{const h=v.hoursByDay[d]||{open:v.open,limit:v.limit};return`<div class="hr" data-d="${d}"><b>${t}</b><input type="time" class="hd-o" value="${esc(h.open||"")}" aria-label="Desde, ${t}"><input type="time" class="hd-l" value="${esc(h.limit||"")}" aria-label="Hora límite, ${t}"></div>`;}).join("")||'<span class="hint">Primero elige los días.</span>'}</div>`}
   <div class="row"><div class="field"><label class="hint" for="v-hincl">Horas de fiesta incluidas</label><input type="number" id="v-hincl" min="1" max="24" class="${MISS(+v.hoursIncl>0)}" value="${esc(v.hoursIncl)}"></div>
    <div class="field"><label class="hint" for="v-xh">Cada hora extra $</label><input type="number" id="v-xh" min="0" class="${MISS(filled(v.extraHour))}" value="${esc(v.extraHour)}"></div></div>
-  <div class="vq"><span class="lbl" style="font-size:14px">🛠️ ¿Cuánto tiempo tiene tu cliente para hacer montajes?</span>
-   <div class="row2"><input type="number" min="0" step="any" id="v-setn" value="${esc(v.setupN||"")}" placeholder="Ej. 2" aria-label="Tiempo de montaje"><select id="v-setu" aria-label="Unidad del tiempo de montaje">${["Horas","Días","Semanas","Meses"].map(u=>`<option ${(v.setupU||"Horas")===u?"selected":""}>${u}</option>`).join("")}</select></div>
-   <span class="hint">Sujeto a disponibilidad.</span></div>
-  <div class="vq"><span class="lbl" style="font-size:14px">🚪 ¿Cuánto tiempo ofreces para entrada y salida de asistentes?</span>
-   <div class="row2"><input type="number" min="0" step="any" id="v-ion" value="${esc(v.ioN||"")}" placeholder="Ej. 30" aria-label="Tiempo de entrada y salida"><select id="v-iou" aria-label="Unidad del tiempo de entrada y salida">${["Minutos","Horas"].map(u=>`<option ${(v.ioU||"Minutos")===u?"selected":""}>${u}</option>`).join("")}</select>
-    <div class="chips" style="width:fit-content;border-radius:99px">${[[0,"🎁 Gratis"],[1,"💲 Costo"]].map(([val,t])=>`<button type="button" class="chip vio" data-v="${val}" aria-pressed="${!!v.ioPaid===!!val}">${TICK}${t}</button>`).join("")}</div>
-    ${v.ioPaid?`<input type="number" min="0" id="v-ioc" class="${MISS(filled(v.ioCost))}" value="${esc(v.ioCost||"")}" placeholder="$ ¿de cuánto?" aria-label="Costo de entrada y salida">`:""}</div></div>
   <span class="lbl" style="font-size:14px">💲 ¿Cómo cobras?</span><div class="chips${MISS(!!v.mode)}" style="border-radius:14px">${[["renta","🏠 Renta del espacio"],["paquetes","📦 Paquetes"],["ambos","Las dos"]].map(([val,t])=>`<button type="button" class="chip vm" data-v="${val}" aria-pressed="${v.mode===val}">${TICK}${t}</button>`).join("")}</div>
   ${isR?`<div class="row"><input type="number" min="0" id="r-price" class="${MISS(filled(v.rent.price))}" value="${esc(v.rent.price)}" placeholder="$ precio de renta" aria-label="Precio de renta"><select id="r-per" aria-label="Cómo cobras la renta">${[["evento",`por evento (${v.hoursIncl||5} h incluidas)`],["hora","por hora"],["persona","por persona"]].map(([val,t])=>`<option value="${val}" ${v.rent.per===val?'selected':''}>${t}</option>`).join("")}</select></div>
    <div class="row"><div class="field"><label class="hint" for="r-upto">Incluye hasta (invitados) <span class="opt">opcional</span></label><input type="number" min="0" id="r-upto" value="${esc(v.rent.upTo)}" placeholder="Ej. 60"></div><div class="field"><label class="hint" for="r-pxg">Cada invitado extra $</label><input type="number" min="0" id="r-pxg" value="${esc(v.rent.perExtraGuest)}" placeholder="Ej. 150" ${filled(v.rent.upTo)?'':'disabled'}></div></div>`:''}
   ${isP?`<b style="font-size:14px">📦 Mis paquetes</b>${pk||''}${v.packages.length<4?`<button type="button" class="btn ghost sm" id="pk-add">+ Agregar paquete</button>`:''}`:''}
-  <span class="hint">¿Tu precio es negociable?</span><div class="chips${MISS(v.negotiable!==null)}" style="width:fit-content;border-radius:99px">${[[true,"🤝 Sí, se puede platicar"],[false,"Precio fijo"]].map(([val,t])=>`<button type="button" class="chip neg" data-v="${val}" aria-pressed="${v.negotiable===val}">${TICK}${t}</button>`).join("")}</div>
+  <div class="vq"><span class="lbl" style="font-size:14px">🛠️ ¿Cuánto tiempo previo tiene tu cliente para hacer montajes?</span>
+   <div class="row2"><input type="number" min="0" step="any" id="v-setn" value="${esc(v.setupN||"")}" placeholder="Ej. 2" aria-label="Tiempo previo de montaje"><select id="v-setu" aria-label="Unidad del tiempo de montaje">${["Horas","Días","Semanas","Meses"].map(u=>`<option ${(v.setupU||"Horas")===u?"selected":""}>${u}</option>`).join("")}</select></div>
+   <span class="hint">Sujeto a disponibilidad.</span></div>
+  <div class="vq"><span class="lbl" style="font-size:14px">🚪 ¿Cuánto tiempo ofreces para entrada y salida de asistentes?</span>
+   <div class="row2"><span class="lab">Entrada</span><input type="number" min="0" step="any" id="v-inn" value="${esc(v.inN||"")}" placeholder="Ej. 45" aria-label="Tiempo de entrada"><select id="v-inu" aria-label="Unidad del tiempo de entrada">${["Minutos","Horas"].map(u=>`<option ${(v.inU||"Minutos")===u?"selected":""}>${u}</option>`).join("")}</select></div>
+   <div class="row2"><span class="lab">Salida</span><input type="number" min="0" step="any" id="v-outn" value="${esc(v.outN||"")}" placeholder="Ej. 30" aria-label="Tiempo de salida"><select id="v-outu" aria-label="Unidad del tiempo de salida">${["Minutos","Horas"].map(u=>`<option ${(v.outU||"Minutos")===u?"selected":""}>${u}</option>`).join("")}</select></div>
+   <div class="row2"><div class="chips" style="width:fit-content;border-radius:99px">${[[0,"🎁 Gratis"],[1,"💲 Con costo"]].map(([val,t])=>`<button type="button" class="chip vio" data-v="${val}" aria-pressed="${!!v.ioPaid===!!val}">${TICK}${t}</button>`).join("")}</div>
+    ${v.ioPaid?`<input type="number" min="0" id="v-ioc" class="${MISS(filled(v.ioCost))}" value="${esc(v.ioCost||"")}" placeholder="$ ¿de cuánto?" aria-label="Costo de entrada y salida">`:""}</div>
+   ${v.ioPaid?`<span class="hint">El costo es por el total del tiempo de entrada y salida juntos.</span>`:""}</div>
+  <div class="varr"><span><b>¿Cuánto puede variar tu precio al negociar?</b><span class="hint" style="display:block">El anfitrión ve precios estandarizados. Este margen es tu responsabilidad. Recomendamos <b>±20%</b>.</span></span><label class="pmf"><span>±</span><input type="number" min="0" max="100" id="v-var" class="${MISS(filled(v.var))}" value="${esc(v.var)}" aria-label="Variabilidad del precio"><span>%</span></label></div>
   <details><summary class="hint" style="cursor:pointer"><b>📈 Ajustes de precio y espacios extra</b> (opcional)</summary><div style="display:grid;gap:8px;margin-top:8px">
    <span class="hint">¿Cobras distinto según el día? Pon el porcentaje de más (+) o de menos (−).</span>
    <div class="dayadj">${days.map(([d,t])=>`<label><span>${t}</span><input type="number" step="5" class="adj-d" data-d="${d}" value="${esc(v.adj.day[d]||"")}" placeholder="0 %" aria-label="Ajuste ${HQV.DAY_NAMES[d]}"></label>`).join("")||'<span class="hint">Primero elige los días que rentas.</span>'}</div>
@@ -1064,8 +1339,10 @@ function drawVenue(){const v=S.venue,k="v",b=S.biz;const isR=v.mode==="renta"||v
    <button type="button" class="btn ghost sm" id="sp-add" style="width:fit-content">+ Espacio extra (salón VIP, alberca…)</button></div></details>
  </div></div>
 
- <div class="field"><span class="lbl">🔄 Servicios en tu venue</span><span class="hint">Para cada servicio dinos si está incluido y si el cliente puede traer a su propio proveedor. Así solo te llegan fiestas que sí puedes atender.</span><div style="display:grid;gap:10px">${pol}</div>
-  <div class="polc${MISS(!!v.extAll)}"><b>🚪 ¿Todos los servicios que no incluyes los puede traer el cliente con proveedores externos?</b><div class="chips">${[["si","Sí, todos"],["algunos","Solo algunos"],["no","No"]].map(([x,t])=>`<button type="button" class="chip p-ext" data-v="${x}" aria-pressed="${v.extAll===x}">${TICK}${t}</button>`).join("")}</div>
+ <div class="field"><span class="lbl">🔄 Servicios en tu venue</span><span class="hint">Toca solo los servicios que ofreces en tu venue (incluidos o con costo). Luego te preguntamos los detalles. Así solo te llegan fiestas que sí puedes atender.</span>
+  <div class="chips" style="border-radius:14px">${POLICY_SVCS.map(([x,e])=>`<button type="button" class="chip vps" data-s="${esc(x)}" aria-pressed="${(v.polSel||[]).includes(x)}">${TICK}${e} ${esc(POL_LABEL[x]||x)}</button>`).join("")}</div>
+  <div style="display:grid;gap:10px">${pol}</div>
+  <div class="polc${MISS(!!v.extAll)}"><b>🚪 ¿Los servicios que no ofreces los puede traer el cliente con proveedores externos?</b><div class="chips">${[["si","Sí, todos"],["algunos","Solo algunos"],["no","No"]].map(([x,t])=>`<button type="button" class="chip p-ext" data-v="${x}" aria-pressed="${v.extAll===x}">${TICK}${t}</button>`).join("")}</div>
    ${v.extAll==="algunos"?`<input type="text" id="v-extn" value="${esc(v.extAllNote)}" placeholder="¿Cuáles sí y cuáles no?" aria-label="Cuáles servicios externos">`:""}</div></div>
 
  <div class="field"><span class="lbl">📝 Condiciones para rentarlo</span><div class="sub-box" style="display:grid;gap:12px">
@@ -1089,7 +1366,8 @@ function drawVenue(){const v=S.venue,k="v",b=S.biz;const isR=v.mode==="renta"||v
  ${navHtml()}</div>`;
  const redraw=()=>{const y=scrollY;drawVenue();scrollTo({top:y});};
  const ch=()=>{ensureState();changed();const bx=$("stdbox");if(bx)bx.innerHTML=venueStdRows(v);};
- [["v-name","name"],["v-area","area"],["v-open","open"],["v-limit","limit"],["v-hincl","hoursIncl"],["v-xh","extraHour"],["v-adv","advance"],["v-guar","guarantee"],["v-cancel","cancel"],["v-rules","rulesText"],["v-depn","depositN"],["v-depu","depositU"],["v-clink","cancelLink"],["v-grn","guarRetN"],["v-gru","guarRetU"],["v-tother","typeOther"],["v-setn","setupN"],["v-setu","setupU"],["v-ion","ioN"],["v-iou","ioU"],["v-ioc","ioCost"],["v-extn","extAllNote"]].forEach(([i,f])=>{const el=$(i);if(el)el.oninput=el.onchange=e=>{v[f]=e.target.value;ch();};});
+ [["v-name","name"],["v-area","area"],["v-open","open"],["v-limit","limit"],["v-hincl","hoursIncl"],["v-xh","extraHour"],["v-adv","advance"],["v-guar","guarantee"],["v-cancel","cancel"],["v-rules","rulesText"],["v-depn","depositN"],["v-depu","depositU"],["v-clink","cancelLink"],["v-grn","guarRetN"],["v-gru","guarRetU"],["v-tother","typeOther"],["v-setn","setupN"],["v-setu","setupU"],["v-inn","inN"],["v-inu","inU"],["v-outn","outN"],["v-outu","outU"],["v-ioc","ioCost"],["v-extn","extAllNote"]].forEach(([i,f])=>{const el=$(i);if(el)el.oninput=el.onchange=e=>{v[f]=e.target.value;ch();};});
+ const vv=$("v-var");if(vv)vv.oninput=e=>{v.var=e.target.value;v.negotiable=+v.var>0;ch();};
  $("v-guar").onchange=()=>redraw();
  $("v-seat").oninput=e=>{v.seated=e.target.value;v.standing=+v.seated>0?String(Math.round(+v.seated*1.5)):"";$("v-stand").value=v.standing;ch();};
  $("v-stand").oninput=e=>{v.standing=e.target.value;v.seated=+v.standing>0?String(Math.round(+v.standing/1.5)):"";$("v-seat").value=v.seated;ch();};
@@ -1118,6 +1396,7 @@ function drawVenue(){const v=S.venue,k="v",b=S.biz;const isR=v.mode==="renta"||v
   on(".p-in",c=>{p.incl=c.dataset.v;});on(".p-sb",c=>{p.subst=c.dataset.v;if(p.subst==="si"&&!p.substMode)p.substMode="libre";});on(".p-sm",c=>{p.substMode=c.dataset.v;});
   on(".p-sub",c=>{const n=c.dataset.n;p.subs=(p.subs||[]).includes(n)?p.subs.filter(y=>y!==n):[...(p.subs||[]),n];});
   [[".p-det","detail"],[".ppr","price"],[".pper","per"],[".pfee","fee"],[".pfu","feeUnit"],[".pfn","feeNote"],[".p-sbo","substOther"],[".pmo","modeOther"]].forEach(([sel,f])=>{const el=box.querySelector(sel);if(el)el.oninput=el.onchange=e=>{p[f]=e.target.value;ch();};});});
+ document.querySelectorAll(".vps").forEach(c=>c.onclick=()=>{const x=c.dataset.s,P=v.policy[x];v.polSel=v.polSel.includes(x)?v.polSel.filter(y=>y!==x):[...v.polSel,x];if(v.polSel.includes(x)){if(P.incl==="noinc")P.incl="";}else P.incl="noinc";syncPol(P,v.extAll);redraw();changed();});
  document.querySelectorAll(".p-ext").forEach(c=>c.onclick=()=>{v.extAll=c.dataset.v;redraw();changed();});
  document.querySelectorAll(".doc").forEach(c=>c.onclick=()=>{const d=c.dataset.d;v.docs=v.docs.includes(d)?v.docs.filter(x=>x!==d):[...v.docs,d];c.setAttribute("aria-pressed",v.docs.includes(d));ch();});
  $("docNone").onclick=()=>{v.docsNone=!v.docsNone;if(v.docsNone){v.docs=[];v.docsOther="";}redraw();changed();};
@@ -1129,7 +1408,7 @@ function drawVenue(){const v=S.venue,k="v",b=S.biz;const isR=v.mode==="renta"||v
  upf("v-rfile","rmsg",x=>v.rulesFile=x);upf("v-cfile","cmsg",x=>v.cancelFile=x);
  const rr=$("v-rrm");if(rr)rr.onclick=()=>{v.rulesFile=null;redraw();changed();};
  const cr=$("v-crm");if(cr)cr.onclick=()=>{v.cancelFile=null;redraw();changed();};
- bindAvatar(v,"vav","avatar");bindSocial(v,"v",redraw,()=>{v.socialFromBiz=false;});bindAddr(v.addr,"v",redraw);bindPromo(v.promo,k,redraw);bindUploader(k,"photo",v.photos,redraw);bindNav();}
+ bindAvatar(v,"vav","avatar");bindSocial(v,"v",redraw,()=>{v.socialFromBiz=false;});bindAddr(v.addr,"v",redraw);document.querySelectorAll("#stepBody input,#stepBody select").forEach(x=>{if(/^a[a-z]{1,3}-v$/.test(x.id||""))x.addEventListener("input",()=>{v.addrTouched=true;});});bindPromo(v.promo,k,redraw);bindUploader(k,"photo",v.photos,redraw);bindNav();}
 const blankPkg=()=>({name:"",price:"",per:"persona",min:"",inc:[]});
 const polOk=p=>!!p.incl&&(p.incl==="noinc"||!!p.subst)&&(p.incl!=="costo"||filled(p.price))&&(p.incl!=="parte"||filled(p.detail))&&(!(p.subst==="si"||p.subst==="parcial")||!!p.substMode)&&(p.substMode!=="cuota"||!(p.subst==="si"||p.subst==="parcial")||filled(p.fee));
 const pkgOk=x=>filled(x.name)&&filled(x.price);
@@ -1158,16 +1437,16 @@ function drawPlanner(){const p=S.planner,k="pl",yrs=[];for(let y=yearNow;y>=1970
    ${f.unit==="otro"?`<input type="text" class="fe-o" value="${esc(f.other)}" placeholder="¿Cómo cobras? Ej. por día de evento" aria-label="Otra unidad">`:""}
    <input type="text" class="fe-n" value="${esc(f.note)}" placeholder="¿Para qué tipo o tamaño de evento? (opcional)" aria-label="Nota"><button type="button" class="link bad fe-rm" style="justify-self:start" ${p.fees.length<2?"hidden":""}>Quitar esta tarifa</button></div>`).join("")}</div>
   <button type="button" class="link" id="fe-add" style="justify-self:start">+ Otra forma de cobrar</button></div>
- <div class="row"><div class="field"><span class="lbl">💳 Anticipo para apartar</span><div class="row"><input type="number" min="0" id="pl-depn" class="${MISS(filled(p.depositN))}" value="${esc(p.depositN)}" placeholder="Ej. 30" aria-label="Anticipo"><select id="pl-depu" aria-label="Unidad"><option value="%" ${p.depositU==="%"?"selected":""}>% del total</option><option value="$" ${p.depositU==="$"?"selected":""}>pesos ($)</option></select></div></div>
-  <div class="field"><span class="lbl">🤝 ¿Tus costos son negociables?</span><div class="chips${MISS(p.negotiable!==null)}" style="width:fit-content;border-radius:99px">${[[true,"Sí, se puede platicar"],[false,"Precio fijo"]].map(([val,t])=>`<button type="button" class="chip pneg" data-v="${val}" aria-pressed="${p.negotiable===val}">${TICK}${t}</button>`).join("")}</div></div></div>
+ <div class="field"><span class="lbl">💳 Anticipo para apartar</span><div class="hrow"><input type="number" min="0" id="pl-depn" class="${MISS(filled(p.depositN))}" value="${esc(p.depositN)}" placeholder="Ej. 30" aria-label="Anticipo"><select id="pl-depu" aria-label="Unidad del anticipo"><option value="%" ${p.depositU==="%"?"selected":""}>% del total</option><option value="$" ${p.depositU==="$"?"selected":""}>pesos ($)</option></select></div></div>
+ <div class="field"><div class="varr"><span><b>🤝 ¿Cuánto pueden variar tus costos al negociar?</b><span class="hint" style="display:block">Pon 0 si es precio fijo. Recomendamos <b>±20%</b>; el margen es tu responsabilidad.</span></span><label class="pmf"><span>±</span><input type="number" min="0" max="100" id="pl-var" class="${MISS(filled(p.var))}" value="${esc(p.var)}" aria-label="Variabilidad de tus costos"><span>%</span></label></div></div>
  <div class="field"><span class="lbl">⭐ Me especializo en</span><div class="chips${MISS(p.specialties.length>0)}" style="border-radius:14px">${PLANNER_SPECS.concat(extra).map(t=>`<button type="button" class="chip ps" data-t="${esc(t)}" aria-pressed="${p.specialties.includes(t)}">${TICK}${esc(t)}</button>`).join("")}<button type="button" class="chip new" id="ps-new">+ Otra especialidad</button></div>
   <div style="display:flex;gap:8px" id="psw" hidden><input type="text" id="ps-in" placeholder="Escribe tu especialidad"><button type="button" class="btn sm" id="ps-add">Agregar</button></div></div>
- ${zonesHtml(p.zones,"pl","¿Dónde trabajas como planner?")}
+ ${zonesHtml(p.zones,"pl","¿Dónde trabajas como planner?")}${VIATICOS}
  ${promoHtml(p.promo,k,"planner")}
  <div class="field"><span class="lbl">📷 Fotos de eventos que organizaste</span>${uploaderHtml(k,"photo",p.photos,p.photos.length>0)}</div>
  ${navHtml()}</div>`;
  const redraw=()=>{const y=scrollY;drawPlanner();scrollTo({top:y});};
- [["pl-name","person"],["pl-since","since"],["pl-bio","bio"],["pl-depn","depositN"],["pl-depu","depositU"]].forEach(([i,f])=>{$(i).oninput=$(i).onchange=e=>{p[f]=e.target.value;changed();};});
+ [["pl-name","person"],["pl-since","since"],["pl-bio","bio"],["pl-depn","depositN"],["pl-depu","depositU"],["pl-var","var"]].forEach(([i,f])=>{$(i).oninput=$(i).onchange=e=>{p[f]=e.target.value;p.negotiable=+p.var>0;changed();};});
  document.querySelectorAll(".bs").forEach(b=>b.onclick=()=>{const t=$("pl-bio");t.value=(t.value.trim()?t.value.trim()+" ":"")+b.dataset.q.replace("…"," ");p.bio=t.value;t.focus();t.setSelectionRange(t.value.length,t.value.length);changed();});
  document.querySelectorAll(".fee").forEach(r=>{const f=p.fees[+r.dataset.i];r.querySelector(".fe-a").oninput=e=>{f.amount=e.target.value;ensureState();changed();};r.querySelector(".fe-u").onchange=e=>{f.unit=e.target.value;redraw();changed();};
   const o=r.querySelector(".fe-o");if(o)o.oninput=e=>{f.other=e.target.value;changed();};r.querySelector(".fe-n").oninput=e=>{f.note=e.target.value;changed();};r.querySelector(".fe-rm").onclick=()=>{p.fees.splice(+r.dataset.i,1);redraw();changed();};});
@@ -1204,18 +1483,18 @@ function siteHtml(){const b=S.biz,wa=b.whatsapp.replace(/\D/g,""),L=level(),yrs=
  const VP=(id,html)=>`<div class="vpane" data-vp="${id}" ${VT.length>1&&VT[0][0]!==id?"hidden":""}>${html}</div>`;
  if(S.types.services){const sv=S.services.filter(s=>s.subs.length);
   out.push(VP("svc",`<div style="display:grid;gap:8px"><h3>🎉 Servicios</h3>${sv.length?sv.map(s=>{const c=catOf(s.cat);const i=S.services.indexOf(s);return`<div class="ms-item"><div class="ms-item-top"><b>${c?c.e+" "+esc(c.n):"✨"}</b></div>
-   <div class="plist">${s.subs.map(x=>`<span>${esc(x.n)} <span class="price">${filled(x.price)&&x.u?priceTxt(x):'<small>Por cotizar</small>'}</span></span>`).join("")}</div>
+   <div class="plist">${svcPlist(s)}</div>
    ${s.desc?`<small>${esc(s.desc)}</small>`:''}
    <div class="feat">${(s.dl||[]).map(d=>`<span>${dlEmo(d.m)} ${esc(dlText(d))}</span>`).join("")}${minText(s.min)?`<span>🧾 ${esc(minText(s.min))}</span>`:''}${s.specs.map(t=>`<span>✨ ${esc(t)}</span>`).join("")}</div>
    ${promoBlock(s.promo,"s"+(i+1))}${strip(s.photos)}</div>`;}).join(""):'<p class="empty">Aquí aparecerán tus servicios.</p>'}
-   ${zonesText(S.svcZones)?`<small style="color:var(--muted);font-size:12px">🗺️ Servicio en: ${esc(zonesText(S.svcZones))}</small>`:''}</div>`));}
+   ${zonesText(S.svcZones)?`<small style="color:var(--muted);font-size:12px">🗺️ Servicio en: ${esc(zonesText(S.svcZones))}</small>`:''}${S.svcHigh&&+S.svcHigh.pct>0&&S.svcHigh.months.length?`<small style="color:var(--muted);font-size:12px">🔥 Temporada alta (${esc(S.svcHigh.months.map(m=>MONTHS.find(x=>x[0]===m)[1]).join(", "))}): +${esc(S.svcHigh.pct)}%</small>`:""}</div>`));}
  if(S.types.venue){const v=S.venue,vt=VENUE_TYPES.find(x=>x[0]===v.type),bt=+v.baths.m+ +v.baths.w+ +v.baths.g,va=addrLine(v.addr,true);
   out.push(VP("venue",`<div style="display:grid;gap:8px"><h3>🏡 Venue</h3><div class="ms-item">
    <div class="venue-head"><div class="ms-logo">${v.photo?`<img src="${v.photo}" alt="">`:esc(initials(v.name||"V"))}</div><div><b style="font-size:15px">${esc(v.name||"Tu venue")}</b><br><small>${vt?vt[1]+" "+esc(vt[0]):v.type==="__otro"?"✨ "+esc(v.typeOther):''}</small></div></div>
    ${va?`<div class="loc"><span>📍 ${esc(va)}${v.addr.ref?` · ${esc(v.addr.ref)}`:''}</span><a href="${mapsLink(v.addr)}" target="_blank" rel="noopener">Cómo llegar</a></div>`:''}
    ${socialRow(v)}
    ${venuePriceHtml(v)}
-   <div class="feat">${v.seated?`<span>🪑 ${esc(v.seated)} sentadas</span>`:''}${v.standing?`<span>🕺 ${esc(v.standing)} de pie</span>`:''}${v.area?`<span>📐 ${esc(v.area)}</span>`:''}${v.setupN?`<span>🛠️ Montaje: ${esc(v.setupN)} ${esc((v.setupU||"Horas").toLowerCase())} (sujeto a disponibilidad)</span>`:''}${v.ioN?`<span>🚪 Entrada y salida: ${esc(v.ioN)} ${esc((v.ioU||"Minutos").toLowerCase())} · ${v.ioPaid?money(v.ioCost||0):"gratis"}</span>`:''}${v.days.length?`<span>🗓️ ${esc(v.days.map(d=>HQV.DAYS.find(x=>x[0]===d)[1]).join(" "))}</span>`:''}${v.sameHours===false?v.days.map(d=>{const h=v.hoursByDay[d];return h&&h.limit?`<span>🕒 ${HQV.DAYS.find(x=>x[0]===d)[1]} ${esc(h.open)}–${esc(h.limit)}</span>`:"";}).join(""):v.limit?`<span>🕒 ${esc(v.open||"")}${v.open?" a ":"Hasta las "}${esc(v.limit)}</span>`:''}${(v.featsOther||[]).filter(filled).map(x=>`<span>✨ ${esc(x)}</span>`).join("")}${v.hoursIncl?`<span>⏱️ ${esc(v.hoursIncl)} h de fiesta + ½ h montaje + ½ h desmontaje</span>`:''}${filled(v.extraHour)?`<span>⏰ Hora extra ${money(v.extraHour)}</span>`:''}${v.negotiable?'<span>🤝 Precio negociable</span>':''}
+   <div class="feat">${v.seated?`<span>🪑 ${esc(v.seated)} sentadas</span>`:''}${v.standing?`<span>🕺 ${esc(v.standing)} de pie</span>`:''}${v.area?`<span>📐 ${esc(v.area)}</span>`:''}${v.setupN?`<span>🛠️ Montaje previo: ${esc(v.setupN)} ${esc((v.setupU||"Horas").toLowerCase())} (sujeto a disponibilidad)</span>`:''}${v.inN||v.outN?`<span>🚪 Entrada ${esc(v.inN||"0")} ${esc((v.inU||"Minutos").toLowerCase())} · salida ${esc(v.outN||"0")} ${esc((v.outU||"Minutos").toLowerCase())} · ${v.ioPaid?money(v.ioCost||0)+" por el total":"gratis"}</span>`:''}${v.days.length?`<span>🗓️ ${esc(v.days.map(d=>HQV.DAYS.find(x=>x[0]===d)[1]).join(" "))}</span>`:''}${v.sameHours===false?v.days.map(d=>{const h=v.hoursByDay[d];return h&&h.limit?`<span>🕒 ${HQV.DAYS.find(x=>x[0]===d)[1]} ${esc(h.open)}–${esc(h.limit)}</span>`:"";}).join(""):v.limit?`<span>🕒 ${esc(v.open||"")}${v.open?" a ":"Hasta las "}${esc(v.limit)}</span>`:''}${(v.featsOther||[]).filter(filled).map(x=>`<span>✨ ${esc(x)}</span>`).join("")}${v.hoursIncl?`<span>⏱️ ${esc(v.hoursIncl)} h de fiesta</span>`:''}${filled(v.extraHour)?`<span>⏰ Hora extra ${money(v.extraHour)}</span>`:''}${+v.var>0?`<span>🤝 Negociable ± ${esc(v.var)}%</span>`:''}
     ${bt?`<span>${"Baños: "+[+v.baths.m>0?`🚹 ${v.baths.m}`:"",+v.baths.w>0?`🚺 ${v.baths.w}`:"",+v.baths.g>0?`🚻 ${v.baths.g}`:""].filter(Boolean).join(" ")}</span>`:''}${FEATURES.filter(f=>v.features.includes(f[0])).map(f=>`<span>${f[1]} ${esc(f[2])}</span>`).join("")}</div>
    <div class="ms-pol">${POLICY_SVCS.map(([s,e])=>{const p=v.policy[s];if(!p.offer&&!p.own)return"";return`<span>${e} ${esc(s)} <span style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end">${p.incl==="parte"?`<em class="st inc">Incluido en parte${p.detail?": "+esc(p.detail):""}</em>`:p.offer==="inc"?`<em class="st inc">Incluido${(p.subs||[]).length?": "+esc(p.subs.join(", ")):""}</em>`:p.offer==="costo"?`<em class="st ext">Lo ofrece ${filled(p.price)?money(p.price)+(p.per==="persona"?" c/u":""):""}</em>`:''}${p.own==="si"?'<em class="st inc">Puedes traerlo</em>':p.own==="cuota"?`<em class="st ext">Traerlo: cuota ${money(p.fee)}</em>`:p.own==="no"?'<em class="st no">Solo con su gente</em>':''}</span></span>`;}).join("")}</div>
    <div class="prompt" style="font-size:12px;display:grid;gap:2px"><small>Condiciones</small>${v.deposit?`<span>💳 Anticipo ${esc(v.deposit)}</span>`:''}${v.advance?`<span>📅 Reserva con ${esc(v.advance)} días de anticipación</span>`:''}${v.guarantee?`<span>🔐 Depósito en garantía ${money(v.guarantee)}${v.guarRetN?` · se devuelve en ${esc(v.guarRetN)} ${esc(v.guarRetU)}`:""}</span>`:''}${v.extAll?`<span>🚪 Proveedores externos: ${v.extAll==="si"?"sí, todos los que no se incluyen":v.extAll==="no"?"no":esc(v.extAllNote||"solo algunos")}</span>`:""}${v.cancelFile?`<span>📎 Política de cancelación (${esc(v.cancelFile.name)})</span>`:""}${v.cancelLink?`<span>🔗 Política de cancelación: ${esc(v.cancelLink)}</span>`:""}${v.corkage?`<span>🍾 Descorche: ${esc(v.corkage)}</span>`:''}${v.cancel?`<span>↩️ ${esc(v.cancel)}</span>`:''}
@@ -1225,7 +1504,7 @@ function siteHtml(){const b=S.biz,wa=b.whatsapp.replace(/\D/g,""),L=level(),yrs=
   out.push(VP("planner",`<div style="display:grid;gap:8px"><h3>📋 Event planner</h3><div class="planner-card"><div class="pic">${p.photo?`<img src="${p.photo}" alt="">`:"🙂"}<div class="nm">${esc(p.person||"Tu nombre")}<small>${py>0?`${py} años organizando fiestas`:''}${zonesText(p.zones)?` · ${esc(zonesText(p.zones))}`:''}</small></div></div>
    <div class="bd">${p.bio?`<span>${esc(p.bio)}</span>`:''}${socialRow(p)}<div class="ms-emb"><img src="img/b_fundador.webp" alt="">${demo?`${DEMO_REV.events} eventos cerrados · ⭐ ${DEMO_REV.rating} promedio`:"Nuevo en ¡HQV!"}</div>
    ${(p.fees||[]).filter(f=>filled(f.amount)).map(f=>`<div class="ms-item-top"><b>Coordinación${f.note?` <small style="font-weight:600;color:var(--muted)">· ${esc(f.note)}</small>`:""}</b><span class="price">${f.unit==="porcentaje"?`${esc(f.amount)}% <small>del total de la fiesta</small>`:`${money(f.amount)} <small>${f.unit==="otro"?esc(f.other):FEE_UNITS.find(x=>x[0]===f.unit)[1].toLowerCase()}</small>`}</span></div>`).join("")||'<div class="ms-item-top"><b>Coordinación de tu evento</b><span class="price"><small>Por cotizar</small></span></div>'}
-   <div class="feat">${filled(p.depositN)?`<span>💳 Anticipo ${p.depositU==="%"?esc(p.depositN)+"%":money(p.depositN)}</span>`:""}${p.negotiable?'<span>🤝 Precios negociables</span>':""}</div>
+   <div class="feat">${filled(p.depositN)?`<span>💳 Anticipo ${p.depositU==="%"?esc(p.depositN)+"%":money(p.depositN)}</span>`:""}${+p.var>0?`<span>🤝 Negociable ± ${esc(p.var)}%</span>`:""}</div>
    ${p.specialties.length?`<div class="feat">${p.specialties.map(t=>`<span>⭐ ${esc(t)}</span>`).join("")}</div>`:''}${promoBlock(p.promo,"planner")}${strip(p.photos)}</div></div></div>`));}
  out.push(`<div style="display:grid;gap:8px"><h3>⭐ Reseñas</h3>${demo?`<div class="scores"><span>🎉 Eventos <b>${DEMO_REV.rating}</b> ★ · ${DEMO_REV.count}</span><span>💬 Cotizaciones <b>${DEMO_REV.qrating}</b> ★ · ${DEMO_REV.qcount}</span></div>${DEMO_REV.list.map(r=>`<div class="rev"><span><span class="stars">${"★".repeat(r.s)}</span> <b>${esc(r.n)}</b> <span class="rtag ${r.ty==="q"?"q":""}">${r.ty==="q"?"Cotización":"Evento"}</span> · <span style="color:var(--muted)">${r.d}</span></span><span>${esc(r.t)}</span></div>`).join("")}`:'<p class="empty">Aún no hay reseñas. Los anfitriones califican cómo cotizas y, si te contratan, cómo estuvo tu servicio.</p>'}
   <button type="button" class="rate-btn">⭐ Califica a ${esc(b.name||"este proveedor")}</button></div>`);
@@ -1238,7 +1517,7 @@ function preview(){ensureState();const st=$("site");const top=st.scrollTop;st.in
 function render(){ensureState();renderTimeline();renderStep();preview();}
 function publish(){const datos={nombre:S.biz.owner||"",negocio:S.biz.name,wa:S.biz.whatsapp.replace(/\D/g,"").slice(-10),email:S.account.email,marketing:!!S.account.mk,
   tipos:Object.keys(S.types).filter(k=>S.types[k]),ambito:{social:!!(S.svcScope||{}).S,empresarial:!!(S.svcScope||{}).E},
-  servicios:S.services.map(s=>({cat:s.cat,subs:s.subs.map(x=>({n:x.n,precio:x.price,unidad:x.u==="__otra"?null:x.u,unidadOtra:x.u==="__otra"?x.uo:null,familia:famOf(x.u),rinde:x.yieldP||null,paquetePersonas:x.pkgP||null,paqueteHoras:x.pkgH||null})),entregas:(s.dl||[]).map(d=>({modalidad:d.m,descripcion:d.desc||null,cobra:d.cobra,unidad:d.u||null,tarifa:d.rate||null,zonas:dlMeth(d)==="zona"?d.z:null,unidadOtra:d.uo||null,metodoOtra:d.u==="Otro"?d.om:null,condiciones:d.conds}))})).filter(s=>s.cat),
+  variabilidad:S.svcVar,temporadaAlta:S.svcHigh,servicios:S.services.map(s=>({cat:s.cat,subs:s.subs.map(x=>({n:x.n,precio:x.price,unidad:x.u==="__otra"?null:x.u,unidadOtra:x.u==="__otra"?x.uo:null,familia:famOf(x.u),rinde:x.yieldP||null,paquetePersonas:x.pkgP||null,paqueteHoras:x.pkgH||null})),modos:s.ways,ofertas:s.offers,staff:s.staff,renta:s.rent,entregas:(s.dl||[]).map(d=>({modalidad:d.m,descripcion:d.desc||null,cobra:d.cobra,unidad:d.u||null,tarifa:d.rate||null,zonas:dlMeth(d)==="zona"?d.z:null,unidadOtra:d.uo||null,metodoOtra:d.u==="Otro"?d.om:null,condiciones:d.conds}))})).filter(s=>s.cat),
   propuestas:{categorias:[...NEW_CATS],subcategorias:[...NEW_SUBS],unidades:[...NEW_UNITS]},
   zona:(S.biz.addr&&(S.biz.addr.muni||S.biz.addr.state))||"",url:"hayquevernos.com/"+slug(S.biz.name),completo:completeness()};
  hqvTrack("sitio_publicado",{tipos:datos.tipos,completo:datos.completo});
@@ -1247,6 +1526,12 @@ function publish(){const datos={nombre:S.biz.owner||"",negocio:S.biz.name,wa:S.b
 document.addEventListener("click",e=>{const t=e.target.closest("[data-vt]");if(!t)return;const root=t.closest(".site,.public-site")||document;root.querySelectorAll("[data-vt]").forEach(x=>x.setAttribute("aria-selected",x===t));root.querySelectorAll("[data-vp]").forEach(x=>x.hidden=x.dataset.vp!==t.dataset.vt);hqvTrack("sitio_pestana",{v:t.dataset.vt});});
 document.body.insertAdjacentHTML("beforeend",`<datalist id="minUnits">${MIN_UNITS.map(u=>`<option value="${u}">`).join("")}</datalist>
 <datalist id="dlUnits">${Object.keys(UF).map(u=>`<option value="${esc(uLabel(u))}">`).join("")}</datalist>
+<datalist id="dlFull">${[...new Set(CAT2.flatMap(c=>c.full))].sort().map(n=>`<option value="${esc(n)}">`).join("")}</datalist>
+<datalist id="dlStaff">${[...new Set(CAT2.flatMap(c=>c.staff))].sort().map(n=>`<option value="${esc(n)}">`).join("")}</datalist>
+<datalist id="dlSalado">${DISH_LIST.Salado.map(n=>`<option value="${esc(n)}">`).join("")}</datalist>
+<datalist id="dlDulce">${DISH_LIST.Dulce.map(n=>`<option value="${esc(n)}">`).join("")}</datalist>
+<datalist id="dlDrinks">${DRINK_VARS.map(n=>`<option value="${esc(n)}">`).join("")}</datalist>
+<datalist id="dlIncU">${["tiempos","piezas","platillos","guisados","guarniciones","meseros","bartenders","horas","litros","kilos","cajas","bebidas","variedades","personas","mesas","sillas","bocadillos","estaciones","canciones","fotos","invitaciones"].map(n=>`<option value="${n}">`).join("")}</datalist>
 <datalist id="dlCats">${CATS.map(c=>`<option value="${esc(c.n)}">`).join("")}</datalist>
 <datalist id="dlSubs">${[...new Set(CATS.flatMap(c=>c.s.map(x=>x.n)))].sort().map(n=>`<option value="${esc(n)}">`).join("")}</datalist>`);
 $("goProv").onclick=()=>{if(!Object.values(S.types).some(Boolean)){$("typeErr").hidden=false;return;}$("home").hidden=true;$("editorWrap").hidden=false;step=0;showMiss=false;render();scrollTo({top:0});};
