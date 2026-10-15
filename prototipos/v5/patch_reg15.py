@@ -108,15 +108,6 @@ CSS = '''
 .ru-note{display:block;background:rgba(0,195,137,.12);border-radius:12px;padding:7px 10px;font-size:13px;font-weight:700}
 .ru-tg .dlsec{margin-top:4px}.ru-tg .dlc{background:var(--card)}
 .ru-lt{display:grid;gap:6px}
-.ru-lhd,.ru-lr{display:grid;grid-template-columns:minmax(110px,1.3fr) 104px 118px 118px 70px 104px 24px;gap:8px;align-items:center}
-.ru-lhd{font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:0 10px}
-.ru-lr{background:var(--card);border-radius:14px;padding:6px 10px}
-.ru-lr input,.ru-lr select{padding:6px 8px!important;min-width:0;font-size:14px}.ru-lr select{width:100%}
-.ru-ln{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ru-stp{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:99px;overflow:hidden;background:var(--paper)}
-.ru-stp button{border:0;background:none;width:30px;height:32px;font-weight:900;font-size:17px;color:#8205B4;cursor:pointer}
-.ru-stp input{width:40px!important;border:0!important;background:none!important;text-align:center;padding:4px 0!important;box-shadow:none!important}
-.ru-lr .ru-money input{width:100%}.ru-mn,.ru-xh{display:flex;align-items:center;gap:3px;font-weight:800;font-size:13px}.ru-mn input{width:46px}.ru-xh input{width:100%}.ru-na{color:var(--help,#9A92AE);justify-content:center}
 .ru-add,.ru-pols{display:grid;gap:6px}
 .ru-addc{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.ru-addc::-webkit-scrollbar{display:none}.ru-addc .chip{flex:none;white-space:nowrap}
 .ru-pils{display:flex;flex-wrap:wrap;gap:6px}
@@ -133,7 +124,6 @@ CSS = '''
 .ru-embmini{margin-right:4px}.ms-sv{background:rgba(190,255,0,.9);color:#1A2600;border-radius:99px;padding:2px 9px;font-size:12px;font-weight:900}
 .ru-tg,.ru-labr,.ru-lt,.ru-add,.ru-pols,.ru-addc,.ru-pils,.ru-cov{min-width:0;max-width:100%}
 .ru-labr{container-type:inline-size}
-@container (max-width:720px){.ru-labr .ru-lhd{display:none}.ru-labr .ru-lr{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 24px;grid-template-areas:"n n x" "q p p" "u u u" "m h h";row-gap:8px;column-gap:6px;padding:8px 10px}.ru-labr .ru-ln{display:block;min-width:0;font-size:15px}.ru-labr .ru-stp{width:100%;min-width:0}.ru-labr .ru-mn,.ru-labr .ru-xh{min-width:0;justify-content:flex-start}.ru-labr .ru-mn input,.ru-labr .ru-xh input{flex:1;min-width:0;width:auto}.ru-labr .ru-ln{grid-area:n}.ru-labr .ru-stp{grid-area:q}.ru-labr .ru-lr .ru-lrm{grid-area:x}.ru-labr .ru-lr .ru-money{grid-area:p}.ru-labr .ru-lr .ru-lu{grid-area:u}.ru-labr .ru-mn{grid-area:m}.ru-labr .ru-xh{grid-area:h}.ru-mn::before{content:"mín. ";font-weight:800;font-size:12px}.ru-xh::before{content:"extra ";white-space:nowrap;font-weight:800;font-size:12px;margin-right:2px}.ru-pill{max-width:100%;flex-wrap:wrap}.ru-pt{white-space:normal;text-align:left}}
 .ru-stb{background:linear-gradient(135deg,#00C389,#BEFF00);color:#0B2A1F;border-radius:99px;padding:2px 9px;font-size:11px;font-weight:900;width:fit-content}
 .ru-confl{gap:10px}.ru-cf{display:grid;gap:6px;justify-items:center;background:rgba(255,255,255,.12);border-radius:14px;padding:10px;width:100%}
 .ru-pksec{display:grid;gap:12px}.ru-pksec.locked .ru-lh h3{color:var(--muted)}

@@ -627,15 +627,6 @@ details.more{background:#FBFAFF;border-radius:14px;padding:8px 12px}details.more
 .ru-note{display:block;background:rgba(0,195,137,.12);border-radius:12px;padding:7px 10px;font-size:13px;font-weight:700}
 .ru-tg .dlsec{margin-top:4px}.ru-tg .dlc{background:var(--card)}
 .ru-lt{display:grid;gap:6px}
-.ru-lhd,.ru-lr{display:grid;grid-template-columns:minmax(110px,1.3fr) 104px 118px 118px 70px 104px 24px;gap:8px;align-items:center}
-.ru-lhd{font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:0 10px}
-.ru-lr{background:var(--card);border-radius:14px;padding:6px 10px}
-.ru-lr input,.ru-lr select{padding:6px 8px!important;min-width:0;font-size:14px}.ru-lr select{width:100%}
-.ru-ln{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ru-stp{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:99px;overflow:hidden;background:var(--paper)}
-.ru-stp button{border:0;background:none;width:30px;height:32px;font-weight:900;font-size:17px;color:#8205B4;cursor:pointer}
-.ru-stp input{width:40px!important;border:0!important;background:none!important;text-align:center;padding:4px 0!important;box-shadow:none!important}
-.ru-lr .ru-money input{width:100%}.ru-mn,.ru-xh{display:flex;align-items:center;gap:3px;font-weight:800;font-size:13px}.ru-mn input{width:46px}.ru-xh input{width:100%}.ru-na{color:var(--help,#9A92AE);justify-content:center}
 .ru-add,.ru-pols{display:grid;gap:6px}
 .ru-addc{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.ru-addc::-webkit-scrollbar{display:none}.ru-addc .chip{flex:none;white-space:nowrap}
 .ru-pils{display:flex;flex-wrap:wrap;gap:6px}
@@ -652,7 +643,6 @@ details.more{background:#FBFAFF;border-radius:14px;padding:8px 12px}details.more
 .ru-embmini{margin-right:4px}.ms-sv{background:rgba(190,255,0,.9);color:#1A2600;border-radius:99px;padding:2px 9px;font-size:12px;font-weight:900}
 .ru-tg,.ru-labr,.ru-lt,.ru-add,.ru-pols,.ru-addc,.ru-pils,.ru-cov{min-width:0;max-width:100%}
 .ru-labr{container-type:inline-size}
-@container (max-width:720px){.ru-labr .ru-lhd{display:none}.ru-labr .ru-lr{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 24px;grid-template-areas:"n n x" "q p p" "u u u" "m h h";row-gap:8px;column-gap:6px;padding:8px 10px}.ru-labr .ru-ln{display:block;min-width:0;font-size:15px}.ru-labr .ru-stp{width:100%;min-width:0}.ru-labr .ru-mn,.ru-labr .ru-xh{min-width:0;justify-content:flex-start}.ru-labr .ru-mn input,.ru-labr .ru-xh input{flex:1;min-width:0;width:auto}.ru-labr .ru-ln{grid-area:n}.ru-labr .ru-stp{grid-area:q}.ru-labr .ru-lr .ru-lrm{grid-area:x}.ru-labr .ru-lr .ru-money{grid-area:p}.ru-labr .ru-lr .ru-lu{grid-area:u}.ru-labr .ru-mn{grid-area:m}.ru-labr .ru-xh{grid-area:h}.ru-mn::before{content:"mín. ";font-weight:800;font-size:12px}.ru-xh::before{content:"extra ";white-space:nowrap;font-weight:800;font-size:12px;margin-right:2px}.ru-pill{max-width:100%;flex-wrap:wrap}.ru-pt{white-space:normal;text-align:left}}
 .ru-stb{background:linear-gradient(135deg,#00C389,#BEFF00);color:#0B2A1F;border-radius:99px;padding:2px 9px;font-size:11px;font-weight:900;width:fit-content}
 .ru-confl{gap:10px}.ru-cf{display:grid;gap:6px;justify-items:center;background:rgba(255,255,255,.12);border-radius:14px;padding:10px;width:100%}
 .ru-pksec{display:grid;gap:12px}.ru-pksec.locked .ru-lh h3{color:var(--muted)}
@@ -677,6 +667,71 @@ details.more{background:#FBFAFF;border-radius:14px;padding:8px 12px}details.more
 .bz-att{display:grid;gap:10px}.bz-hr .field{gap:2px}.bz-hr input{width:140px}
 .bz-priv{margin:0;background:var(--paper);border-radius:14px;padding:10px 12px;font-size:12.5px;line-height:1.45;color:var(--muted)}
 .ms-own{display:flex;align-items:center;gap:8px;font-size:13px;margin-top:4px}.ms-own img{width:28px;height:28px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.7)}
+
+/* ===== v25 · personal compacto (texto de ayuda dentro del campo) ===== */
+.ru-lt{display:grid;gap:8px}
+.ru-lr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;background:var(--card);border-radius:16px;padding:8px 10px;align-items:stretch}
+.ru-lnr{grid-column:1/-1;display:flex;align-items:center;gap:8px;min-width:0}
+.ru-ln{font-size:15px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ru-known{font-size:11px;font-weight:800;color:#00A374;white-space:nowrap}
+.ru-lnr .ru-lrm{font-size:15px;padding:2px 6px}
+.ru-f{display:flex;flex-direction:column;justify-content:center;min-width:0;border:1.5px solid var(--line);border-radius:12px;background:var(--paper);padding:3px 8px 4px;cursor:text;margin:0}
+.ru-f small{font-size:10px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:var(--help,#9A92AE);line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ru-fi{display:flex;align-items:center;gap:2px;min-width:0}
+.ru-fi i{font-style:normal;font-weight:900;color:#8205B4;font-size:14px;flex:none}
+.ru-f .ru-fi input[type],.ru-f .ru-fi select{border:0!important;background:none!important;box-shadow:none!important;padding:1px 0!important;min-width:0;width:100%;font-size:15px;font-weight:800;color:var(--ink);height:auto;min-height:0;border-radius:0!important;outline:none}
+.ru-f .ru-fi select{font-size:13.5px;cursor:pointer;padding-right:14px!important;background:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2710%27 height=%276%27%3E%3Cpath d=%27M1 1l4 4 4-4%27 fill=%27none%27 stroke=%27%238205B4%27 stroke-width=%272%27/%3E%3C/svg%3E") right 2px center/10px 6px no-repeat!important;-webkit-appearance:none;appearance:none}
+.ru-f input[type=number]{-moz-appearance:textfield;appearance:textfield}.ru-f input::-webkit-inner-spin-button,.ru-f input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.ru-f:focus-within{border-color:#9146FF;box-shadow:0 0 0 3px rgba(145,70,255,.18)}
+.ru-f:has(.miss){border-color:var(--bad)}
+.ru-f.ru-na .ru-fi{color:var(--help,#9A92AE);font-weight:800}
+.ru-fq .ru-stp{border:0;background:none;border-radius:0;overflow:visible}
+.ru-fq .ru-stp button{width:22px;height:24px;font-size:16px;flex:none;padding:0;border:0;background:none;color:#8205B4;font-weight:900;cursor:pointer}
+.ru-fq .ru-stp input{text-align:center}
+@container (min-width:640px){.ru-labr .ru-lr{grid-template-columns:minmax(150px,1.6fr) minmax(100px,1.1fr) repeat(5,minmax(0,1fr));align-items:center}.ru-labr .ru-lnr{grid-column:auto}.ru-labr .ru-lr.one{grid-template-columns:minmax(170px,1.7fr) repeat(5,minmax(0,1fr))}.ru-known span{display:none}}
+.ru-pill .ru-pin input[type]{background:var(--card)!important;color:var(--ink)!important}
+@container (max-width:720px){.ru-pill{max-width:100%;flex-wrap:wrap}.ru-pt{white-space:normal;text-align:left}}
+.ru-addc .chip small{font-weight:800;color:#00A374;margin-left:2px}
+/* ===== v25 · productos agrupados por formas de contratarlo ===== */
+.ru-glist{display:grid;gap:12px}
+.ru-grp{position:relative;background:var(--card);border:2px solid var(--line);border-radius:22px;padding:12px;display:grid;gap:10px}.ru-grp.warn{border-color:#FFB3C7}
+.ru-gh{position:relative}.ru-gh>div{padding-right:62px;display:grid;gap:3px}.ru-gh h4{font-size:17px;font-weight:900;margin:2px 0 0}.ru-gh .ru-tools{top:-2px;right:-2px}
+.ru-forms{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px}
+.ru-fc{position:relative;background:var(--paper);border:1.5px solid var(--line);border-radius:16px;padding:10px 12px;display:grid;gap:2px;align-content:start}
+.ru-fc.sel{border-color:#9146FF;box-shadow:0 0 0 3px rgba(145,70,255,.2)}.ru-fc.sel .ru-ck{background:#9146FF;border-color:#9146FF}
+.ru-fc .ru-pick{border-radius:16px}.ru-fc .ru-tools{top:4px;right:4px}
+.ru-fl{font-size:13px;padding-right:58px}
+.ru-tot{font-size:22px;font-weight:900;font-variant-numeric:tabular-nums;color:#8205B4;line-height:1.15}
+.ru-ppx{font-size:12.5px;color:var(--muted)}.ru-ppx b{color:var(--ink)}
+.ru-fd{font-size:12px;color:var(--muted)}
+.ru-stsec{display:grid;gap:8px}.ru-stsec[hidden]{display:none}
+.ru-vb{background:linear-gradient(135deg,#FF6905,#FAFA19);color:#3A1A00;border-radius:99px;padding:2px 9px;font-size:11px;font-weight:900;width:fit-content}
+.ru-vc{border-style:dashed}
+.ru-kits{align-items:center}.ru-kq{display:inline-flex;align-items:center;gap:4px;background:var(--paper);border-radius:99px;padding:2px 10px 2px 4px;font-size:12.5px;font-weight:800}.ru-kq input{width:48px;padding:3px 6px!important;text-align:center}
+.ru-hosts{margin-top:2px}
+/* sitio: formas de contratarlo y personal */
+.pforms{display:grid;gap:6px;margin:4px 0}
+.pform{display:grid;gap:2px;background:var(--paper);border-radius:12px;padding:8px 10px}
+.pfh{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;flex-wrap:wrap}.pfh>b{font-size:13.5px}
+.pstaff .pst-r{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:6px 0;border-top:1px dashed var(--line);flex-wrap:wrap}.pstaff .pst-r>span:first-child{font-weight:800}
+/* WhatsApp con clave de país */
+.tel{display:flex;gap:6px;min-width:0}.tel select{flex:none;width:auto;max-width:112px;padding-left:8px;padding-right:4px}.tel input{flex:1;min-width:0}
+.tel.miss input{border-color:var(--bad)}
+.bz-same{font-size:12px;font-weight:700;color:#00A374}.bz-reuse{font-size:12.5px;justify-self:start;width:fit-content}
+/* Mi venue · servicios y paquetes */
+.vn-svc{display:grid;gap:10px}.vn-rows{display:grid;gap:6px}
+.vn-r{display:grid;grid-template-columns:30px minmax(0,1fr) minmax(96px,130px);gap:8px;align-items:center;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:6px 8px}
+.vn-r.off{opacity:.7}.vn-r.off .vn-n b{text-decoration:line-through;text-decoration-thickness:1px}
+.vn-on{width:28px;height:28px;border-radius:9px;border:2px solid var(--line);background:var(--card);font-weight:900;color:#fff;cursor:pointer;display:grid;place-items:center;padding:0}
+.vn-on[aria-pressed="true"]{background:#8A3FFC;border-color:#8A3FFC}
+.vn-n{display:grid;min-width:0}.vn-n b{font-size:14px;overflow-wrap:anywhere}.vn-n small{font-size:12px;color:var(--muted)}
+.vn-no{font-size:12px;color:var(--muted);font-weight:700;text-align:right}
+.vn-build{border-radius:18px}.vn-bw{display:grid;gap:14px;margin-top:12px;min-width:0}
+.vn-pk{display:grid;gap:8px}.vn-kl{display:grid;gap:8px}
+.vn-kc{display:grid;gap:2px;background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:10px 12px}.vn-kc .link{justify-self:start;margin-top:4px}
+.vn-site{display:grid;gap:4px;background:var(--paper);border-radius:14px;padding:10px 12px;font-size:13px}
+.vn-sr{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-top:1px dashed var(--line);flex-wrap:wrap}.vn-sr>span{display:grid}.vn-sr>span:last-child{text-align:right}.vn-sr small{color:var(--muted);font-size:11.5px}
+@media (max-width:420px){.vn-r{grid-template-columns:30px minmax(0,1fr);}.vn-r .vn-p,.vn-r .vn-no{grid-column:2}}
 
 /* ===== v12 · degradados de marca ===== */
 :root{--g-prov:linear-gradient(160deg,#9146FF 0%,#FA1ED2 100%);--g-host:linear-gradient(160deg,#FA1ED2 0%,#FF6905 100%);
@@ -727,6 +782,9 @@ input::placeholder,textarea::placeholder{color:var(--help)!important;opacity:1}
 :root:not([data-theme="light"]) .ru-paxc,:root:not([data-theme="light"]) .ru-paxc .ru-paxl,:root:not([data-theme="light"]) .ru-paxc .ru-paxi b{color:#1A2600!important}
 :root:not([data-theme="light"]) .ru-paxc .ru-host{background:rgba(255,255,255,.8)!important;color:#1A2600!important}
 :root:not([data-theme="light"]) .ru-tg .dlc{background:#2C2245!important}
+:root:not([data-theme="light"]) .ru-tot,:root:not([data-theme="light"]) .ru-fi i,:root:not([data-theme="light"]) .ru-fq .ru-stp button{color:#D6BEFF!important}
+:root:not([data-theme="light"]) .ru-f{background:#2C2245!important}
+:root:not([data-theme="light"]) .vn-on[aria-pressed="true"]{background:#8A3FFC!important}
 }
 :root[data-theme="dark"] .dlc,:root[data-theme="dark"] .nsr,:root[data-theme="dark"] .lrow,:root[data-theme="dark"] .tgrp,:root[data-theme="dark"] .pkgc,:root[data-theme="dark"] .polc,:root[data-theme="dark"] .fee,:root[data-theme="dark"] .pst,:root[data-theme="dark"] .arrive,:root[data-theme="dark"] .emph,:root[data-theme="dark"] .trkm,:root[data-theme="dark"] .rec,:root[data-theme="dark"] .fullx,:root[data-theme="dark"] .relbox,:root[data-theme="dark"] .incwrap,:root[data-theme="dark"] .sub-box{background:var(--paper)!important}
 :root[data-theme="dark"] .tarr,:root[data-theme="dark"] details.more,:root[data-theme="dark"] .crewr,:root[data-theme="dark"] .sugg .bs,:root[data-theme="dark"] .tab.sh,:root[data-theme="dark"] .infl button,:root[data-theme="dark"] .pt .pic,:root[data-theme="dark"] .idea,:root[data-theme="dark"] .qkb,:root[data-theme="dark"] .btn.white,:root[data-theme="dark"] .tnav button,:root[data-theme="dark"] .pricebar.empty,:root[data-theme="dark"] .vtabs button,:root[data-theme="dark"] .sgf,:root[data-theme="dark"] .ta-hv .hv,:root[data-theme="dark"] .rec>div{background:#2C2245!important;color:var(--ink)!important}
@@ -753,6 +811,9 @@ input::placeholder,textarea::placeholder{color:var(--help)!important;opacity:1}
 :root[data-theme="dark"] .ru-paxc,:root[data-theme="dark"] .ru-paxc .ru-paxl,:root[data-theme="dark"] .ru-paxc .ru-paxi b{color:#1A2600!important}
 :root[data-theme="dark"] .ru-paxc .ru-host{background:rgba(255,255,255,.8)!important;color:#1A2600!important}
 :root[data-theme="dark"] .ru-tg .dlc{background:#2C2245!important}
+:root[data-theme="dark"] .ru-tot,:root[data-theme="dark"] .ru-fi i,:root[data-theme="dark"] .ru-fq .ru-stp button{color:#D6BEFF!important}
+:root[data-theme="dark"] .ru-f{background:#2C2245!important}
+:root[data-theme="dark"] .vn-on[aria-pressed="true"]{background:#8A3FFC!important}
 </style>
 <link rel="stylesheet" href="marca.css">
 
@@ -1080,9 +1141,9 @@ function offerCard(s,k,o,j){const open=s.open==="f"+j,ok=offerOk(o),emo=FMT_EMO[
   ${moreHtml(o.min,o.promo,kj,`s${k.slice(1)}-${j}`,o.min.has===true||o.promo.has===true)}`:""}
   ${multi?`<button type="button" class="link of-dup" style="justify-self:start">+ Otro menú de ${esc(o.kind==="drink"?"bebidas en "+o.n.toLowerCase():o.n.toLowerCase())}</button>`:""}
   ${ok?`<button type="button" class="btn cta sm dl-ok of-ok">Listo ✓</button>`:""}</div>`;}
-/* entrega por sección: A domicilio / Recoger en mi local primero */
+/* entrega por sección: A domicilio / Recoger en mi negocio primero */
 const DL_MAIN={full:["Envío a domicilio","Recolección en establecimiento","Servicio presencial en el evento"],st:["Servicio presencial en el evento"],rt:["Envío a domicilio","Recolección en establecimiento"]};
-const DL_LABEL={"Envío a domicilio":"A domicilio","Recolección en establecimiento":"Recoger en mi local","Servicio presencial en el evento":"Lo sirvo en el evento"};
+const DL_LABEL={"Envío a domicilio":"A domicilio","Recolección en establecimiento":"Recoger en mi negocio","Servicio presencial en el evento":"Lo sirvo en el evento"};
 function dlSecHtml(sx,k2,sec,title){const main=DL_MAIN[sec],L=sx.dl,more=sx._more||L.some(d=>!main.includes(d.m));
  const mods=DL_MODS.filter(([m])=>main.includes(m)||more);
  return`<div class="dlsec" data-sec="${sec}"><span class="mini-l">🚚 ${title}</span>
@@ -1346,55 +1407,80 @@ function ruConfetti(n){if(matchMedia("(prefers-reduced-motion: reduce)").matches
  const x=c.getContext("2d");c.width=innerWidth;c.height=innerHeight;const cols=["#7B2FF7","#FA1ED2","#FF6905","#BEFF00","#FAFA19","#00C389"];
  const P=Array.from({length:n||120},()=>({x:innerWidth*(.25+Math.random()*.5),y:innerHeight*.35,vx:(Math.random()-.5)*14,vy:-Math.random()*13-4,s:5+Math.random()*6,c:cols[Math.random()*6|0],a:Math.random()*6}));let f=0;
  (function go(){x.clearRect(0,0,c.width,c.height);P.forEach(q=>{q.vy+=.33;q.x+=q.vx;q.y+=q.vy;q.a+=.2;x.save();x.translate(q.x,q.y);x.rotate(q.a);x.fillStyle=q.c;x.fillRect(-q.s/2,-q.s/2,q.s,q.s*.6);x.restore();});if(++f<110)requestAnimationFrame(go);else x.clearRect(0,0,c.width,c.height);})();}
-function ruStaffOf(cat){return(S.rprods||[]).find(x=>x.kind==="staff"&&x.dims[0]===cat);}
-function ruPropStaff(sp){(S.rprods||[]).forEach(x=>{if(x.kind!=="prod"||x.dims[0]!==sp.dims[0])return;x.labor.forEach(r=>{const e=sp.labor.find(z=>z.n===r.n);if(e){r.p=e.p;r.u=e.u;r.min=e.min;r.xh=e.xh;}});});ruDrawLists();changed();}
-function ruSyncStaff(p,done){const cat=p.dims[0];let sp=ruStaffOf(cat),isNew=false;
- if(!sp){isNew=true;sp=Object.assign(ruBlankMore(),{id:"staff-"+slug(cat),kind:"staff",dims:[cat,"Personal independiente","Solo talento","Varios"],otro:"",name:"Tu personal de "+cat,dishes:[],ins:[],crew:[],pax:p.pax,tw:["labor"],tar:ruBlankT("Por hora"),emb:0});sp.lpol=JSON.parse(JSON.stringify(p.lpol));S.rprods.push(sp);}
- const conf=[];p.labor.forEach(r=>{const e=sp.labor.find(z=>z.n===r.n);if(!e)sp.labor.push(JSON.parse(JSON.stringify(r)));else if(filled(e.p)&&filled(r.p)&&+e.p!==+r.p&&!conf.some(c=>c.n===r.n))conf.push({n:r.n,a:e.p,b:r.p,ua:e.u,ub:r.u});});
- const fin=()=>{ruPropStaff(sp);if(isNew)ruToast(`🙋 Agregamos «${sp.name}» a tus productos: también se cotiza solo.`);done&&done();};
+/* v25 · cada perfil de personal es un producto independiente (un perfil, un precio) */
+const ruStaffBy=n=>(S.rprods||[]).find(x=>x.kind==="staff"&&nrm(x.n||"")===nrm(n));
+const RU_XU=["por hora","por turno (5 h)","por evento","por día"];
+const ruShortU=t=>t.replace(/^por /,"").replace("turno (5 h)","turno");
+/* plural del primer término: 7 meseros, 2 capitanes de meseros */
+const ruPl=(n,q)=>{if(+q<=1)return n.toLowerCase();const w=n.toLowerCase().split(" ");const x=w[0];w[0]=/[aeiouáéó]$/.test(x)||/er$/.test(x)?x+"s":/[áóé]n$/.test(x)?x.replace(/án$/,"anes").replace(/ón$/,"ones").replace(/én$/,"enes"):/[lrndj]$/.test(x)?x+"es":x+"s";return w.join(" ");};
+const ruXU=u=>(RU_LU.find(x=>x[0]===u)||["","por hora"])[1];
+function ruLabRow(n,q){const s=ruStaffBy(n),r=s&&s.labor[0];return r?{n,q:q||"1",p:r.p,u:r.u,min:r.min,xh:r.xh,xu:r.xu||ruXU(r.u)}:{n,q:q||"1",p:"",u:"Por hora",min:"5",xh:"",xu:"por hora"};}
+function ruNewStaff(r,cat){const n=r.n;return Object.assign(ruBlankMore(),{id:"st-"+slug(n),kind:"staff",n,name:n,dims:[cat,"Personal independiente","Solo talento",n],otro:"",dishes:[],ins:[],crew:[],pax:"",tw:["labor"],tar:ruBlankT("Por hora"),emb:0,labor:[{n,q:"1",p:r.p,u:r.u,min:r.min,xh:r.xh,xu:r.xu||ruXU(r.u)}]});}
+function ruPropStaff(sp){const e=sp.labor[0];(S.rprods||[]).forEach(x=>{if(x.kind!=="prod")return;x.labor.forEach(r=>{if(nrm(r.n)===nrm(sp.n)){r.p=e.p;r.u=e.u;r.min=e.min;r.xh=e.xh;r.xu=e.xu;}});});}
+function ruSyncStaff(p,done){const cat=p.dims[0],added=[],conf=[];
+ p.labor.forEach(r=>{let sp=ruStaffBy(r.n);if(!sp){sp=ruNewStaff(r,cat);S.rprods.push(sp);added.push(r.n);return;}const e=sp.labor[0];
+  if(filled(e.p)&&filled(r.p)&&+e.p!==+r.p)conf.push({n:r.n,sp,a:e.p,b:r.p,ua:e.u,ub:r.u,r});else{Object.assign(e,{p:filled(r.p)?r.p:e.p,u:r.u,min:r.min,xh:r.xh,xu:r.xu});}});
+ const fin=()=>{(S.rprods||[]).filter(x=>x.kind==="staff").forEach(ruPropStaff);ruDrawLists();changed();if(added.length)ruToast(`🙋 Sumamos a «Tu personal»: ${added.join(", ")}. También se cotizan solos.`);done&&done();};
  if(!conf.length){fin();return;}
- const md=document.createElement("div");md.className="rmodal";md.innerHTML=`<div class="rsheet ru-confl"><span class="ru-embk">🙋 TU PERSONAL DE ${esc(cat.toUpperCase())}</span><h2>Un perfil, un precio</h2><span>Estos perfiles ya tenían otro precio. ¿Con cuál te quedas para todos tus productos?</span>
-  ${conf.map((c,i)=>`<div class="ru-cf" data-i="${i}"><b>${esc(c.n)}</b><span class="row"><button type="button" class="btn sm ru-cfa">${money(c.a)} ${esc((RU_LU.find(x=>x[0]===c.ua)||["",""])[1])}</button><button type="button" class="btn sm ghost ru-cfb">${money(c.b)} ${esc((RU_LU.find(x=>x[0]===c.ub)||["",""])[1])}</button></span></div>`).join("")}</div>`;
+ const md=document.createElement("div");md.className="rmodal";md.innerHTML=`<div class="rsheet ru-confl"><span class="ru-embk">🙋 TU PERSONAL</span><h2>Un perfil, un precio</h2><span>Estos perfiles ya tenían otro precio. ¿Con cuál te quedas para todos tus productos?</span>
+  ${conf.map((c,i)=>`<div class="ru-cf" data-i="${i}"><b>${esc(c.n)}</b><span class="row"><button type="button" class="btn sm ru-cfa">${money(c.a)} ${esc(ruXU(c.ua))}</button><button type="button" class="btn sm ghost ru-cfb">${money(c.b)} ${esc(ruXU(c.ub))}</button></span></div>`).join("")}</div>`;
  document.body.appendChild(md);let left=conf.length;
- md.querySelectorAll(".ru-cf").forEach(R=>{const c=conf[+R.dataset.i],pick=v=>{const e=sp.labor.find(z=>z.n===c.n);e.p=String(v);R.remove();if(--left===0){md.remove();fin();}};R.querySelector(".ru-cfa").onclick=()=>pick(c.a);R.querySelector(".ru-cfb").onclick=()=>pick(c.b);});}
+ md.querySelectorAll(".ru-cf").forEach(R=>{const c=conf[+R.dataset.i],pick=a=>{const e=c.sp.labor[0];if(a){/* se queda el de antes */}else Object.assign(e,{p:c.r.p,u:c.r.u,min:c.r.min,xh:c.r.xh,xu:c.r.xu});R.remove();if(--left===0){md.remove();fin();}};R.querySelector(".ru-cfa").onclick=()=>pick(true);R.querySelector(".ru-cfb").onclick=()=>pick(false);});}
 function ruEmblem(p){const n=S.remb,m=ruMasc(p.dims);const md=document.createElement("div");md.className="rmodal";
  md.innerHTML=`<div class="rsheet ru-embs"><span class="ru-embk">🏅 NUEVO EMBLEMA</span><div class="ru-emb"><img src="img/${m}.webp" alt=""><span>SERVICIO</span></div><h2>¡${esc(p.name)} ya está listo!</h2><span>Ganaste el emblema de <b>Servicio de ${esc(p.dims[0])}</b>. Llevas <b>${n}</b> ${n===1?"servicio":"servicios"} en tu sitio.</span>
   <span class="hint" style="color:rgba(255,255,255,.85)!important">${(S.rprods||[]).length>=2?"Ya puedes combinar tus productos en paquetes.":"Con un producto más desbloqueas los paquetes."}</span><button type="button" class="btn cta" id="ruEmbOk">¡Seguir! 🎉</button></div>`;
  document.body.appendChild(md);const close=()=>md.remove();md.querySelector("#ruEmbOk").onclick=close;md.onclick=e=>{if(e.target===md)close();};hqvTrack("emblema_servicio",{n});}
 let RU_EDIT=null,RU_PICK=false,RU_PICKED=[],RU_BUSY=[null,null,null,null],RU_DRAG=null,RU_MOVED=false,RU_LASTM="";
 const ruBlankT=u=>({full:{p:"",u,q:""},rent:{p:"",u,q:""},labor:{p:"",u:"Por hora",q:""}});
-function ruDefaults(){if(!S.rprods)S.rprods=[];if(!S.rpkgs)S.rpkgs=[];if(!S.rsel||!RU_T.has(S.rsel[0]))S.rsel=["Catering","Bebidas","Barra","Sin alcohol"];}
+function ruDefaults(){if(!S.rprods)S.rprods=[];if(!S.rpkgs)S.rpkgs=[];
+ /* v24 → v25: «Tu personal de X» (grupo) se separa en un producto por perfil */
+ if(S.rprods.some(x=>x.kind==="staff"&&!x.n)){const old=S.rprods.filter(x=>x.kind==="staff"&&!x.n);S.rprods=S.rprods.filter(x=>!old.includes(x));old.forEach(o=>o.labor.forEach(r=>{if(!ruStaffBy(r.n))S.rprods.push(ruNewStaff(r,o.dims[0]));}));}
+ S.rprods.forEach(x=>(x.labor||[]).forEach(r=>{if(!r.xu)r.xu=ruXU(r.u);}));if(!S.rsel||!RU_T.has(S.rsel[0]))S.rsel=["Catering","Bebidas","Barra","Sin alcohol"];}
 const ruLpol=()=>({night:true,nightPct:"50",ride:false,rideFee:"",meal:true,uniform:true});
 function ruBlankMore(){return{cov:{same:true,zones:[{state:"",all:false,munis:[]}]},photos:[],ext:[],dl:[],dlOpen:-1,dlx:{dl:[],dlOpen:-1},labor:[],lpol:ruLpol(),min:blankMin(),promo:blankPromo()};}
 const RU_LU=[["Por hora","por hora"],["Por turno (5 h)","por turno (5 h)"],["Por evento","por evento"],["Por día","por día"]];
-const ruLabTot=p=>p.labor.reduce((a,r)=>a+(+r.p||0)*(+r.q||1)*(r.u==="Por hora"?(+r.min||5):1),0);
+const ruLabTot=p=>(p.labor||[]).reduce((a,r)=>a+(+r.p||0)*(+r.q||1)*(r.u==="Por hora"?(+r.min||5):1),0);
 function ruName(dims,otro){const lc=x=>x.charAt(0).toLowerCase()+x.slice(1),gen=["Alimentos","Bebidas","Otro","Personal independiente"].includes(dims[1])||nrm(dims[2]).includes(nrm(dims[1]).slice(0,5));
  const base=gen?dims[2]:`${dims[1]} ${dims[2]}`;
  return dims[1]==="Personal independiente"?dims[3]:dims[2]==="Otro"?dims[1]:dims[3]==="Otro"?(otro?`${base} ${lc(otro)}`:base):(nrm(dims[3])===nrm(dims[2])?base:`${base} ${lc(dims[3])}`);}
 function ruProd(dims,otro){const [u]=RU_U[dims.join("|")]||["Por evento"],st=RU.staff[dims[0]]||[];
  return Object.assign({id:"p"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),kind:"prod",dims,otro:otro||"",name:ruName(dims,otro),dishes:[],ins:[],crew:(RU.pre[dims[0]]||[]).filter(n=>st.includes(n)).map(n=>({n,q:"1"})),pax:"",tw:[],tar:ruBlankT(u)},ruBlankMore());}
-function ruDemo(){const a=ruProd(["Catering","Alimentos","Banquete","Por tiempos"]);Object.assign(a,{name:"Menú Oro",pax:"100",dishes:["Crema de elote","Mole poblano con pollo","Flan napolitano"],ins:["Platos","Cubiertos","Mantelería","Servilletas de tela"],crew:[{n:"Mesero",q:"7"},{n:"Cocinero",q:"2"},{n:"Capitán de meseros",q:"1"}],tw:["full","rent"],ext:[{c:"Hora extra",p:"1500",u:"por hora"}],dlx:{dlOpen:-1,dl:[Object.assign(blankDl("Recolección en establecimiento"),{cobra:false,ph:"Lun a sáb de 9:00 a 18:00"}),Object.assign(blankDl("Envío a domicilio"),{cobra:true,u:"Por kilómetro",rate:"15",conds:[{c:"Distancia máxima",v:"30"}]})]},photos:[{url:samplePic("🍽️","#FFB3D9","#7B2FF7",1200,900),name:"menu-oro.jpg"}]});a.tar.full.p="650";a.tar.rent.p="480";a.id="pdemo1";
- const b=ruProd(["Catering","Bebidas","Barra","Sin alcohol"]);Object.assign(b,{pax:"100",ins:["Vasos","Hielo","Popotes"],crew:[{n:"Bartender",q:"2"}],tw:["full","labor"],labor:[{n:"Bartender",q:"2",p:"280",u:"Por hora",min:"5",xh:"320"}]});b.tar.full.p="95";b.id="pdemo2";
- const c=ruProd(["Catering","Postres y dulces","Mesa de dulces","Temática"]);Object.assign(c,{name:"Mesa de dulces temática",pax:"50",ins:["Charolas","Bases de pastel","Mantelería","Decoración de mesa"],crew:[],tw:["rent"],dlx:{dlOpen:-1,dl:[Object.assign(blankDl("Envío a domicilio"),{cobra:true,u:"Por kilómetro",rate:"12",conds:[{c:"Entrega gratuita desde",v:"5000"}]}),Object.assign(blankDl("Recolección en establecimiento"),{cobra:false,ph:"Lun a sáb de 9:00 a 18:00"})]},promo:{has:true,what:"10% de descuento entre semana",terms:"De lunes a jueves",until:"2026-12-15"},min:{has:true,qty:"30",unit:"personas"},photos:[{url:samplePic("🍭","#D6338A","#7B2CBF",1200,900),name:"mesa.jpg"}]});c.tar.rent.p="3500";c.tar.rent.u="Por evento";c.id="pdemo3";
- const P={id:"kdemo1",kind:"pkg",items:["pdemo1","pdemo2"],name:"Paquete Boda Oro",dishes:[],ins:["Centros de mesa"],crew:[{n:"Mesero",q:"7"},{n:"Bartender",q:"2"}],pax:"100",tw:["full"],tar:ruBlankT("Por persona")};Object.assign(P,ruBlankMore());P.tar.full.p="720";
+function ruDemo(){const a=ruProd(["Catering","Alimentos","Banquete","Por tiempos"]);Object.assign(a,{name:"Menú Oro",pax:"100",dishes:["Crema de elote","Mole poblano con pollo","Flan napolitano"],ins:["Platos","Cubiertos","Mantelería","Servilletas de tela"],crew:[{n:"Mesero",q:"7"},{n:"Cocinero",q:"2"},{n:"Capitán de meseros",q:"1"}],tw:["full","rent","labor"],labor:[{n:"Mesero",q:"7",p:"90",u:"Por hora",min:"5",xh:"110",xu:"por hora"},{n:"Cocinero",q:"2",p:"700",u:"Por turno (5 h)",min:"5",xh:"150",xu:"por hora"},{n:"Capitán de meseros",q:"1",p:"130",u:"Por hora",min:"5",xh:"160",xu:"por hora"}],ext:[{c:"Hora extra",p:"1500",u:"por hora"}],dlx:{dlOpen:-1,dl:[Object.assign(blankDl("Recolección en establecimiento"),{cobra:false,ph:"Lun a sáb de 9:00 a 18:00"}),Object.assign(blankDl("Envío a domicilio"),{cobra:true,u:"Por kilómetro",rate:"15",conds:[{c:"Distancia máxima",v:"30"}]})]},photos:[{url:samplePic("🍽️","#FFB3D9","#7B2FF7",1200,900),name:"menu-oro.jpg",issues:[],before:812000,after:214000}]});a.tar.full.p="650";a.tar.rent.p="480";a.id="pdemo1";
+ const b=ruProd(["Catering","Bebidas","Barra","Sin alcohol"]);Object.assign(b,{pax:"100",ins:["Vasos","Hielo","Popotes"],crew:[{n:"Bartender",q:"2"}],tw:["full","labor"],labor:[{n:"Bartender",q:"2",p:"280",u:"Por hora",min:"5",xh:"320",xu:"por hora"}]});b.tar.full.p="95";b.id="pdemo2";
+ const c=ruProd(["Catering","Postres y dulces","Mesa de dulces","Temática"]);Object.assign(c,{name:"Mesa de dulces temática",pax:"50",ins:["Charolas","Bases de pastel","Mantelería","Decoración de mesa"],crew:[],tw:["rent"],dlx:{dlOpen:-1,dl:[Object.assign(blankDl("Envío a domicilio"),{cobra:true,u:"Por kilómetro",rate:"12",conds:[{c:"Entrega gratuita desde",v:"5000"}]}),Object.assign(blankDl("Recolección en establecimiento"),{cobra:false,ph:"Lun a sáb de 9:00 a 18:00"})]},promo:{has:true,what:"10% de descuento entre semana",terms:"De lunes a jueves",until:"2026-12-15"},min:{has:true,qty:"30",unit:"personas"},photos:[{url:samplePic("🍭","#D6338A","#7B2CBF",1200,900),name:"mesa.jpg",issues:[],before:640000,after:198000}]});c.tar.rent.p="3500";c.tar.rent.u="Por evento";c.id="pdemo3";
+ const P={id:"kdemo1",kind:"pkg",items:["pdemo1|full","pdemo2|full"],qty:{},name:"Paquete Boda Oro",dishes:[],ins:["Centros de mesa"],crew:[{n:"Mesero",q:"7"},{n:"Bartender",q:"2"}],pax:"100",tw:["full"],tar:ruBlankT("Por persona")};Object.assign(P,ruBlankMore());P.tar.full.p="720";
  a.emb=1;b.emb=2;c.emb=3;
- const st=Object.assign(ruBlankMore(),{id:"staff-catering",kind:"staff",dims:["Catering","Personal independiente","Solo talento","Varios"],otro:"",name:"Tu personal de Catering",dishes:[],ins:[],crew:[],pax:"100",tw:["labor"],tar:ruBlankT("Por hora"),labor:[{n:"Bartender",q:"2",p:"280",u:"Por hora",min:"5",xh:"320"}]});
+ const st=[...a.labor,...b.labor].map(r=>ruNewStaff(r,"Catering"));
+ const V={id:"kdemo2",kind:"pkg",items:["venue","pdemo3|rent","st-mesero"],qty:{"st-mesero":"4"},name:"Fiesta en la Terraza",dishes:[],ins:["Mantelería","Centros de mesa"],crew:[{n:"Mesero",q:"4"}],pax:"60",tw:["full"],tar:ruBlankT("Por persona")};Object.assign(V,ruBlankMore());V.tar.full.p="390";
  c.cov={same:false,zones:[{state:"Ciudad de México",all:true,munis:[]}]};
- return{prods:[a,b,c,st],pkgs:[P]};}
+ return{prods:[a,b,c,...st],pkgs:[P,V],vin:{"pdemo1|full":{on:true,p:"590"},"pdemo1|rent":{on:true,p:""},"pdemo2|full":{on:true,p:""},"pdemo3|rent":{on:true,p:"3000"},"st-mesero":{on:true,p:""},"st-bartender":{on:false,p:""}}};}
 function ruZInter(A,B){const out=[];if(A.some(z=>z.state==="__nac"))return B.map(z=>({...z,munis:[...z.munis]}));if(B.some(z=>z.state==="__nac"))return A.map(z=>({...z,munis:[...z.munis]}));
  A.forEach(z=>{const w=B.find(x=>x.state===z.state);if(!w||!z.state)return;if(z.all&&w.all)out.push({state:z.state,all:true,munis:[]});else{const m=z.all?w.munis:w.all?z.munis:z.munis.filter(x=>w.munis.includes(x));if(m.length)out.push({state:z.state,all:false,munis:[...m]});}});return out;}
-function ruZones(p){if(!p.cov||p.cov.same){if(p.kind==="pkg"){const L=p.items.map(ruById).filter(Boolean).map(ruZones);return L.length?L.reduce(ruZInter):S.svcZones;}return S.svcZones;}return p.cov.zones;}
-const ruById=id=>(S.rprods||[]).find(x=>x.id===id);
-const ruCats=p=>p.kind==="pkg"?[...new Set(p.items.map(id=>(ruById(id)||{dims:["Catering"]}).dims[0]))]:[p.dims[0]];
+function ruZones(p){if(!p.cov||p.cov.same){if(p.kind==="pkg"){const L=p.items.map(ruById).filter(x=>x&&x.kind!=="venue").map(ruZones);return L.length?L.reduce(ruZInter):S.svcZones;}return S.svcZones;}return p.cov.zones;}
+const ruById=id=>{id=String(id||"").split("|")[0];return id==="venue"?ruVenueItem():(S.rprods||[]).find(x=>x.id===id);};
+const ruRefW=r=>String(r).split("|")[1]||"";
+/* v25 · el venue entra al combinador como una pieza más */
+function ruVenueItem(){const v=S.venue;if(!S.types||!S.types.venue||!v)return null;return{id:"venue",kind:"venue",dims:["Venue","","",""],name:v.name||"Tu venue",crew:[],dishes:[],ins:[],tw:["venue"],pax:v.seated||"",cov:{same:true}};}
+function ruVenueTot(pax){const v=S.venue,r=v&&v.rent,pr=+(r&&r.price)||0;if(!pr)return 0;pax=+pax||+v.seated||0;let t=r.per==="hora"?pr*(+v.hoursIncl||5):r.per==="persona"?pr*pax:pr;if(r.per!=="persona"&&+r.upTo>0&&pax>+r.upTo)t+=(pax-r.upTo)*(+r.perExtraGuest||0);return t;}
+const ruFN={full:"🎉 Servicio completo",rent:"📦 Sin personal",labor:"🙋 Solo personal"};
+function ruItemName(ref,P){const x=ruById(ref),w=ruRefW(ref),q=P&&P.qty&&P.qty[ref];if(!x)return"(ya no está disponible)";return(x.kind==="venue"?"🏡 ":"")+(x.kind==="staff"&&+q>1?q+" × ":"")+x.name+(w&&x.kind==="prod"?" · "+ruFN[w].slice(3).toLowerCase():"");}
+/* precio en el venue: el proveedor lo pone aparte (no es descuento) */
+const vnIn=ref=>{if(ruRefW(ref)==="labor")return null;const v=S.venue,e=v&&v.svcIn&&v.svcIn[ref];return e&&e.on!==false&&+e.p>0?e:null;};
+function ruWithPrice(x,w,pr){const y=JSON.parse(JSON.stringify(x));if(w==="labor"||x.kind==="staff")y.labor.forEach(r=>{r.p=pr;});else y.tar[w].p=pr;return y;}
+function ruItemTot(ref,P){const x=ruById(ref);if(!x)return 0;const pax=+P.pax||+x.pax||0,vin=P.items.includes("venue")&&vnIn(ref);
+ if(x.kind==="venue")return ruVenueTot(pax);
+ if(x.kind==="staff"){const y=vin?ruWithPrice(x,"labor",vin.p):x,r=y.labor[0];return(+r.p||0)*(r.u==="Por hora"?(+r.min||5):1)*(+(P.qty&&P.qty[ref])||1);}
+ const w=ruRefW(ref)||x.tw[0];if(!w)return 0;const y=vin?ruWithPrice(x,w,vin.p):x,r=ruTotal(Object.assign({},y,{pax:w==="labor"?y.pax:pax||y.pax}),w);return r?r.tot:0;}
+const ruCats=p=>p.kind==="pkg"?[...new Set(p.items.map(id=>(ruById(id)||{dims:["Catering"]}).dims[0]).filter(c=>c!=="Venue"))]:[p.dims[0]];
 const ruFood=p=>p.kind==="pkg"?p.items.some(id=>(ruById(id)||{dims:[]}).dims[1]==="Alimentos"):p.dims[1]==="Alimentos";
 function ruTotal(p,w){const pax=+p.pax||0;if(w==="labor"){const tot=ruLabTot(p);return tot?{tot,pp:pax?tot/pax:null}:null;}
  const t=p.tar[w],pr=+t.p||0;if(!pr)return null;const tot=t.u==="Por persona"?pr*pax:RU_FIXED.includes(t.u)?pr:w==="rent"?pr*pax:pr*(+t.q||1);return{tot,pp:pax?tot/pax:null};}
 const ruTarOk=(p,w)=>w==="labor"?p.labor.length>0&&p.labor.every(r=>+r.p>0):+p.tar[w].p>0&&(w==="rent"||RU_FIXED.includes(p.tar[w].u)||+p.tar[w].q>0);
-const ruSug=p=>p.items.reduce((a,id)=>{const x=ruById(id),w=x&&x.tw[0],r=w&&ruTotal(x,w);return a+(r?r.tot:0);},0);
+const ruSug=p=>p.items.reduce((a,ref)=>a+ruItemTot(ref,p),0);
 const ruMoney=n=>{n=+n||0;return n>0&&n<100&&Math.round(n)!==n?"$"+n.toLocaleString("es-MX",{minimumFractionDigits:2,maximumFractionDigits:2}):money(Math.round(n));};
 const ruLink=p=>`hayquevernos.com/${slug(S.biz.name)}#${p.kind==="pkg"?"paquete":"producto"}-${slug(p.name||"sin-nombre")}`;
-function ruOk(p){if(!p.cov)p.cov={same:true,zones:[{state:"",all:false,munis:[]}]};return(p.cov.same||zonesOk(p.cov.zones))&&filled(p.name)&&+p.pax>0&&p.tw.length>0&&p.tw.every(w=>ruTarOk(p,w))&&(!p.tw.includes("rent")||(p.dlx.dl.length>0&&p.dlx.dl.every(dlOk)))&&p.ext.every(e=>!filled(e.c)||+e.p>0)&&(p.min.has!==true||minOk(p.min))&&(p.promo.has!==true||promoOk(p.promo));}
-function ruMiss(p){const m=[];if(!filled(p.name))m.push("nombre");if(p.cov&&!p.cov.same&&!zonesOk(p.cov.zones))m.push("zona de este servicio");if(!p.tw.length)m.push("cómo lo cobras");else{if(p.tw.some(w=>w!=="labor"&&!(+p.tar[w].p>0)))m.push("precio");if(p.tw.includes("full")&&+p.tar.full.p>0&&!RU_FIXED.includes(p.tar.full.u)&&!(+p.tar.full.q>0))m.push("cuántas unidades incluye");if(p.tw.includes("labor")&&!(p.labor.length&&p.labor.every(r=>+r.p>0)))m.push("precio de cada perfil de tu personal");if(p.tw.includes("rent")&&!p.dlx.dl.length)m.push("cómo entregas sin personal");else if(p.tw.includes("rent")&&!p.dlx.dl.every(dlOk))m.push("entrega por completar");}if(!(+p.pax>0))m.push("para cuántas personas alcanza");
+function ruOk(p){if(!p.cov)p.cov={same:true,zones:[{state:"",all:false,munis:[]}]};if(p.kind==="staff")return(p.cov.same||zonesOk(p.cov.zones))&&+p.labor[0].p>0&&p.ext.every(e=>!filled(e.c)||+e.p>0)&&(p.min.has!==true||minOk(p.min))&&(p.promo.has!==true||promoOk(p.promo));return(p.cov.same||zonesOk(p.cov.zones))&&filled(p.name)&&+p.pax>0&&p.tw.length>0&&p.tw.every(w=>ruTarOk(p,w))&&(!p.tw.includes("rent")||(p.dlx.dl.length>0&&p.dlx.dl.every(dlOk)))&&p.ext.every(e=>!filled(e.c)||+e.p>0)&&(p.min.has!==true||minOk(p.min))&&(p.promo.has!==true||promoOk(p.promo));}
+function ruMiss(p){const m=[];if(p.kind==="staff"){if(!(+p.labor[0].p>0))m.push("precio");if(p.cov&&!p.cov.same&&!zonesOk(p.cov.zones))m.push("zona");if(!p.ext.every(e=>!filled(e.c)||+e.p>0))m.push("precio de cada extra");if(p.min.has===true&&!minOk(p.min))m.push("mínimo de compra");if(p.promo.has===true&&!promoOk(p.promo))m.push("promoción");return m;}if(!filled(p.name))m.push("nombre");if(p.cov&&!p.cov.same&&!zonesOk(p.cov.zones))m.push("zona de este servicio");if(!p.tw.length)m.push("cómo lo cobras");else{if(p.tw.some(w=>w!=="labor"&&!(+p.tar[w].p>0)))m.push("precio");if(p.tw.includes("full")&&+p.tar.full.p>0&&!RU_FIXED.includes(p.tar.full.u)&&!(+p.tar.full.q>0))m.push("cuántas unidades incluye");if(p.tw.includes("labor")&&!(p.labor.length&&p.labor.every(r=>+r.p>0)))m.push("precio de cada perfil de tu personal");if(p.tw.includes("rent")&&!p.dlx.dl.length)m.push("cómo entregas sin personal");else if(p.tw.includes("rent")&&!p.dlx.dl.every(dlOk))m.push("entrega por completar");}if(!(+p.pax>0))m.push("para cuántas personas alcanza");
  if(!p.ext.every(e=>!filled(e.c)||+e.p>0))m.push("precio de cada extra");if(p.min.has===true&&!minOk(p.min))m.push("mínimo de compra");if(p.promo.has===true&&!promoOk(p.promo))m.push("promoción");return m;}
 /* ---------- ruleta ---------- */
 function ruMachineHtml(){return`<section class="ru-m" aria-label="Arma tu servicio">
@@ -1407,7 +1493,7 @@ function ruFill(i){const el=ruReel(i);if(!el)return;const L=ruOpts(i,S.rsel);el.
 const ruIdx=(i,v)=>[...ruReel(i).children].findIndex(b=>b.dataset.v===v);
 const RU_RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
 function ruCenter(i,ix,smooth){const el=ruReel(i),b=el&&el.children[ix];if(!b)return;el.scrollTo({left:b.offsetLeft+b.offsetWidth/2-el.clientWidth/2,behavior:smooth&&!RU_RM?"smooth":"auto"});}
-function ruNear(i){const el=ruReel(i),c=el.scrollLeft+el.clientWidth/2;let best=null,bd=1e9;for(const b of el.children){const d=Math.abs(b.offsetLeft+b.offsetWidth/2-c);if(d<bd){bd=d;best=b;}}return best;}
+function ruNear(i){const el=ruReel(i);if(!el)return null;const c=el.scrollLeft+el.clientWidth/2;let best=null,bd=1e9;for(const b of el.children){const d=Math.abs(b.offsetLeft+b.offsetWidth/2-c);if(d<bd){bd=d;best=b;}}return best;}
 function ruPaint(i){const el=ruReel(i);if(!el)return;const c=el.scrollLeft+el.clientWidth/2,w=el.clientWidth/2||1,nb=ruNear(i);for(const b of el.children){const d=Math.min(1,Math.abs(b.offsetLeft+b.offsetWidth/2-c)/w);b.style.setProperty("--d",d.toFixed(3));b.classList.toggle("on",b===nb);b.setAttribute("aria-selected",b===nb);}}
 function ruRebuild(i,target,spin){if(i>3||!ruReel(i))return;const L=ruOpts(i,S.rsel);S.rsel[i]=target&&L.includes(target)?target:L[0];ruFill(i);const ix=ruIdx(i,S.rsel[i]);RU_BUSY[i]=ix;
  if(spin&&!RU_RM){ruReel(i).scrollLeft=ruReel(i).scrollWidth;ruPaint(i);requestAnimationFrame(()=>ruCenter(i,ix,true));}else{ruCenter(i,ix,false);ruPaint(i);RU_BUSY[i]=null;}
@@ -1415,7 +1501,7 @@ function ruRebuild(i,target,spin){if(i>3||!ruReel(i))return;const L=ruOpts(i,S.r
 function ruCascade(from,targets){for(let j=from;j<4;j++){const t=targets?targets[j]:null;setTimeout(()=>{ruRebuild(j,t,true);if(j===3)setTimeout(ruUpdate,80);},(j-from)*(RU_RM?0:170));}if(from>3)ruUpdate();}
 function ruSettle(i){if(RU_DRAG&&RU_DRAG.i===i)return;const b=ruNear(i);if(!b)return;const ix=[...ruReel(i).children].indexOf(b);
  if(RU_BUSY[i]!==null){if(RU_BUSY[i]!==ix)return;RU_BUSY[i]=null;}const v=b.dataset.v;if(v!==S.rsel[i]){S.rsel[i]=v;ruCascade(i+1);}else ruUpdate();}
-function ruStep(i,d){const b=ruNear(i),ix=[...ruReel(i).children].indexOf(b)+d;if(ix>=0&&ix<ruReel(i).children.length)ruCenter(i,ix,true);}
+function ruStep(i,d){if(!ruReel(i))return;const b=ruNear(i),ix=[...ruReel(i).children].indexOf(b)+d;if(ix>=0&&ix<ruReel(i).children.length)ruCenter(i,ix,true);}
 function ruUpdate(){if(!$("ruUnit"))return;const [u,o]=RU_U[S.rsel.join("|")]||["Por evento",""];
  $("ruUnit").innerHTML=`💲 Se suele cobrar <b>${esc(u.toLowerCase())}</b>${o?` · también ${esc(o.toLowerCase())}`:""}`;$("ruOtro").hidden=S.rsel[3]!=="Otro";$("ruTit").textContent="Arma tu servicio · "+(RU.emo[S.rsel[0]]?RU.emo[S.rsel[0]]+" ":"")+S.rsel[0];
  const m=ruMasc(S.rsel),im=$("ruMasc");if(m!==RU_LASTM||!im.src){RU_LASTM=m;im.src=`img/${m}.webp`;im.classList.remove("pop");void im.offsetWidth;im.classList.add("pop");}
@@ -1455,26 +1541,26 @@ function ruBindTags(root,id,L,src,onAdd,redraw){const w=root.querySelector(`.ru-
  inp.onkeydown=e=>{if((e.key==="ArrowDown"||e.key==="ArrowUp")&&res.length){e.preventDefault();on=(on+(e.key==="ArrowDown"?1:-1)+res.length)%res.length;sg.querySelectorAll("button").forEach((b,ix)=>b.classList.toggle("on",ix===on));}
   if(e.key==="Enter"||e.key===","){e.preventDefault();add(!sg.hidden&&res[on]?res[on]:inp.value);}if(e.key==="Backspace"&&!inp.value&&L.length&&!onAdd){L.pop();redraw(id);}};}
 /* ---------- ficha de identidad ---------- */
-function ruHost(p){const pax=+p.pax;if(!pax||!p.tw.length)return"";const L=p.tw.map(w=>{const r=ruTotal(p,w);return r?`<span>${RU_TL[w][0]}: <b>${ruMoney(r.pp)}</b> por persona · <b>${ruMoney(r.tot)}</b> en total</span>`:"";}).filter(Boolean);
+function ruHost(p){if(p.kind==="staff"){const r=p.labor[0];if(!(+r.p>0))return"";const ev=(+r.p)*(r.u==="Por hora"?(+r.min||5):1);return`<div class="ru-host ru-hosts"><b>👀 Así lo verá el anfitrión</b><span>${esc(p.name)}: <b>${money(r.p)}</b> ${esc(ruXU(r.u))}${r.u==="Por hora"?` · mínimo ${esc(r.min||5)} h`:""} → <b>${money(ev)}</b> por persona del equipo${+r.xh>0?` · extra ${money(r.xh)} ${esc(r.xu||ruXU(r.u))}`:""}</span></div>`;}const pax=+p.pax;if(!pax||!p.tw.length)return"";const L=p.tw.map(w=>{const r=ruTotal(p,w);return r?`<span>${RU_TL[w][0]}: <b>${ruMoney(r.pp)}</b> por persona · <b>${ruMoney(r.tot)}</b> en total</span>`:"";}).filter(Boolean);
  return L.length?`<div class="ru-host"><b>👀 Así lo verá el anfitrión</b><span class="hint">En una fiesta de ${pax} personas:</span>${L.join("")}</div>`:"";}
 function ruTarHtml(p,w,k){const t=p.tar[w],cnt=w==="full"&&!RU_FIXED.includes(t.u);
- return`<div class="ru-tg"><b>${RU_TL[w][0]}</b><div class="row"><label class="ru-money">$<input type="number" min="0" inputmode="decimal" data-tp="${w}" class="${MISS(+t.p>0)}" value="${esc(t.p)}" placeholder="precio" aria-label="Precio ${RU_TL[w][0]}"></label>
+ return`<div class="ru-tg" data-w="${w}"><b>${RU_TL[w][0]}</b><div class="row"><label class="ru-money">$<input type="number" min="0" inputmode="decimal" data-tp="${w}" class="${MISS(+t.p>0)}" value="${esc(t.p)}" placeholder="precio" aria-label="Precio ${RU_TL[w][0]}"></label>
   <select data-tu="${w}" aria-label="Unidad">${RU_UNITS.map(u=>`<option ${t.u===u?"selected":""}>${u}</option>`).join("")}</select>
   ${cnt?`<label class="ru-q">¿Cuántas ${esc(ruNoun(t.u))}? <input type="number" min="1" data-tq="${w}" class="${MISS(+t.q>0)}" value="${esc(t.q)}" placeholder="#"></label>`:""}</div>
   ${w==="full"?`<span class="ru-note">🚚 La entrega, el montaje y tu personal van incluidos en este precio.</span>`:`${!RU_FIXED.includes(t.u)?`<span class="hint">Para el cotizador calculamos 1 ${esc(ruNoun(t.u).replace(/s$/,""))} por persona.</span>`:""}
    ${dlSecHtml(p.dlx,k+"dlx","rt","¿Cómo lo entregas?")}`}</div>`;}
-function ruLaborHtml(p,staff){const rest=[...new Set(staff)].filter(n=>!p.labor.some(r=>r.n===n)),L=p.lpol;
+function ruLaborHtml(p,staff){const sk=p.kind==="staff",rest=sk?[]:[...new Set(staff)].filter(n=>!p.labor.some(r=>r.n===n)),L=p.lpol;
  const pill=(k,on,txt,extra)=>`<span class="ru-pill" aria-pressed="${on}"><button type="button" class="ru-pt" data-k="${k}" aria-pressed="${on}">${on?"✓ ":""}${txt}</button>${on&&extra?extra:""}</span>`;
- return`<div class="ru-tg ru-labr"><b>${RU_TL.labor[0]}</b><span class="hint">Precio de cada perfil que mandas.</span>
-  <div class="ru-lt"><div class="ru-lhd" aria-hidden="true"><span>Perfil</span><span>¿Cuántos?</span><span>Precio</span><span>Cobro</span><span>Mín.</span><span>Hora extra</span><span></span></div>
-  ${p.labor.map((r,ix)=>`<div class="ru-lr" data-ix="${ix}"><b class="ru-ln">${esc(r.n)}</b>
-   <span class="ru-stp"><button type="button" class="ru-sm" aria-label="Uno menos">−</button><input type="number" min="1" class="ru-lq" value="${esc(r.q)}" aria-label="¿Cuántos ${esc(r.n)}?"><button type="button" class="ru-sp" aria-label="Uno más">+</button></span>
-   <label class="ru-money">$<input type="number" min="0" class="ru-lp${MISS(+r.p>0)}" value="${esc(r.p)}" placeholder="0" aria-label="Precio de ${esc(r.n)}"></label>
-   <select class="ru-lu" aria-label="Cobro de ${esc(r.n)}">${RU_LU.map(([u,t])=>`<option value="${u}" ${r.u===u?"selected":""}>${t}</option>`).join("")}</select>
-   ${r.u==="Por hora"?`<label class="ru-mn"><input type="number" min="1" class="ru-lm" value="${esc(r.min)}" aria-label="Horas mínimas de ${esc(r.n)}"> h</label>`:`<span class="ru-mn ru-na">—</span>`}
-   <label class="ru-xh">$<input type="number" min="0" class="ru-lx" value="${esc(r.xh)}" placeholder="0" aria-label="Hora extra de ${esc(r.n)}"></label>
-   <button type="button" class="link bad ru-lrm" aria-label="Quitar ${esc(r.n)}">✕</button></div>`).join("")||`<span class="hint">Agrega al menos un perfil.</span>`}</div>
-  <div class="ru-add"><span class="ru-sl">＋ Sumar perfil</span><div class="ru-addc">${rest.map(n=>`<button type="button" class="chip ru-lab-c" data-n="${esc(n)}">＋ ${esc(n)}</button>`).join("")}<button type="button" class="chip new ru-lab-o">✏️ Otro</button></div><div class="ru-labnew" hidden>${ruTags("labNew",[],"Otro perfil: escribe y Enter")}</div></div>
+ const F=(lb,inner,c)=>`<label class="ru-f${c?" "+c:""}"><small>${lb}</small><span class="ru-fi">${inner}</span></label>`;
+ return`<div class="ru-tg ru-labr" data-w="labor"><b>${sk?"🙋 Precio de este perfil":RU_TL.labor[0]}</b><span class="hint">${sk?"Lo que cobra una persona. Si lo cambias, se actualiza en todos tus productos.":"Precio de cada perfil que mandas. Si ya lo usaste antes, lo llenamos por ti."}</span>
+  <div class="ru-lt">${p.labor.map((r,ix)=>{const hr=r.u==="Por hora",known=!sk&&ruStaffBy(r.n)&&filled(ruStaffBy(r.n).labor[0].p);return`<div class="ru-lr${sk?" one":""}" data-ix="${ix}"><div class="ru-lnr"><b class="ru-ln">${esc(r.n)}</b>${known?`<span class="ru-known" title="Precio guardado en Tu personal">🔁<span> guardado</span></span>`:""}${sk?"":`<button type="button" class="link bad ru-lrm" aria-label="Quitar ${esc(r.n)}">✕</button>`}</div>
+   ${sk?"":`<span class="ru-f ru-fq"><small>cant.</small><span class="ru-fi ru-stp"><button type="button" class="ru-sm" aria-label="Uno menos">−</button><input type="number" min="1" inputmode="numeric" class="ru-lq" value="${esc(r.q)}" aria-label="¿Cuántos ${esc(r.n)}?"><button type="button" class="ru-sp" aria-label="Uno más">+</button></span></span>`}
+   ${F("precio",`<i>$</i><input type="number" min="0" inputmode="decimal" class="ru-lp${MISS(+r.p>0)}" value="${esc(r.p)}" placeholder="0" aria-label="Precio de ${esc(r.n)}">`,"ru-fp")}
+   ${F("cobro",`<select class="ru-lu" aria-label="Cómo cobras ${esc(r.n)}">${RU_LU.map(([u,t])=>`<option value="${u}" ${r.u===u?"selected":""}>${ruShortU(t)}</option>`).join("")}</select>`,"ru-fu")}
+   ${hr?F("mínimo",`<input type="number" min="1" inputmode="numeric" class="ru-lm" value="${esc(r.min)}" aria-label="Horas mínimas de ${esc(r.n)}"><i>h</i>`,"ru-fm"):`<span class="ru-f ru-fm ru-na"><small>mínimo</small><span class="ru-fi">—</span></span>`}
+   ${F("extra",`<i>$</i><input type="number" min="0" inputmode="decimal" class="ru-lx" value="${esc(r.xh)}" placeholder="0" aria-label="Precio extra de ${esc(r.n)}">`,"ru-fx")}
+   ${F("cobro",`<select class="ru-lxu" aria-label="Cómo cobras el extra de ${esc(r.n)}">${RU_XU.map(t=>`<option value="${t}" ${(r.xu||ruXU(r.u))===t?"selected":""}>${ruShortU(t)}</option>`).join("")}</select>`,"ru-fxu")}</div>`;}).join("")||`<span class="hint">Agrega al menos un perfil.</span>`}</div>
+  ${sk?"":`<div class="ru-add"><span class="ru-sl">＋ Sumar perfil</span><div class="ru-addc">${rest.map(n=>`<button type="button" class="chip ru-lab-c" data-n="${esc(n)}">＋ ${esc(n)}${ruStaffBy(n)&&+ruStaffBy(n).labor[0].p>0?` <small>${money(ruStaffBy(n).labor[0].p)}</small>`:""}</button>`).join("")}<button type="button" class="chip new ru-lab-o">✏️ Otro</button></div><div class="ru-labnew" hidden>${ruTags("labNew",[],"Otro perfil: escribe y Enter")}</div></div>`}
   <div class="ru-pols"><span class="ru-sl">📋 Tus políticas</span><div class="ru-pils">
    ${pill("night",L.night,"🌙 Recargo después de 12 a.m.",`<label class="ru-pin">+<input type="number" min="0" class="ru-p-pct" value="${esc(L.nightPct)}" aria-label="Recargo nocturno">%</label>`)}
    ${pill("ride",L.ride,"🚕 Transporte de regreso lo cubre el anfitrión",`<label class="ru-pin">$<input type="number" min="0" class="ru-p-fee" value="${esc(L.rideFee)}" placeholder="0" aria-label="Transporte por persona">c/u</label>`)}
@@ -1482,11 +1568,11 @@ function ruLaborHtml(p,staff){const rest=[...new Set(staff)].filter(n=>!p.labor.
    ${pill("uniform",L.uniform,"👔 Uniforme incluido")}</div>
    <span class="hint">El tiempo cuenta desde que tu personal llega. Viáticos fuera de zona se acuerdan.</span></div></div>`;}
 function ruIdentHtml(p){const sk=p.kind==="staff",pk=p.kind==="pkg",staff=[...new Set(ruCats(p).flatMap(c=>RU.staff[c]||[]))],names=[...new Set([...staff,...p.crew.map(r=>r.n)])],k="ru"+(pk?"k":"p"),sug=pk?ruSug(p):0;
- const head=pk?`<span class="ru-pkb">🎁 Paquete</span><h3>Dale identidad a tu paquete</h3><div class="ru-crumbs">${p.items.map(id=>`<span>${esc((ruById(id)||{}).name||"—")}</span>`).join("")}</div><span class="hint">Empieza en blanco: el paquete lleva su propio nombre, detalles y precio. Guardamos de qué productos sale.</span>`
-  :sk?`<span class="ru-stb">🙋 Personal</span><h3>${esc(p.name)}</h3><span class="hint">Se arma solo con los perfiles que marcaste en «Solo tu personal». Un precio por perfil; si lo cambias aquí, se actualiza en tus productos.</span>`
+ if(pk&&!p.qty)p.qty={};const head=pk?`<span class="ru-pkb">🎁 Paquete</span><h3>Dale identidad a tu paquete</h3><div class="ru-crumbs ru-kits">${p.items.map(ref=>{const x=ruById(ref);return x&&x.kind==="staff"?`<label class="ru-kq"><input type="number" min="1" inputmode="numeric" data-kq="${esc(ref)}" value="${esc(p.qty[ref]||"1")}" aria-label="¿Cuántos ${esc(x.name)}?"> × ${esc(x.name)}</label>`:`<span>${esc(ruItemName(ref,p))}</span>`;}).join("")}</div><span class="hint">Empieza en blanco: el paquete lleva su propio nombre, detalles y precio. Guardamos de qué productos sale.</span>`
+  :sk?`<span class="ru-stb">🙋 Tu personal</span><h3>${esc(p.name)}</h3><span class="hint">Es un producto independiente: el anfitrión lo puede contratar solo y tú lo sumas a tus paquetes las veces que quieras.</span>`
   :`<h3>Dale identidad</h3><div class="ru-crumbs">${p.dims.map(d=>`<span>${esc(d)}</span>`).join("")}${p.otro?`<span>${esc(p.otro)}</span>`:""}</div>`;
  return`${head}
- <div class="field"><label class="lbl" for="ruName">Nombre</label><input id="ruName" class="${MISS(filled(p.name))}" value="${esc(p.name)}" placeholder="${pk?"Nombre del paquete":"Nombre de tu producto"}"></div>
+ ${sk?"":`<div class="field"><label class="lbl" for="ruName">Nombre</label><input id="ruName" class="${MISS(filled(p.name))}" value="${esc(p.name)}" placeholder="${pk?"Nombre del paquete":"Nombre de tu producto"}"></div>`}
  ${sk?ruLaborHtml(p,staff):`<div class="field ru-inc"><span class="lbl">¿Qué incluye?</span>
   ${ruFood(p)?`<span class="ru-sl">🍴 Platillos <span class="opt">escribe y te sugerimos</span></span>${ruTags("dishes",p.dishes,"Ej. crema de elote")}`:""}
   <span class="ru-sl">🧺 Insumos <span class="opt">solo el nombre; alcanzan para tus personas</span></span>${ruTags("ins",p.ins,"Ej. platos, hielo, mantelería")}
@@ -1498,9 +1584,9 @@ function ruIdentHtml(p){const sk=p.kind==="staff",pk=p.kind==="pkg",staff=[...ne
   <div class="ru-tsel${MISS(p.tw.length>0)}">${["full","rent","labor"].map(w=>`<button type="button" class="ru-tsb" data-w="${w}" aria-pressed="${p.tw.includes(w)}"><b>${RU_TL[w][0]}</b><small>${RU_TL[w][1]}</small></button>`).join("")}</div>
   ${pk&&sug?`<div class="ru-sug">💡 Tus productos suman <b>${ruMoney(sug)}</b>${+p.pax?` · ${ruMoney(sug/ +p.pax)} por persona`:""}<button type="button" class="link" id="ruUseSug">Usar como precio</button></div>`:""}
   ${p.tw.map(w=>w==="labor"?ruLaborHtml(p,staff):ruTarHtml(p,w,k)).join("")}</div>`}
- <div class="ru-paxc"><img src="img/c_07.webp" alt="" class="ru-paxm"><div class="ru-paxq"><label class="ru-paxl" for="ruPax">¿Para cuántas personas alcanza todo esto?</label><span class="ru-paxh">Es el dato más importante: con él te mostramos en el cotizador del anfitrión.</span>
+ ${sk?`<div id="ruHost">${ruHost(p)}</div>`:`<div class="ru-paxc"><img src="img/c_07.webp" alt="" class="ru-paxm"><div class="ru-paxq"><label class="ru-paxl" for="ruPax">¿Para cuántas personas alcanza todo esto?</label><span class="ru-paxh">Es el dato más importante: con él te mostramos en el cotizador del anfitrión.</span>
   <div class="ru-paxi"><input id="ruPax" class="${MISS(+p.pax>0)}" type="number" min="1" inputmode="numeric" value="${esc(p.pax)}" placeholder="#" aria-label="Personas"><b>personas</b></div></div>
-  <div id="ruHost">${ruHost(p)}</div></div>
+  <div id="ruHost">${ruHost(p)}</div></div>`}
  <div class="field ru-cov"><span class="lbl">📍 ¿Hasta dónde llevas ${pk?"este paquete":"este servicio"}?</span>
   <div class="chips"><button type="button" class="chip ru-covb" data-v="1" aria-pressed="${p.cov.same}">${TICK}${pk?"Donde llegan todos sus productos":"Igual que mi zona general"}</button><button type="button" class="chip ru-covb" data-v="0" aria-pressed="${!p.cov.same}">${TICK}Otra zona</button></div>
   ${p.cov.same?`<span class="hint">📍 ${esc(zonesText(ruZones(p))||"Aún no defines tu zona general (abajo, en este mismo paso).")}</span>`:zonesHtml(p.cov.zones,k+"cv","Zona de "+(pk?"este paquete":"este servicio"))}</div>
@@ -1520,15 +1606,16 @@ function ruDrawIdent(scroll,focusTag){const box=$("ruIdent");if(!box)return;cons
  const mo=box.querySelector("details.ru-more");if(mo)p._moreOpen=mo.open;const y0=scrollY;box.hidden=false;box.innerHTML=ruIdentHtml(p);if(!scroll)scrollTo({top:y0,behavior:"instant"});
  const rd=id=>ruDrawIdent(false,id),k="ru"+(p.kind==="pkg"?"k":"p");
  box.querySelector("details.ru-more").ontoggle=e=>{p._moreOpen=e.target.open;};
- $("ruName").oninput=e=>{p.name=e.target.value;$("ruLk").textContent=ruLink(p);};
- $("ruPax").oninput=e=>{p.pax=e.target.value;$("ruHost").innerHTML=ruHost(p);};
+ const rn=$("ruName");if(rn)rn.oninput=e=>{p.name=e.target.value;$("ruLk").textContent=ruLink(p);};
+ const rx=$("ruPax");if(rx)rx.oninput=e=>{p.pax=e.target.value;$("ruHost").innerHTML=ruHost(p);};
+ box.querySelectorAll("[data-kq]").forEach(x=>x.oninput=e=>{p.qty[x.dataset.kq]=e.target.value;});
  ruBindTags(box,"dishes",p.dishes,()=>RU_DISHES,null,rd);ruBindTags(box,"ins",p.ins,()=>ruIns(ruCats(p)[0]),null,rd);
  ruBindTags(box,"crewNew",[],()=>[...new Set(Object.values(RU.staff).flat())],v=>{if(!p.crew.some(r=>nrm(r.n)===nrm(v)))p.crew.push({n:v,q:"1"});},rd);
  ruBindTags(box,"ext",[],()=>RU_EXTRAS.filter(x=>!p.ext.some(e=>e.c===x)),v=>{if(!p.ext.some(e=>nrm(e.c)===nrm(v)))p.ext.push({c:v,p:"",u:ruExU(v)});setTimeout(()=>{const l=[...box.querySelectorAll(".ru-exp")].pop();l&&l.focus({preventScroll:true});},0);},rd);
  box.querySelectorAll(".ru-crew").forEach(b=>b.onclick=()=>{const n=b.dataset.n,ix=p.crew.findIndex(r=>r.n===n);if(ix>=0)p.crew.splice(ix,1);else p.crew.push({n,q:"1"});ruDrawIdent();});
  box.querySelectorAll("[data-cq]").forEach(x=>x.oninput=e=>{p.crew[+x.dataset.cq].q=e.target.value;});
  box.querySelectorAll(".ru-tsb").forEach(b=>b.onclick=()=>{const w=b.dataset.w;p.tw=p.tw.includes(w)?p.tw.filter(x=>x!==w):["full","rent","labor"].filter(x=>x===w||p.tw.includes(x));
-  if(w==="labor"&&p.tw.includes("labor")&&!p.labor.length)p.labor=p.crew.map(r=>({n:r.n,q:r.q||"1",p:"",u:"Por hora",min:"5",xh:""}));ruDrawIdent();});
+  if(w==="labor"&&p.tw.includes("labor")&&!p.labor.length)p.labor=p.crew.map(r=>ruLabRow(r.n,r.q));ruDrawIdent();});
  const live=()=>{$("ruHost").innerHTML=ruHost(p);};
  box.querySelectorAll("[data-tp]").forEach(x=>x.oninput=e=>{p.tar[x.dataset.tp].p=e.target.value;live();});
  box.querySelectorAll("[data-tq]").forEach(x=>x.oninput=e=>{p.tar[x.dataset.tq].q=e.target.value;live();});
@@ -1536,80 +1623,152 @@ function ruDrawIdent(scroll,focusTag){const box=$("ruIdent");if(!box)return;cons
  const us=$("ruUseSug");if(us)us.onclick=()=>{const s=ruSug(p);if(!p.tw.includes("full"))p.tw.unshift("full");if(+p.pax){p.tar.full.u="Por persona";p.tar.full.p=String(Math.round(s/ +p.pax));}else{p.tar.full.u="Por evento";p.tar.full.p=String(Math.round(s));}ruDrawIdent();};
  box.querySelectorAll(".ru-ex").forEach(R=>{const e=p.ext[+R.dataset.ix];R.querySelector(".ru-exc").oninput=x=>{e.c=x.target.value;};R.querySelector(".ru-exp").oninput=x=>{e.p=x.target.value;};R.querySelector(".ru-exu").oninput=x=>{e.u=x.target.value;};R.querySelector(".ru-exx").onclick=()=>{p.ext.splice(+R.dataset.ix,1);ruDrawIdent();};});
  const red=()=>ruDrawIdent();
- bindUploader(k+"ph","photo",p.photos,red);
+ bindUploader(k+"ph","photo",p.photos,red);bindMin(p.min,k+"mn",red);bindPromo(p.promo,k+"pr",red);
  box.querySelectorAll(".ru-covb").forEach(b=>b.onclick=()=>{p.cov.same=b.dataset.v==="1";if(!p.cov.same&&!zonesOk(p.cov.zones))p.cov.zones=JSON.parse(JSON.stringify(ruZones(Object.assign({},p,{cov:{same:true}}))||[{state:"",all:false,munis:[]}]));if(!p.cov.zones.length)p.cov.zones=[{state:"",all:false,munis:[]}];ruDrawIdent();});
  if(!p.cov.same)bindZones(p.cov.zones,k+"cv",red);bindDlSec(box,"rt",p.dlx,k+"dlx",red);
- box.querySelectorAll(".ru-lab-c").forEach(b=>b.onclick=()=>{const n=b.dataset.n;if(!p.labor.some(r=>r.n===n)){const c=p.crew.find(r=>r.n===n);p.labor.push({n,q:c?c.q:"1",p:"",u:"Por hora",min:"5",xh:""});}ruDrawIdent();});
+ box.querySelectorAll(".ru-lab-c").forEach(b=>b.onclick=()=>{const n=b.dataset.n;if(!p.labor.some(r=>r.n===n)){const c=p.crew.find(r=>r.n===n);p.labor.push(ruLabRow(n,c?c.q:"1"));}ruDrawIdent();});
  const lo=box.querySelector(".ru-lab-o");if(lo)lo.onclick=()=>{const w=box.querySelector(".ru-labnew");w.hidden=false;w.querySelector("input").focus({preventScroll:true});};
- ruBindTags(box,"labNew",[],()=>[...new Set(Object.values(RU.staff).flat())],v=>{if(!p.labor.some(r=>nrm(r.n)===nrm(v)))p.labor.push({n:v,q:"1",p:"",u:"Por hora",min:"5",xh:""});},()=>ruDrawIdent());
+ ruBindTags(box,"labNew",[],()=>[...new Set(Object.values(RU.staff).flat())],v=>{if(!p.labor.some(r=>nrm(r.n)===nrm(v)))p.labor.push(ruLabRow(v,"1"));},()=>ruDrawIdent());
  box.querySelectorAll(".ru-lr").forEach(R=>{const r=p.labor[+R.dataset.ix];[["ru-lq","q"],["ru-lp","p"],["ru-lm","min"],["ru-lx","xh"]].forEach(([c,f])=>{const x=R.querySelector("."+c);if(x)x.oninput=e=>{r[f]=e.target.value;live();};});
-  const q=R.querySelector(".ru-lq");R.querySelector(".ru-sm").onclick=()=>{r.q=String(Math.max(1,(+r.q||1)-1));q.value=r.q;live();};R.querySelector(".ru-sp").onclick=()=>{r.q=String((+r.q||0)+1);q.value=r.q;live();};
-  R.querySelector(".ru-lu").onchange=e=>{r.u=e.target.value;ruDrawIdent();};R.querySelector(".ru-lrm").onclick=()=>{p.labor.splice(+R.dataset.ix,1);ruDrawIdent();};});
+  const q=R.querySelector(".ru-lq");if(q){R.querySelector(".ru-sm").onclick=()=>{r.q=String(Math.max(1,(+r.q||1)-1));q.value=r.q;live();};R.querySelector(".ru-sp").onclick=()=>{r.q=String((+r.q||0)+1);q.value=r.q;live();};}
+  R.querySelector(".ru-lu").onchange=e=>{const was=ruXU(r.u);r.u=e.target.value;if(!r.xu||r.xu===was)r.xu=ruXU(r.u);ruDrawIdent();};R.querySelector(".ru-lxu").onchange=e=>{r.xu=e.target.value;};const rm=R.querySelector(".ru-lrm");if(rm)rm.onclick=()=>{p.labor.splice(+R.dataset.ix,1);ruDrawIdent();};});
  box.querySelectorAll(".ru-pt").forEach(b=>b.onclick=()=>{const k=b.dataset.k,m={night:"night",ride:"ride",meal:"meal",uniform:"uniform"}[k];p.lpol[m]=!p.lpol[m];ruDrawIdent();});
  const pq=(c,f)=>{const x=box.querySelector(c);if(x)f(x);};pq(".ru-p-pct",x=>x.oninput=e=>{p.lpol.nightPct=e.target.value;});pq(".ru-p-fee",x=>x.oninput=e=>{p.lpol.rideFee=e.target.value;});
  $("ruCopy").onclick=()=>copyText("https://"+$("ruLk").textContent,$("ruLkMsg"));
  $("ruImg").onclick=async()=>{const w=p.tw[0],r=w&&ruTotal(p,w);const url=await hqvShareImage({logo:"img/logo.webp",kicker:S.biz.name||"Mi negocio",title:p.name||"Mi producto",sub:[r&&+p.pax?`${ruMoney(r.pp)} por persona · para ${p.pax} personas`:"",[...p.dishes,...p.ins].slice(0,4).join(", ")].filter(Boolean).join(" · "),url:ruLink(p),foot:"Escanea y cotiza por WhatsApp"});hqvDownload(url,(p.kind==="pkg"?"paquete-":"producto-")+slug(p.name)+".png");hqvTrack("imagen_producto_descargada");};
  $("ruCancel").onclick=()=>{RU_EDIT=null;ruDrawIdent();};
  $("ruOk").onclick=()=>{const m=ruMiss(p),er=$("ruErr");if(m.length){er.hidden=false;er.textContent="Falta: "+m.join(", ")+".";if(m.some(x=>/extra|entrega|mínimo|promoción/.test(x))){p._moreOpen=true;box.querySelector("details.ru-more").open=true;}return;}
-  const L=p.kind==="pkg"?S.rpkgs:S.rprods,ix=L.findIndex(x=>x.id===p.id);delete p._moreOpen;const isNew=ix<0;if(isNew&&p.kind==='prod'){S.remb=(S.remb||0)+1;p.emb=S.remb;}if(ix>=0)L[ix]=p;else L.push(p);RU_EDIT=null;ruDrawIdent();ruDrawLists();changed();ruConfetti(140);const after=()=>{if(isNew&&p.kind==='prod')setTimeout(()=>ruEmblem(p),350);else ruToast(p.kind==='pkg'?'🎁 Paquete guardado':'✓ Cambios guardados');};if(p.kind==='prod'&&p.tw.includes('labor'))ruSyncStaff(p,after);else if(p.kind==='staff'){ruPropStaff(p);after();}else after();
+  const L=p.kind==="pkg"?S.rpkgs:S.rprods,ix=L.findIndex(x=>x.id===p.id);delete p._moreOpen;const isNew=ix<0;if(isNew&&p.kind==='prod'){S.remb=(S.remb||0)+1;p.emb=S.remb;}if(ix>=0)L[ix]=p;else L.push(p);RU_EDIT=null;ruDrawIdent();ruDrawLists();changed();ruConfetti(140);const after=()=>{if(isNew&&p.kind==='prod')setTimeout(()=>ruEmblem(p),350);else ruToast(p.kind==='pkg'?'🎁 Paquete guardado':'✓ Cambios guardados');};if(p.kind==='prod'&&p.tw.includes('labor'))ruSyncStaff(p,after);else if(p.kind==='staff'){ruPropStaff(p);ruDrawLists();after();}else after();
   hqvTrack(p.kind==="pkg"?"ruleta_paquete_guardado":"ruleta_producto_guardado",{n:L.length});const t=$(p.kind==="pkg"?"ruPkgs":"ruProds");t&&t.scrollIntoView({behavior:RU_RM?"auto":"smooth",block:"center"});};
  if(scroll)box.scrollIntoView({behavior:RU_RM?"auto":"smooth",block:"start"});
  if(focusTag){const i=box.querySelector(`.ru-tags[data-t="${focusTag}"] input`);i&&i.focus({preventScroll:true});}}
 /* ---------- productos y paquetes ---------- */
-function ruPrice(p){const w=p.tw[0],r=w&&ruTotal(p,w);return r&&r.pp!==null?`<span class="ru-pr"><b>${ruMoney(r.pp)}</b> por persona · ${ruMoney(r.tot)} total</span>`:`<span class="ru-pr hint">Falta el precio</span>`;}
-function ruCard(p){const pk=p.kind==="pkg",sel=RU_PICK&&!pk&&RU_PICKED.includes(p.id),ok=ruOk(p);
- return`<article class="ru-pc${sel?" sel":""}${ok?"":" warn"}" data-id="${p.id}">${pk?`<span class="ru-pkb">🎁 Paquete</span>`:p.kind==="staff"?`<span class="ru-stb">🙋 Personal</span>`:`<div class="ru-crumbs">${p.dims.slice(0,3).map(d=>`<span>${esc(d)}</span>`).join("")}</div>`}
-  <h4>${!pk&&p.emb?`<span class="ru-embmini" title="Emblema de servicio">🏅</span>`:""}${esc(p.name)}</h4>${ruPrice(p)}<span class="ru-meta">Para ${esc(p.pax||"—")} personas${p.tw.length>1?` · ${p.tw.length} formas de cobro`:""}</span>
-  <span class="ru-meta">${esc(pk?"Incluye: "+p.items.map(id=>(ruById(id)||{}).name||"—").join(" + "):p.kind==="staff"?p.labor.map(r=>`${r.n} ${money(r.p)}`).join(" · "):[...p.dishes,...p.ins].slice(0,4).join(", "))}</span>${ok?"":`<span class="ru-meta" style="color:var(--bad)">⚠️ ${esc(ruMiss(p).join(", "))}</span>`}
-  ${RU_PICK&&!pk?`<button class="ru-pick" type="button" aria-label="Elegir ${esc(p.name)}"></button><span class="ru-ck">✓</span>`:`<span class="ru-tools"><button type="button" data-ed aria-label="Editar ${esc(p.name)}">✏️</button><button type="button" data-rm aria-label="Quitar ${esc(p.name)}">✕</button></span>`}</article>`;}
-function ruDrawLists(){if(!$("ruProds"))return;ruDefaults();const P=S.rprods,K=S.rpkgs;
+/* v25 · el proveedor ve primero el total del evento y después el precio por persona */
+function ruPrice(p){const w=p.tw[0],r=w&&ruTotal(p,w);return r?`<span class="ru-pr"><b>${ruMoney(r.tot)}</b> total${r.pp!==null?` · ${ruMoney(r.pp)} por persona`:""}</span>`:`<span class="ru-pr hint">Falta el precio</span>`;}
+function ruFormDesc(p,w){if(w==="full")return"Con insumos, tu personal, entrega y montaje";if(w==="rent")return p.dlx.dl.length?p.dlx.dl.map(d=>(DL_LABEL[d.m]||d.m)+(d.cobra?" (con costo)":"")).join(" · "):"Solo insumos";return p.labor.map(r=>`${r.q} ${ruPl(r.n,r.q)}`).join(" + ")||"Agrega tu personal";}
+const ruTools=(nm,x)=>`<span class="ru-tools"${x||""}><button type="button" data-ed aria-label="Editar ${esc(nm)}">✏️</button><button type="button" data-rm aria-label="Quitar ${esc(nm)}">✕</button></span>`;
+const ruPickB=(ref,nm)=>{const on=RU_PICKED.includes(ref);return`<button class="ru-pick" type="button" data-ref="${esc(ref)}" aria-pressed="${on}" aria-label="Elegir ${esc(nm)}"></button><span class="ru-ck">✓</span>`;};
+function ruFormCard(p,w){const r=ruTotal(p,w),ref=p.id+"|"+w,sel=RU_PICK&&RU_PICKED.includes(ref);
+ return`<article class="ru-fc${sel?" sel":""}" data-id="${p.id}" data-w="${w}"><b class="ru-fl">${ruFN[w]}</b>${r?`<span class="ru-tot">${ruMoney(r.tot)}</span><small class="ru-ppx">total del evento${r.pp!==null?` · <b>${ruMoney(r.pp)}</b> por persona`:""}</small>`:`<span class="ru-pr hint">Falta el precio</span>`}<small class="ru-fd">${esc(ruFormDesc(p,w))}</small>
+  ${RU_PICK?ruPickB(ref,p.name+" "+ruFN[w]):ruTools(ruFN[w].slice(3)+" de "+p.name)}</article>`;}
+function ruGroup(p){const ok=ruOk(p);
+ return`<section class="ru-grp${ok?"":" warn"}" data-id="${p.id}"><header class="ru-gh"><div><div class="ru-crumbs">${p.dims.slice(0,3).map(d=>`<span>${esc(d)}</span>`).join("")}</div>
+  <h4>${p.emb?`<span class="ru-embmini" title="Emblema de servicio">🏅</span>`:""}${esc(p.name)}</h4><span class="ru-meta">Para ${esc(p.pax||"—")} personas · ${p.tw.length} ${p.tw.length===1?"forma":"formas"} de contratarlo</span>${ok?"":`<span class="ru-meta" style="color:var(--bad)">⚠️ ${esc(ruMiss(p).join(", "))}</span>`}</div>
+  ${RU_PICK?"":ruTools(p.name)}</header><div class="ru-forms">${p.tw.map(w=>ruFormCard(p,w)).join("")||`<span class="hint">Aún no eliges cómo lo cobras.</span>`}</div></section>`;}
+function ruStaffCard(p){const r=p.labor[0],ok=ruOk(p),sel=RU_PICK&&RU_PICKED.includes(p.id),ev=(+r.p||0)*(r.u==="Por hora"?(+r.min||5):1);
+ return`<article class="ru-pc ru-sc${sel?" sel":""}${ok?"":" warn"}" data-id="${p.id}"><span class="ru-stb">🙋 Personal</span><h4>${esc(p.name)}</h4>${+r.p>0?`<span class="ru-pr"><b>${money(r.p)}</b> ${esc(ruXU(r.u))}</span><span class="ru-meta">${r.u==="Por hora"?`Mínimo ${esc(r.min||5)} h · `:""}${money(ev)} por evento${+r.xh>0?` · extra ${money(r.xh)} ${esc(r.xu||ruXU(r.u))}`:""}</span>`:`<span class="ru-pr hint">Falta el precio</span>`}
+  ${RU_PICK?ruPickB(p.id,p.name):ruTools(p.name)}</article>`;}
+function ruVenueCard(){const x=ruVenueItem();if(!x)return"";const t=ruVenueTot(),sel=RU_PICKED.includes("venue");
+ return`<article class="ru-pc ru-vc${sel?" sel":""}" data-id="venue"><span class="ru-vb">🏡 Tu venue</span><h4>${esc(x.name)}</h4><span class="ru-pr">${t?`<b>${ruMoney(t)}</b> renta`:"Pon tu precio de renta en «Mi venue»"}</span><span class="ru-meta">${esc(S.venue.seated||"—")} personas sentadas</span>${RU_PICK?ruPickB("venue",x.name):""}</article>`;}
+function ruCard(p){const ok=ruOk(p),r=ruTotal(p,p.tw[0]);
+ return`<article class="ru-pc ru-kc${ok?"":" warn"}" data-id="${p.id}"><span class="ru-pkb">🎁 Paquete</span><h4>${esc(p.name)}</h4>${r?`<span class="ru-tot">${ruMoney(r.tot)}</span><small class="ru-ppx">total del evento${r.pp!==null?` · <b>${ruMoney(r.pp)}</b> por persona`:""}</small>`:`<span class="ru-pr hint">Falta el precio</span>`}
+  <span class="ru-meta">Para ${esc(p.pax||"—")} personas · ${esc(p.items.map(ref=>ruItemName(ref,p)).join(" + "))}</span>${ok?"":`<span class="ru-meta" style="color:var(--bad)">⚠️ ${esc(ruMiss(p).join(", "))}</span>`}${RU_PICK?"":ruTools(p.name)}</article>`;}
+const ruRefs=()=>[...(S.rprods||[]).flatMap(p=>p.kind==="staff"?[p.id]:p.tw.map(w=>p.id+"|"+w)),...(ruVenueItem()?["venue"]:[])];
+function ruDrawLists(){if(!$("ruProds"))return;ruDefaults();const P=S.rprods.filter(x=>x.kind==="prod"),ST=S.rprods.filter(x=>x.kind==="staff"),K=S.rpkgs,nRef=ruRefs().length;
  $("ruProdH").textContent=`Tus productos (${P.length})`;
- $("ruProds").innerHTML=P.map(ruCard).join("")||`<p class="ru-empty">Aún no guardas productos. Alinea los rodillos y toca «Guardar esta combinación».</p>`;
- const lock=P.length<2;$("ruPkSec").classList.toggle("locked",lock);$("ruPkgH").textContent=lock?"🔒 Tus paquetes":`Tus paquetes (${K.length})`;
- $("ruPkgs").innerHTML=lock?`<p class="ru-lock">🔒 Se desbloquea cuando tengas 2 productos. ${P.length?"Te falta 1.":"Te faltan 2."} Después combinas tus productos en paquetes.</p>`:K.map(ruCard).join("")||`<p class="ru-empty">Toca «🎁 Armar un paquete» y elige qué productos combinar.</p>`;
- $("ruMk").disabled=P.length<2;$("ruBar").hidden=!RU_PICK;$("ruBarT").textContent=RU_PICKED.length<2?"Elige 2 o más productos":`${RU_PICKED.length} productos elegidos`;$("ruGo").disabled=RU_PICKED.length<2;
- document.querySelectorAll(".ru-step2").forEach(x=>x.classList.toggle("on",P.length>=2));
- document.querySelectorAll(".ru-pc").forEach(c=>{const id=c.dataset.id,L=P.some(x=>x.id===id)?P:K,p=L.find(x=>x.id===id);
-  const pk=c.querySelector(".ru-pick");if(pk)pk.onclick=()=>{RU_PICKED=RU_PICKED.includes(id)?RU_PICKED.filter(x=>x!==id):[...RU_PICKED,id];ruDrawLists();};
-  const ed=c.querySelector("[data-ed]");if(ed)ed.onclick=()=>{RU_EDIT=JSON.parse(JSON.stringify(p));ruDrawIdent(true);};
-  const rm=c.querySelector("[data-rm]");if(rm)rm.onclick=()=>{const ix=L.indexOf(p);L.splice(ix,1);ruDrawLists();changed();ruToast(`Quitaste «${p.name}»`,()=>{L.splice(ix,0,p);ruDrawLists();changed();});};});}
+ $("ruProds").innerHTML=(RU_PICK&&ruVenueItem()?ruVenueCard():"")+(P.map(ruGroup).join("")||`<p class="ru-empty">Aún no guardas productos. Alinea los rodillos y toca «Guardar esta combinación».</p>`);
+ const sw=$("ruStaffSec");if(sw){sw.hidden=!ST.length;$("ruStaffH").textContent=`🙋 Tu personal (${ST.length})`;$("ruStaff").innerHTML=ST.map(ruStaffCard).join("");}
+ const lock=nRef<2;$("ruPkSec").classList.toggle("locked",lock);$("ruPkgH").textContent=lock?"🔒 Tus paquetes":`Tus paquetes (${K.length})`;
+ $("ruPkgs").innerHTML=lock?`<p class="ru-lock">🔒 Se desbloquea cuando tengas 2 productos. ${nRef?"Te falta 1.":"Te faltan 2."} Después combinas tus productos en paquetes.</p>`:K.map(ruCard).join("")||`<p class="ru-empty">Toca «🎁 Armar un paquete» y elige qué combinar.</p>`;
+ $("ruMk").disabled=lock;$("ruBar").hidden=!RU_PICK;$("ruBarT").textContent=RU_PICKED.length<2?"Elige 2 o más: formas de contratar, personal"+(ruVenueItem()?" o tu venue":""):`${RU_PICKED.length} elegidos`;$("ruGo").disabled=RU_PICKED.length<2;
+ document.querySelectorAll(".ru-step2").forEach(x=>x.classList.toggle("on",!lock));
+ const root=$("ruProds").closest(".panel")||document;
+ root.querySelectorAll(".ru-pick").forEach(b=>b.onclick=()=>{const r=b.dataset.ref;RU_PICKED=RU_PICKED.includes(r)?RU_PICKED.filter(x=>x!==r):[...RU_PICKED,r];ruDrawLists();});
+ const edit=(p,w)=>{RU_EDIT=JSON.parse(JSON.stringify(p));ruDrawIdent(!w);if(w)setTimeout(()=>{const t=document.querySelector(`#ruIdent .ru-tg[data-w="${w}"]`);(t||$("ruIdent")).scrollIntoView({behavior:RU_RM?"auto":"smooth",block:"start"});},30);};
+ const undoRm=(L,p,ix,msg)=>{L.splice(ix,1);ruDrawLists();changed();ruToast(msg,()=>{L.splice(ix,0,p);ruDrawLists();changed();});};
+ root.querySelectorAll(".ru-grp").forEach(g=>{const p=S.rprods.find(x=>x.id===g.dataset.id);if(!p)return;const T=g.querySelector(".ru-gh .ru-tools");
+  if(T){T.querySelector("[data-ed]").onclick=()=>edit(p);T.querySelector("[data-rm]").onclick=()=>undoRm(S.rprods,p,S.rprods.indexOf(p),`Quitaste «${p.name}»`);}
+  g.querySelectorAll(".ru-fc").forEach(c=>{const w=c.dataset.w,t=c.querySelector(".ru-tools");if(!t)return;t.querySelector("[data-ed]").onclick=()=>edit(p,w);
+   t.querySelector("[data-rm]").onclick=()=>{if(p.tw.length===1){undoRm(S.rprods,p,S.rprods.indexOf(p),`Quitaste «${p.name}»`);return;}const old=[...p.tw];p.tw=p.tw.filter(x=>x!==w);ruDrawLists();changed();ruToast(`Quitaste «${ruFN[w].slice(3)}» de ${p.name}`,()=>{p.tw=old;ruDrawLists();changed();});};});});
+ root.querySelectorAll(".ru-sc").forEach(c=>{const p=S.rprods.find(x=>x.id===c.dataset.id),t=c.querySelector(".ru-tools");if(!p||!t)return;t.querySelector("[data-ed]").onclick=()=>edit(p);t.querySelector("[data-rm]").onclick=()=>undoRm(S.rprods,p,S.rprods.indexOf(p),`Quitaste a «${p.name}» de tu personal`);});
+ root.querySelectorAll(".ru-kc").forEach(c=>{const p=K.find(x=>x.id===c.dataset.id),t=c.querySelector(".ru-tools");if(!p||!t)return;t.querySelector("[data-ed]").onclick=()=>edit(p);t.querySelector("[data-rm]").onclick=()=>undoRm(K,p,K.indexOf(p),`Quitaste «${p.name}»`);});
+ if(typeof vnRefresh==="function")vnRefresh();}
 function ruToast(msg,undo){document.querySelectorAll(".ru-toast").forEach(x=>x.remove());const t=document.createElement("div");t.className="ru-toast";t.innerHTML=`<span>${esc(msg)}</span>${undo?`<button class="link" type="button">Deshacer</button>`:""}`;document.body.appendChild(t);if(undo)t.querySelector("button").onclick=()=>{undo();t.remove();};setTimeout(()=>t.remove(),4200);}
-/* ---------- paso «Mis servicios» ---------- */
-function drawSvcStep(){const sc=S.svcScope=S.svcScope||{S:false,E:false};ruDefaults();
- $("stepBody").innerHTML=`<div class="panel"><span class="crumb">Mi negocio › Servicios</span><h2>Mis servicios 🎉</h2><p class="sub">Arma tu servicio alineando los rodillos. Nosotros se lo mostramos al anfitrión por persona y en total.</p>
- <div class="field"><span class="lbl">¿En qué tipo de eventos trabajas? <span class="opt">Puedes elegir los dos</span></span><div class="chips${MISS(sc.S||sc.E)}" style="width:fit-content;border-radius:99px"><button type="button" class="chip scp" data-v="S" aria-pressed="${!!sc.S}">${TICK}🎉 Sociales</button><button type="button" class="chip scp" data-v="E" aria-pressed="${!!sc.E}">${TICK}💼 Empresariales</button></div></div>
- <div class="ru-steps" role="list"><div class="ru-st on" role="listitem"><b>1</b><span><strong>Tus productos</strong><small>Uno por uno: alinea los rodillos, guarda y dale identidad. Cada uno te da un emblema 🏅.</small></span></div><div class="ru-st ru-step2" role="listitem"><b>2</b><span><strong>Tus paquetes</strong><small>Después combinas tus productos: catering + música + mesas.</small></span></div></div>
+/* ---------- «Arma tu servicio» (se usa en Mis servicios y, si solo tienes venue, en Mi venue) ---------- */
+function ruBuilderHtml(){return`<div class="ru-steps" role="list"><div class="ru-st on" role="listitem"><b>1</b><span><strong>Tus productos</strong><small>Uno por uno: alinea los rodillos, guarda y dale identidad. Cada uno te da un emblema 🏅.</small></span></div><div class="ru-st ru-step2" role="listitem"><b>2</b><span><strong>Tus paquetes</strong><small>Después combinas: catering + personal + ${S.types&&S.types.venue?"tu venue":"música"}.</small></span></div></div>
  <div class="ru-search"><input id="ruQ" type="search" autocomplete="off" placeholder="Busca lo que ofreces: barra de café, DJ, sillas Tiffany…" aria-label="Busca lo que ofreces"><div id="ruQr" class="ru-qr" hidden></div></div>
  ${ruMachineHtml()}
  <section class="ru-ident" id="ruIdent" hidden></section>
  <div class="ru-lh"><h3 id="ruProdH">Tus productos</h3></div>
- <div class="ru-grid" id="ruProds"></div>
+ <div class="ru-glist" id="ruProds"></div>
+ <section class="ru-stsec" id="ruStaffSec" hidden><div class="ru-lh"><h3 id="ruStaffH">🙋 Tu personal</h3></div><span class="hint">Cada perfil es un producto: se cotiza solo y lo sumas a tus paquetes por persona.</span><div class="ru-grid" id="ruStaff"></div></section>
  <div class="ru-bar" id="ruBar" hidden><span id="ruBarT"></span><span class="row"><button class="link" id="ruNo" type="button">Cancelar</button><button class="btn cta sm" id="ruGo" type="button">Combinar</button></span></div>
  <section class="ru-pksec" id="ruPkSec"><div class="ru-lh"><h3 id="ruPkgH">Tus paquetes</h3><button class="btn ghost sm" id="ruMk" type="button">🎁 Armar un paquete</button></div>
- <div class="ru-grid" id="ruPkgs"></div></section>
+ <div class="ru-grid" id="ruPkgs"></div></section>`;}
+function ruStartPick(pre){RU_PICK=true;RU_PICKED=pre||[];ruDrawLists();const t=$("ruProds");t&&t.scrollIntoView({behavior:RU_RM?"auto":"smooth",block:"start"});}
+function ruBindBuilder(){ruBindMachine();ruBindSearch();ruDrawLists();ruDrawIdent();
+ $("ruMk").onclick=()=>ruStartPick([]);
+ $("ruNo").onclick=()=>{RU_PICK=false;RU_PICKED=[];ruDrawLists();};
+ $("ruGo").onclick=()=>{const items=[...RU_PICKED];RU_PICK=false;RU_PICKED=[];const qty={};items.forEach(r=>{const x=ruById(r);if(x&&x.kind==="staff")qty[r]="1";});
+  const cr=[...new Set(items.flatMap(r=>{const x=ruById(r);return!x?[]:x.kind==="staff"?[x.n]:x.crew.map(c=>c.n);}))];const vn=items.includes("venue");
+  RU_EDIT=Object.assign({id:"k"+Date.now().toString(36),kind:"pkg",items,qty,name:"",dishes:[],ins:[],crew:cr.map(n=>({n,q:"1"})),pax:vn?String(S.venue.seated||""):"",tw:[],tar:ruBlankT("Por persona")},ruBlankMore());ruDrawLists();ruDrawIdent(true);hqvTrack("ruleta_paquete_iniciado",{n:items.length,venue:vn});};}
+/* ---------- paso «Mis servicios» ---------- */
+function drawSvcStep(){const sc=S.svcScope=S.svcScope||{S:false,E:false};ruDefaults();
+ $("stepBody").innerHTML=`<div class="panel"><span class="crumb">Mi negocio › Servicios</span><h2>Mis servicios 🎉</h2><p class="sub">Arma tu servicio alineando los rodillos. Nosotros se lo mostramos al anfitrión por persona y en total.</p>
+ <div class="field"><span class="lbl">¿En qué tipo de eventos trabajas? <span class="opt">Puedes elegir los dos</span></span><div class="chips${MISS(sc.S||sc.E)}" style="width:fit-content;border-radius:99px"><button type="button" class="chip scp" data-v="S" aria-pressed="${!!sc.S}">${TICK}🎉 Sociales</button><button type="button" class="chip scp" data-v="E" aria-pressed="${!!sc.E}">${TICK}💼 Empresariales</button></div></div>
+ ${ruBuilderHtml()}
  ${priceBoxHtml()}
  ${zonesHtml(S.svcZones,"svc","📍 Tu zona general: ¿hasta dónde llevas tus servicios?")}<span class="hint" style="margin-top:-10px">Cada producto la usa por defecto. Si alguno llega más lejos o más cerca, lo cambias en su ficha.</span>${VIATICOS}${navHtml()}</div>`;
  document.querySelectorAll(".scp").forEach(c=>c.onclick=()=>{sc[c.dataset.v]=!sc[c.dataset.v];c.setAttribute("aria-pressed",!!sc[c.dataset.v]);changed();});
- ruBindMachine();ruBindSearch();ruDrawLists();ruDrawIdent();
- $("ruMk").onclick=()=>{RU_PICK=true;RU_PICKED=[];ruDrawLists();$("ruProds").scrollIntoView({behavior:RU_RM?"auto":"smooth",block:"start"});};
- $("ruNo").onclick=()=>{RU_PICK=false;RU_PICKED=[];ruDrawLists();};
- $("ruGo").onclick=()=>{const items=[...RU_PICKED];RU_PICK=false;RU_PICKED=[];const cr=[...new Set(items.flatMap(id=>(ruById(id)||{crew:[]}).crew.map(r=>r.n)))];
-  RU_EDIT=Object.assign({id:"k"+Date.now().toString(36),kind:"pkg",items,name:"",dishes:[],ins:[],crew:cr.map(n=>({n,q:"1"})),pax:"",tw:[],tar:ruBlankT("Por persona")},ruBlankMore());ruDrawLists();ruDrawIdent(true);hqvTrack("ruleta_paquete_iniciado",{n:items.length});};
+ ruBindBuilder();if(S._pickVenue){S._pickVenue=false;setTimeout(()=>ruStartPick(["venue"]),60);}if(S._editPkg){const k=S.rpkgs.find(x=>x.id===S._editPkg);S._editPkg=null;if(k){RU_EDIT=JSON.parse(JSON.stringify(k));setTimeout(()=>ruDrawIdent(true),60);}}
  bindPriceBox(drawSvcStep);bindZones(S.svcZones,"svc",drawSvcStep);bindNav();}
-function ruMissStep(m){ruDefaults();if(!S.rprods.length)m.push("Guarda al menos un producto en «Arma tu servicio»");
+function ruMissStep(m){ruDefaults();if(!S.rprods.some(x=>x.kind==="prod"))m.push("Guarda al menos un producto en «Arma tu servicio»");
  S.rprods.forEach(p=>{const x=ruMiss(p);if(x.length)m.push(`${p.name||"Producto"}: ${x.join(", ")}`);});S.rpkgs.forEach(p=>{const x=ruMiss(p);if(x.length)m.push(`${p.name||"Paquete"}: ${x.join(", ")}`);});}
 /* ---------- sitio público ---------- */
 function ruSyncServices(){if(!S.rprods)return;const cats=[...new Set(S.rprods.map(p=>p.dims[0]))];
  S.services=cats.map(c=>{const ex=(S.services||[]).find(s=>s.cat===c&&s._ru);return Object.assign(ex||{_ru:true,cat:c,desc:"",dl:[],specs:[],photos:[],min:blankMin(),promo:blankPromo(),offers:[],staff:[],rent:[],askStaff:null,askRent:null,cater:{food:false,drink:false,gas:[]}},{subs:S.rprods.filter(p=>p.dims[0]===c).map(p=>({n:p.name}))});});}
-function svcPlist(s){const v=+S.svcVar||0;return(S.rprods||[]).filter(p=>p.dims[0]===s.cat&&ruOk(p)).map(p=>{const ph=p.photos[0];
- return`<span class="po${ph?" hasph":""}" id="producto-${slug(p.name)}">${ph?`<img class="phbig" src="${ph.url||ph}" alt="">`:""}<span class="pob"><span class="poh"><b>${esc(p.name)}<small class="ctag">${esc(p.dims.slice(1,3).filter(x=>x!=="Otro").join(" · "))} · para ${esc(p.pax)} personas</small></b>
-  <span class="price">${p.tw.map(w=>{const r=ruTotal(p,w);return r&&r.pp!==null?`<span class="pl">${p.tw.length>1?`<small>${RU_TL[w][0].slice(3)}:</small> `:""}${ruMoney(r.pp)} <small>por persona</small></span>`:"";}).join("")}${v?`<span class="pl"><small class="pmv">± ${v}%</small></span>`:""}</span></span>
-  ${p.dishes.length?`<small class="inc">🍴 ${esc(p.dishes.join(", "))}</small>`:""}${p.ins.length?`<small class="inc">🧺 Incluye: ${esc(p.ins.join(", "))}</small>`:""}${p.crew.length?`<small class="inc">🙋 Staff: ${esc(p.crew.map(r=>`${r.q} ${r.n.toLowerCase()}`).join(", "))}</small>`:""}
-  ${p.ext.filter(e=>filled(e.c)).length?`<small class="inc">➕ Extras: ${esc(p.ext.filter(e=>filled(e.c)).map(e=>`${e.c} ${money(e.p)} ${e.u}`).join(" · "))}</small>`:""}${p.tw.includes("full")?`<small class="inc">🚚 Servicio completo: entrega y montaje incluidos</small>`:""}${p.tw.includes("rent")&&p.dlx.dl.length?`<small class="inc">📦 Sin personal: ${esc(p.dlx.dl.map(dlText).join(" · "))}</small>`:""}${p.tw.includes("labor")&&p.labor.length?`<small class="inc">🙋 Solo personal: ${esc(p.labor.map(r=>`${r.n} ${money(r.p)} ${RU_LU.find(x=>x[0]===r.u)[1]}${filled(r.xh)?` (hora extra ${money(r.xh)})`:""}`).join(" · "))}${p.lpol.night?` · después de las 12:00 a.m. +${esc(p.lpol.nightPct)}%`:""}</small>`:""}${p.min.has===true&&minText(p.min)?`<small class="inc">🧾 ${esc(minText(p.min))}</small>`:""}${p.promo.has===true&&p.promo.what?`<small class="inc">🏷️ ${esc(p.promo.what)}</small>`:""}${p.cov&&!p.cov.same?`<small class="inc">📍 Llega a: ${esc(zonesText(p.cov.zones))}</small>`:""}
-  ${p.photos.length>1?`<span class="pph">${p.photos.slice(1,5).map(x=>`<img src="${x.url||x}" alt="">`).join("")}</span>`:""}</span></span>`;}).join("");}
+/* v25 · en el sitio: cada producto con sus formas de contratarlo y, aparte, tu personal por perfil */
+function ruSiteForm(p,w){const r=ruTotal(p,w);if(!r||r.pp===null)return"";const v=+S.svcVar||0;
+ const d=w==="full"?"Incluye insumos, personal, entrega y montaje":w==="rent"?(p.dlx.dl.length?p.dlx.dl.map(dlText).join(" · "):"Solo insumos"):p.labor.map(x=>`${x.q} ${ruPl(x.n,x.q)}`).join(" + ")+(p.lpol.night?` · después de las 12:00 a.m. +${p.lpol.nightPct}%`:"");
+ return`<span class="pform"><span class="pfh"><b>${ruFN[w]}</b><span class="price"><span class="pl">${ruMoney(r.pp)} <small>por persona</small></span><span class="pl"><small>${ruMoney(r.tot)} en total</small></span>${v?`<span class="pl"><small class="pmv">± ${v}%</small></span>`:""}</span></span><small class="inc">${esc(d)}</small></span>`;}
+function ruSiteStaff(L){return L.length?`<span class="po pstaff"><span class="pob"><span class="poh"><b>🙋 Personal por persona<small class="ctag">Contrátalo solo o súmalo a tu fiesta</small></b></span>
+ ${L.map(x=>{const r=x.labor[0];return`<span class="pst-r"><span>${esc(x.name)}</span><span><b>${money(r.p)}</b> ${esc(ruXU(r.u))}${r.u==="Por hora"?` · mín. ${esc(r.min||5)} h`:""}${+r.xh>0?` · extra ${money(r.xh)} ${esc(r.xu||ruXU(r.u))}`:""}</span></span>`;}).join("")}</span></span>`:"";}
+function svcPlist(s){const all=(S.rprods||[]).filter(p=>p.dims[0]===s.cat&&ruOk(p));
+ return all.filter(p=>p.kind==="prod").map(p=>{const ph=p.photos[0];
+ return`<span class="po${ph?" hasph":""}" id="producto-${slug(p.name)}">${ph?`<img class="phbig" src="${ph.url||ph}" alt="">`:""}<span class="pob"><span class="poh"><b>${esc(p.name)}<small class="ctag">${esc(p.dims.slice(1,3).filter(x=>x!=="Otro").join(" · "))} · para ${esc(p.pax)} personas · ${p.tw.length} ${p.tw.length===1?"forma":"formas"} de contratarlo</small></b></span>
+  <span class="pforms">${p.tw.map(w=>ruSiteForm(p,w)).join("")}</span>
+  ${p.dishes.length?`<small class="inc">🍴 ${esc(p.dishes.join(", "))}</small>`:""}${p.ins.length?`<small class="inc">🧺 Incluye: ${esc(p.ins.join(", "))}</small>`:""}
+  ${p.ext.filter(e=>filled(e.c)).length?`<small class="inc">➕ Extras: ${esc(p.ext.filter(e=>filled(e.c)).map(e=>`${e.c} ${money(e.p)} ${e.u}`).join(" · "))}</small>`:""}${p.min.has===true&&minText(p.min)?`<small class="inc">🧾 ${esc(minText(p.min))}</small>`:""}${p.promo.has===true&&p.promo.what?`<small class="inc">🏷️ ${esc(p.promo.what)}</small>`:""}${p.cov&&!p.cov.same?`<small class="inc">📍 Llega a: ${esc(zonesText(p.cov.zones))}</small>`:""}
+  ${p.photos.length>1?`<span class="pph">${p.photos.slice(1,5).map(x=>`<img src="${x.url||x}" alt="">`).join("")}</span>`:""}</span></span>`;}).join("")+ruSiteStaff(all.filter(p=>p.kind==="staff"));}
 function pkgSite(){const L=(S.rpkgs||[]).filter(ruOk);if(!L.length)return"";
  return`<div class="ms-item pkgsite"><div class="ms-item-top"><b>🎁 Paquetes</b></div><div class="plist">${L.map(P=>{const w=P.tw[0],r=ruTotal(P,w),ph=P.photos[0];return`<span class="po${ph?" hasph":""}" id="paquete-${slug(P.name)}">${ph?`<img class="phbig" src="${ph.url||ph}" alt="">`:""}<span class="pob"><span class="poh"><b>${esc(P.name)}<small class="ctag">Para ${esc(P.pax)} personas</small></b><span class="price"><span class="pl">${ruMoney(r.pp)} <small>por persona</small></span><span class="pl"><small>${ruMoney(r.tot)} en total</small></span></span></span>
-  <small class="inc">Incluye: ${esc(P.items.map(id=>(ruById(id)||{}).name||"—").join(" + "))}</small>${P.ins.length?`<small class="inc">🧺 ${esc(P.ins.join(", "))}</small>`:""}${P.crew.length?`<small class="inc">🙋 Staff: ${esc(P.crew.map(x=>`${x.q} ${x.n.toLowerCase()}`).join(", "))}</small>`:""}${P.promo.has===true&&P.promo.what?`<small class="inc">🏷️ ${esc(P.promo.what)}</small>`:""}</span></span>`;}).join("")}</div></div>`;}
+  <small class="inc">Incluye: ${esc(P.items.map(ref=>ruItemName(ref,P)).join(" + "))}</small>${P.ins.length?`<small class="inc">🧺 ${esc(P.ins.join(", "))}</small>`:""}${P.promo.has===true&&P.promo.what?`<small class="inc">🏷️ ${esc(P.promo.what)}</small>`:""}</span></span>`;}).join("")}</div></div>`;}
+/* ===== v25 · Integración del venue =====
+   - Tus productos, tu personal y tus paquetes se reflejan en «Mi venue» con «¿Lo ofreces en tu venue?» y un precio aparte (no descuento).
+   - El venue entra al combinador como una pieza más: «venue + productos + personal», sin volver a llenar sus datos.
+   - Si solo tienes venue, «Arma tu servicio» vive dentro de «Mi venue». */
+function vnItems(){const out=[];(S.rprods||[]).filter(p=>p.kind==="prod"&&ruOk(p)).forEach(p=>p.tw.forEach(w=>{const t=w==="labor"?null:p.tar[w];out.push({g:"prod",ref:p.id+"|"+w,name:p.name,sub:ruFN[w],price:t&&t.p,unit:t&&t.u.toLowerCase(),fixed:!t});}));
+ (S.rprods||[]).filter(p=>p.kind==="staff"&&ruOk(p)).forEach(p=>{const r=p.labor[0];out.push({g:"staff",ref:p.id,name:p.name,sub:"🙋 Tu personal",price:r.p,unit:ruXU(r.u)});});
+ (S.rpkgs||[]).filter(k=>!k.items.includes("venue")&&ruOk(k)).forEach(k=>{const w=k.tw[0],t=k.tar[w];out.push({g:"pkg",ref:"pkg:"+k.id,name:k.name,sub:"🎁 Paquete",price:t&&t.p,unit:t&&t.u.toLowerCase(),fixed:w==="labor"});});return out;}
+const vnE=(v,ref)=>(v.svcIn=v.svcIn||{})[ref]||(v.svcIn[ref]={on:true,p:""});
+function vnRowsHtml(v){const L=vnItems();if(!L.length)return`<p class="ru-empty">${S.types.services?"Cuando guardes productos en «Mis servicios», aparecen aquí para que decidas cuáles ofreces en tu venue y a qué precio.":"Si ofreces comida, bebida, personal o algo más dentro de tu venue, ármalo aquí abajo y aparecerá en esta lista."}</p>`;
+ const G=[["prod","Tus productos"],["staff","Tu personal"],["pkg","Tus paquetes"]];
+ return G.filter(([g])=>L.some(x=>x.g===g)).map(([g,t])=>`<span class="ru-sl">${t}</span>${L.filter(x=>x.g===g).map(x=>{const e=vnE(v,x.ref),on=e.on!==false;return`<div class="vn-r${on?"":" off"}" data-ref="${esc(x.ref)}"><button type="button" class="vn-on" aria-pressed="${on}" aria-label="¿Ofreces ${esc(x.name)} en tu venue?">${on?"✓":""}</button>
+  <span class="vn-n"><b>${esc(x.name)}</b><small>${esc(x.sub)}${x.fixed?" · con los precios de tu personal":+x.price>0?` · precio normal ${money(x.price)} ${esc(x.unit)}`:""}</small></span>
+  ${on&&!x.fixed?`<label class="ru-f vn-p"><small>en tu venue</small><span class="ru-fi"><i>$</i><input type="number" min="0" inputmode="decimal" class="vn-pi" value="${esc(e.p)}" placeholder="${esc(x.price||"0")}" aria-label="Precio de ${esc(x.name)} en tu venue"></span></label>`:on?"":`<span class="vn-no">No en tu venue</span>`}</div>`;}).join("")}`).join("");}
+function vnPkgInner(){const L=(S.rpkgs||[]).filter(k=>k.items.includes("venue"));
+ return`${L.map(k=>{const r=ruTotal(k,k.tw[0]);return`<div class="vn-kc"><span class="ru-pkb">🎁 Paquete</span><b>${esc(k.name||"Sin nombre")}</b>${r?`<span class="ru-tot">${ruMoney(r.tot)}</span><small class="ru-ppx">total del evento${r.pp!==null?` · <b>${ruMoney(r.pp)}</b> por persona`:""}</small>`:`<span class="hint">Falta el precio</span>`}<small class="ru-fd">${esc(k.items.map(ref=>ruItemName(ref,k)).join(" + "))}</small><button type="button" class="link vn-ked" data-id="${k.id}">✏️ Editar</button></div>`;}).join("")}
+ <button type="button" class="btn ghost sm" id="vnMkPk">🎁 Armar paquete con tu venue</button>`;}
+function vnPkgHtml(v){return`<div class="vn-pk"><b style="font-size:14px">📦 Paquetes con tu venue</b><span class="hint">Se arman en el combinador: tu venue es una pieza más, junto a tus productos y tu personal. Los datos del venue no se vuelven a llenar.</span><div class="vn-kl" id="vnPk">${vnPkgInner()}</div></div>`;}
+function vnSvcHtml(v){const solo=!S.types.services,open=solo&&((S.rprods||[]).length>0||v._build);
+ return`<div class="field vn-svc" id="vnSvc"><span class="lbl">🍽️ Tus servicios en tu venue</span><span class="hint">Marca lo que ofreces dentro de tu venue. El precio en tu venue es un precio aparte, no un descuento: si lo dejas vacío, usamos tu precio normal. Si quieres, después le sumas una promoción.</span>
+  <div class="vn-rows" id="vnRows">${vnRowsHtml(v)}</div>
+  ${solo?`<details class="more vn-build"${open?" open":""}><summary>🧩 Arma tu servicio <span class="opt">comida, bebida, personal o lo que ofrezcas en tu venue</span></summary><div class="vn-bw">${ruBuilderHtml()}</div></details>`:`<button type="button" class="link" id="vnGoSvc" style="justify-self:start">＋ Agregar o cambiar productos en «Mis servicios»</button>`}
+  <div class="polc${MISS(!!v.extAll)}"><b>🚪 ¿Pueden traer sus propios proveedores?</b><span class="hint">Para lo que no ofreces tú.</span><div class="chips">${[["si","Sí, todos"],["algunos","Solo algunos"],["no","No"]].map(([x,t])=>`<button type="button" class="chip p-ext" data-v="${x}" aria-pressed="${v.extAll===x}">${TICK}${t}</button>`).join("")}</div>
+   ${v.extAll==="algunos"?`<input type="text" id="v-extn" value="${esc(v.extAllNote)}" placeholder="¿Cuáles sí y cuáles no?" aria-label="Cuáles servicios externos">`:""}</div>
+  ${vnPkgHtml(v)}</div>`;}
+function vnGoSvc(){step=stepList().findIndex(s=>s.id==="svc");render();scrollTo({top:0,behavior:"instant"});}
+function vnBindRows(v){const box=$("vnRows");if(!box)return;box.querySelectorAll(".vn-r").forEach(R=>{const e=vnE(v,R.dataset.ref);R.querySelector(".vn-on").onclick=()=>{e.on=e.on===false;box.innerHTML=vnRowsHtml(v);vnBindRows(v);changed();};const i=R.querySelector(".vn-pi");if(i)i.oninput=x=>{e.p=x.target.value;changed();};});}
+function vnBindPk(v){const mk=$("vnMkPk");if(mk)mk.onclick=()=>{if($("ruProds")){const d=document.querySelector(".vn-build");if(d)d.open=true;ruStartPick(["venue"]);}else{S._pickVenue=true;vnGoSvc();}};
+ document.querySelectorAll(".vn-ked").forEach(b=>b.onclick=()=>{const k=S.rpkgs.find(x=>x.id===b.dataset.id);if(!k)return;if($("ruIdent")){const d=document.querySelector(".vn-build");if(d)d.open=true;RU_EDIT=JSON.parse(JSON.stringify(k));ruDrawIdent(true);}else{S._editPkg=k.id;vnGoSvc();}});}
+function vnRefresh(){const v=S.venue;if(!v||!$("vnSvc"))return;const r=$("vnRows");if(r){r.innerHTML=vnRowsHtml(v);vnBindRows(v);}const k=$("vnPk");if(k){k.innerHTML=vnPkgInner();vnBindPk(v);}}
+function vnBind(v){vnBindRows(v);vnBindPk(v);const g=$("vnGoSvc");if(g)g.onclick=vnGoSvc;
+ const d=document.querySelector(".vn-build");if(d){ruBindBuilder();d.ontoggle=()=>{v._build=d.open;if(d.open)requestAnimationFrame(()=>{for(let i=0;i<4;i++){ruCenter(i,Math.max(0,ruIdx(i,S.rsel[i])),false);ruPaint(i);}ruUpdate();});};}}
+const vnPkgs=()=>(S.rpkgs||[]).filter(k=>k.items.includes("venue"));
+/* en el sitio del venue */
+function vnSiteHtml(v){const L=vnItems().filter(x=>vnE(v,x.ref).on!==false),K=vnPkgs().filter(ruOk);if(!L.length&&!K.length)return"";
+ return`<div class="vn-site"><b>🍽️ Servicios en este venue</b>${K.map(k=>{const r=ruTotal(k,k.tw[0]);return r?`<span class="vn-sr pk"><span>🎁 ${esc(k.name)}<small>${esc(k.items.map(ref=>ruItemName(ref,k)).join(" + "))}</small></span><span><b>${ruMoney(r.pp)}</b> por persona<small>${ruMoney(r.tot)} en total · ${esc(k.pax)} personas</small></span></span>`:"";}).join("")}
+  ${L.map(x=>{const e=vnE(v,x.ref),pr=+e.p>0?e.p:x.price;return`<span class="vn-sr"><span>${esc(x.name)}<small>${esc(x.sub.slice(2).trim())}</small></span><span>${x.fixed?"Precio por perfil":`<b>${money(pr)}</b> ${esc(x.unit)}`}</span></span>`;}).join("")}</div>`;}
 
 /* Venue: los servicios se eligen por categoría (igual que el anfitrión) y luego se pregunta lo demás */
 const POL_LABEL={"Comida":"Alimentos (catering)","Con alcohol":"Bebidas con alcohol","Sin alcohol":"Bebidas sin alcohol","Postres":"Postres y pastel","Música":"Música","Luz y show":"Audio, iluminación y show","Mobiliario":"Mobiliario y cristalería","Decoración":"Decoración y ambientación","Staff":"Staff (meseros, bartenders…)"};
@@ -1719,7 +1878,7 @@ function ensureState(){const b=S.biz,v=S.venue,p=S.planner;
  S.services.forEach(x=>{svcDefaults(x);syncSubs(x);});
  p.fee=p.fees[0]?p.fees[0].amount:"";v.deposit=v.depositN?(v.depositU==="%"?v.depositN+"%":money(v.depositN)):"";}
 const __exampleState=exampleState;
-exampleState=function(){const x=__exampleState();x.biz.links=[{t:"Sitio web",u:"lupitadulces.mx"}];x.biz.visits=true;x.biz.attends=true;x.biz.modes=["retiro","cita"];x.biz.hDays=["lun","mar","mie","jue","vie","sab"];x.biz.hOpen="09:00";x.biz.hClose="18:00";x.me={photo:samplePic("🙂","#FFD25E","#FF6905",600,600),instagram:"@lupi.ramirez",tiktok:"",facebook:"",links:[],whatsapp:"55 8765 4321",email:"lupita.ramirez@gmail.com",gender:"Mujer",genderOther:"",birthday:"1990-05-12",pub:{social:false}};
+exampleState=function(){const x=__exampleState();x.biz.links=[{t:"Sitio web",u:"lupitadulces.mx"}];x.biz.visits=true;x.biz.attends=true;x.biz.modes=["retiro","cita"];x.biz.hDays=["lun","mar","mie","jue","vie","sab"];x.biz.hOpen="09:00";x.biz.hClose="18:00";x.me={photo:samplePic("🙂","#FFD25E","#FF6905",600,600),instagram:"@lupi.ramirez",tiktok:"",facebook:"",links:[],whatsapp:"",email:"lupita.ramirez@gmail.com",gender:"Mujer",genderOther:"",birthday:"1990-05-12",pub:{social:false}};
  const v=x.venue;v.socialFromBiz=false;v.links=[];v.typeOther="";v.featsOther=["Planta de luz"];v.sameHours=false;v.hoursByDay={jue:{open:"16:00",limit:"22:00"},vie:{open:"16:00",limit:"23:00"},sab:{open:"12:00",limit:"23:59"},dom:{open:"12:00",limit:"20:00"}};
  v.depositN="50";v.depositU="%";v.cancelLink="";v.cancelFile={name:"Politica_cancelacion_TerrazaLupita.pdf",size:182000};v.cancel="Reembolso del anticipo con 30 días de aviso.";v.guarRetN="3";v.guarRetU="días";v.extAll="si";
  Object.keys(v.policy).forEach(k=>{v.policy[k]=normPol(v.policy[k]);});
@@ -1740,7 +1899,7 @@ exampleState=function(){const x=__exampleState();x.biz.links=[{t:"Sitio web",u:"
   Object.assign(s0,{min:blankMin(),promo:blankPromo(),cat:"Catering",open:"",descEdited:false,cater:{food:true,drink:true,gas:["Mexicana"]},offers:[B,Q,R],askStaff:null,askRent:true,
   staff:[],rent:[{n:"Chafers y calentadores",price:"150",u:"Por pieza",min:""}],photos:[],specs:[],
   rtx:{dl:[Object.assign(blankDl("Recolección en establecimiento"),{cobra:false,ph:"Lun a sáb de 9:00 a 18:00"})],dlOpen:-1,min:blankMin(),promo:blankPromo()}});}
- {const D=ruDemo();x.rprods=D.prods;x.rpkgs=D.pkgs;x.remb=3;x.rsel=["Catering","Bebidas","Barra de café","Espresso"];}
+ {const D=ruDemo();x.rprods=D.prods;x.rpkgs=D.pkgs;x.remb=3;x.venue.svcIn=D.vin;x.rsel=["Catering","Bebidas","Barra de café","Espresso"];}
  x.svcPkgs=[{name:"Paquete Fiesta Mexicana",items:["o0-0","o0-2","r0-0"],alc:"50",price:"24000",per:"evento",photos:[]}];
  x.svcVar="20";x.svcHigh={pct:"15",months:["may","jun","oct","nov","dic"]};
  v.inN="45";v.inU="Minutos";v.outN="30";v.outU="Minutos";v.ioPaid=true;v.ioCost="800";v.var="15";p.var="10";
@@ -1780,14 +1939,14 @@ const minOk=m=>m.has===false||(m.has===true&&+m.qty>0&&filled(m.unit));
 function shipOk(s){if(!s.ship)return true;if(s.shipMode==="gratis")return true;if(s.shipMode==="fijo")return filled(s.shipFixed);if(s.shipMode==="distancia")return filled(s.shipBase)&&filled(s.shipBaseKm)&&filled(s.shipPerKm)&&filled(s.shipMaxKm);return false;}
 const EMAIL_OK=e=>/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e||"");
 function missing(id){const m=[];
- if(id==="biz"){const b=S.biz;if(!filled(b.name))m.push("Nombre");if(!filled(b.owner||""))m.push("Tu nombre");if(!EMAIL_OK(S.account.email))m.push("Tu correo");if(b.whatsapp.replace(/\D/g,"").length!==10)m.push("WhatsApp de 10 dígitos");if(!b.since)m.push("Año en que empezaste");if(!b.invoice)m.push("¿Facturas?");if(!filled(b.about))m.push("Frase de qué haces");if(!addrOk(b.addr))m.push("Dirección confirmada");if(!b.showAddr)m.push("Qué parte de tu dirección mostrar");bzDefaults();if(b.attends===null)m.push("¿Atiendes clientes en tu negocio?");if(b.attends){if(!b.modes.length)m.push("Para qué atiendes clientes en tu negocio");if(!b.hDays.length||!filled(b.hOpen)||!filled(b.hClose))m.push("Horario de atención");}}
+ if(id==="biz"){const b=S.biz;if(!filled(b.name))m.push("Nombre");if(!filled(b.owner||""))m.push("Tu nombre");if(!EMAIL_OK(S.account.email))m.push("Tu correo");if(!waOk(b.waCC,b.whatsapp))m.push((b.waCC||"MX")==="MX"?"WhatsApp de 10 dígitos":"WhatsApp completo");if(!b.since)m.push("Año en que empezaste");if(!b.invoice)m.push("¿Facturas?");if(!filled(b.about))m.push("Frase de qué haces");if(!addrOk(b.addr))m.push("Dirección confirmada");if(!b.showAddr)m.push("Qué parte de tu dirección mostrar");bzDefaults();if(b.attends===null)m.push("¿Atiendes clientes en tu negocio?");if(b.attends){if(!b.modes.length)m.push("Para qué atiendes clientes en tu negocio");if(!b.hDays.length||!filled(b.hOpen)||!filled(b.hClose))m.push("Horario de atención");}}
  if(id==="svc"){const sc=S.svcScope||{};if(!sc.S&&!sc.E)m.push("Tipo de eventos: sociales, empresariales o ambos");
   ruMissStep(m);
   if(!filled(S.svcVar))m.push("Cuánto puede variar tu precio");
   if(!zonesOk(S.svcZones))m.push("Zonas donde das tus servicios");}
  if(id==="venue"){const v=S.venue;if(!filled(v.name))m.push("Nombre del lugar");if(!addrOk(v.addr))m.push("Dirección del lugar confirmada");if(!v.type||(v.type==="__otro"&&!filled(v.typeOther)))m.push("Tipo de espacio");
   if(!(+v.seated>0)||!(+v.standing>0))m.push("Capacidad");if(!v.area)m.push("Tamaño");if(!v.days.length)m.push("Días que rentas");if(v.sameHours?(!filled(v.open)||!filled(v.limit)):v.days.some(d=>!(v.hoursByDay[d]&&filled(v.hoursByDay[d].open)&&filled(v.hoursByDay[d].limit))))m.push("Horario");if(!(+v.hoursIncl>0))m.push("Horas incluidas");if(!filled(v.extraHour))m.push("Costo de hora extra");
-  if(!v.mode)m.push("Cómo cobras");if((v.mode==="renta"||v.mode==="ambos")&&!filled(v.rent.price))m.push("Precio de renta");if((v.mode==="paquetes"||v.mode==="ambos")&&!(v.packages.length&&v.packages.every(pkgOk)))m.push("Nombre y precio de cada paquete");if(!filled(v.var))m.push("Cuánto puede variar tu precio");
+  if(!v.mode)m.push("Cómo cobras");if((v.mode==="renta"||v.mode==="ambos")&&!filled(v.rent.price))m.push("Precio de renta");if((v.mode==="paquetes"||v.mode==="ambos")&&!vnPkgs().length)m.push("Arma al menos un paquete con tu venue");if(!filled(v.var))m.push("Cuánto puede variar tu precio");
   if(!v.features.length&&!(v.featsOther||[]).some(filled))m.push("Con qué cuenta tu espacio");if(!(+v.baths.m+ +v.baths.w+ +v.baths.g>0))m.push("Baños");
   POLICY_SVCS.forEach(([sv])=>{if(!polOk(v.policy[sv]))m.push(`${sv}: si está incluido y si pueden sustituirlo`);});if(!v.extAll)m.push("¿Pueden traer los servicios que no incluyes?");
   if(!filled(v.depositN))m.push("Anticipo");if(!filled(v.advance))m.push("Días de anticipación");if(!v.docsNone&&!v.docs.length&&!filled(v.docsOther))m.push("Documentos que pides");
@@ -1966,7 +2125,7 @@ function dlCard(s,k,d,j){const open=s.dlOpen===j,ok=dlOk(d);
   ${d.m==="Otro"?`<input type="text" class="dl-desc${MISS(filled(d.desc))}" value="${esc(d.desc)}" placeholder="¿Cómo entregas? Ej. Entrega en punto medio" aria-label="Describe la modalidad">`:""}
   <div class="dlq">¿Cobras por la entrega? ${ynHtml(`dly-${k}-${j}`,d.cobra)}</div>
   ${d.cobra===false?`<span class="dl-inc">✅ La entrega va incluida en tu precio</span>`:""}
-  ${d.cobra?`<span class="mini-l">¿Cómo lo cobras?</span>
+  ${d.cobra&&d.m==="Recolección en establecimiento"?((d.u="Tarifa fija"),`<span class="mini-l">Tarifa fija por la entrega</span><div class="dlrow"><input type="number" min="0" step="any" class="dl-rate${MISS(filled(d.rate))}" value="${esc(d.rate)}" placeholder="$" aria-label="Tarifa fija por la entrega"><span class="u">$ por entrega</span></div>`):d.cobra?`<span class="mini-l">¿Cómo lo cobras?</span>
    <div class="dlrow"><select class="dl-u${MISS(!!d.u)}" aria-label="Unidad de cobro"><option value="">Elige la unidad…</option>${dlUnits(d.m).map(u=>`<option ${u===d.u?"selected":""}>${u}</option>`).join("")}</select>
     ${d.u&&(me==="fijo"||me==="mult"||me==="pct")&&d.u!=="Otro"?`<input type="number" min="0" step="any" class="dl-rate${MISS(filled(d.rate))}" value="${esc(d.rate)}" placeholder="${me==="pct"?"%":"$"}" aria-label="${esc(U[1])}"><span class="u">${esc(U[1])}</span>`:""}</div>
    ${me==="zona"?`<div class="dlz">${[["local","Zona local"],["ext","Zona extendida"],["fuera","Fuera de zona"]].map(([z,t])=>`<label>${t}<input type="number" min="0" class="dl-z${z==="local"?MISS(filled(d.z.local)):""}" data-z="${z}" value="${esc(d.z[z])}" placeholder="$"></label>`).join("")}</div><span class="hint">Usamos las zonas donde das servicio: local = tus municipios, extendida = colindantes, fuera = el resto.</span>`:""}
@@ -2008,7 +2167,7 @@ function renderStep(){const id=stepList()[step].id;
  if(id==="biz")drawBiz();if(id==="svc")drawSvcStep();if(id==="venue")drawVenue();if(id==="planner")drawPlanner();
  if(id==="publish"){const b=S.biz,faltan=missing("biz");
   $("stepBody").innerHTML=`<div class="panel"><h2>¡A publicar! 🚀</h2><p class="sub">Tu sitio y tu cuenta de ¡Hay que vernos! se crean juntos, con un solo clic. No tienes que llenar nada más.</p>
-   <div class="sub-box" style="display:grid;gap:6px;padding:14px"><span>🙋 <b>${esc(b.owner||"—")}</b></span><span>📱 ${esc(b.whatsapp||"—")}</span><span>✉️ ${esc(S.account.email||"—")}</span><span>🔗 hayquevernos.com/${esc(slug(b.name))}</span></div>
+   <div class="sub-box" style="display:grid;gap:6px;padding:14px"><span>🙋 <b>${esc(b.owner||"—")}</b></span><span>📱 ${esc(waShow(b.waCC,b.whatsapp)||"—")}</span><span>✉️ ${esc(S.account.email||"—")}</span><span>🔗 hayquevernos.com/${esc(slug(b.name))}</span></div>
    ${faltan.length?`<p class="err">Antes de publicar completa en el paso Mi negocio: ${esc(faltan.join(", "))}.</p>`:''}
    <label class="chk"><input type="checkbox" id="a-mk" ${S.account.mk?"checked":""}><span>Quiero recibir novedades, cursos y promociones de ¡Hay que vernos! <span class="opt">(opcional)</span></span></label>
    <button class="btn big" type="button" id="pubBtn" ${faltan.length?"disabled":""}>Publicar mi sitio gratis 🎉</button>
@@ -2046,9 +2205,22 @@ function drawBiz(){const b=S.biz,yrs=[];for(let y=yearNow;y>=1960;y--)yrs.push(y
    2. Bio. 3. Tu perfil personal (privado salvo nombre y foto): nombre, foto, redes, WhatsApp, correo, género, cumpleaños.
    4. ¿Facturas? */
 const BZ_MODES=[["consumo","🍽️ Consumo en el lugar"],["retiro","🛍️ Punto de retiro"],["cita","🤝 Citas y degustaciones"]];
+/* v25 · clave de país en todo WhatsApp (proveedores con número de otro país) */
+const CC=[["MX","🇲🇽","+52"],["US","🇺🇸","+1"],["CA","🇨🇦","+1"],["CO","🇨🇴","+57"],["AR","🇦🇷","+54"],["VE","🇻🇪","+58"],["CU","🇨🇺","+53"],["ES","🇪🇸","+34"],["PE","🇵🇪","+51"],["CL","🇨🇱","+56"],["GT","🇬🇹","+502"],["SV","🇸🇻","+503"],["HN","🇭🇳","+504"],["DO","🇩🇴","+1"],["EC","🇪🇨","+593"],["BR","🇧🇷","+55"],["UY","🇺🇾","+598"],["GB","🇬🇧","+44"],["FR","🇫🇷","+33"],["IT","🇮🇹","+39"],["DE","🇩🇪","+49"]];
+const ccDial=c=>(CC.find(x=>x[0]===c)||CC[0])[2];
+const waOk=(c,n)=>{const d=String(n||"").replace(/\D/g,"");return(c||"MX")==="MX"?d.length===10:d.length>=6&&d.length<=14;};
+const waIntl=(c,n)=>ccDial(c).replace("+","")+String(n||"").replace(/\D/g,"");
+const waShow=(c,n)=>n?ccDial(c)+" "+n:"";
+function telHtml(id,cc,val,cls,ph){return`<div class="tel${cls||""}"><select id="${id}-cc" aria-label="Clave de país">${CC.map(([c,f,d])=>`<option value="${c}" ${c===(cc||"MX")?"selected":""}>${f} ${d}</option>`).join("")}</select><input type="tel" id="${id}" autocomplete="tel-national" value="${esc(val)}" placeholder="${ph||((cc||"MX")==="MX"?"55 1234 5678":"Número")}"></div>`;}
 const BZ_GEN=[["Mujer","Mujer"],["Hombre","Hombre"],["Otro","Otro"],["Prefiero no decir","Prefiero no decir"]];
 function bzDefaults(){const b=S.biz;if(b.attends===undefined)b.attends=b.visits===true?true:b.visits===false?false:null;if(!b.modes)b.modes=b.visits?["cita"]:[];if(!b.hDays)b.hDays=[];if(b.hOpen===undefined)b.hOpen="";if(b.hClose===undefined)b.hClose="";
- if(!S.me)S.me={photo:"",instagram:"",tiktok:"",facebook:"",links:[],whatsapp:"",email:"",gender:"",genderOther:"",birthday:"",pub:{social:false}};}
+ if(!S.me)S.me={photo:"",instagram:"",tiktok:"",facebook:"",links:[],whatsapp:"",email:"",gender:"",genderOther:"",birthday:"",pub:{social:false}};
+ if(!b.waCC)b.waCC="MX";const me=S.me;if(!me.waCC)me.waCC="MX";if(!me.links)me.links=[];
+ /* v25 · tu perfil personal se llena con los datos del negocio; solo cambias lo que sea distinto */
+ if(!me.same)me.same={wa:!me.whatsapp||me.whatsapp===b.whatsapp,email:!me.email||me.email===S.account.email,social:!(me.instagram||me.tiktok||me.facebook||me.links.length)};bzMirror();}
+function bzMirror(){const b=S.biz,me=S.me;if(!me||!me.same)return;if(me.same.wa){me.whatsapp=b.whatsapp;me.waCC=b.waCC;}if(me.same.email)me.email=S.account.email;
+ if(me.same.social){me.instagram=b.instagram;me.tiktok=b.tiktok;me.facebook=b.facebook;me.links=JSON.parse(JSON.stringify(b.links||[]));}}
+const bzSame=(k,on)=>on?`<span class="bz-same">🔗 Igual que tu negocio · cámbialo solo si es distinto</span>`:`<button type="button" class="link bz-reuse" data-k="${k}">↺ Usar el de tu negocio</button>`;
 const bzHours=b=>b.attends&&b.hDays.length&&b.hOpen&&b.hClose?`${b.hDays.map(d=>HQV.DAYS.find(x=>x[0]===d)[1]).join(" ")} · ${b.hOpen} a ${b.hClose}`:"";
 function drawBiz(){bzDefaults();const b=S.biz,me=S.me,yrs=[];for(let y=yearNow;y>=1960;y--)yrs.push(y);
  $("stepBody").innerHTML=`<div class="panel"><h2>Mi negocio 🏷️</h2><p class="sub">Primero tu negocio, que es lo que ven tus clientes. Después, tú.</p>
@@ -2056,7 +2228,7 @@ function drawBiz(){bzDefaults();const b=S.biz,me=S.me,yrs=[];for(let y=yearNow;y
  <div class="field"><label class="lbl" for="f-name">Nombre de tu negocio</label><input type="text" id="f-name" class="${MISS(filled(b.name))}" value="${esc(b.name)}" placeholder="Así te conocen tus clientes"></div>
  ${avatarHtml(b,"biz","avatar","🖼️ Logo o foto del negocio")}
  ${socialHtml(b,"biz")}
- <div class="row"><div class="field"><label class="lbl" for="f-wa">📱 WhatsApp del negocio</label><input type="tel" id="f-wa" class="${MISS(b.whatsapp.replace(/\D/g,"").length===10)}" value="${esc(b.whatsapp)}" placeholder="55 1234 5678"></div>
+ <div class="row"><div class="field"><label class="lbl" for="f-wa">📱 WhatsApp del negocio</label>${telHtml("f-wa",b.waCC,b.whatsapp,MISS(waOk(b.waCC,b.whatsapp)))}${b.waCC!=="MX"?`<span class="hint">Tus clientes te escribirán al ${esc(ccDial(b.waCC))}.</span>`:""}</div>
   <div class="field"><label class="lbl" for="f-email">✉️ Correo del negocio</label><input type="email" id="f-email" autocomplete="email" class="${MISS(EMAIL_OK(S.account.email))}" value="${esc(S.account.email)}" placeholder="hola@tunegocio.com"><span class="hint">Con él creamos tu cuenta.</span></div></div>
  <div class="field"><label class="lbl" for="f-since">🎉 ¿Desde qué año haces fiestas?</label><select id="f-since" class="${MISS(!!b.since)}" style="width:fit-content"><option value="">Elige el año</option>${yrs.map(y=>`<option ${String(y)===String(b.since)?"selected":""}>${y}</option>`).join("")}</select></div>
  ${addrHtml(b.addr,"biz","📍 Dirección de tu negocio")}
@@ -2072,9 +2244,9 @@ function drawBiz(){bzDefaults();const b=S.biz,me=S.me,yrs=[];for(let y=yearNow;y
  <section class="bz-sec"><div class="bz-h"><b>3</b><span><strong>Tu perfil personal</strong><small>🔒 Privado. Solo publicamos tu nombre y tu foto como responsable del negocio.</small></span></div>
  <div class="field"><label class="lbl" for="f-owner">Tu nombre</label><input type="text" id="f-owner" autocomplete="name" class="${MISS(filled(b.owner||""))}" value="${esc(b.owner||"")}" placeholder="Quien atiende a los clientes"></div>
  ${avatarHtml(me,"me","face","🙂 Tu foto <span class=\"opt\">(opcional)</span>")}
- ${socialHtml(me,"me","Tus redes personales; no se publican.")}
- <div class="row"><div class="field"><label class="lbl" for="me-wa">📱 Tu WhatsApp <span class="opt">(opcional)</span></label><input type="tel" id="me-wa" value="${esc(me.whatsapp)}" placeholder="Si es distinto al del negocio"></div>
-  <div class="field"><label class="lbl" for="me-em">✉️ Tu correo <span class="opt">(opcional)</span></label><input type="email" id="me-em" value="${esc(me.email)}" placeholder="Si es distinto al del negocio"></div></div>
+ ${socialHtml(me,"me","Tus redes personales; no se publican.")}<div style="margin-top:-12px">${bzSame("social",me.same.social)}</div>
+ <div class="row"><div class="field"><label class="lbl" for="me-wa">📱 Tu WhatsApp</label>${telHtml("me-wa",me.waCC,me.whatsapp,"","Tu número")}${bzSame("wa",me.same.wa)}</div>
+  <div class="field"><label class="lbl" for="me-em">✉️ Tu correo</label><input type="email" id="me-em" value="${esc(me.email)}" placeholder="tucorreo@gmail.com">${bzSame("email",me.same.email)}</div></div>
  <div class="field"><span class="lbl">Género <span class="opt">(opcional)</span></span><div class="chips">${BZ_GEN.map(([v,t])=>`<button type="button" class="chip bz-g" data-v="${v}" aria-pressed="${me.gender===v}">${TICK}${t}</button>`).join("")}</div>
   ${me.gender==="Otro"?`<input type="text" id="me-go" value="${esc(me.genderOther)}" placeholder="¿Cómo te identificas? (opcional)" style="max-width:360px">`:""}</div>
  <div class="field"><label class="lbl" for="me-bd">🎂 Tu cumpleaños <span class="opt">(opcional)</span></label><input type="date" id="me-bd" value="${esc(me.birthday)}" style="width:fit-content"></div>
@@ -2082,9 +2254,13 @@ function drawBiz(){bzDefaults();const b=S.biz,me=S.me,yrs=[];for(let y=yearNow;y
  <section class="bz-sec"><div class="bz-h"><b>4</b><span><strong>Facturas</strong></span></div>
  <div class="field"><span class="lbl">🧾 ¿Facturas?</span><div class="chips${MISS(!!b.invoice)}" style="width:fit-content;border-radius:99px">${[["si","Sí facturo"],["no","No facturo"]].map(([v,t])=>`<button type="button" class="chip inv" data-v="${v}" aria-pressed="${b.invoice===v}">${TICK}${t}</button>`).join("")}</div></div></section>
  ${navHtml()}</div>`;
- [["f-name","name"],["f-wa","whatsapp"],["f-about","about"],["f-since","since"],["f-owner","owner"]].forEach(([i,k])=>{$(i).oninput=$(i).onchange=e=>{b[k]=e.target.value;changed();};});
- $("f-email").oninput=e=>{S.account.email=e.target.value.trim();changed();};
- [["me-wa","whatsapp"],["me-em","email"],["me-bd","birthday"]].forEach(([i,k])=>{$(i).oninput=$(i).onchange=e=>{me[k]=e.target.value;changed();};});
+ const mir=()=>{bzMirror();if(me.same.wa){$("me-wa").value=me.whatsapp;$("me-wa-cc").value=me.waCC;}if(me.same.email)$("me-em").value=me.email;if(me.same.social)[["ig-me","instagram"],["tt-me","tiktok"],["fb-me","facebook"]].forEach(([i,k])=>{const x=$(i);if(x)x.value=me[k]||"";});};
+ [["f-name","name"],["f-wa","whatsapp"],["f-about","about"],["f-since","since"],["f-owner","owner"]].forEach(([i,k])=>{$(i).oninput=$(i).onchange=e=>{b[k]=e.target.value;mir();changed();};});
+ $("f-wa-cc").onchange=e=>{b.waCC=e.target.value;bzMirror();keep(drawBiz);changed();};
+ $("f-email").oninput=e=>{S.account.email=e.target.value.trim();mir();changed();};
+ [["me-wa","whatsapp","wa"],["me-em","email","email"],["me-bd","birthday"]].forEach(([i,k,f])=>{$(i).oninput=$(i).onchange=e=>{me[k]=e.target.value;if(f&&me.same[f]){me.same[f]=false;keep(drawBiz);const x=$(i);x.focus();x.setSelectionRange&&x.type!=="email"&&x.setSelectionRange(x.value.length,x.value.length);}changed();};});
+ $("me-wa-cc").onchange=e=>{me.waCC=e.target.value;me.same.wa=false;keep(drawBiz);changed();};
+ document.querySelectorAll(".bz-reuse").forEach(x=>x.onclick=()=>{me.same[x.dataset.k]=true;bzMirror();keep(drawBiz);changed();});
  const go=$("me-go");if(go)go.oninput=e=>{me.genderOther=e.target.value;changed();};
  document.querySelectorAll(".bz-g").forEach(c=>c.onclick=()=>{me.gender=me.gender===c.dataset.v?"":c.dataset.v;keep(drawBiz);changed();});
  document.querySelectorAll(".inv").forEach(c=>c.onclick=()=>{b.invoice=c.dataset.v;document.querySelectorAll(".inv").forEach(x=>x.setAttribute("aria-pressed",x===c));changed();});
@@ -2092,7 +2268,7 @@ function drawBiz(){bzDefaults();const b=S.biz,me=S.me,yrs=[];for(let y=yearNow;y
  document.querySelectorAll(".bz-m").forEach(c=>c.onclick=()=>{const v=c.dataset.v;b.modes=b.modes.includes(v)?b.modes.filter(x=>x!==v):[...b.modes,v];c.setAttribute("aria-pressed",b.modes.includes(v));changed();});
  document.querySelectorAll(".bz-d").forEach(c=>c.onclick=()=>{const d=c.dataset.d;b.hDays=b.hDays.includes(d)?b.hDays.filter(x=>x!==d):HQV.DAYS.map(x=>x[0]).filter(x=>x===d||b.hDays.includes(x));c.setAttribute("aria-pressed",b.hDays.includes(d));changed();});
  const o=$("bzO"),c2=$("bzC");if(o)o.oninput=e=>{b.hOpen=e.target.value;changed();};if(c2)c2.oninput=e=>{b.hClose=e.target.value;changed();};
- bindAvatar(b,"biz","avatar");bindAvatar(me,"me","face");bindSocial(b,"biz",()=>keep(drawBiz));bindSocial(me,"me",()=>keep(drawBiz));bindYN("bat",x=>{b.attends=x;b.visits=x;keep(drawBiz);changed();});bindAddr(b.addr,"biz",()=>keep(drawBiz));bindNav();}
+ bindAvatar(b,"biz","avatar");bindAvatar(me,"me","face");bindSocial(b,"biz",()=>{bzMirror();keep(drawBiz);},()=>mir());bindSocial(me,"me",()=>keep(drawBiz),()=>{if(me.same.social){me.same.social=false;}});bindYN("bat",x=>{b.attends=x;b.visits=x;keep(drawBiz);changed();});bindAddr(b.addr,"biz",()=>keep(drawBiz));bindNav();}
 function keep(f){const y=scrollY;f();scrollTo({top:y,behavior:"instant"});}
 
 function drawSvcStepOld(){const sc=S.svcScope=S.svcScope||{S:false,E:false};
@@ -2224,6 +2400,7 @@ function drawVenue(){const v=S.venue,k="v",b=S.biz;if(!v.addrTouched&&!addrOk(v.
  <div class="field"><span class="lbl">🏠 ¿Con qué cuenta tu espacio?</span><span class="hint">Los anfitriones buscan con esta misma lista. Lo que no marques, no aparecerá en sus búsquedas.</span><div class="chips${MISS(v.features.length>0||v.featsOther.some(filled))}" style="border-radius:14px">${HQV.VENUE_FEATS.map(([id,e,t])=>`<button type="button" class="chip ft" data-f="${id}" aria-pressed="${v.features.includes(id)}">${TICK}${e} ${esc(t)}</button>`).join("")}</div>
   <div style="display:grid;gap:6px">${v.featsOther.map((x,i)=>`<div class="row fo" data-i="${i}"><input type="text" class="fo-in" value="${esc(x)}" placeholder="Otra amenidad" aria-label="Otra amenidad"><button type="button" class="link bad fo-rm">✕</button></div>`).join("")}<button type="button" class="link" id="fo-add" style="justify-self:start">+ Otra amenidad</button></div></div>
  <div class="field"><span class="lbl">🚻 Baños</span><div class="row${MISS(+v.baths.m+ +v.baths.w+ +v.baths.g>0)}" style="border-radius:12px">${[["m","🚹 Hombres"],["w","🚺 Mujeres"],["g","🚻 Generales"]].map(([f,t])=>`<div class="field"><label class="hint" for="vb-${f}">${t}</label><input type="number" min="0" id="vb-${f}" value="${esc(v.baths[f])}" placeholder="0"></div>`).join("")}</div></div>
+ ${vnSvcHtml(v)}
 
  <div class="field"><span class="lbl">🕒 Horario y precios</span><div class="sub-box" style="display:grid;gap:12px">
   <span class="hint">¿Qué días rentas?</span><div class="chips${MISS(v.days.length>0)}" style="border-radius:14px">${HQV.DAYS.map(([d,t])=>`<button type="button" class="chip vd" data-d="${d}" aria-pressed="${v.days.includes(d)}">${TICK}${t}</button>`).join("")}</div>
@@ -2235,7 +2412,7 @@ function drawVenue(){const v=S.venue,k="v",b=S.biz;if(!v.addrTouched&&!addrOk(v.
   <span class="lbl" style="font-size:14px">💲 ¿Cómo cobras?</span><div class="chips${MISS(!!v.mode)}" style="border-radius:14px">${[["renta","🏠 Renta del espacio"],["paquetes","📦 Paquetes"],["ambos","Las dos"]].map(([val,t])=>`<button type="button" class="chip vm" data-v="${val}" aria-pressed="${v.mode===val}">${TICK}${t}</button>`).join("")}</div>
   ${isR?`<div class="row"><input type="number" min="0" id="r-price" class="${MISS(filled(v.rent.price))}" value="${esc(v.rent.price)}" placeholder="$ precio de renta" aria-label="Precio de renta"><select id="r-per" aria-label="Cómo cobras la renta">${[["evento",`por evento (${v.hoursIncl||5} h incluidas)`],["hora","por hora"],["persona","por persona"]].map(([val,t])=>`<option value="${val}" ${v.rent.per===val?'selected':''}>${t}</option>`).join("")}</select></div>
    <div class="row"><div class="field"><label class="hint" for="r-upto">Incluye hasta (invitados) <span class="opt">opcional</span></label><input type="number" min="0" id="r-upto" value="${esc(v.rent.upTo)}" placeholder="Ej. 60"></div><div class="field"><label class="hint" for="r-pxg">Cada invitado extra $</label><input type="number" min="0" id="r-pxg" value="${esc(v.rent.perExtraGuest)}" placeholder="Ej. 150" ${filled(v.rent.upTo)?'':'disabled'}></div></div>`:''}
-  ${isP?`<b style="font-size:14px">📦 Mis paquetes</b>${pk||''}${v.packages.length<4?`<button type="button" class="btn ghost sm" id="pk-add">+ Agregar paquete</button>`:''}`:''}
+  ${isP?`<span class="hint">📦 Tus paquetes con venue se arman arriba, en «Paquetes con tu venue», junto con tus productos y tu personal.</span>`:''}
   <div class="vq"><span class="lbl" style="font-size:14px">🛠️ ¿Cuánto tiempo previo tiene tu cliente para hacer montajes?</span>
    <div class="row2"><input type="number" min="0" step="any" id="v-setn" value="${esc(v.setupN||"")}" placeholder="Ej. 2" aria-label="Tiempo previo de montaje"><select id="v-setu" aria-label="Unidad del tiempo de montaje">${["Horas","Días","Semanas","Meses"].map(u=>`<option ${(v.setupU||"Horas")===u?"selected":""}>${u}</option>`).join("")}</select></div>
    <span class="hint">Sujeto a disponibilidad.</span></div>
@@ -2254,11 +2431,6 @@ function drawVenue(){const v=S.venue,k="v",b=S.biz;if(!v.addrTouched&&!addrOk(v.
    <button type="button" class="btn ghost sm" id="sp-add" style="width:fit-content">+ Espacio extra (salón VIP, alberca…)</button></div></details>
  </div></div>
 
- <div class="field"><span class="lbl">🔄 Servicios en tu venue</span><span class="hint">Toca solo los servicios que ofreces en tu venue (incluidos o con costo). Luego te preguntamos los detalles. Así solo te llegan fiestas que sí puedes atender.</span>
-  <div class="chips" style="border-radius:14px">${POLICY_SVCS.map(([x,e])=>`<button type="button" class="chip vps" data-s="${esc(x)}" aria-pressed="${(v.polSel||[]).includes(x)}">${TICK}${e} ${esc(POL_LABEL[x]||x)}</button>`).join("")}</div>
-  <div style="display:grid;gap:10px">${pol}</div>
-  <div class="polc${MISS(!!v.extAll)}"><b>🚪 ¿Los servicios que no ofreces los puede traer el cliente con proveedores externos?</b><div class="chips">${[["si","Sí, todos"],["algunos","Solo algunos"],["no","No"]].map(([x,t])=>`<button type="button" class="chip p-ext" data-v="${x}" aria-pressed="${v.extAll===x}">${TICK}${t}</button>`).join("")}</div>
-   ${v.extAll==="algunos"?`<input type="text" id="v-extn" value="${esc(v.extAllNote)}" placeholder="¿Cuáles sí y cuáles no?" aria-label="Cuáles servicios externos">`:""}</div></div>
 
  <div class="field"><span class="lbl">📝 Condiciones para rentarlo</span><div class="sub-box" style="display:grid;gap:12px">
   <div class="field"><span class="hint">💳 Anticipo para apartar</span><div class="row"><input type="number" min="0" id="v-depn" class="${MISS(filled(v.depositN))}" value="${esc(v.depositN)}" placeholder="Ej. 50" aria-label="Anticipo"><select id="v-depu" aria-label="Unidad del anticipo"><option value="%" ${v.depositU==="%"?"selected":""}>% del total</option><option value="$" ${v.depositU==="$"?"selected":""}>pesos ($)</option></select></div></div>
@@ -2323,7 +2495,7 @@ function drawVenue(){const v=S.venue,k="v",b=S.biz;if(!v.addrTouched&&!addrOk(v.
  upf("v-rfile","rmsg",x=>v.rulesFile=x);upf("v-cfile","cmsg",x=>v.cancelFile=x);
  const rr=$("v-rrm");if(rr)rr.onclick=()=>{v.rulesFile=null;redraw();changed();};
  const cr=$("v-crm");if(cr)cr.onclick=()=>{v.cancelFile=null;redraw();changed();};
- bindAvatar(v,"vav","avatar");bindSocial(v,"v",redraw,()=>{v.socialFromBiz=false;});bindAddr(v.addr,"v",redraw);document.querySelectorAll("#stepBody input,#stepBody select").forEach(x=>{if(/^a[a-z]{1,3}-v$/.test(x.id||""))x.addEventListener("input",()=>{v.addrTouched=true;});});bindPromo(v.promo,k,redraw);bindUploader(k,"photo",v.photos,redraw);bindNav();}
+ bindAvatar(v,"vav","avatar");bindSocial(v,"v",redraw,()=>{v.socialFromBiz=false;});bindAddr(v.addr,"v",redraw);document.querySelectorAll("#stepBody input,#stepBody select").forEach(x=>{if(/^a[a-z]{1,3}-v$/.test(x.id||""))x.addEventListener("input",()=>{v.addrTouched=true;});});bindPromo(v.promo,k,redraw);bindUploader(k,"photo",v.photos,redraw);vnBind(v);bindNav();}
 const blankPkg=()=>({name:"",price:"",per:"persona",min:"",inc:[]});
 const polOk=p=>!!p.incl&&(p.incl==="noinc"||!!p.subst)&&(p.incl!=="costo"||filled(p.price))&&(p.incl!=="parte"||filled(p.detail))&&(!(p.subst==="si"||p.subst==="parcial")||!!p.substMode)&&(p.substMode!=="cuota"||!(p.subst==="si"||p.subst==="parcial")||filled(p.fee));
 const pkgOk=x=>filled(x.name)&&filled(x.price);
@@ -2391,7 +2563,7 @@ function siteHtml(){const b=S.biz,wa=b.whatsapp.replace(/\D/g,""),L=level(),yrs=
  out.push(`<div class="ms-body">`);
  if(b.about)out.push(`<p class="ms-about">${esc(b.about)}</p>`);
  const al=addrLine(b.addr,b.showAddr==="full");
- out.push(`<div class="ms-cta"><a class="wa" href="${wa?`https://wa.me/52${wa}`:'#'}" target="_blank" rel="noopener">💬 Cotizar por WhatsApp</a>${wa?`<span class="hint" style="text-align:center">${esc(b.whatsapp)}</span>`:''}${socialRow(b)}
+ out.push(`<div class="ms-cta"><a class="wa" href="${wa?`https://wa.me/${waIntl(b.waCC,b.whatsapp)}`:'#'}" target="_blank" rel="noopener">💬 Cotizar por WhatsApp</a>${wa?`<span class="hint" style="text-align:center">${esc(waShow(b.waCC,b.whatsapp))}</span>`:''}${socialRow(b)}
   ${al?`<div class="loc" style="text-align:center"><span>📍 ${esc(al)}</span>${b.showAddr==="full"?`<a href="${mapsLink(b.addr)}" target="_blank" rel="noopener">Cómo llegar</a>`:''}</div>`:''}</div>`);
  const VT=[S.types.services&&["svc","🎉 Servicios"],S.types.venue&&["venue","🏡 Venue"],S.types.planner&&["planner","📋 Planner"]].filter(Boolean);
  if(VT.length>1)out.push(`<div class="vtabs" role="tablist">${VT.map(([id,t],i)=>`<button type="button" role="tab" data-vt="${id}" aria-selected="${i===0}">${t}</button>`).join("")}</div>`);
@@ -2411,7 +2583,7 @@ function siteHtml(){const b=S.biz,wa=b.whatsapp.replace(/\D/g,""),L=level(),yrs=
    ${venuePriceHtml(v)}
    <div class="feat">${v.seated?`<span>🪑 ${esc(v.seated)} sentadas</span>`:''}${v.standing?`<span>🕺 ${esc(v.standing)} de pie</span>`:''}${v.area?`<span>📐 ${esc(v.area)}</span>`:''}${v.setupN?`<span>🛠️ Montaje previo: ${esc(v.setupN)} ${esc((v.setupU||"Horas").toLowerCase())} (sujeto a disponibilidad)</span>`:''}${v.inN||v.outN?`<span>🚪 Entrada ${esc(v.inN||"0")} ${esc((v.inU||"Minutos").toLowerCase())} · salida ${esc(v.outN||"0")} ${esc((v.outU||"Minutos").toLowerCase())} · ${v.ioPaid?money(v.ioCost||0)+" por el total":"gratis"}</span>`:''}${v.days.length?`<span>🗓️ ${esc(v.days.map(d=>HQV.DAYS.find(x=>x[0]===d)[1]).join(" "))}</span>`:''}${v.sameHours===false?v.days.map(d=>{const h=v.hoursByDay[d];return h&&h.limit?`<span>🕒 ${HQV.DAYS.find(x=>x[0]===d)[1]} ${esc(h.open)}–${esc(h.limit)}</span>`:"";}).join(""):v.limit?`<span>🕒 ${esc(v.open||"")}${v.open?" a ":"Hasta las "}${esc(v.limit)}</span>`:''}${(v.featsOther||[]).filter(filled).map(x=>`<span>✨ ${esc(x)}</span>`).join("")}${v.hoursIncl?`<span>⏱️ ${esc(v.hoursIncl)} h de fiesta</span>`:''}${filled(v.extraHour)?`<span>⏰ Hora extra ${money(v.extraHour)}</span>`:''}${+v.var>0?`<span>🤝 Negociable ± ${esc(v.var)}%</span>`:''}
     ${bt?`<span>${"Baños: "+[+v.baths.m>0?`🚹 ${v.baths.m}`:"",+v.baths.w>0?`🚺 ${v.baths.w}`:"",+v.baths.g>0?`🚻 ${v.baths.g}`:""].filter(Boolean).join(" ")}</span>`:''}${FEATURES.filter(f=>v.features.includes(f[0])).map(f=>`<span>${f[1]} ${esc(f[2])}</span>`).join("")}</div>
-   <div class="ms-pol">${POLICY_SVCS.map(([s,e])=>{const p=v.policy[s];if(!p.offer&&!p.own)return"";return`<span>${e} ${esc(s)} <span style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end">${p.incl==="parte"?`<em class="st inc">Incluido en parte${p.detail?": "+esc(p.detail):""}</em>`:p.offer==="inc"?`<em class="st inc">Incluido${(p.subs||[]).length?": "+esc(p.subs.join(", ")):""}</em>`:p.offer==="costo"?`<em class="st ext">Lo ofrece ${filled(p.price)?money(p.price)+(p.per==="persona"?" c/u":""):""}</em>`:''}${p.own==="si"?'<em class="st inc">Puedes traerlo</em>':p.own==="cuota"?`<em class="st ext">Traerlo: cuota ${money(p.fee)}</em>`:p.own==="no"?'<em class="st no">Solo con su gente</em>':''}</span></span>`;}).join("")}</div>
+   ${vnSiteHtml(v)}
    <div class="prompt" style="font-size:12px;display:grid;gap:2px"><small>Condiciones</small>${v.deposit?`<span>💳 Anticipo ${esc(v.deposit)}</span>`:''}${v.advance?`<span>📅 Reserva con ${esc(v.advance)} días de anticipación</span>`:''}${v.guarantee?`<span>🔐 Depósito en garantía ${money(v.guarantee)}${v.guarRetN?` · se devuelve en ${esc(v.guarRetN)} ${esc(v.guarRetU)}`:""}</span>`:''}${v.extAll?`<span>🚪 Proveedores externos: ${v.extAll==="si"?"sí, todos los que no se incluyen":v.extAll==="no"?"no":esc(v.extAllNote||"solo algunos")}</span>`:""}${v.cancelFile?`<span>📎 Política de cancelación (${esc(v.cancelFile.name)})</span>`:""}${v.cancelLink?`<span>🔗 Política de cancelación: ${esc(v.cancelLink)}</span>`:""}${v.corkage?`<span>🍾 Descorche: ${esc(v.corkage)}</span>`:''}${v.cancel?`<span>↩️ ${esc(v.cancel)}</span>`:''}
     ${v.docsNone?'<span>📄 Sin documentos</span>':(v.docs.length||v.docsOther)?`<span>📄 Documentos: ${esc([...v.docs,v.docsOther].filter(Boolean).join(", "))}</span>`:''}${v.rulesText?`<span>📌 ${esc(v.rulesText)}</span>`:''}${v.rulesFile?`<span>📎 Ver reglamento (${esc(v.rulesFile.name)})</span>`:''}</div>
    ${promoBlock(v.promo,"venue")}${strip(v.photos)}</div></div>`));}
@@ -2430,7 +2602,7 @@ function preview(){ensureState();if(S.types&&S.types.services)ruSyncServices();c
  $("url").textContent="hayquevernos.com/"+slug(S.biz.name);const p=completeness();$("pct").textContent=p+"%";$("bar").style.width=p+"%";
  const cur=stepList()[step];const m=cur&&cur.id!=="publish"?missing(cur.id):[];$("pctHint").textContent=$("editorWrap").hidden?"":m.length?`Faltan ${m.length} datos en esta sección`:"¡Sección lista!";}
 function render(){ensureState();renderTimeline();renderStep();preview();}
-function publish(){const datos={nombre:S.biz.owner||"",negocio:S.biz.name,atencion:{atiende:S.biz.attends,modos:S.biz.modes,dias:S.biz.hDays,abre:S.biz.hOpen,cierra:S.biz.hClose},perfilPersonal:S.me?{whatsapp:S.me.whatsapp,correo:S.me.email,genero:S.me.gender==="Otro"?(S.me.genderOther||"Otro"):S.me.gender,cumpleanos:S.me.birthday,redes:{instagram:S.me.instagram,tiktok:S.me.tiktok,facebook:S.me.facebook}}:null,wa:S.biz.whatsapp.replace(/\D/g,"").slice(-10),email:S.account.email,marketing:!!S.account.mk,
+function publish(){const datos={nombre:S.biz.owner||"",negocio:S.biz.name,atencion:{atiende:S.biz.attends,modos:S.biz.modes,dias:S.biz.hDays,abre:S.biz.hOpen,cierra:S.biz.hClose},perfilPersonal:S.me?{whatsapp:S.me.whatsapp?waShow(S.me.waCC,S.me.whatsapp):"",correo:S.me.email,genero:S.me.gender==="Otro"?(S.me.genderOther||"Otro"):S.me.gender,cumpleanos:S.me.birthday,redes:{instagram:S.me.instagram,tiktok:S.me.tiktok,facebook:S.me.facebook}}:null,wa:S.biz.whatsapp.replace(/\D/g,""),waLada:ccDial(S.biz.waCC),waInternacional:waIntl(S.biz.waCC,S.biz.whatsapp),email:S.account.email,marketing:!!S.account.mk,
   tipos:Object.keys(S.types).filter(k=>S.types[k]),ambito:{social:!!(S.svcScope||{}).S,empresarial:!!(S.svcScope||{}).E},
   variabilidad:S.svcVar,productos:(S.rprods||[]).map(p=>({id:p.id,categoria:p.dims[0],servicio:p.dims[1],formato:p.dims[2],detalle:p.dims[3],detalleOtro:p.otro||null,nombre:p.name,platillos:p.dishes,insumos:p.ins,staff:p.crew,personas:+p.pax,cobro:p.tw.map(w=>({modo:w,precio:+p.tar[w].p,unidad:p.tar[w].u,cantidad:+p.tar[w].q||null})),extras:p.ext,entregaSinPersonal:p.tw.includes("rent")?p.dlx.dl:null,personal:p.tw.includes("labor")?{perfiles:p.labor,politicas:p.lpol}:null,minimo:p.min,promo:p.promo,fotos:p.photos.length})),paquetesRuleta:(S.rpkgs||[]).map(p=>({id:p.id,nombre:p.name,productos:p.items,insumos:p.ins,staff:p.crew,personas:+p.pax,cobro:p.tw.map(w=>({modo:w,precio:+p.tar[w].p,unidad:p.tar[w].u})),extras:p.ext,entregaSinPersonal:p.tw.includes("rent")?p.dlx.dl:null,personal:p.tw.includes("labor")?{perfiles:p.labor,politicas:p.lpol}:null,minimo:p.min,promo:p.promo})),paquetes:S.svcPkgs,recomendacionesRechazadas:S.svcRecoNo||[],temporadaAlta:S.svcHigh,servicios:S.services.map(s=>({cat:s.cat,subs:s.subs.map(x=>({n:x.n,precio:x.price,unidad:x.u==="__otra"?null:x.u,unidadOtra:x.u==="__otra"?x.uo:null,familia:famOf(x.u),rinde:x.yieldP||null,paquetePersonas:x.pkgP||null,paqueteHoras:x.pkgH||null})),modos:s.ways,catering:s.cater,ofertas:s.offers,staff:s.staff,renta:s.rent,entregas:(s.dl||[]).map(d=>({modalidad:d.m,descripcion:d.desc||null,cobra:d.cobra,unidad:d.u||null,tarifa:d.rate||null,zonas:dlMeth(d)==="zona"?d.z:null,unidadOtra:d.uo||null,metodoOtra:d.u==="Otro"?d.om:null,condiciones:d.conds}))})).filter(s=>s.cat),
   propuestas:{categorias:[...NEW_CATS],subcategorias:[...NEW_SUBS],unidades:[...NEW_UNITS]},

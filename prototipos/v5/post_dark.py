@@ -31,6 +31,9 @@ button.link{color:#FF8FD2}
 .ru-paxc,.ru-paxc .ru-paxl,.ru-paxc .ru-paxi b{color:#1A2600!important}
 .ru-paxc .ru-host{background:rgba(255,255,255,.8)!important;color:#1A2600!important}
 .ru-tg .dlc{background:#2C2245!important}
+.ru-tot,.ru-fi i,.ru-fq .ru-stp button{color:#D6BEFF!important}
+.ru-f{background:#2C2245!important}
+.vn-on[aria-pressed="true"]{background:#8A3FFC!important}
 '''
 def scoped(prefix):
     out = []
