@@ -36,6 +36,8 @@ button.link{color:#FF8FD2}
 .ru-ext,.ru-xt{color:#D6BEFF!important}
 .ru-exr{background:rgba(255,255,255,.08)!important}
 .ru-course{background:#2C2245!important}
+.ru-hr{background:rgba(255,255,255,.08)!important}
+.ru-warn,.ru-chg{background:#3A2E18!important;color:var(--ink)!important}
 .vn-on[aria-pressed="true"]{background:#8A3FFC!important}
 '''
 def scoped(prefix):

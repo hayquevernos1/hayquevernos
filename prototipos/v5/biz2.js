@@ -31,8 +31,8 @@ function drawBiz(){bzDefaults();const b=S.biz,me=S.me,yrs=[];for(let y=yearNow;y
  ${avatarHtml(b,"biz","avatar","🖼️ Logo o foto del negocio")}
  ${socialHtml(b,"biz")}
  <div class="row bz-row"><div class="field"><label class="lbl" for="f-wa">📱 WhatsApp del negocio</label>${telHtml("f-wa",b.waCC,b.whatsapp,MISS(waOk(b.waCC,b.whatsapp)))}${b.waCC!=="MX"?`<span class="hint">Tus clientes te escribirán al ${esc(ccDial(b.waCC))}.</span>`:""}</div>
-  <div class="field"><label class="lbl" for="f-email">✉️ Correo del negocio</label><input type="email" id="f-email" autocomplete="email" class="${MISS(EMAIL_OK(S.account.email))}" value="${esc(S.account.email)}" placeholder="hola@tunegocio.com"><span class="hint">Con él creamos tu cuenta.</span></div></div>
- <div class="field"><label class="lbl" for="f-since">🎉 ¿Desde qué año haces fiestas?</label><select id="f-since" class="${MISS(!!b.since)}" style="width:fit-content"><option value="">Elige el año</option>${yrs.map(y=>`<option ${String(y)===String(b.since)?"selected":""}>${y}</option>`).join("")}</select></div>
+  <div class="field"><label class="lbl" for="f-email">✉️ Correo del negocio</label><input type="email" id="f-email" autocomplete="email" class="${MISS(EMAIL_OK(S.account.email))}" value="${esc(S.account.email)}" placeholder="hola@tunegocio.com"></div></div>
+ <div class="field"><label class="lbl" for="f-found">🎉 Fecha de fundación de tu negocio</label><input type="date" id="f-found" class="${MISS(!!b.founded)}" value="${esc(b.founded||"")}" max="${new Date().toISOString().slice(0,10)}" style="width:fit-content"><span class="hint">Con ella celebramos tu aniversario con promociones.</span></div>
  ${addrHtml(b.addr,"biz","Dirección de tu negocio")}
  <div class="field"><span class="lbl">🏪 ¿Atiendes clientes en tu negocio?</span><div class="${MISS(b.attends!==null)}" style="width:fit-content;border-radius:99px">${ynHtml("bat",b.attends)}</div>
   ${b.attends?`<div class="sub-box bz-att"><span class="lbl" style="font-size:14px">¿Para qué van? <span class="opt">elige uno o varios</span></span>
@@ -59,7 +59,8 @@ function drawBiz(){bzDefaults();const b=S.biz,me=S.me,yrs=[];for(let y=yearNow;y
  <div class="field"><span class="lbl">🧾 ¿Facturas?</span><div class="chips${MISS(!!b.invoice)}" style="width:fit-content;border-radius:99px">${[["si","Sí facturo"],["no","No facturo"]].map(([v,t])=>`<button type="button" class="chip inv" data-v="${v}" aria-pressed="${b.invoice===v}">${TICK}${t}</button>`).join("")}</div></div></section>
  ${navHtml()}</div>`;
  const mir=()=>{bzMirror();if(me.same.wa){$("me-wa").value=me.whatsapp;$("me-wa-cc").value=me.waCC;}if(me.same.email)$("me-em").value=me.email;if(me.same.social)[["ig-me","instagram"],["tt-me","tiktok"],["fb-me","facebook"]].forEach(([i,k])=>{const x=$(i);if(x)x.value=me[k]||"";});};
- [["f-name","name"],["f-wa","whatsapp"],["f-about","about"],["f-since","since"],["f-owner","owner"]].forEach(([i,k])=>{$(i).oninput=$(i).onchange=e=>{b[k]=e.target.value;mir();changed();};});
+ [["f-name","name"],["f-wa","whatsapp"],["f-about","about"],["f-owner","owner"]].forEach(([i,k])=>{$(i).oninput=$(i).onchange=e=>{b[k]=e.target.value;mir();changed();};});
+ $("f-found").oninput=$("f-found").onchange=e=>{b.founded=e.target.value;b.since=b.founded?b.founded.slice(0,4):"";changed();};
  $("f-wa-cc").onchange=e=>{b.waCC=e.target.value;bzMirror();keep(drawBiz);changed();};
  $("f-email").oninput=e=>{S.account.email=e.target.value.trim();mir();changed();};
  [["me-wa","whatsapp","wa"],["me-em","email","email"],["me-bd","birthday"]].forEach(([i,k,f])=>{$(i).oninput=$(i).onchange=e=>{me[k]=e.target.value;if(f&&me.same[f]){me.same[f]=false;keep(drawBiz);const x=$(i);x.focus();x.setSelectionRange&&x.type!=="email"&&x.setSelectionRange(x.value.length,x.value.length);}changed();};});
