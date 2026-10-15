@@ -1,4 +1,5 @@
-/* ===== v21 · Mis servicios con la ruleta (Diego, 15 oct 2026) =====
+/* ===== v22: sin saltos de pantalla al elegir; paquetes bloqueados hasta 2 productos; «Solo tu personal» compacto (filas, ± y políticas en botones).
+   ===== v21 · Mis servicios con la ruleta (Diego, 15 oct 2026) =====
    v21: la entrega vive dentro de «¿Cómo lo cobras?»: Completo = entrega incluida; Sin personal = sin «¿cuántas piezas?» y con
    «¿Cómo lo entregas?» (a domicilio con su cobro, condiciones y ejemplo / recoger en mi local con la dirección del negocio);
    Solo tu personal = precio por perfil (cantidad, $, unidad, mín. horas, hora extra) + políticas del personal.
@@ -122,16 +123,24 @@ function ruTarHtml(p,w,k){const t=p.tar[w],cnt=w==="full"&&!RU_FIXED.includes(t.
   ${cnt?`<label class="ru-q">¿Cuántas ${esc(ruNoun(t.u))}? <input type="number" min="1" data-tq="${w}" class="${MISS(+t.q>0)}" value="${esc(t.q)}" placeholder="#"></label>`:""}</div>
   ${w==="full"?`<span class="ru-note">🚚 La entrega, el montaje y tu personal van incluidos en este precio.</span>`:`${!RU_FIXED.includes(t.u)?`<span class="hint">Para el cotizador calculamos 1 ${esc(ruNoun(t.u).replace(/s$/,""))} por persona.</span>`:""}
    ${dlSecHtml(p.dlx,k+"dlx","rt","¿Cómo lo entregas?")}`}</div>`;}
-function ruLaborHtml(p,staff){const names=[...new Set([...staff,...p.labor.map(r=>r.n)])],L=p.lpol;
- return`<div class="ru-tg"><b>${RU_TL.labor[0]}</b><span class="hint">Pon el precio de cada perfil. Puedes sumar más perfiles si también los rentas.</span>
-  <div class="chips cmini">${names.map(n=>`<button type="button" class="chip ru-lab-c" data-n="${esc(n)}" aria-pressed="${p.labor.some(r=>r.n===n)}">${TICK}${esc(n)}</button>`).join("")}</div>${ruTags("labNew",[],"Otro perfil: escribe y Enter")}
-  ${p.labor.map((r,ix)=>`<div class="ru-lr" data-ix="${ix}"><b class="ru-ln">${esc(r.n)}</b><label class="ru-q">¿Cuántos? <input type="number" min="1" class="ru-lq" value="${esc(r.q)}" aria-label="¿Cuántos ${esc(r.n)}?"></label><label class="ru-money">$<input type="number" min="0" class="ru-lp${MISS(+r.p>0)}" value="${esc(r.p)}" placeholder="precio" aria-label="Precio de ${esc(r.n)}"></label><select class="ru-lu" aria-label="Unidad">${RU_LU.map(([u,t])=>`<option value="${u}" ${r.u===u?"selected":""}>${t}</option>`).join("")}</select>${r.u==="Por hora"?`<label class="ru-q">mín. <input type="number" min="1" class="ru-lm" value="${esc(r.min)}" aria-label="Horas mínimas"> h</label>`:""}<label class="ru-q">hora extra $<input type="number" min="0" class="ru-lx" value="${esc(r.xh)}" aria-label="Hora extra de ${esc(r.n)}"></label><button type="button" class="link bad ru-lrm" aria-label="Quitar ${esc(r.n)}">✕</button></div>`).join("")}
-  <div class="ru-pol"><b>📋 Políticas de tu personal</b>
-   <label><input type="checkbox" class="ru-p-night" ${L.night?"checked":""}> 🌙 Después de las 12:00 a.m. cobro un recargo de ${L.night?`<input type="number" min="0" class="ru-p-pct" value="${esc(L.nightPct)}" aria-label="Recargo nocturno">`:"__"} %</label>
-   <label><input type="checkbox" class="ru-p-ride" ${L.ride?"checked":""}> 🚕 Si terminan después de las 12:00 a.m., el anfitrión cubre su transporte${L.ride?` de <input type="number" min="0" class="ru-p-fee" value="${esc(L.rideFee)}" placeholder="$" aria-label="Transporte por persona"> por persona`:""}</label>
-   <label><input type="checkbox" class="ru-p-meal" ${L.meal?"checked":""}> 🍽️ En jornadas de más de 5 h, el anfitrión da alimentos al personal</label>
-   <label><input type="checkbox" class="ru-p-uni" ${L.uniform?"checked":""}> 👔 El uniforme va incluido</label>
-   <span class="hint">El tiempo se cobra desde que tu personal llega al evento. Los viáticos fuera de tu zona se acuerdan con el anfitrión.</span></div></div>`;}
+function ruLaborHtml(p,staff){const rest=[...new Set(staff)].filter(n=>!p.labor.some(r=>r.n===n)),L=p.lpol;
+ const pill=(k,on,txt,extra)=>`<span class="ru-pill" aria-pressed="${on}"><button type="button" class="ru-pt" data-k="${k}" aria-pressed="${on}">${on?"✓ ":""}${txt}</button>${on&&extra?extra:""}</span>`;
+ return`<div class="ru-tg ru-labr"><b>${RU_TL.labor[0]}</b><span class="hint">Precio de cada perfil que mandas.</span>
+  <div class="ru-lt"><div class="ru-lhd" aria-hidden="true"><span>Perfil</span><span>¿Cuántos?</span><span>Precio</span><span>Cobro</span><span>Mín.</span><span>Hora extra</span><span></span></div>
+  ${p.labor.map((r,ix)=>`<div class="ru-lr" data-ix="${ix}"><b class="ru-ln">${esc(r.n)}</b>
+   <span class="ru-stp"><button type="button" class="ru-sm" aria-label="Uno menos">−</button><input type="number" min="1" class="ru-lq" value="${esc(r.q)}" aria-label="¿Cuántos ${esc(r.n)}?"><button type="button" class="ru-sp" aria-label="Uno más">+</button></span>
+   <label class="ru-money">$<input type="number" min="0" class="ru-lp${MISS(+r.p>0)}" value="${esc(r.p)}" placeholder="0" aria-label="Precio de ${esc(r.n)}"></label>
+   <select class="ru-lu" aria-label="Cobro de ${esc(r.n)}">${RU_LU.map(([u,t])=>`<option value="${u}" ${r.u===u?"selected":""}>${t}</option>`).join("")}</select>
+   ${r.u==="Por hora"?`<label class="ru-mn"><input type="number" min="1" class="ru-lm" value="${esc(r.min)}" aria-label="Horas mínimas de ${esc(r.n)}"> h</label>`:`<span class="ru-mn ru-na">—</span>`}
+   <label class="ru-xh">$<input type="number" min="0" class="ru-lx" value="${esc(r.xh)}" placeholder="0" aria-label="Hora extra de ${esc(r.n)}"></label>
+   <button type="button" class="link bad ru-lrm" aria-label="Quitar ${esc(r.n)}">✕</button></div>`).join("")||`<span class="hint">Agrega al menos un perfil.</span>`}</div>
+  <div class="ru-add"><span class="ru-sl">＋ Sumar perfil</span><div class="ru-addc">${rest.map(n=>`<button type="button" class="chip ru-lab-c" data-n="${esc(n)}">＋ ${esc(n)}</button>`).join("")}<button type="button" class="chip new ru-lab-o">✏️ Otro</button></div><div class="ru-labnew" hidden>${ruTags("labNew",[],"Otro perfil: escribe y Enter")}</div></div>
+  <div class="ru-pols"><span class="ru-sl">📋 Tus políticas</span><div class="ru-pils">
+   ${pill("night",L.night,"🌙 Recargo después de 12 a.m.",`<label class="ru-pin">+<input type="number" min="0" class="ru-p-pct" value="${esc(L.nightPct)}" aria-label="Recargo nocturno">%</label>`)}
+   ${pill("ride",L.ride,"🚕 Transporte de regreso lo cubre el anfitrión",`<label class="ru-pin">$<input type="number" min="0" class="ru-p-fee" value="${esc(L.rideFee)}" placeholder="0" aria-label="Transporte por persona">c/u</label>`)}
+   ${pill("meal",L.meal,"🍽️ Alimentos al personal (+5 h)")}
+   ${pill("uniform",L.uniform,"👔 Uniforme incluido")}</div>
+   <span class="hint">El tiempo cuenta desde que tu personal llega. Viáticos fuera de zona se acuerdan.</span></div></div>`;}
 function ruIdentHtml(p){const pk=p.kind==="pkg",staff=[...new Set(ruCats(p).flatMap(c=>RU.staff[c]||[]))],names=[...new Set([...staff,...p.crew.map(r=>r.n)])],k="ru"+(pk?"k":"p"),sug=pk?ruSug(p):0;
  const head=pk?`<span class="ru-pkb">🎁 Paquete</span><h3>Dale identidad a tu paquete</h3><div class="ru-crumbs">${p.items.map(id=>`<span>${esc((ruById(id)||{}).name||"—")}</span>`).join("")}</div><span class="hint">Empieza en blanco: el paquete lleva su propio nombre, detalles y precio. Guardamos de qué productos sale.</span>`
   :`<h3>Dale identidad</h3><div class="ru-crumbs">${p.dims.map(d=>`<span>${esc(d)}</span>`).join("")}${p.otro?`<span>${esc(p.otro)}</span>`:""}</div>`;
@@ -164,18 +173,18 @@ function ruIdentHtml(p){const pk=p.kind==="pkg",staff=[...new Set(ruCats(p).flat
  <span class="err ru-err" id="ruErr" hidden></span>
  <div class="row"><button class="btn cta" type="button" id="ruOk">${pk?"Guardar paquete ✓":"Guardar producto ✓"}</button><button class="btn ghost" type="button" id="ruCancel">Cancelar</button></div>`;}
 function ruDrawIdent(scroll,focusTag){const box=$("ruIdent");if(!box)return;const p=RU_EDIT;if(!p){box.hidden=true;box.innerHTML="";return;}
- const mo=box.querySelector("details.ru-more");if(mo)p._moreOpen=mo.open;box.hidden=false;box.innerHTML=ruIdentHtml(p);
+ const mo=box.querySelector("details.ru-more");if(mo)p._moreOpen=mo.open;const y0=scrollY;box.hidden=false;box.innerHTML=ruIdentHtml(p);if(!scroll)scrollTo({top:y0,behavior:"instant"});
  const rd=id=>ruDrawIdent(false,id),k="ru"+(p.kind==="pkg"?"k":"p");
  box.querySelector("details.ru-more").ontoggle=e=>{p._moreOpen=e.target.open;};
  $("ruName").oninput=e=>{p.name=e.target.value;$("ruLk").textContent=ruLink(p);};
  $("ruPax").oninput=e=>{p.pax=e.target.value;$("ruHost").innerHTML=ruHost(p);};
  ruBindTags(box,"dishes",p.dishes,()=>RU_DISHES,null,rd);ruBindTags(box,"ins",p.ins,()=>ruIns(ruCats(p)[0]),null,rd);
  ruBindTags(box,"crewNew",[],()=>[...new Set(Object.values(RU.staff).flat())],v=>{if(!p.crew.some(r=>nrm(r.n)===nrm(v)))p.crew.push({n:v,q:"1"});},rd);
- ruBindTags(box,"ext",[],()=>RU_EXTRAS.filter(x=>!p.ext.some(e=>e.c===x)),v=>{if(!p.ext.some(e=>nrm(e.c)===nrm(v)))p.ext.push({c:v,p:"",u:ruExU(v)});setTimeout(()=>{const l=[...box.querySelectorAll(".ru-exp")].pop();l&&l.focus();},0);},rd);
+ ruBindTags(box,"ext",[],()=>RU_EXTRAS.filter(x=>!p.ext.some(e=>e.c===x)),v=>{if(!p.ext.some(e=>nrm(e.c)===nrm(v)))p.ext.push({c:v,p:"",u:ruExU(v)});setTimeout(()=>{const l=[...box.querySelectorAll(".ru-exp")].pop();l&&l.focus({preventScroll:true});},0);},rd);
  box.querySelectorAll(".ru-crew").forEach(b=>b.onclick=()=>{const n=b.dataset.n,ix=p.crew.findIndex(r=>r.n===n);if(ix>=0)p.crew.splice(ix,1);else p.crew.push({n,q:"1"});ruDrawIdent();});
  box.querySelectorAll("[data-cq]").forEach(x=>x.oninput=e=>{p.crew[+x.dataset.cq].q=e.target.value;});
  box.querySelectorAll(".ru-tsb").forEach(b=>b.onclick=()=>{const w=b.dataset.w;p.tw=p.tw.includes(w)?p.tw.filter(x=>x!==w):["full","rent","labor"].filter(x=>x===w||p.tw.includes(x));
-  if(w==="labor"&&p.tw.includes("labor")&&!p.labor.length)p.labor=p.crew.map(r=>({n:r.n,q:r.q||"1",p:"",u:"Por hora",min:"5",xh:""}));ruDrawIdent();const i=box.querySelector(w==="labor"?".ru-lp":`[data-tp="${w}"]`);i&&i.focus();});
+  if(w==="labor"&&p.tw.includes("labor")&&!p.labor.length)p.labor=p.crew.map(r=>({n:r.n,q:r.q||"1",p:"",u:"Por hora",min:"5",xh:""}));ruDrawIdent();});
  const live=()=>{$("ruHost").innerHTML=ruHost(p);};
  box.querySelectorAll("[data-tp]").forEach(x=>x.oninput=e=>{p.tar[x.dataset.tp].p=e.target.value;live();});
  box.querySelectorAll("[data-tq]").forEach(x=>x.oninput=e=>{p.tar[x.dataset.tq].q=e.target.value;live();});
@@ -184,14 +193,14 @@ function ruDrawIdent(scroll,focusTag){const box=$("ruIdent");if(!box)return;cons
  box.querySelectorAll(".ru-ex").forEach(R=>{const e=p.ext[+R.dataset.ix];R.querySelector(".ru-exc").oninput=x=>{e.c=x.target.value;};R.querySelector(".ru-exp").oninput=x=>{e.p=x.target.value;};R.querySelector(".ru-exu").oninput=x=>{e.u=x.target.value;};R.querySelector(".ru-exx").onclick=()=>{p.ext.splice(+R.dataset.ix,1);ruDrawIdent();};});
  const red=()=>ruDrawIdent();
  bindUploader(k+"ph","photo",p.photos,red);bindDlSec(box,"rt",p.dlx,k+"dlx",red);
- box.querySelectorAll(".ru-lab-c").forEach(b=>b.onclick=()=>{const n=b.dataset.n,ix=p.labor.findIndex(r=>r.n===n);if(ix>=0)p.labor.splice(ix,1);else{const c=p.crew.find(r=>r.n===n);p.labor.push({n,q:c?c.q:"1",p:"",u:"Por hora",min:"5",xh:""});}ruDrawIdent();});
- ruBindTags(box,"labNew",[],()=>[...new Set(Object.values(RU.staff).flat())],v=>{if(!p.labor.some(r=>nrm(r.n)===nrm(v)))p.labor.push({n:v,q:"1",p:"",u:"Por hora",min:"5",xh:""});},rd);
+ box.querySelectorAll(".ru-lab-c").forEach(b=>b.onclick=()=>{const n=b.dataset.n;if(!p.labor.some(r=>r.n===n)){const c=p.crew.find(r=>r.n===n);p.labor.push({n,q:c?c.q:"1",p:"",u:"Por hora",min:"5",xh:""});}ruDrawIdent();});
+ const lo=box.querySelector(".ru-lab-o");if(lo)lo.onclick=()=>{const w=box.querySelector(".ru-labnew");w.hidden=false;w.querySelector("input").focus({preventScroll:true});};
+ ruBindTags(box,"labNew",[],()=>[...new Set(Object.values(RU.staff).flat())],v=>{if(!p.labor.some(r=>nrm(r.n)===nrm(v)))p.labor.push({n:v,q:"1",p:"",u:"Por hora",min:"5",xh:""});},()=>ruDrawIdent());
  box.querySelectorAll(".ru-lr").forEach(R=>{const r=p.labor[+R.dataset.ix];[["ru-lq","q"],["ru-lp","p"],["ru-lm","min"],["ru-lx","xh"]].forEach(([c,f])=>{const x=R.querySelector("."+c);if(x)x.oninput=e=>{r[f]=e.target.value;live();};});
+  const q=R.querySelector(".ru-lq");R.querySelector(".ru-sm").onclick=()=>{r.q=String(Math.max(1,(+r.q||1)-1));q.value=r.q;live();};R.querySelector(".ru-sp").onclick=()=>{r.q=String((+r.q||0)+1);q.value=r.q;live();};
   R.querySelector(".ru-lu").onchange=e=>{r.u=e.target.value;ruDrawIdent();};R.querySelector(".ru-lrm").onclick=()=>{p.labor.splice(+R.dataset.ix,1);ruDrawIdent();};});
- const pq=(c,f)=>{const x=box.querySelector(c);if(x)f(x);};
- pq(".ru-p-night",x=>x.onchange=e=>{p.lpol.night=e.target.checked;ruDrawIdent();});pq(".ru-p-pct",x=>x.oninput=e=>{p.lpol.nightPct=e.target.value;});
- pq(".ru-p-ride",x=>x.onchange=e=>{p.lpol.ride=e.target.checked;ruDrawIdent();});pq(".ru-p-fee",x=>x.oninput=e=>{p.lpol.rideFee=e.target.value;});
- pq(".ru-p-meal",x=>x.onchange=e=>{p.lpol.meal=e.target.checked;});pq(".ru-p-uni",x=>x.onchange=e=>{p.lpol.uniform=e.target.checked;});bindMin(p.min,k+"mn",red);bindPromo(p.promo,k+"pr",red);
+ box.querySelectorAll(".ru-pt").forEach(b=>b.onclick=()=>{const k=b.dataset.k,m={night:"night",ride:"ride",meal:"meal",uniform:"uniform"}[k];p.lpol[m]=!p.lpol[m];ruDrawIdent();});
+ const pq=(c,f)=>{const x=box.querySelector(c);if(x)f(x);};pq(".ru-p-pct",x=>x.oninput=e=>{p.lpol.nightPct=e.target.value;});pq(".ru-p-fee",x=>x.oninput=e=>{p.lpol.rideFee=e.target.value;});
  $("ruCopy").onclick=()=>copyText("https://"+$("ruLk").textContent,$("ruLkMsg"));
  $("ruImg").onclick=async()=>{const w=p.tw[0],r=w&&ruTotal(p,w);const url=await hqvShareImage({logo:"img/logo.webp",kicker:S.biz.name||"Mi negocio",title:p.name||"Mi producto",sub:[r&&+p.pax?`${ruMoney(r.pp)} por persona · para ${p.pax} personas`:"",[...p.dishes,...p.ins].slice(0,4).join(", ")].filter(Boolean).join(" · "),url:ruLink(p),foot:"Escanea y cotiza por WhatsApp"});hqvDownload(url,(p.kind==="pkg"?"paquete-":"producto-")+slug(p.name)+".png");hqvTrack("imagen_producto_descargada");};
  $("ruCancel").onclick=()=>{RU_EDIT=null;ruDrawIdent();};
@@ -199,7 +208,7 @@ function ruDrawIdent(scroll,focusTag){const box=$("ruIdent");if(!box)return;cons
   const L=p.kind==="pkg"?S.rpkgs:S.rprods,ix=L.findIndex(x=>x.id===p.id);delete p._moreOpen;if(ix>=0)L[ix]=p;else L.push(p);RU_EDIT=null;ruDrawIdent();ruDrawLists();changed();try{confetti();}catch(_){}
   hqvTrack(p.kind==="pkg"?"ruleta_paquete_guardado":"ruleta_producto_guardado",{n:L.length});const t=$(p.kind==="pkg"?"ruPkgs":"ruProds");t&&t.scrollIntoView({behavior:RU_RM?"auto":"smooth",block:"center"});};
  if(scroll)box.scrollIntoView({behavior:RU_RM?"auto":"smooth",block:"start"});
- if(focusTag){const i=box.querySelector(`.ru-tags[data-t="${focusTag}"] input`);i&&i.focus();}}
+ if(focusTag){const i=box.querySelector(`.ru-tags[data-t="${focusTag}"] input`);i&&i.focus({preventScroll:true});}}
 /* ---------- productos y paquetes ---------- */
 function ruPrice(p){const w=p.tw[0],r=w&&ruTotal(p,w);return r&&r.pp!==null?`<span class="ru-pr"><b>${ruMoney(r.pp)}</b> por persona · ${ruMoney(r.tot)} total</span>`:`<span class="ru-pr hint">Falta el precio</span>`;}
 function ruCard(p){const pk=p.kind==="pkg",sel=RU_PICK&&!pk&&RU_PICKED.includes(p.id),ok=ruOk(p);
@@ -208,9 +217,10 @@ function ruCard(p){const pk=p.kind==="pkg",sel=RU_PICK&&!pk&&RU_PICKED.includes(
   <span class="ru-meta">${esc(pk?"Incluye: "+p.items.map(id=>(ruById(id)||{}).name||"—").join(" + "):[...p.dishes,...p.ins].slice(0,4).join(", "))}</span>${ok?"":`<span class="ru-meta" style="color:var(--bad)">⚠️ ${esc(ruMiss(p).join(", "))}</span>`}
   ${RU_PICK&&!pk?`<button class="ru-pick" type="button" aria-label="Elegir ${esc(p.name)}"></button><span class="ru-ck">✓</span>`:`<span class="ru-tools"><button type="button" data-ed aria-label="Editar ${esc(p.name)}">✏️</button><button type="button" data-rm aria-label="Quitar ${esc(p.name)}">✕</button></span>`}</article>`;}
 function ruDrawLists(){if(!$("ruProds"))return;ruDefaults();const P=S.rprods,K=S.rpkgs;
- $("ruProdH").textContent=`Tus productos (${P.length})`;$("ruPkgH").textContent=`Tus paquetes (${K.length})`;
+ $("ruProdH").textContent=`Tus productos (${P.length})`;
  $("ruProds").innerHTML=P.map(ruCard).join("")||`<p class="ru-empty">Aún no guardas productos. Alinea los rodillos y toca «Guardar esta combinación».</p>`;
- $("ruPkgs").innerHTML=K.map(ruCard).join("")||`<p class="ru-empty">${P.length<2?"Cuando tengas 2 o más productos podrás combinarlos en paquetes.":"Toca «🎁 Armar un paquete» y elige qué productos combinar."}</p>`;
+ const lock=P.length<2;$("ruPkSec").classList.toggle("locked",lock);$("ruPkgH").textContent=lock?"🔒 Tus paquetes":`Tus paquetes (${K.length})`;
+ $("ruPkgs").innerHTML=lock?`<p class="ru-lock">🔒 Se desbloquea cuando tengas 2 productos. ${P.length?"Te falta 1.":"Te faltan 2."} Después combinas tus productos en paquetes.</p>`:K.map(ruCard).join("")||`<p class="ru-empty">Toca «🎁 Armar un paquete» y elige qué productos combinar.</p>`;
  $("ruMk").disabled=P.length<2;$("ruBar").hidden=!RU_PICK;$("ruBarT").textContent=RU_PICKED.length<2?"Elige 2 o más productos":`${RU_PICKED.length} productos elegidos`;$("ruGo").disabled=RU_PICKED.length<2;
  document.querySelectorAll(".ru-step2").forEach(x=>x.classList.toggle("on",P.length>=2));
  document.querySelectorAll(".ru-pc").forEach(c=>{const id=c.dataset.id,L=P.some(x=>x.id===id)?P:K,p=L.find(x=>x.id===id);
@@ -226,11 +236,11 @@ function drawSvcStep(){const sc=S.svcScope=S.svcScope||{S:false,E:false};ruDefau
  <div class="ru-search"><input id="ruQ" type="search" autocomplete="off" placeholder="Busca lo que ofreces: barra de café, DJ, sillas Tiffany…" aria-label="Busca lo que ofreces"><div id="ruQr" class="ru-qr" hidden></div></div>
  ${ruMachineHtml()}
  <section class="ru-ident" id="ruIdent" hidden></section>
- <div class="ru-lh"><h3 id="ruProdH">Tus productos</h3><button class="btn ghost sm" id="ruMk" type="button">🎁 Armar un paquete</button></div>
+ <div class="ru-lh"><h3 id="ruProdH">Tus productos</h3></div>
  <div class="ru-grid" id="ruProds"></div>
  <div class="ru-bar" id="ruBar" hidden><span id="ruBarT"></span><span class="row"><button class="link" id="ruNo" type="button">Cancelar</button><button class="btn cta sm" id="ruGo" type="button">Combinar</button></span></div>
- <div class="ru-lh"><h3 id="ruPkgH">Tus paquetes</h3></div>
- <div class="ru-grid" id="ruPkgs"></div>
+ <section class="ru-pksec" id="ruPkSec"><div class="ru-lh"><h3 id="ruPkgH">Tus paquetes</h3><button class="btn ghost sm" id="ruMk" type="button">🎁 Armar un paquete</button></div>
+ <div class="ru-grid" id="ruPkgs"></div></section>
  ${priceBoxHtml()}
  ${zonesHtml(S.svcZones,"svc","¿Dónde das estos servicios?")}${VIATICOS}${navHtml()}</div>`;
  document.querySelectorAll(".scp").forEach(c=>c.onclick=()=>{sc[c.dataset.v]=!sc[c.dataset.v];c.setAttribute("aria-pressed",!!sc[c.dataset.v]);changed();});

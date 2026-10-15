@@ -107,8 +107,25 @@ CSS = '''
 .ru-ident .dlh{flex-wrap:wrap;min-width:0}.ru-ident .dlc{min-width:0}
 .ru-note{display:block;background:rgba(0,195,137,.12);border-radius:12px;padding:7px 10px;font-size:13px;font-weight:700}
 .ru-tg .dlsec{margin-top:4px}.ru-tg .dlc{background:var(--card)}
-.ru-lr{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--card);border-radius:14px;padding:8px 10px}
-.ru-lr .ru-ln{min-width:120px;font-size:14px}.ru-lr .ru-money input{width:96px}.ru-lr .ru-q input{width:64px}.ru-lr select{width:auto}
+.ru-lt{display:grid;gap:6px}
+.ru-lhd,.ru-lr{display:grid;grid-template-columns:minmax(110px,1.3fr) 104px 118px 118px 70px 104px 24px;gap:8px;align-items:center}
+.ru-lhd{font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:0 10px}
+.ru-lr{background:var(--card);border-radius:14px;padding:6px 10px}
+.ru-lr input,.ru-lr select{padding:6px 8px!important;min-width:0;font-size:14px}.ru-lr select{width:100%}
+.ru-ln{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ru-stp{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:99px;overflow:hidden;background:var(--paper)}
+.ru-stp button{border:0;background:none;width:30px;height:32px;font-weight:900;font-size:17px;color:#8205B4;cursor:pointer}
+.ru-stp input{width:40px!important;border:0!important;background:none!important;text-align:center;padding:4px 0!important;box-shadow:none!important}
+.ru-lr .ru-money input{width:100%}.ru-mn,.ru-xh{display:flex;align-items:center;gap:3px;font-weight:800;font-size:13px}.ru-mn input{width:46px}.ru-xh input{width:100%}.ru-na{color:var(--help,#9A92AE);justify-content:center}
+.ru-add,.ru-pols{display:grid;gap:6px}
+.ru-addc{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.ru-addc::-webkit-scrollbar{display:none}.ru-addc .chip{flex:none;white-space:nowrap}
+.ru-pils{display:flex;flex-wrap:wrap;gap:6px}
+.ru-pill{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);background:var(--card);border-radius:99px;padding:2px 4px 2px 2px}
+.ru-pill[aria-pressed="true"]{border-color:#9146FF;background:rgba(145,70,255,.12)}
+.ru-pt{border:0;background:none;font:inherit;font-weight:800;font-size:13px;padding:6px 10px;color:var(--ink);cursor:pointer}
+.ru-pin{display:flex;align-items:center;gap:3px;font-weight:900;font-size:13px;padding-right:6px}.ru-pin input{width:58px;padding:4px 6px!important}
+.ru-pksec{display:grid;gap:12px}.ru-pksec.locked .ru-lh h3{color:var(--muted)}
+.ru-lock{margin:0;border:2px dashed var(--line);border-radius:18px;padding:14px;color:var(--muted);font-weight:700;background:repeating-linear-gradient(-45deg,transparent 0 10px,rgba(145,70,255,.05) 10px 20px)}
 .ru-pol{display:grid;gap:8px;background:var(--card);border-radius:14px;padding:10px 12px;font-size:13.5px}
 .ru-pol label{display:block;line-height:1.7;font-weight:700}.ru-pol input[type=checkbox]{vertical-align:middle;margin:0 6px 0 0;width:18px;height:18px}.ru-pol input[type=number]{width:72px;padding:4px 8px}
 .ru-paxc{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px;align-items:center;background:linear-gradient(135deg,#BEFF00,#FAFA19);color:#1A2600;border-radius:24px;padding:18px;box-shadow:0 12px 26px rgba(120,140,0,.28)}
@@ -119,7 +136,7 @@ CSS = '''
 .ru-paxi{display:flex;align-items:center;gap:10px;margin-top:4px}.ru-paxi input{width:130px;font-size:26px;font-weight:900;text-align:center;padding:8px 10px;border-radius:16px;border:3px solid #1A2600!important;background:#fff!important;color:#1A2600!important}
 .ru-paxi b{font-size:18px;font-weight:900}
 .ru-paxc #ruHost{grid-column:1/-1}.ru-paxc .ru-host{background:rgba(255,255,255,.75);color:#1A2600;margin:0}.ru-paxc .ru-host .hint{color:#4A5200!important}
-@media(max-width:560px){.ru-lr{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.ru-lr .ru-ln{grid-column:1/-1;padding-right:28px}.ru-lr .ru-lrm{position:absolute;top:6px;right:8px}.ru-lr select,.ru-lr .ru-money input{width:100%}.ru-lr .ru-q{flex-wrap:wrap}
+@media(max-width:560px){.ru-lhd{display:none!important}.ru-lr{grid-template-columns:minmax(0,1fr) 100px 24px!important;grid-template-areas:"n q x" "p u u" "m h h"!important;row-gap:6px!important}.ru-ln{grid-area:n}.ru-stp{grid-area:q}.ru-lr .ru-lrm{grid-area:x}.ru-lr .ru-money{grid-area:p}.ru-lr .ru-lu{grid-area:u}.ru-mn{grid-area:m}.ru-xh{grid-area:h}.ru-mn::before{content:"mín. ";font-weight:800;font-size:12px}.ru-xh::before{content:"extra ";white-space:nowrap;font-weight:800;font-size:12px;margin-right:2px}
 .ru-paxc{grid-template-columns:minmax(0,1fr)}.ru-paxm{position:absolute;top:-18px;right:10px;width:54px;height:54px}.ru-paxl{padding-right:48px}.ru-ident{padding:14px}.ru-steps,.ru-tsel{grid-template-columns:minmax(0,1fr)}.ru-masc{width:48px;height:48px}.ru-ex{grid-template-columns:minmax(0,1fr) 110px 24px;grid-template-areas:"c p x" "u u u"}.ru-ex .ru-exc{grid-area:c}.ru-ex .ru-money{grid-area:p}.ru-ex .ru-exu{grid-area:u}.ru-ex .ru-exx{grid-area:x}}
 @media (prefers-reduced-motion:reduce){.ru-masc.pop,.ru-reels.aligned::after{animation:none}}
 '''
