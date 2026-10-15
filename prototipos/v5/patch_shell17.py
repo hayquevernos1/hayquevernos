@@ -80,6 +80,6 @@ rep('x.fin==="sel"){N.agenda.push({d:x.date,ev:x.ev,st:"cerrada",vt:x.vt});toast
     'x.fin==="sel"){N.agenda.push({d:x.date,ev:x.ev,st:"cerrada",vt:x.vt});setTimeout(()=>svcSelPop(x),60);}')
 rep('c.onclick=()=>{j.conf=true;confetti();inbox("negocio",`🔓 ${j.cliente} confirmó. Ya ves a sus proveedores.`);drawAcct();};',
     'c.onclick=()=>{j.conf=true;inbox("negocio",`🔓 ${j.cliente} confirmó. Ya ves a sus proveedores. Te toca dar el primer paso.`);drawAcct();plannerSelPop(j);};')
-s = s.replace('PROTOTIPO v14', 'PROTOTIPO v16')
+s = s.replace('PROTOTIPO v14', 'PROTOTIPO v17')
 P.write_text(s)
 print('shell17 ok')

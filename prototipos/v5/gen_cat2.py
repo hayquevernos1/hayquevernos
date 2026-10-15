@@ -120,6 +120,11 @@ for r in wb['Catering - Alimentos - Banquete'].iter_rows(min_row=3, values_only=
     tipo, g, esp, pl = r[3], fix_g(r[5]), (r[6] or '').strip(), r[7]
     if not esp or esp.lower() == 'otro': continue
     coc[tipo].setdefault(g, {})[esp] = clean_items(pl)
+# ---- clásicos de banquete (no venían en el Excel: entradas, cremas y platos fuertes por tiempos)
+coc['Salado'].setdefault('Clásicos de banquete', {}).update({
+ 'Entradas': ['Carpaccio de res', 'Ensalada César', 'Ensalada de betabel con queso de cabra', 'Ceviche de pescado', 'Tostadas de atún', 'Tabla de quesos y carnes frías', 'Crepas de huitlacoche'],
+ 'Cremas': ['Crema de champiñones', 'Crema de tres quesos', 'Crema de elote', 'Crema de chile poblano', 'Crema de cilantro', 'Crema de calabaza', 'Sopa de tortilla'],
+ 'Platos fuertes': ['Filete de res en salsa de vino tinto', 'Pechuga rellena de espinacas', 'Salmón a la mantequilla', 'Lomo de cerdo en salsa de ciruela', 'Mole poblano con pollo', 'Arrachera con guarnición', 'Medallones de res al chipotle']})
 # ---- bebidas
 beb = {}
 for r in wb['Catering - Bebidas'].iter_rows(min_row=3, values_only=True):
