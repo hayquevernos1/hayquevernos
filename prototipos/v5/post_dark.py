@@ -26,6 +26,11 @@ button.link{color:#FF8FD2}
 .ms-cta .wa,a.wa{color:#0B2A14!important}
 .tick{background:var(--card)}
 .dots .on{color:var(--ink)!important}
+.ru-money,.ru-money input{color:#D6BEFF!important}
+.ru-paxc .ru-paxi input{background:#FFFFFF!important;color:#1A2600!important;border-color:#1A2600!important}
+.ru-paxc,.ru-paxc .ru-paxl,.ru-paxc .ru-paxi b{color:#1A2600!important}
+.ru-paxc .ru-host{background:rgba(255,255,255,.8)!important;color:#1A2600!important}
+.ru-tg .dlc{background:#2C2245!important}
 '''
 def scoped(prefix):
     out = []

@@ -18,7 +18,7 @@ b = s.index('  if(!filled(S.svcVar))', a)
 s = s[:a] + '  ruMissStep(m);\n' + s[b:]
 rep('function preview(){ensureState();', 'function preview(){ensureState();if(S.types&&S.types.services)ruSyncServices();')
 rep(' x.svcPkgs=[{name:"Paquete Fiesta Mexicana"', ' {const D=ruDemo();x.rprods=D.prods;x.rpkgs=D.pkgs;x.rsel=["Catering","Bebidas","Barra de café","Espresso"];}\n x.svcPkgs=[{name:"Paquete Fiesta Mexicana"')
-rep('variabilidad:S.svcVar,', 'variabilidad:S.svcVar,productos:(S.rprods||[]).map(p=>({id:p.id,categoria:p.dims[0],servicio:p.dims[1],formato:p.dims[2],detalle:p.dims[3],detalleOtro:p.otro||null,nombre:p.name,platillos:p.dishes,insumos:p.ins,staff:p.crew,personas:+p.pax,cobro:p.tw.map(w=>({modo:w,precio:+p.tar[w].p,unidad:p.tar[w].u,cantidad:+p.tar[w].q||null})),extras:p.ext,entregas:p.dl,minimo:p.min,promo:p.promo,fotos:p.photos.length})),paquetesRuleta:(S.rpkgs||[]).map(p=>({id:p.id,nombre:p.name,productos:p.items,insumos:p.ins,staff:p.crew,personas:+p.pax,cobro:p.tw.map(w=>({modo:w,precio:+p.tar[w].p,unidad:p.tar[w].u})),extras:p.ext,entregas:p.dl,minimo:p.min,promo:p.promo})),')
+rep('variabilidad:S.svcVar,', 'variabilidad:S.svcVar,productos:(S.rprods||[]).map(p=>({id:p.id,categoria:p.dims[0],servicio:p.dims[1],formato:p.dims[2],detalle:p.dims[3],detalleOtro:p.otro||null,nombre:p.name,platillos:p.dishes,insumos:p.ins,staff:p.crew,personas:+p.pax,cobro:p.tw.map(w=>({modo:w,precio:+p.tar[w].p,unidad:p.tar[w].u,cantidad:+p.tar[w].q||null})),extras:p.ext,entregaSinPersonal:p.tw.includes("rent")?p.dlx.dl:null,personal:p.tw.includes("labor")?{perfiles:p.labor,politicas:p.lpol}:null,minimo:p.min,promo:p.promo,fotos:p.photos.length})),paquetesRuleta:(S.rpkgs||[]).map(p=>({id:p.id,nombre:p.name,productos:p.items,insumos:p.ins,staff:p.crew,personas:+p.pax,cobro:p.tw.map(w=>({modo:w,precio:+p.tar[w].p,unidad:p.tar[w].u})),extras:p.ext,entregaSinPersonal:p.tw.includes("rent")?p.dlx.dl:null,personal:p.tw.includes("labor")?{perfiles:p.labor,politicas:p.lpol}:null,minimo:p.min,promo:p.promo})),')
 
 CSS = '''
 /* ===== v20 · Mis servicios con la ruleta ===== */
@@ -105,7 +105,22 @@ CSS = '''
 .ru-toast .link{color:#BEFF00}
 .ctag{display:block;font-weight:600;font-size:11.5px;color:var(--muted)}
 .ru-ident .dlh{flex-wrap:wrap;min-width:0}.ru-ident .dlc{min-width:0}
-@media(max-width:560px){.ru-ident{padding:14px}.ru-steps,.ru-tsel{grid-template-columns:minmax(0,1fr)}.ru-masc{width:48px;height:48px}.ru-ex{grid-template-columns:minmax(0,1fr) 110px 24px;grid-template-areas:"c p x" "u u u"}.ru-ex .ru-exc{grid-area:c}.ru-ex .ru-money{grid-area:p}.ru-ex .ru-exu{grid-area:u}.ru-ex .ru-exx{grid-area:x}}
+.ru-note{display:block;background:rgba(0,195,137,.12);border-radius:12px;padding:7px 10px;font-size:13px;font-weight:700}
+.ru-tg .dlsec{margin-top:4px}.ru-tg .dlc{background:var(--card)}
+.ru-lr{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--card);border-radius:14px;padding:8px 10px}
+.ru-lr .ru-ln{min-width:120px;font-size:14px}.ru-lr .ru-money input{width:96px}.ru-lr .ru-q input{width:64px}.ru-lr select{width:auto}
+.ru-pol{display:grid;gap:8px;background:var(--card);border-radius:14px;padding:10px 12px;font-size:13.5px}
+.ru-pol label{display:block;line-height:1.7;font-weight:700}.ru-pol input[type=checkbox]{vertical-align:middle;margin:0 6px 0 0;width:18px;height:18px}.ru-pol input[type=number]{width:72px;padding:4px 8px}
+.ru-paxc{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px;align-items:center;background:linear-gradient(135deg,#BEFF00,#FAFA19);color:#1A2600;border-radius:24px;padding:18px;box-shadow:0 12px 26px rgba(120,140,0,.28)}
+.ru-paxm{width:70px;height:70px;object-fit:contain;filter:drop-shadow(0 6px 10px rgba(0,0,0,.2))}
+.ru-paxq{display:grid;gap:4px;min-width:0}
+.ru-paxl{font-size:clamp(19px,3.4vw,24px);font-weight:900;line-height:1.15}
+.ru-paxh{font-size:13px;font-weight:700;opacity:.8}
+.ru-paxi{display:flex;align-items:center;gap:10px;margin-top:4px}.ru-paxi input{width:130px;font-size:26px;font-weight:900;text-align:center;padding:8px 10px;border-radius:16px;border:3px solid #1A2600!important;background:#fff!important;color:#1A2600!important}
+.ru-paxi b{font-size:18px;font-weight:900}
+.ru-paxc #ruHost{grid-column:1/-1}.ru-paxc .ru-host{background:rgba(255,255,255,.75);color:#1A2600;margin:0}.ru-paxc .ru-host .hint{color:#4A5200!important}
+@media(max-width:560px){.ru-lr{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.ru-lr .ru-ln{grid-column:1/-1;padding-right:28px}.ru-lr .ru-lrm{position:absolute;top:6px;right:8px}.ru-lr select,.ru-lr .ru-money input{width:100%}.ru-lr .ru-q{flex-wrap:wrap}
+.ru-paxc{grid-template-columns:minmax(0,1fr)}.ru-paxm{position:absolute;top:-18px;right:10px;width:54px;height:54px}.ru-paxl{padding-right:48px}.ru-ident{padding:14px}.ru-steps,.ru-tsel{grid-template-columns:minmax(0,1fr)}.ru-masc{width:48px;height:48px}.ru-ex{grid-template-columns:minmax(0,1fr) 110px 24px;grid-template-areas:"c p x" "u u u"}.ru-ex .ru-exc{grid-area:c}.ru-ex .ru-money{grid-area:p}.ru-ex .ru-exu{grid-area:u}.ru-ex .ru-exx{grid-area:x}}
 @media (prefers-reduced-motion:reduce){.ru-masc.pop,.ru-reels.aligned::after{animation:none}}
 '''
 i = s.index('</style>')
