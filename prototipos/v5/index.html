@@ -507,6 +507,7 @@ button.link{border:0;background:none;color:#BE0078;font:inherit;font-weight:800;
 .sheet.celeb .todo .n{flex:0 0 26px;height:26px;border-radius:50%;background:#BEFF00;color:#1a1033;display:grid;place-items:center;font-weight:900}
 .sheet.celeb .hint{color:rgba(255,255,255,.85)!important}
 .sheet.celeb button.link{color:#fff}
+.pp2{display:grid;justify-items:end;text-align:right;line-height:1.15}.pp2 small{font-size:11.5px;color:var(--muted);font-weight:700}.why.mine span{background:rgba(190,255,0,.35)}
 
 /* ===== v12 · degradados de marca ===== */
 :root{--g-prov:linear-gradient(160deg,#9146FF 0%,#FA1ED2 100%);--g-host:linear-gradient(160deg,#FA1ED2 0%,#FF6905 100%);
@@ -625,7 +626,7 @@ input::placeholder,textarea::placeholder{color:var(--help)!important;opacity:1}
 <script src="config.js"></script>
 <script src="qr.js"></script>
 
-<div class="proto" id="proto"><b style="background:var(--hqv-vainilla);color:#3A2E00">PROTOTIPO v27</b><span>Precios provisionales. No se cobra nada ni se guardan datos.</span><span class="sp"></span><span class="who"><button class="pill sm" type="button" id="demo">👀 Ver como anfitrión</button><button class="pill sm" type="button" id="demoP">👀 Ver como proveedor</button></span><button class="pill sm" type="button" id="reset">↺ Empezar de nuevo</button></div>
+<div class="proto" id="proto"><b style="background:var(--hqv-vainilla);color:#3A2E00">PROTOTIPO v28</b><span>Precios provisionales. No se cobra nada ni se guardan datos.</span><span class="sp"></span><span class="who"><button class="pill sm" type="button" id="demo">👀 Ver como anfitrión</button><button class="pill sm" type="button" id="demoP">👀 Ver como proveedor</button></span><button class="pill sm" type="button" id="reset">↺ Empezar de nuevo</button></div>
 
 <header class="top"><div class="wrap in">
   <img class="logo" id="logoBtn" src="img/logo.webp" alt="¡Hay que vernos! — Inicio" width="900" height="358">
@@ -773,7 +774,7 @@ addEventListener("message",e=>{const d=e.data||{};if(!d.hqv)return;
   if(old){const nv=newEvent(d.fiesta);Object.assign(old,{f:nv.f,provs:nv.provs,interes:nv.interes});ev=old;}else{ev=newEvent(d.fiesta);U.events.unshift(ev);}U.editing=null;U.tab="fiestas";U.eventId=ev.id;closeJourney();show("acct");confetti();
   inbox("fiestas",`🎉 Tu ${ev.f.occ.toLowerCase()} quedó guardada. Ya hay ${ev.interes} proveedores interesados cerca de ti.`);
   toast(U.account==="invitado"?"🎉 Tu fiesta quedó guardada en tu cuenta":"🎉 Tu fiesta quedó guardada");return;}
- if(d.hqv==="negocio-publicado"){const x=d.datos||{};U.account="cuenta";U.name=x.nombre||U.name;U.wa=x.wa||U.wa;U.email=x.email||U.email;U.marketing=!!x.marketing;
+ if(d.hqv==="negocio-publicado"){const x=d.datos||{};setTimeout(()=>U.events.forEach(injectMine),0);U.account="cuenta";U.name=x.nombre||U.name;U.wa=x.wa||U.wa;U.email=x.email||U.email;U.marketing=!!x.marketing;
   U.sides.negocio=true;U.site=x;U.founder=U.founder||38;U.tab="negocio";U.neg=null;negState();(x.tipos||["services"]).forEach(t=>{const id=t==="services"?"svc":t;seedSol(id,id==="svc"?2:1);});closeJourney();show("acct");confetti();
   inbox("negocio",`🚀 ¡${x.negocio||"Tu negocio"} ya está en línea! Tu link: ${x.url}`);
   inbox("negocio","⭐ Eres proveedor fundador #38. Tu insignia es para siempre.");
@@ -805,7 +806,7 @@ function rankPlanners(f){return PLANNERS.map((p,i)=>({...p,i,score:.35*(1-p.km/2
 
 function normPl(p){if(!p)return null;return{n:p.n,img:p.c?`img/c_${p.c}.webp`:null,emo:p.e||"📋",z:p.z,y:p.y,r:p.r,neg:!!p.neg,fee:p.fee||p.f,sp:Array.isArray(p.sp)?p.sp.join(" · "):p.sp,b:p.b||""};}
 function newEvent(f){seed=Math.floor(f.total)%9973+11;const rows=(f.rows||[]).filter(r=>r.k!=="Planner"&&(r.amt>0||r.pend));
- const provs={};rows.forEach(r=>{provs[r.k]=providersFor(r);provs[r.k].forEach((x,i)=>x.neg=(x.nm.length+i)%3===0);});const interes=Object.values(provs).reduce((a,l)=>a+l.length,0);
+ const provs={};rows.forEach(r=>{provs[r.k]=providersFor(r);provs[r.k].forEach((x,i)=>x.neg=(x.nm.length+i)%3===0);});rows.forEach(r=>{provs[r.k]=mineFor(r,f).concat(provs[r.k]);});const interes=Object.values(provs).reduce((a,l)=>a+l.length,0);
  const pl=normPl(f.planner);
  return{id:"e"+now()+"_"+Math.floor(Math.random()*1e6),t:now(),f,provs,interes,opts:{prov:true,planner:!!pl},paid:null,
   planner:{state:null,cur:pl,tried:[],round:1,extra:false},late:false,showAll:{},rate:{},removed:0,check:{}};}
@@ -975,7 +976,7 @@ function bindSurvey(e){const v=e.sv,b=$("svBox");if(!b)return;
  $("svSend").onclick=()=>{if(!v.stars){toast("⭐ Califica tu fiesta para enviar");return;}e.surveyDone=true;const real=Object.values(v.real).reduce((a,x)=>a+(+x||0),0);
   track("encuesta_post_fiesta",{occ:e.f.occ,invitados:e.f.guests,estimado:e.f.total,real,diferencia_pct:e.f.total?Math.round((real-e.f.total)/e.f.total*100):0,por_proveedor:v.real,estrellas_proveedores:v.st,estrellas:v.stars});
   U.hostBadge=true;inbox("fiestas","🏅 Ganaste la insignia Co-constructor ¡HQV! y créditos para tu próxima fiesta.");confetti();drawAcct();};}
-function drawEvent(p){const e=getEv(),f=e.f;const past=daysTo(f.date)<0;e.versions=e.versions||[{f,t:e.t||now()}];
+function drawEvent(p){const e=getEv(),f=e.f;injectMine(e);const past=daysTo(f.date)<0;e.versions=e.versions||[{f,t:e.t||now()}];
  p.innerHTML=`<button class="pill sm" type="button" id="evBack">← Mis fiestas</button>
  <div class="grid2">
   <div style="display:grid;gap:16px;min-width:0">
@@ -1068,7 +1069,7 @@ function plOffer(e,step){const m=$("modal");e.plAsked=true;step=step||"ask";cons
 const WHY_NO=["Precio fuera de mi presupuesto", "No tenía mi fecha", "Elegí a otro proveedor", "Tardó en responder", "No respondió", "No ofrece lo que busco", "Pocas fotos o reseñas", "Condiciones de pago o anticipo", "Le queda lejos / cobra traslado", "Cambió o se canceló mi evento", "Otro"];
 function provCard(x,i,blur,e){const wa=`https://wa.me/525500000000?text=${encodeURIComponent(`Hola, vi tu perfil en ¡Hay que vernos! y me interesa para mi evento.`)}`;
  const key=x.nm,r=(e.rate||{})[key],pl=e.planner&&e.planner.state==="liberado"&&e.planner.cur;
- const top=`<div class="tp"><span class="av">${x.emo}</span><span class="grow" style="flex:1;min-width:0"><span class="rk">#${i+1} en compatibilidad${x.nuevo?" · Nuevo":""}</span><b class="${blur?"blur":""}">${esc(x.nm)}</b></span><b>${x.price==null?"Por cotizar":money(x.price)}</b></div>
+ const top=`<div class="tp"><span class="av">${x.emo}</span><span class="grow" style="flex:1;min-width:0"><span class="rk">#${i+1} en compatibilidad${x.nuevo?" · Nuevo":""}</span><b class="${blur?"blur":""}">${esc(x.nm)}</b></span>${x.price==null?"<b>Por cotizar</b>":x.unit?`<span class="pp2"><b>${money(x.price)}</b><small>${esc(x.unit)}</small></span>`:`<span class="pp2"><b>${money(Math.round(x.price/((e&&e.f&&e.f.guests)||1)))}</b><small>por persona · ${money(x.price)} total</small></span>`}</div>${x.mine?`<div class="why mine"><span>⭐ Tu negocio</span>${x.sub?`<span>🧾 ${esc(x.sub)}</span>`:""}</div>`:""}
  <div class="why"><span>📍 a ${x.km} km</span><span>⚡ responde en ${x.resp<60?x.resp+" min":Math.round(x.resp/60)+" h"}</span><span>⭐ ${x.rate} (${x.rev})</span>${x.neg?"<span>🤝 Negociable</span>":""}${x.fit>.8?"<span>✅ dentro de tu presupuesto</span>":""}${x.badges.map(b=>`<span><img src="img/b_${b}.webp" alt=""> ${{fundador:"Fundador",verificado:"Verificado",responde_ya:"Responde ya"}[b]}</span>`).join("")}</div>`;
  if(blur)return`<div class="prov">${top}${e&&!e.paid?'<button class="btn cta sm ctp" type="button">Contactar →</button>':""}</div>`;
  let low="";
@@ -1104,9 +1105,9 @@ function bindChecklist(e){document.querySelectorAll("[data-ck]").forEach(b=>b.on
 
 /* ---------- Planner: elegir uno, 24 h, aceptar o cambiar, doble confirmación ---------- */
 function plCardHtml(p,extra=""){return`<div class="plcard" id="plcard"><div class="hd"><span class="av">${p.img?`<img src="${p.img}" alt="">`:p.emo}</span><span style="flex:1;min-width:0"><b style="font-size:17px">${esc(p.n)}</b><span class="hint" style="display:block">⭐ ${p.r} · ${p.y} años · ${esc(p.z||"")}</span></span><b>Desde ${money(p.fee)}</b></div>${p.b?`<span>${esc(p.b)}</span>`:""}<span class="hint">${esc(p.sp||"")}</span>${extra}</div>`;}
-function plPool(e){const t=e.planner.tried.map(x=>x.n);return PLANNERS.map(normPl).filter(p=>!t.includes(p.n)&&(!e.planner.cur||p.n!==e.planner.cur.n));}
+function plPool(e){const t=e.planner.tried.map(x=>x.n);return myPlanners(e).concat(PLANNERS.map(normPl)).filter(p=>!t.includes(p.n)&&(!e.planner.cur||p.n!==e.planner.cur.n));}
 function plCardHtml(p,extra="",anim=false){return`<div class="plcard${anim?" hint-anim":""}" id="plcard"><div class="hd"><span class="av" data-plprof="1" title="Ver su perfil completo">${p.img?`<img src="${p.img}" alt="">`:p.emo}</span><span style="flex:1;min-width:0;cursor:pointer" data-plprof="1"><b style="font-size:17px">${esc(p.n)}</b><span class="hint" style="display:block">⭐ ${p.r} · ${p.y} años · ${esc(p.z||"")} · <u>ver perfil</u></span></span><span style="display:grid;justify-items:end;gap:4px"><b>Desde ${money(p.fee)}</b>${p.neg?'<span class="negt">🤝 Negociable</span>':""}</span></div>${p.b?`<span>${esc(p.b)}</span>`:""}<span class="hint">${esc(p.sp||"")}</span>${extra}</div>`;}
-function plPool(e){const t=e.planner.tried.map(x=>x.n);return PLANNERS.map(normPl).filter(p=>!t.includes(p.n)&&(!e.planner.cur||p.n!==e.planner.cur.n));}
+function plPool(e){const t=e.planner.tried.map(x=>x.n);return myPlanners(e).concat(PLANNERS.map(normPl)).filter(p=>!t.includes(p.n)&&(!e.planner.cur||p.n!==e.planner.cur.n));}
 function plannerBox(e){const P=e.planner,pk=P.cur,H=RG.horasRespuestaPlanner,usados=P.tried.length%3,quedan=3-usados;
  const pasos=`<ol class="nsteps"><li><span><b>CONTACTO</b>Tu event planner te escribirá por WhatsApp en menos de ${H} h para platicar tu pre-cotización y negociar entre ustedes.</span></li><li><span><b>CONFIRMACIÓN</b>Después de platicar, dinos si quieres o no hacer equipo con él o ella. Tienes 3 opciones.</span></li><li><span><b>ACCIÓN</b>Cuando tengamos su confirmación, les liberamos a los dos los contactos de tus proveedores.</span></li></ol>`;
  let body="",title="Tu event planner";const st=P.state||"esperando";
@@ -1451,4 +1452,27 @@ function confetti(){if(matchMedia("(prefers-reduced-motion: reduce)").matches)re
   if(++f<110)requestAnimationFrame(tick);else c.hidden=true;})();}
 
 drawTop();track("home_vista");
+
+/* ===== v28 · tu negocio publicado aparece en las fiestas que le corresponden, con tu precio real ===== */
+const hHr=t=>{const [a,b]=String(t||"0:0").split(":").map(Number);return(a||0)+(b||0)/60;};
+/* staff: turno de 5 h u hora, horas extra y recargo después de las 12, con el horario de la fiesta; usa la tarifa más conveniente */
+function hProf(r,pol,s,e){if(e<=s)e+=24;const H=e-s,pct=pol&&pol.night?(+pol.nightPct||0)/100:0,nt=h=>h>=24;let best=null;
+ (r.tars||[]).filter(t=>+t.p>0&&t.u).forEach(t=>{const p=+t.p;let tot=0;
+  if(t.u==="Por hora"){for(let h=s;h<e-1e-9;h++)tot+=nt(h)?p*(1+pct):p;}
+  else{const base=t.u==="Por turno (5 h)"?5:H;tot=p;const xh=Math.max(0,H-base);if(xh>0&&+r.xh>0){const xu=r.xu||"por hora";if(xu==="por hora"){for(let h=s+base;h<e-1e-9;h++)tot+=nt(h)?r.xh*(1+pct):+r.xh;}else tot+=(xu==="por turno de 5 h"?Math.ceil(xh/5):1)*r.xh;}}
+  if(best===null||tot<best)best=tot;});return Math.round(best||0);}
+function hOffer(o,f){const g=+f.guests||0,s=hHr(f.start||"18:00"),e=hHr(f.end||"23:00");
+ if(o.tipo==="staff")return{price:hProf(o,o.pol,s,e),unit:`por ${o.nombre.toLowerCase()} · ${f.start||"18:00"} a ${f.end||"23:00"}`,sub:o.nombre};
+ if(o.tipo==="venue"){const r=o.rent;let t=r.per==="hora"?r.precio*Math.max(r.horas,+f.hours||5):r.per==="persona"?r.precio*g:r.precio;if(r.per!=="persona"&&r.upTo&&g>r.upTo)t+=(g-r.upTo)*r.extra;return{price:Math.round(t),sub:o.nombre};}
+ if(o.tipo==="servicio"){const i=o.ins,mult=o.pax?Math.max(1,Math.ceil(g/o.pax)):1,base=i.u==="Por persona"?i.p*g:o.fixed?i.p*mult:i.p*(i.q||o.pax||g)*mult;
+  const staff=o.staff.reduce((a,r)=>a+(r.q*mult)*hProf(r,o.pol,s,e),0),F={};if(o.formas.includes("rent"))F.rent=Math.round(base);if(o.formas.includes("full"))F.full=Math.round(base+staff);
+  const price=F.rent!==undefined?F.rent:F.full;return{price,sub:o.nombre+": "+[F.rent!==undefined?`sin staff ${money(F.rent)}`:"",F.full!==undefined?`con staff ${money(F.full)} (con tu horario)`:""].filter(Boolean).join(" · ")};}
+ return null;}
+function mineFor(row,f){const S2=U.site;if(!S2||!S2.oferta)return[];return S2.oferta.filter(o=>o.cat===row.k).map(o=>{const q=hOffer(o,f);if(!q||!q.price)return null;
+ return{nm:S2.negocio||"Tu negocio",km:2.4,rate:5.0,rev:0,resp:5,price:q.price,unit:q.unit||null,sub:q.sub,badges:["fundador","responde_ya"],nuevo:true,fit:1,score:9,emo:row.e||"⭐",mine:true};}).filter(Boolean);}
+function injectMine(e){if(!e||!e.provs||!e.f)return;Object.keys(e.provs).forEach(k=>{const l=e.provs[k].filter(x=>!x.mine),em=(l[0]||{}).emo;e.provs[k]=mineFor({k,e:em},e.f).concat(l);});}
+/* tu event planner (o el que aceptó tu invitación) entra a la lista de planners de las fiestas */
+function myPlanners(e){const S2=U.site;if(!S2||!S2.oferta)return[];const tot=(e&&e.f&&e.f.total)||0;
+ return S2.oferta.filter(o=>o.tipo==="planner").map(o=>{let fee=null;(o.fees||[]).forEach(x=>{const a=+x.amount||0,t=x.unit==="porcentaje"?Math.max(a/100*tot,+x.min||0):x.unit==="invitado"?a*((e&&e.f&&e.f.guests)||0):x.unit==="hora"?a*5:a;if(t>0&&(fee===null||t<fee))fee=t;});
+  return{n:o.nombre,img:null,emo:"🧭",z:"",y:0,r:5.0,neg:false,fee:Math.round(fee||0),sp:(o.yo?"Tu perfil · ":"Planner de ")+(S2.negocio||"tu negocio"),b:o.bio||"",mine:true};});}
 </script>

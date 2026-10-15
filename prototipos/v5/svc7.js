@@ -214,9 +214,9 @@ function ruBindTags(root,id,L,src,onAdd,redraw){const w=root.querySelector(`.ru-
 let RU_EX={s:"18:00",e:"02:00"};
 function ruExHtml(p){const s=ruHr(RU_EX.s),e=ruHr(RU_EX.e),H=(e<=s?e+24:e)-s,pol=p.lpol,rows=p.labor.filter(ruTarsOk);if(!rows.length)return"";let sum=0;
  const L=rows.map(r=>{const q=ruProfQuote(r,pol,s,e),n=p.kind==="staff"?1:(+r.q||1);sum+=q.tot*n;return`<div class="ru-exr"><b>${n>1?n+" × ":""}${esc(r.n)}</b>${q.lines.map(l=>`<span>${esc(l)}</span>`).join("")}<span class="ru-ext">${money(q.tot)}${n>1?` c/u · ${money(q.tot*n)}`:""}</span></div>`;}).join("");
- const notes=[pol.ride&&e<=s?`🚕 El transporte de regreso lo cubre el anfitrión${+pol.rideFee>0?` (${money(pol.rideFee)} por persona)`:""}`:"",pol.meal&&H>5?"🍽️ Alimentos para el staff (fiesta de más de 5 h)":"",pol.uniform?"👔 Uniforme incluido":""].filter(Boolean);
+ const notes=[pol.ride&&e<=s?"🚕 El transporte de regreso del staff lo cubre el anfitrión":"",pol.meal&&H>5?"🍽️ Alimentos para el staff (fiesta de más de 5 h)":"",pol.uniform?"👔 Uniforme incluido":""].filter(Boolean);
  return`<div class="ru-host ru-exh"><b>👀 Así lo verá el anfitrión</b><div class="ru-exq"><span>Si su fiesta es de</span><input type="time" id="ruExS" value="${RU_EX.s}" aria-label="Empieza"><span>a</span><input type="time" id="ruExE" value="${RU_EX.e}" aria-label="Termina"><span>(${H} h)</span></div>${L}${p.kind==="staff"?"":`<div class="ru-exr ru-exsum"><b>Tu staff en esa fiesta</b><span class="ru-ext">${money(sum)}</span></div>`}${notes.map(n=>`<span class="ru-exn">${esc(n)}</span>`).join("")}<span class="hint">Usamos la tarifa que más le conviene al anfitrión.</span></div>`;}
-function ruHost(p){if(p.kind==="staff")return ruExHtml(p);const pax=+p.pax;if(!pax||!p.tw.length)return"";const L=p.tw.map(w=>{const r=ruTotal(p,w);return r?`<div class="ru-hr"><span class="ru-hl">${RU_TL[w][0]}</span><span class="ru-tot">${ruMoney(r.tot)}</span><small class="ru-ppx">total del evento · <b>${ruMoney(r.pp)}</b> por persona</small></div>`:"";}).filter(Boolean);
+function ruHost(p){if(p.kind==="staff")return ruExHtml(p);const pax=+p.pax;if(!pax||!p.tw.length)return"";const L=p.tw.map(w=>{const r=ruTotal(p,w);return r?`<div class="ru-hr"><span class="ru-hl">${RU_TL[w][0]}</span><span class="ru-tot">${ruMoney(r.pp)} <small>por persona</small></span><small class="ru-ppx"><b>${ruMoney(r.tot)}</b> total del evento</small></div>`:"";}).filter(Boolean);
  return L.length?`<div class="ru-host"><b>👀 Así lo verá el anfitrión</b><span class="hint">En una fiesta de ${pax} personas${p.tw.includes("full")?" (con staff: fiesta de 5 h)":""}:</span><div class="ru-hrows">${L.join("")}</div></div>`:"";}
 /* precio de los insumos: uno solo para «con» y «sin» personal */
 function ruInsHtml(p){const t=p.tar.i,cnt=t.u&&!RU_FIXED.includes(t.u);
@@ -242,7 +242,7 @@ function ruLaborHtml(p,staff){const sk=p.kind==="staff",rest=sk?[]:[...new Set(s
   ${sk?"":`<div class="ru-add"><span class="ru-sl">＋ Sumar perfil</span><div class="ru-addc">${rest.map(n=>`<button type="button" class="chip ru-lab-c" data-n="${esc(n)}">＋ ${esc(n)}${ruStaffBy(n)&&ruTarsOk(ruStaffBy(n).labor[0])?` <small>${money(ruStaffBy(n).labor[0].tars[0].p)}</small>`:""}</button>`).join("")}<button type="button" class="chip new ru-lab-o">✏️ Otro</button></div><div class="ru-labnew" hidden>${ruTags("labNew",[],"Otro perfil: escribe y Enter")}</div></div>`}
   <div class="ru-pols"><span class="ru-sl">📋 Tus políticas</span><div class="ru-pils">
    ${pill("night",L.night,"🌙 Recargo después de las 12 a.m.",`<label class="ru-pin">+<input type="number" min="0" class="ru-p-pct" value="${esc(L.nightPct)}" aria-label="Recargo nocturno">%</label>`)}
-   ${pill("ride",L.ride,"🚕 Transporte de regreso lo cubre el anfitrión",`<label class="ru-pin">$<input type="number" min="0" class="ru-p-fee" value="${esc(L.rideFee)}" placeholder="0" aria-label="Transporte por persona">c/u</label>`)}
+   ${pill("ride",L.ride,"🚕 Transporte de regreso lo cubre el anfitrión")}
    ${pill("meal",L.meal,"🍽️ Alimentos para el staff (+5 h)")}
    ${pill("uniform",L.uniform,"👔 Uniforme incluido")}</div>
    <span class="hint">El tiempo cuenta desde que tu staff llega. Viáticos fuera de zona se acuerdan.</span></div>
@@ -255,7 +255,7 @@ function ruIdentHtml(p){const sk=p.kind==="staff",pk=p.kind==="pkg",staff=[...ne
  ${sk?ruLaborHtml(p,staff):pk?`<div class="field ru-inc"><span class="lbl">¿Qué incluye?</span><span class="ru-sl">🧺 Además incluye <span class="opt">opcional</span></span>${ruTags("ins",p.ins,"Ej. centros de mesa, mantelería")}</div>
  <div class="field">${sug?`<div class="ru-sug">💡 Tus productos suman <b>${ruMoney(sug)}</b>${+p.pax?` · ${ruMoney(sug/ +p.pax)} por persona`:""}<button type="button" class="link" id="ruUseSug">Usar como precio</button></div>`:""}${ruPkgPriceHtml(p)}</div>`
  :`<div class="field ru-inc"><span class="lbl">¿Qué incluye?</span>
-  ${ruFood(p)?(ruTimed(p)?`<span class="ru-sl">🍴 Platillos por tiempo <span class="opt">escribe y te sugerimos</span></span>
+  ${ruFood(p)?(ruTimed(p)?`<span class="ru-sl">🍴 Opciones de platillos por tiempos <span class="opt">escribe y te sugerimos</span></span>
    ${p.courses.map((c,i)=>`<div class="ru-course" data-i="${i}"><div class="ru-ch"><input type="text" class="ru-cn" value="${esc(c.n)}" aria-label="Nombre del tiempo">${p.courses.length>1?`<button type="button" class="link bad ru-crm" aria-label="Quitar ${esc(c.n)}">✕</button>`:""}</div>${ruTags("course"+i,c.d,i===0?"Ej. crema de elote, sopa de fideo":"Escribe y te sugerimos")}</div>`).join("")}
    <span class="hint ru-comma">Separa los platillos con coma o Enter.</span><button type="button" class="link ru-cadd" style="justify-self:start">＋ Agregar tiempo</button>`
    :`<span class="ru-sl">🍴 Platillos <span class="opt">escribe y te sugerimos</span></span>${ruTags("course0",p.courses[0].d,"Ej. tacos al pastor, quesadillas")}<span class="hint ru-comma">Separa los platillos con coma o Enter.</span>`):""}
@@ -361,10 +361,10 @@ function ruDrawLists(){if(!$("ruProds"))return;ruDefaults();const P=S.rprods.fil
  $("ruProdH").textContent=`Tus productos (${P.length})`;
  $("ruProds").innerHTML=(RU_PICK&&ruVenueItem()?ruVenueCard():"")+(P.map(ruGroup).join("")||`<p class="ru-empty">Aún no guardas productos. Alinea los rodillos y toca «Guardar servicio».</p>`);
  const sw=$("ruStaffSec");if(sw){sw.hidden=!ST.length;$("ruStaffH").textContent=`🙋 Tu staff (${ST.length})`;$("ruStaff").innerHTML=ST.map(ruStaffCard).join("");}
- const lock=nRef<2;$("ruPkSec").classList.toggle("locked",lock);$("ruPkgH").textContent=lock?"🔒 Tus paquetes":`Tus paquetes (${K.length})`;
- $("ruPkgs").innerHTML=lock?`<p class="ru-lock">🔒 Se desbloquea cuando tengas 2 productos. ${nRef?"Te falta 1.":"Te faltan 2."} Después combinas tus productos en paquetes.</p>`:K.map(ruCard).join("")||`<p class="ru-empty">Toca «🎁 Armar un paquete» y elige qué combinar.</p>`;
+ const lock=P.length<2;$("ruPkSec").classList.toggle("locked",lock);$("ruPkgH").textContent=lock?"🔒 Tus paquetes":`Tus paquetes (${K.length})`;
+ $("ruPkgs").innerHTML=lock?`<p class="ru-lock">🔒 Se desbloquea cuando tengas 2 productos. ${P.length?"Te falta 1.":"Te faltan 2."} Después combinas tus productos en paquetes.</p>`:K.map(ruCard).join("")||`<p class="ru-empty">Toca «🎁 Armar un paquete» y elige qué combinar.</p>`;
  $("ruMk").disabled=lock;$("ruBar").hidden=!RU_PICK;$("ruBarT").textContent=RU_PICKED.length<2?"Elige 2 o más: servicios, staff"+(ruVenueItem()?", tu venue":"")+(ruPlanners().length?" o coordinación":""):`${RU_PICKED.length} elegidos`;$("ruGo").disabled=RU_PICKED.length<2;
- document.querySelectorAll(".ru-step2").forEach(x=>x.classList.toggle("on",!lock));
+ document.querySelectorAll(".ru-step2").forEach(x=>{x.classList.toggle("on",!lock);x.classList.toggle("locked",lock);x.onclick=()=>{if(x.classList.contains("locked"))ruLockPop(x);else{const k=$("ruPkSec");k&&k.scrollIntoView({behavior:RU_RM?"auto":"smooth",block:"start"});}};});
  const root=$("ruProds").closest(".panel")||document;
  root.querySelectorAll(".ru-pick").forEach(b=>b.onclick=()=>{const r=b.dataset.ref;RU_PICKED=RU_PICKED.includes(r)?RU_PICKED.filter(x=>x!==r):[...RU_PICKED,r];ruDrawLists();});
  const edit=(p,w)=>{RU_EDIT=JSON.parse(JSON.stringify(p));ruDrawIdent(!w);if(w)setTimeout(()=>{const t=document.querySelector(`#ruIdent .ru-tg[data-w="${w}"]`);(t||$("ruIdent")).scrollIntoView({behavior:RU_RM?"auto":"smooth",block:"start"});},30);};
@@ -451,14 +451,15 @@ function vnSvcHtml(v){const solo=!S.types.services,open=solo&&((S.rprods||[]).le
   <div class="vn-rows" id="vnRows">${vnRowsHtml(v)}</div>
   ${solo?`<details class="more vn-build"${open?" open":""}><summary>🧩 Arma tu servicio <span class="opt">comida, bebida, staff o lo que ofrezcas en tu venue</span></summary><div class="vn-bw">${ruBuilderHtml()}</div></details>`:`<button type="button" class="link" id="vnGoSvc" style="justify-self:start">＋ Agregar o cambiar productos en «Mis servicios»</button>`}
   <div class="polc${MISS(!!v.extAll)}"><b>🚪 ¿Pueden traer sus propios proveedores?</b><span class="hint">Para lo que no ofreces tú.</span><div class="chips">${[["si","Sí, todos"],["algunos","Solo algunos"],["no","No"]].map(([x,t])=>`<button type="button" class="chip p-ext" data-v="${x}" aria-pressed="${v.extAll===x}">${TICK}${t}</button>`).join("")}</div>
-   ${v.extAll==="algunos"?`<input type="text" id="v-extn" value="${esc(v.extAllNote)}" placeholder="¿Cuáles sí y cuáles no?" aria-label="Cuáles servicios externos">`:""}</div>
+   ${v.extAll==="algunos"?`<span class="ru-sl">🚫 ¿Cuáles no pueden traer?</span>${ruTags("extNo",v.extNo||(v.extNo=[]),"Ej. alimentos, bebidas y barra")}<span class="hint ru-comma">Sepáralos con coma o Enter.</span>`:""}</div>
   ${vnPkgHtml(v)}</div>`;}
 function vnGoSvc(){step=stepList().findIndex(s=>s.id==="svc");render();scrollTo({top:0,behavior:"instant"});}
 function vnBindRows(v){const box=$("vnRows");if(!box)return;box.querySelectorAll(".vn-r").forEach(R=>{const e=vnE(v,R.dataset.ref);R.querySelector(".vn-on").onclick=()=>{e.on=e.on===false;box.innerHTML=vnRowsHtml(v);vnBindRows(v);changed();};const i=R.querySelector(".vn-pi");if(i)i.oninput=x=>{e.p=x.target.value;changed();};});}
 function vnBindPk(v){const mk=$("vnMkPk");if(mk)mk.onclick=()=>{if($("ruProds")){const d=document.querySelector(".vn-build");if(d)d.open=true;ruStartPick(["venue"]);}else{S._pickVenue=true;vnGoSvc();}};
  document.querySelectorAll(".vn-ked").forEach(b=>b.onclick=()=>{const k=S.rpkgs.find(x=>x.id===b.dataset.id);if(!k)return;if($("ruIdent")){const d=document.querySelector(".vn-build");if(d)d.open=true;RU_EDIT=JSON.parse(JSON.stringify(k));ruDrawIdent(true);}else{S._editPkg=k.id;vnGoSvc();}});}
 function vnRefresh(){const v=S.venue;if(!v||!$("vnSvc"))return;const r=$("vnRows");if(r){r.innerHTML=vnRowsHtml(v);vnBindRows(v);}const k=$("vnPk");if(k){k.innerHTML=vnPkgInner();vnBindPk(v);}}
-function vnBind(v){vnBindRows(v);vnBindPk(v);const g=$("vnGoSvc");if(g)g.onclick=vnGoSvc;
+const HOST_CATS=()=>(window.HQV_SVC?HQV_SVC.cats.map(c=>c.n):[]).filter(n=>n!=="Espacios y hospedaje");
+function vnBind(v){vnBindRows(v);vnBindPk(v);const sv=$("vnSvc");if(sv)ruBindTags(sv,"extNo",v.extNo||(v.extNo=[]),HOST_CATS,x=>{const m=HOST_CATS().find(c=>nrm(c)===nrm(x))||x;if(!v.extNo.some(y=>nrm(y)===nrm(m)))v.extNo.push(m);},()=>{changed();const y=scrollY;drawVenue();scrollTo({top:y,behavior:"instant"});const i=document.querySelector('#vnSvc .ru-tags[data-t="extNo"] input');i&&i.focus({preventScroll:true});});const g=$("vnGoSvc");if(g)g.onclick=vnGoSvc;
  const d=document.querySelector(".vn-build");if(d){ruBindBuilder();d.ontoggle=()=>{v._build=d.open;if(d.open)requestAnimationFrame(()=>{for(let i=0;i<4;i++){ruCenter(i,Math.max(0,ruIdx(i,S.rsel[i])),false);ruPaint(i);}ruUpdate();});};}}
 const vnPkgs=()=>(S.rpkgs||[]).filter(k=>k.items.includes("venue"));
 /* en el sitio del venue */
@@ -507,7 +508,7 @@ function ruInviteeView(i){const md=ruModal(`<span class="ru-embk">LO QUE RECIBE 
    <label class="ru-invck"><input type="checkbox" id="iaOk"> Acepto ser event planner de «${esc(S.biz.name||"su negocio")}» y que muestre mi coordinación en sus paquetes.</label><span class="err" id="iaErr" hidden></span>
    <button type="button" class="btn cta" id="iaGo">Crear cuenta y aceptar</button><button type="button" class="link" id="iaNo" style="color:#fff">No, gracias</button></div>`,"ru-inv");
  $("iaNo").onclick=()=>{const ix=S.invites.indexOf(i);S.invites.splice(ix,1);md.remove();ruDrawLists();changed();ruToast(`${i.name} no aceptó: borramos sus datos.`);};
- $("iaGo").onclick=()=>{if(!$("iaOk").checked){const e=$("iaErr");e.hidden=false;e.textContent="Marca la casilla para aceptar el rol.";$("iaOk").focus();return;}i.name=$("iaN").value.trim()||i.name;md.remove();ruInviteeFees(i);};}
+ $("iaGo").onclick=()=>{if(!$("iaOk").checked){const e=$("iaErr");e.hidden=false;e.textContent="Marca la casilla para aceptar el rol.";$("iaOk").focus();return;}i.name=$("iaN").value.trim()||i.name;md.remove();ruInviteeProfile(i);};}
 function ruInviteeFees(i){const F=i.fees.length?i.fees:[{amount:"",unit:"evento",min:""},{amount:"",unit:"porcentaje",min:""}];
  const md=ruModal(`<span class="ru-embk">PERFIL DE EVENT PLANNER · ${esc(i.name.toUpperCase())}</span><h2>¿Cómo cobras por coordinar?</h2><span>Llena una o las dos. El anfitrión ve la que más le conviene.</span>
   <div class="ru-invf"><label class="ru-invr"><span>Precio fijo por evento</span><span class="ru-fi"><i>$</i><input type="number" min="0" id="ifA" value="${esc(F[0].amount)}" placeholder="0"></span></label>
@@ -538,8 +539,50 @@ function ruPkgGate(){const nP=(S.rprods||[]).filter(x=>x.kind==="prod").length,n
 /* tu perfil de planner arrastra los datos de tu perfil personal */
 function ruPrefillPlanner(){const p=S.planner,b=S.biz,me=S.me||{};if(!filled(p.person))p.person=b.owner||"";if(!p.photo&&me.photo)p.photo=me.photo;
  ["instagram","tiktok","facebook"].forEach(k=>{if(!filled(p[k]||"")&&filled(me[k]||""))p[k]=me[k];});if(!(p.links||[]).length&&(me.links||[]).length)p.links=JSON.parse(JSON.stringify(me.links));p.socialFromBiz=false;
- if(!p.since&&b.founded)p.since=b.founded.slice(0,4);if(!(p.zones||[]).some(z=>z.state)&&(S.svcZones||[]).some(z=>z.state))p.zones=JSON.parse(JSON.stringify(S.svcZones));}
+ plSync();if(!(p.zones||[]).some(z=>z.state)&&(S.svcZones||[]).some(z=>z.state))p.zones=JSON.parse(JSON.stringify(S.svcZones));}
 /* aviso arriba de «Mi venue» y «Mi perfil de planner» mientras se preparan los paquetes */
 function ruQueueBannerHtml(id){const Q=S._pkgQueue;if(!Q||!Q.includes(id))return"";const nx=Q[Q.indexOf(id)+1];
  return`<div class="alert info ru-qb">🎁 <span>Estás preparando tus paquetes.${id==="planner"?" Pusimos los datos de tu perfil personal; revisa y agrega tu tarifa.":""} Cuando termines:</span><button type="button" class="btn sm" onclick="ruQueueNext('${id}')">${nx==="planner"?"Seguir a mi perfil de planner →":"Volver a armar paquetes →"}</button></div>`;}
 function ruQueueNext(id){const Q=S._pkgQueue||[],nx=Q[Q.indexOf(id)+1];if(nx){ruGoStep(nx);return;}S._pkgQueue=null;S._pickStart=true;ruGoStep("svc");}
+
+/* ===== v28 · la persona invitada termina su perfil ya dentro de su cuenta ===== */
+function ruInviteeProfile(i){const b=S.biz,F=i.fees&&i.fees.length?i.fees:[];const fx=F.find(f=>f.unit==="evento")||{},pc=F.find(f=>f.unit==="porcentaje")||{};i.prof=i.prof||{bio:"",instagram:"",tiktok:"",facebook:"",useBiz:false};const P=i.prof;
+ const md=ruModal(`<span class="ru-embk">✅ CUENTA CREADA · ${esc(i.name.toUpperCase())}</span><h2>Tu perfil de event planner</h2><span>Ya estás dentro de tu cuenta. Pusimos tus datos; revisa y agrega tus tarifas. Tu perfil queda ligado a «${esc(b.name||"su negocio")}».</span>
+  <div class="ru-invf"><div class="ru-invp"><span class="ru-invav">🙂</span><span><b>${esc(i.name)}</b><small>${esc([i.wa?waShow(i.waCC,i.wa):"",i.email].filter(Boolean).join(" · "))}</small><small>🧭 Event planner de ${esc(b.name||"su negocio")}</small></span></div>
+  <button type="button" class="btn ghost sm" id="ipBiz">${P.useBiz?"✓ Usando la bio y redes del negocio":"Usar la bio y redes de «"+esc(b.name||"el negocio")+"»"}</button>
+  <textarea id="ipBio" rows="3" placeholder="Tu bio: cuéntales quién eres y cómo trabajas">${esc(P.bio)}</textarea><input type="text" id="ipIg" value="${esc(P.instagram)}" placeholder="📸 Tu Instagram (opcional)">
+  <b>💲 ¿Cómo cobras por coordinar?</b><span class="hint" style="color:rgba(255,255,255,.85)!important">Llena una o las dos. El anfitrión ve la que más le conviene.</span>
+  <label class="ru-invr"><span>Precio fijo por evento</span><span class="ru-fi"><i>$</i><input type="number" min="0" id="ifA" value="${esc(fx.amount||"")}" placeholder="0"></span></label>
+  <label class="ru-invr"><span>Porcentaje del total del evento</span><span class="ru-fi"><input type="number" min="0" max="100" id="ifP" value="${esc(pc.amount||"")}" placeholder="10"><i>%</i></span></label>
+  <label class="ru-invr"><span>Mínimo si cobras por porcentaje <small>(opcional)</small></span><span class="ru-fi"><i>$</i><input type="number" min="0" id="ifM" value="${esc(pc.min||"")}" placeholder="0"></span></label>
+  <span class="err" id="ifErr" hidden></span><button type="button" class="btn cta" id="ifGo">Guardar mi perfil</button></div>`,"ru-inv");
+ $("ipBiz").onclick=()=>{P.useBiz=!P.useBiz;if(P.useBiz){P.bio=b.about||"";P.instagram=b.instagram||"";P.tiktok=b.tiktok||"";P.facebook=b.facebook||"";}$("ipBio").value=P.bio;$("ipIg").value=P.instagram;$("ipBiz").textContent=P.useBiz?"✓ Usando la bio y redes del negocio":"Usar la bio y redes de «"+(b.name||"el negocio")+"»";};
+ $("ipBio").oninput=e=>{P.bio=e.target.value;};$("ipIg").oninput=e=>{P.instagram=e.target.value;};
+ $("ifGo").onclick=()=>{const a=$("ifA").value,p=$("ifP").value,m=$("ifM").value;if(!(+a>0)&&!(+p>0)){const e=$("ifErr");e.hidden=false;e.textContent="Pon al menos una forma de cobrar.";$("ifA").focus();return;}
+  i.fees=[+a>0?{amount:a,unit:"evento",min:""}:null,+p>0?{amount:p,unit:"porcentaje",min:m}:null].filter(Boolean);i.status="aceptada";md.remove();ruDrawLists();changed();ruConfetti(90);ruToast(`🧭 ${i.name} aceptó: ya puedes sumarle a tus paquetes.`);};}
+/* ===== v28 · tu planner: bio y fecha de fundación ligadas a «Mi negocio» ===== */
+function plSync(){const p=S.planner,b=S.biz;if(!p)return;if(p.bioLink!==false){p.bio=b.about||p.bio||"";if(!b.about&&p.bio)b.about=p.bio;}if(b.founded){p.founded=b.founded;p.since=b.founded.slice(0,4);}}
+/* ===== v28 · conexión con el anfitrión ===== */
+/* las categorías del proveedor (22) se unen con las del cotizador del anfitrión (19) */
+const RU_HOSTCAT={"Catering":"Alimentos","Música":"Música y espectáculos","Entretenimiento y shows":"Música y espectáculos","Infraestructura":"Estructuras e infraestructura","Mobiliario y montaje":"Mobiliario y equipo de banquete","Cristalería y cubertería":"Mobiliario y equipo de banquete","Audio, iluminación, foto y video":"Audio, video e iluminación","Tecnología":"Tecnología y registro","Registro y protocolo":"Tecnología y registro","Decoración y ambientación":"Decoración y flores","Marketing y comunicación":"Servicios profesionales y efectos","Exposición y negocios":"Servicios profesionales y efectos","Permisos y trámites":"Servicios profesionales y efectos","Transporte":"Transporte y logística","Hospedaje":"Espacios y hospedaje","Maquillaje y estilismo":"Imagen personal y ceremonias","Vestuario y accesorios":"Imagen personal y ceremonias","Souvenirs y regalos":"Diseño, impresión y regalos","Impresión y producción gráfica":"Diseño, impresión y regalos","Seguridad, salud y protección civil":"Seguridad, salud y accesibilidad","Actividades y experiencias":"Experiencias y actividades","Sustentabilidad y limpieza":"Limpieza y sostenibilidad"};
+function ruHostCat(p){if(p.kind==="staff"||p.dims[1]==="Personal independiente")return"Personal";const [a,b]=p.dims;
+ if(a==="Catering"){if(b==="Bebidas")return"Bebidas y barra";if(b==="Renta de equipo de cocina")return"Mobiliario y equipo de banquete";return"Alimentos";}
+ if(a==="Audio, iluminación, foto y video"&&/Fotograf|Video|Cabinas|Postprod|Producción audiovisual|Streaming/.test(b))return"Fotografía y contenido";return RU_HOSTCAT[a]||a;}
+/* lo que se envía al publicar (contrato con producción) */
+function ruPayload(){ruDefaults();const v=S.venue||{},tar=t=>({precio:+t.p||0,unidad:t.u||null,cantidad:+t.q||null}),st=r=>({perfil:r.n,cantidad:+r.q||1,tarifas:(r.tars||[]).map(t=>({precio:+t.p||0,unidad:t.u})),extra:{precio:+r.xh||0,unidad:r.xu||null}});
+ const prods=(S.rprods||[]).filter(p=>p.kind==="prod"),staff=(S.rprods||[]).filter(p=>p.kind==="staff");
+ return{productos:prods.map(p=>({id:p.id,categoria:p.dims[0],servicio:p.dims[1],formato:p.dims[2],detalle:p.dims[3],detalleOtro:p.otro||null,categoriaAnfitrion:ruHostCat(p),nombre:p.name,personas:+p.pax,
+   tiempos:ruTimed(p)?p.courses.map(c=>({tiempo:c.n,platillos:c.d})):null,platillos:ruDishes(p),incluye:p.ins,precioServicio:tar(p.tar.i),
+   formas:p.tw.map(w=>({forma:w==="full"?"con_staff":"sin_staff",staff:w==="full"?p.labor.map(st):null,politicasStaff:w==="full"?p.lpol:null,entregas:w==="rent"?p.dlx.dl:null,totalEjemplo:(ruTotal(p,w)||{}).tot||null})),
+   cobertura:p.cov.same?"zona_general":p.cov.zones,extras:p.ext,minimo:p.min,promo:p.promo,fotos:p.photos.length,emblema:p.emb||null})),
+  staff:staff.map(p=>({id:p.id,categoria:p.dims[0],categoriaAnfitrion:"Personal",...st(p.labor[0]),politicas:p.lpol,cobertura:p.cov.same?"zona_general":p.cov.zones})),
+  paquetesRuleta:(S.rpkgs||[]).map(p=>({id:p.id,nombre:p.name,piezas:p.items.map(r=>({ref:r,nombre:ruItemName(r,p),cantidad:+(p.qty&&p.qty[r])||1})),incluye:p.ins,personas:+p.pax,precio:tar(p.tar.full),sumaDePiezas:Math.round(ruSug(p)),minimo:p.min,promo:p.promo})),
+  venueServicios:S.types.venue?{ofrece:Object.entries(v.svcIn||{}).map(([ref,e])=>({ref,ofrece:e.on!==false,precioEnVenue:+e.p||null})),proveedoresExternos:v.extAll||null,noPermitidos:v.extAll==="algunos"?(v.extNo||[]):[]}:null,
+  plannersInvitados:(S.invites||[]).map(i=>({nombre:i.name,whatsapp:i.wa?waIntl(i.waCC,i.wa):null,correo:i.email||null,estado:i.status,tarifas:i.status==="aceptada"?i.fees:null})),
+  oferta:ruOferta()};}
+/* versión cotizable para el lado del anfitrión: el cotizador calcula con los invitados y el horario de cada fiesta */
+function ruOferta(){const out=[],v=S.venue||{};
+ (S.rprods||[]).filter(p=>ruOk(p)).forEach(p=>{if(p.kind==="staff"){const r=p.labor[0];out.push({tipo:"staff",cat:"Personal",nombre:p.name,tars:r.tars,xh:+r.xh||0,xu:r.xu,pol:p.lpol});return;}
+  out.push({tipo:"servicio",cat:ruHostCat(p),nombre:p.name,pax:+p.pax,ins:{p:+p.tar.i.p,u:p.tar.i.u,q:+p.tar.i.q||0},fixed:RU_FIXED.includes(p.tar.i.u),formas:p.tw,staff:p.tw.includes("full")?p.labor.map(r=>({n:r.n,q:+r.q||1,tars:r.tars,xh:+r.xh||0,xu:r.xu})):[],pol:p.lpol});});
+ const vi=ruVenueItem();if(vi&&v.rent&&+v.rent.price>0)out.push({tipo:"venue",cat:"Venue",nombre:v.name,rent:{precio:+v.rent.price,per:v.rent.per,upTo:+v.rent.upTo||0,extra:+v.rent.perExtraGuest||0,horas:+v.hoursIncl||5},cap:+v.seated||0});
+ ruPlanners().forEach(x=>out.push({tipo:"planner",cat:"Planner",nombre:x.who,fees:x.fees,yo:!!x.me,bio:x.me?(S.planner.bio||""):""}));return out;}
