@@ -131,6 +131,11 @@ CSS = '''
 .ru-emb span{position:absolute;bottom:30px;background:#1A2600;color:#BEFF00;font-size:11px;font-weight:900;letter-spacing:.14em;border-radius:99px;padding:3px 10px}
 @keyframes ruEmbIn{0%{transform:scale(.3) rotate(-30deg)}100%{transform:none}}
 .ru-embmini{margin-right:4px}.ms-sv{background:rgba(190,255,0,.9);color:#1A2600;border-radius:99px;padding:2px 9px;font-size:12px;font-weight:900}
+.ru-tg,.ru-labr,.ru-lt,.ru-add,.ru-pols,.ru-addc,.ru-pils,.ru-cov{min-width:0;max-width:100%}
+.ru-labr{container-type:inline-size}
+@container (max-width:720px){.ru-labr .ru-lhd{display:none}.ru-labr .ru-lr{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 24px;grid-template-areas:"n n x" "q p p" "u u u" "m h h";row-gap:8px;column-gap:6px;padding:8px 10px}.ru-labr .ru-ln{display:block;min-width:0;font-size:15px}.ru-labr .ru-stp{width:100%;min-width:0}.ru-labr .ru-mn,.ru-labr .ru-xh{min-width:0;justify-content:flex-start}.ru-labr .ru-mn input,.ru-labr .ru-xh input{flex:1;min-width:0;width:auto}.ru-labr .ru-ln{grid-area:n}.ru-labr .ru-stp{grid-area:q}.ru-labr .ru-lr .ru-lrm{grid-area:x}.ru-labr .ru-lr .ru-money{grid-area:p}.ru-labr .ru-lr .ru-lu{grid-area:u}.ru-labr .ru-mn{grid-area:m}.ru-labr .ru-xh{grid-area:h}.ru-mn::before{content:"mín. ";font-weight:800;font-size:12px}.ru-xh::before{content:"extra ";white-space:nowrap;font-weight:800;font-size:12px;margin-right:2px}.ru-pill{max-width:100%;flex-wrap:wrap}.ru-pt{white-space:normal;text-align:left}}
+.ru-stb{background:linear-gradient(135deg,#00C389,#BEFF00);color:#0B2A1F;border-radius:99px;padding:2px 9px;font-size:11px;font-weight:900;width:fit-content}
+.ru-confl{gap:10px}.ru-cf{display:grid;gap:6px;justify-items:center;background:rgba(255,255,255,.12);border-radius:14px;padding:10px;width:100%}
 .ru-pksec{display:grid;gap:12px}.ru-pksec.locked .ru-lh h3{color:var(--muted)}
 .ru-lock{margin:0;border:2px dashed var(--line);border-radius:18px;padding:14px;color:var(--muted);font-weight:700;background:repeating-linear-gradient(-45deg,transparent 0 10px,rgba(145,70,255,.05) 10px 20px)}
 .ru-pol{display:grid;gap:8px;background:var(--card);border-radius:14px;padding:10px 12px;font-size:13.5px}
@@ -143,8 +148,7 @@ CSS = '''
 .ru-paxi{display:flex;align-items:center;gap:10px;margin-top:4px}.ru-paxi input{width:130px;font-size:26px;font-weight:900;text-align:center;padding:8px 10px;border-radius:16px;border:3px solid #1A2600!important;background:#fff!important;color:#1A2600!important}
 .ru-paxi b{font-size:18px;font-weight:900}
 .ru-paxc #ruHost{grid-column:1/-1}.ru-paxc .ru-host{background:rgba(255,255,255,.75);color:#1A2600;margin:0}.ru-paxc .ru-host .hint{color:#4A5200!important}
-@media(max-width:560px){.ru-lhd{display:none!important}.ru-lr{grid-template-columns:minmax(0,1fr) 100px 24px!important;grid-template-areas:"n q x" "p u u" "m h h"!important;row-gap:6px!important}.ru-ln{grid-area:n}.ru-stp{grid-area:q}.ru-lr .ru-lrm{grid-area:x}.ru-lr .ru-money{grid-area:p}.ru-lr .ru-lu{grid-area:u}.ru-mn{grid-area:m}.ru-xh{grid-area:h}.ru-mn::before{content:"mín. ";font-weight:800;font-size:12px}.ru-xh::before{content:"extra ";white-space:nowrap;font-weight:800;font-size:12px;margin-right:2px}
-.ru-paxc{grid-template-columns:minmax(0,1fr)}.ru-paxm{position:absolute;top:-18px;right:10px;width:54px;height:54px}.ru-paxl{padding-right:48px}.ru-ident{padding:14px}.ru-steps,.ru-tsel{grid-template-columns:minmax(0,1fr)}.ru-masc{width:48px;height:48px}.ru-ex{grid-template-columns:minmax(0,1fr) 110px 24px;grid-template-areas:"c p x" "u u u"}.ru-ex .ru-exc{grid-area:c}.ru-ex .ru-money{grid-area:p}.ru-ex .ru-exu{grid-area:u}.ru-ex .ru-exx{grid-area:x}}
+@media(max-width:560px){.ru-paxc{grid-template-columns:minmax(0,1fr)}.ru-paxm{position:absolute;top:-18px;right:10px;width:54px;height:54px}.ru-paxl{padding-right:48px}.ru-ident{padding:14px}.ru-steps,.ru-tsel{grid-template-columns:minmax(0,1fr)}.ru-masc{width:48px;height:48px}.ru-ex{grid-template-columns:minmax(0,1fr) 110px 24px;grid-template-areas:"c p x" "u u u"}.ru-ex .ru-exc{grid-area:c}.ru-ex .ru-money{grid-area:p}.ru-ex .ru-exu{grid-area:u}.ru-ex .ru-exx{grid-area:x}}
 @media (prefers-reduced-motion:reduce){.ru-masc.pop,.ru-reels.aligned::after{animation:none}}
 '''
 i = s.index('</style>')
