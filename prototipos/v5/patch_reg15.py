@@ -17,7 +17,7 @@ a = s.index('  S.services.forEach((s,i)=>{svcDefaults(s);const n=catOf(s.cat)?s.
 b = s.index('  if(!filled(S.svcVar))', a)
 s = s[:a] + '  ruMissStep(m);\n' + s[b:]
 rep('function preview(){ensureState();', 'function preview(){ensureState();if(S.types&&S.types.services)ruSyncServices();')
-rep(' x.svcPkgs=[{name:"Paquete Fiesta Mexicana"', ' {const D=ruDemo();x.rprods=D.prods;x.rpkgs=D.pkgs;x.rsel=["Catering","Bebidas","Barra de café","Espresso"];}\n x.svcPkgs=[{name:"Paquete Fiesta Mexicana"')
+rep(' x.svcPkgs=[{name:"Paquete Fiesta Mexicana"', ' {const D=ruDemo();x.rprods=D.prods;x.rpkgs=D.pkgs;x.remb=3;x.rsel=["Catering","Bebidas","Barra de café","Espresso"];}\n x.svcPkgs=[{name:"Paquete Fiesta Mexicana"')
 rep('variabilidad:S.svcVar,', 'variabilidad:S.svcVar,productos:(S.rprods||[]).map(p=>({id:p.id,categoria:p.dims[0],servicio:p.dims[1],formato:p.dims[2],detalle:p.dims[3],detalleOtro:p.otro||null,nombre:p.name,platillos:p.dishes,insumos:p.ins,staff:p.crew,personas:+p.pax,cobro:p.tw.map(w=>({modo:w,precio:+p.tar[w].p,unidad:p.tar[w].u,cantidad:+p.tar[w].q||null})),extras:p.ext,entregaSinPersonal:p.tw.includes("rent")?p.dlx.dl:null,personal:p.tw.includes("labor")?{perfiles:p.labor,politicas:p.lpol}:null,minimo:p.min,promo:p.promo,fotos:p.photos.length})),paquetesRuleta:(S.rpkgs||[]).map(p=>({id:p.id,nombre:p.name,productos:p.items,insumos:p.ins,staff:p.crew,personas:+p.pax,cobro:p.tw.map(w=>({modo:w,precio:+p.tar[w].p,unidad:p.tar[w].u})),extras:p.ext,entregaSinPersonal:p.tw.includes("rent")?p.dlx.dl:null,personal:p.tw.includes("labor")?{perfiles:p.labor,politicas:p.lpol}:null,minimo:p.min,promo:p.promo})),')
 
 CSS = '''
@@ -124,6 +124,13 @@ CSS = '''
 .ru-pill[aria-pressed="true"]{border-color:#9146FF;background:rgba(145,70,255,.12)}
 .ru-pt{border:0;background:none;font:inherit;font-weight:800;font-size:13px;padding:6px 10px;color:var(--ink);cursor:pointer}
 .ru-pin{display:flex;align-items:center;gap:3px;font-weight:900;font-size:13px;padding-right:6px}.ru-pin input{width:58px;padding:4px 6px!important}
+.ru-embs{gap:12px}.ru-embk{font-size:11px;font-weight:900;letter-spacing:.14em;color:#BEFF00}
+.ru-emb{position:relative;width:150px;height:166px;display:grid;place-items:center;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:linear-gradient(160deg,#BEFF00,#FAFA19 45%,#FF6905);animation:ruEmbIn .6s cubic-bezier(.3,1.6,.5,1)}
+.ru-emb::before{content:"";position:absolute;inset:8px;clip-path:inherit;background:linear-gradient(160deg,#9146FF,#FA1ED2)}
+.ru-emb img{position:relative;width:86px;height:86px;object-fit:contain;margin-top:-14px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.3))}
+.ru-emb span{position:absolute;bottom:30px;background:#1A2600;color:#BEFF00;font-size:11px;font-weight:900;letter-spacing:.14em;border-radius:99px;padding:3px 10px}
+@keyframes ruEmbIn{0%{transform:scale(.3) rotate(-30deg)}100%{transform:none}}
+.ru-embmini{margin-right:4px}.ms-sv{background:rgba(190,255,0,.9);color:#1A2600;border-radius:99px;padding:2px 9px;font-size:12px;font-weight:900}
 .ru-pksec{display:grid;gap:12px}.ru-pksec.locked .ru-lh h3{color:var(--muted)}
 .ru-lock{margin:0;border:2px dashed var(--line);border-radius:18px;padding:14px;color:var(--muted);font-weight:700;background:repeating-linear-gradient(-45deg,transparent 0 10px,rgba(145,70,255,.05) 10px 20px)}
 .ru-pol{display:grid;gap:8px;background:var(--card);border-radius:14px;padding:10px 12px;font-size:13.5px}
@@ -142,5 +149,6 @@ CSS = '''
 '''
 i = s.index('</style>')
 s = s[:i] + CSS + s[i:]
+rep('<div class="ms-emb"><img src="img/b_fundador.webp" alt="">Fundador #38', '<div class="ms-emb">${(S.rprods||[]).length?`<span class="ms-sv">🏅 ${(S.rprods||[]).length} ${(S.rprods||[]).length===1?"servicio":"servicios"}</span>`:""}<img src="img/b_fundador.webp" alt="">Fundador #38')
 (V / 'reg15.html').write_text(s)
 print('ok reg15', len(s))

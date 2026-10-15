@@ -1,4 +1,5 @@
-/* ===== v22: sin saltos de pantalla al elegir; paquetes bloqueados hasta 2 productos; «Solo tu personal» compacto (filas, ± y políticas en botones).
+/* ===== v23: confeti propio (al alinear, al guardar producto o paquete) y emblema «Servicio» por cada producto terminado; «ruleta» pasa a «Arma tu servicio» en pantalla.
+   ===== v22: sin saltos de pantalla al elegir; paquetes bloqueados hasta 2 productos; «Solo tu personal» compacto (filas, ± y políticas en botones).
    ===== v21 · Mis servicios con la ruleta (Diego, 15 oct 2026) =====
    v21: la entrega vive dentro de «¿Cómo lo cobras?»: Completo = entrega incluida; Sin personal = sin «¿cuántas piezas?» y con
    «¿Cómo lo entregas?» (a domicilio con su cobro, condiciones y ejemplo / recoger en mi local con la dirección del negocio);
@@ -27,6 +28,14 @@ const RU_EXTRAS=["Hora extra","Persona extra","Mesero extra","Bartender extra","
 const RU_EXU={"hora extra":"por hora","persona extra":"por persona","mesero extra":"por mesero","bartender extra":"por bartender","kilo extra":"por kilo","pieza extra":"por pieza","botella extra":"por botella","traslado fuera de zona":"por viaje","montaje especial":"por evento"};
 const ruExU=c=>RU_EXU[nrm(c).trim()]||(/hora/i.test(c)?"por hora":/kilo|kg/i.test(c)?"por kilo":/persona/i.test(c)?"por persona":"por evento");
 const RU_TL={full:["🎉 Completo","Con tu equipo y tu personal"],rent:["📦 Sin personal","Lo llevas o lo recogen"],labor:["🙋 Solo tu personal","Con los insumos del cliente"]};
+function ruConfetti(n){if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;let c=document.getElementById("ruConf");if(!c){c=document.createElement("canvas");c.id="ruConf";c.style.cssText="position:fixed;inset:0;pointer-events:none;z-index:120";document.body.appendChild(c);}
+ const x=c.getContext("2d");c.width=innerWidth;c.height=innerHeight;const cols=["#7B2FF7","#FA1ED2","#FF6905","#BEFF00","#FAFA19","#00C389"];
+ const P=Array.from({length:n||120},()=>({x:innerWidth*(.25+Math.random()*.5),y:innerHeight*.35,vx:(Math.random()-.5)*14,vy:-Math.random()*13-4,s:5+Math.random()*6,c:cols[Math.random()*6|0],a:Math.random()*6}));let f=0;
+ (function go(){x.clearRect(0,0,c.width,c.height);P.forEach(q=>{q.vy+=.33;q.x+=q.vx;q.y+=q.vy;q.a+=.2;x.save();x.translate(q.x,q.y);x.rotate(q.a);x.fillStyle=q.c;x.fillRect(-q.s/2,-q.s/2,q.s,q.s*.6);x.restore();});if(++f<110)requestAnimationFrame(go);else x.clearRect(0,0,c.width,c.height);})();}
+function ruEmblem(p){const n=S.remb,m=ruMasc(p.dims);const md=document.createElement("div");md.className="rmodal";
+ md.innerHTML=`<div class="rsheet ru-embs"><span class="ru-embk">🏅 NUEVO EMBLEMA</span><div class="ru-emb"><img src="img/${m}.webp" alt=""><span>SERVICIO</span></div><h2>¡${esc(p.name)} ya está listo!</h2><span>Ganaste el emblema de <b>Servicio de ${esc(p.dims[0])}</b>. Llevas <b>${n}</b> ${n===1?"servicio":"servicios"} en tu sitio.</span>
+  <span class="hint" style="color:rgba(255,255,255,.85)!important">${(S.rprods||[]).length>=2?"Ya puedes combinar tus productos en paquetes.":"Con un producto más desbloqueas los paquetes."}</span><button type="button" class="btn cta" id="ruEmbOk">¡Seguir! 🎉</button></div>`;
+ document.body.appendChild(md);const close=()=>md.remove();md.querySelector("#ruEmbOk").onclick=close;md.onclick=e=>{if(e.target===md)close();};hqvTrack("emblema_servicio",{n});}
 let RU_EDIT=null,RU_PICK=false,RU_PICKED=[],RU_BUSY=[null,null,null,null],RU_DRAG=null,RU_MOVED=false,RU_LASTM="";
 const ruBlankT=u=>({full:{p:"",u,q:""},rent:{p:"",u,q:""},labor:{p:"",u:"Por hora",q:""}});
 function ruDefaults(){if(!S.rprods)S.rprods=[];if(!S.rpkgs)S.rpkgs=[];if(!S.rsel||!RU_T.has(S.rsel[0]))S.rsel=["Catering","Bebidas","Barra","Sin alcohol"];}
@@ -43,7 +52,7 @@ function ruDemo(){const a=ruProd(["Catering","Alimentos","Banquete","Por tiempos
  const b=ruProd(["Catering","Bebidas","Barra","Sin alcohol"]);Object.assign(b,{pax:"100",ins:["Vasos","Hielo","Popotes"],crew:[{n:"Bartender",q:"2"}],tw:["full","labor"],labor:[{n:"Bartender",q:"2",p:"280",u:"Por hora",min:"5",xh:"320"}]});b.tar.full.p="95";b.id="pdemo2";
  const c=ruProd(["Catering","Postres y dulces","Mesa de dulces","Temática"]);Object.assign(c,{name:"Mesa de dulces temática",pax:"50",ins:["Charolas","Bases de pastel","Mantelería","Decoración de mesa"],crew:[],tw:["rent"],dlx:{dlOpen:-1,dl:[Object.assign(blankDl("Envío a domicilio"),{cobra:true,u:"Por kilómetro",rate:"12",conds:[{c:"Entrega gratuita desde",v:"5000"}]}),Object.assign(blankDl("Recolección en establecimiento"),{cobra:false,ph:"Lun a sáb de 9:00 a 18:00"})]},promo:{has:true,what:"10% de descuento entre semana",terms:"De lunes a jueves",until:"2026-12-15"},min:{has:true,qty:"30",unit:"personas"},photos:[{url:samplePic("🍭","#D6338A","#7B2CBF",1200,900),name:"mesa.jpg"}]});c.tar.rent.p="3500";c.tar.rent.u="Por evento";c.id="pdemo3";
  const P={id:"kdemo1",kind:"pkg",items:["pdemo1","pdemo2"],name:"Paquete Boda Oro",dishes:[],ins:["Centros de mesa"],crew:[{n:"Mesero",q:"7"},{n:"Bartender",q:"2"}],pax:"100",tw:["full"],tar:ruBlankT("Por persona")};Object.assign(P,ruBlankMore());P.tar.full.p="720";
- return{prods:[a,b,c],pkgs:[P]};}
+ a.emb=1;b.emb=2;c.emb=3;return{prods:[a,b,c],pkgs:[P]};}
 const ruById=id=>(S.rprods||[]).find(x=>x.id===id);
 const ruCats=p=>p.kind==="pkg"?[...new Set(p.items.map(id=>(ruById(id)||{dims:["Catering"]}).dims[0]))]:[p.dims[0]];
 const ruFood=p=>p.kind==="pkg"?p.items.some(id=>(ruById(id)||{dims:[]}).dims[1]==="Alimentos"):p.dims[1]==="Alimentos";
@@ -57,8 +66,8 @@ function ruOk(p){return filled(p.name)&&+p.pax>0&&p.tw.length>0&&p.tw.every(w=>r
 function ruMiss(p){const m=[];if(!filled(p.name))m.push("nombre");if(!p.tw.length)m.push("cómo lo cobras");else{if(p.tw.some(w=>w!=="labor"&&!(+p.tar[w].p>0)))m.push("precio");if(p.tw.includes("full")&&+p.tar.full.p>0&&!RU_FIXED.includes(p.tar.full.u)&&!(+p.tar.full.q>0))m.push("cuántas unidades incluye");if(p.tw.includes("labor")&&!(p.labor.length&&p.labor.every(r=>+r.p>0)))m.push("precio de cada perfil de tu personal");if(p.tw.includes("rent")&&!p.dlx.dl.length)m.push("cómo entregas sin personal");else if(p.tw.includes("rent")&&!p.dlx.dl.every(dlOk))m.push("entrega por completar");}if(!(+p.pax>0))m.push("para cuántas personas alcanza");
  if(!p.ext.every(e=>!filled(e.c)||+e.p>0))m.push("precio de cada extra");if(p.min.has===true&&!minOk(p.min))m.push("mínimo de compra");if(p.promo.has===true&&!promoOk(p.promo))m.push("promoción");return m;}
 /* ---------- ruleta ---------- */
-function ruMachineHtml(){return`<section class="ru-m" aria-label="Ruleta de servicios">
- <div class="ru-mh"><img class="ru-masc" id="ruMasc" alt=""><div class="ru-mt"><b id="ruTit">Gira y alinea</b><span>Desliza cada rodillo. Lo que queda en la línea verde es tu selección.</span></div></div>
+function ruMachineHtml(){return`<section class="ru-m" aria-label="Arma tu servicio">
+ <div class="ru-mh"><img class="ru-masc" id="ruMasc" alt=""><div class="ru-mt"><b id="ruTit">Arma tu servicio</b><span>Desliza cada rodillo. Lo que queda en la línea verde es tu selección.</span></div></div>
  <div class="ru-reels" id="ruReels">${RU_LAB.map((l,i)=>`<div class="ru-row"><div class="ru-lab">${i+1} · ${l}<span id="ruCnt${i}"></span></div><div class="ru-wrap"><button class="ru-ar l" type="button" data-i="${i}" data-d="-1" aria-label="Anterior">‹</button><div class="ru-reel" id="ruReel${i}" tabindex="0" role="listbox" aria-label="${l}"></div><button class="ru-ar r" type="button" data-i="${i}" data-d="1" aria-label="Siguiente">›</button></div></div>`).join("")}</div>
  <div class="ru-combo"><span class="ru-unit" id="ruUnit"></span><div id="ruOtro" hidden><input id="ruOtroIn" type="text" placeholder="Escribe cuál es (ej. barra de mezcal)" aria-label="Escribe cuál es"></div>
  <button class="btn cta ru-save" id="ruSave" type="button">Guardar esta combinación ✓</button></div></section>`;}
@@ -77,7 +86,7 @@ function ruSettle(i){if(RU_DRAG&&RU_DRAG.i===i)return;const b=ruNear(i);if(!b)re
  if(RU_BUSY[i]!==null){if(RU_BUSY[i]!==ix)return;RU_BUSY[i]=null;}const v=b.dataset.v;if(v!==S.rsel[i]){S.rsel[i]=v;ruCascade(i+1);}else ruUpdate();}
 function ruStep(i,d){const b=ruNear(i),ix=[...ruReel(i).children].indexOf(b)+d;if(ix>=0&&ix<ruReel(i).children.length)ruCenter(i,ix,true);}
 function ruUpdate(){if(!$("ruUnit"))return;const [u,o]=RU_U[S.rsel.join("|")]||["Por evento",""];
- $("ruUnit").innerHTML=`💲 Se suele cobrar <b>${esc(u.toLowerCase())}</b>${o?` · también ${esc(o.toLowerCase())}`:""}`;$("ruOtro").hidden=S.rsel[3]!=="Otro";$("ruTit").textContent=(RU.emo[S.rsel[0]]?RU.emo[S.rsel[0]]+" ":"")+S.rsel[0];
+ $("ruUnit").innerHTML=`💲 Se suele cobrar <b>${esc(u.toLowerCase())}</b>${o?` · también ${esc(o.toLowerCase())}`:""}`;$("ruOtro").hidden=S.rsel[3]!=="Otro";$("ruTit").textContent="Arma tu servicio · "+(RU.emo[S.rsel[0]]?RU.emo[S.rsel[0]]+" ":"")+S.rsel[0];
  const m=ruMasc(S.rsel),im=$("ruMasc");if(m!==RU_LASTM||!im.src){RU_LASTM=m;im.src=`img/${m}.webp`;im.classList.remove("pop");void im.offsetWidth;im.classList.add("pop");}
  const R=$("ruReels");R.classList.remove("aligned");void R.offsetWidth;R.classList.add("aligned");}
 function ruSetPath(p){S.rsel[0]=p[0];ruRebuild(0,p[0],true);ruCascade(1,p);}
@@ -89,7 +98,7 @@ function ruBindMachine(){for(let i=0;i<4;i++){const el=ruReel(i);let t;ruFill(i)
  document.querySelectorAll(".ru-ar").forEach(a=>a.onclick=()=>ruStep(+a.dataset.i,+a.dataset.d));
  requestAnimationFrame(()=>{for(let i=0;i<4;i++){ruCenter(i,Math.max(0,ruIdx(i,S.rsel[i])),false);ruPaint(i);}RU_LASTM="";ruUpdate();});
  $("ruSave").onclick=()=>{const o=$("ruOtroIn");if(S.rsel[3]==="Otro"&&!o.value.trim()){o.focus();o.placeholder="Escribe cuál es para guardarlo";return;}
-  RU_EDIT=ruProd([...S.rsel],o.value.trim());o.value="";try{confetti();}catch(_){}hqvTrack("ruleta_combinacion",{dims:S.rsel.join(" › ")});ruDrawIdent(true);};}
+  RU_EDIT=ruProd([...S.rsel],o.value.trim());o.value="";ruConfetti(70);hqvTrack("ruleta_combinacion",{dims:S.rsel.join(" › ")});ruDrawIdent(true);};}
 addEventListener("pointermove",e=>{if(!RU_DRAG)return;const el=ruReel(RU_DRAG.i);if(!el){RU_DRAG=null;return;}const dx=e.clientX-RU_DRAG.x;if(Math.abs(dx)>4){RU_MOVED=true;el.classList.add("drag");}if(RU_MOVED)el.scrollLeft=RU_DRAG.s-dx;});
 addEventListener("pointerup",()=>{if(!RU_DRAG)return;const i=RU_DRAG.i,el=ruReel(i);RU_DRAG=null;if(!el)return;el.classList.remove("drag");if(RU_MOVED){const b=ruNear(i);ruCenter(i,[...el.children].indexOf(b),true);setTimeout(()=>{RU_MOVED=false;},50);}});
 addEventListener("resize",()=>{if(!ruReel(0))return;for(let i=0;i<4;i++){ruCenter(i,Math.max(0,ruIdx(i,S.rsel[i])),false);ruPaint(i);}});
@@ -205,7 +214,7 @@ function ruDrawIdent(scroll,focusTag){const box=$("ruIdent");if(!box)return;cons
  $("ruImg").onclick=async()=>{const w=p.tw[0],r=w&&ruTotal(p,w);const url=await hqvShareImage({logo:"img/logo.webp",kicker:S.biz.name||"Mi negocio",title:p.name||"Mi producto",sub:[r&&+p.pax?`${ruMoney(r.pp)} por persona · para ${p.pax} personas`:"",[...p.dishes,...p.ins].slice(0,4).join(", ")].filter(Boolean).join(" · "),url:ruLink(p),foot:"Escanea y cotiza por WhatsApp"});hqvDownload(url,(p.kind==="pkg"?"paquete-":"producto-")+slug(p.name)+".png");hqvTrack("imagen_producto_descargada");};
  $("ruCancel").onclick=()=>{RU_EDIT=null;ruDrawIdent();};
  $("ruOk").onclick=()=>{const m=ruMiss(p),er=$("ruErr");if(m.length){er.hidden=false;er.textContent="Falta: "+m.join(", ")+".";if(m.some(x=>/extra|entrega|mínimo|promoción/.test(x))){p._moreOpen=true;box.querySelector("details.ru-more").open=true;}return;}
-  const L=p.kind==="pkg"?S.rpkgs:S.rprods,ix=L.findIndex(x=>x.id===p.id);delete p._moreOpen;if(ix>=0)L[ix]=p;else L.push(p);RU_EDIT=null;ruDrawIdent();ruDrawLists();changed();try{confetti();}catch(_){}
+  const L=p.kind==="pkg"?S.rpkgs:S.rprods,ix=L.findIndex(x=>x.id===p.id);delete p._moreOpen;const isNew=ix<0;if(isNew&&p.kind==='prod'){S.remb=(S.remb||0)+1;p.emb=S.remb;}if(ix>=0)L[ix]=p;else L.push(p);RU_EDIT=null;ruDrawIdent();ruDrawLists();changed();ruConfetti(140);if(isNew&&p.kind==='prod')setTimeout(()=>ruEmblem(p),350);else ruToast(p.kind==='pkg'?'🎁 Paquete guardado':'✓ Cambios guardados');
   hqvTrack(p.kind==="pkg"?"ruleta_paquete_guardado":"ruleta_producto_guardado",{n:L.length});const t=$(p.kind==="pkg"?"ruPkgs":"ruProds");t&&t.scrollIntoView({behavior:RU_RM?"auto":"smooth",block:"center"});};
  if(scroll)box.scrollIntoView({behavior:RU_RM?"auto":"smooth",block:"start"});
  if(focusTag){const i=box.querySelector(`.ru-tags[data-t="${focusTag}"] input`);i&&i.focus({preventScroll:true});}}
@@ -213,7 +222,7 @@ function ruDrawIdent(scroll,focusTag){const box=$("ruIdent");if(!box)return;cons
 function ruPrice(p){const w=p.tw[0],r=w&&ruTotal(p,w);return r&&r.pp!==null?`<span class="ru-pr"><b>${ruMoney(r.pp)}</b> por persona · ${ruMoney(r.tot)} total</span>`:`<span class="ru-pr hint">Falta el precio</span>`;}
 function ruCard(p){const pk=p.kind==="pkg",sel=RU_PICK&&!pk&&RU_PICKED.includes(p.id),ok=ruOk(p);
  return`<article class="ru-pc${sel?" sel":""}${ok?"":" warn"}" data-id="${p.id}">${pk?`<span class="ru-pkb">🎁 Paquete</span>`:`<div class="ru-crumbs">${p.dims.slice(0,3).map(d=>`<span>${esc(d)}</span>`).join("")}</div>`}
-  <h4>${esc(p.name)}</h4>${ruPrice(p)}<span class="ru-meta">Para ${esc(p.pax||"—")} personas${p.tw.length>1?` · ${p.tw.length} formas de cobro`:""}</span>
+  <h4>${!pk&&p.emb?`<span class="ru-embmini" title="Emblema de servicio">🏅</span>`:""}${esc(p.name)}</h4>${ruPrice(p)}<span class="ru-meta">Para ${esc(p.pax||"—")} personas${p.tw.length>1?` · ${p.tw.length} formas de cobro`:""}</span>
   <span class="ru-meta">${esc(pk?"Incluye: "+p.items.map(id=>(ruById(id)||{}).name||"—").join(" + "):[...p.dishes,...p.ins].slice(0,4).join(", "))}</span>${ok?"":`<span class="ru-meta" style="color:var(--bad)">⚠️ ${esc(ruMiss(p).join(", "))}</span>`}
   ${RU_PICK&&!pk?`<button class="ru-pick" type="button" aria-label="Elegir ${esc(p.name)}"></button><span class="ru-ck">✓</span>`:`<span class="ru-tools"><button type="button" data-ed aria-label="Editar ${esc(p.name)}">✏️</button><button type="button" data-rm aria-label="Quitar ${esc(p.name)}">✕</button></span>`}</article>`;}
 function ruDrawLists(){if(!$("ruProds"))return;ruDefaults();const P=S.rprods,K=S.rpkgs;
@@ -230,9 +239,9 @@ function ruDrawLists(){if(!$("ruProds"))return;ruDefaults();const P=S.rprods,K=S
 function ruToast(msg,undo){document.querySelectorAll(".ru-toast").forEach(x=>x.remove());const t=document.createElement("div");t.className="ru-toast";t.innerHTML=`<span>${esc(msg)}</span>${undo?`<button class="link" type="button">Deshacer</button>`:""}`;document.body.appendChild(t);if(undo)t.querySelector("button").onclick=()=>{undo();t.remove();};setTimeout(()=>t.remove(),4200);}
 /* ---------- paso «Mis servicios» ---------- */
 function drawSvcStep(){const sc=S.svcScope=S.svcScope||{S:false,E:false};ruDefaults();
- $("stepBody").innerHTML=`<div class="panel"><span class="crumb">Mi negocio › Servicios</span><h2>Mis servicios 🎉</h2><p class="sub">Arma lo que vendes jugando con la ruleta. Nosotros se lo mostramos al anfitrión por persona y en total.</p>
+ $("stepBody").innerHTML=`<div class="panel"><span class="crumb">Mi negocio › Servicios</span><h2>Mis servicios 🎉</h2><p class="sub">Arma tu servicio alineando los rodillos. Nosotros se lo mostramos al anfitrión por persona y en total.</p>
  <div class="field"><span class="lbl">¿En qué tipo de eventos trabajas? <span class="opt">Puedes elegir los dos</span></span><div class="chips${MISS(sc.S||sc.E)}" style="width:fit-content;border-radius:99px"><button type="button" class="chip scp" data-v="S" aria-pressed="${!!sc.S}">${TICK}🎉 Sociales</button><button type="button" class="chip scp" data-v="E" aria-pressed="${!!sc.E}">${TICK}💼 Empresariales</button></div></div>
- <div class="ru-steps" role="list"><div class="ru-st on" role="listitem"><b>1</b><span><strong>Tus productos</strong><small>Uno por uno: alinea la ruleta, guarda y dale identidad.</small></span></div><div class="ru-st ru-step2" role="listitem"><b>2</b><span><strong>Tus paquetes</strong><small>Después combinas tus productos: catering + música + mesas.</small></span></div></div>
+ <div class="ru-steps" role="list"><div class="ru-st on" role="listitem"><b>1</b><span><strong>Tus productos</strong><small>Uno por uno: alinea los rodillos, guarda y dale identidad. Cada uno te da un emblema 🏅.</small></span></div><div class="ru-st ru-step2" role="listitem"><b>2</b><span><strong>Tus paquetes</strong><small>Después combinas tus productos: catering + música + mesas.</small></span></div></div>
  <div class="ru-search"><input id="ruQ" type="search" autocomplete="off" placeholder="Busca lo que ofreces: barra de café, DJ, sillas Tiffany…" aria-label="Busca lo que ofreces"><div id="ruQr" class="ru-qr" hidden></div></div>
  ${ruMachineHtml()}
  <section class="ru-ident" id="ruIdent" hidden></section>
@@ -250,7 +259,7 @@ function drawSvcStep(){const sc=S.svcScope=S.svcScope||{S:false,E:false};ruDefau
  $("ruGo").onclick=()=>{const items=[...RU_PICKED];RU_PICK=false;RU_PICKED=[];const cr=[...new Set(items.flatMap(id=>(ruById(id)||{crew:[]}).crew.map(r=>r.n)))];
   RU_EDIT=Object.assign({id:"k"+Date.now().toString(36),kind:"pkg",items,name:"",dishes:[],ins:[],crew:cr.map(n=>({n,q:"1"})),pax:"",tw:[],tar:ruBlankT("Por persona")},ruBlankMore());ruDrawLists();ruDrawIdent(true);hqvTrack("ruleta_paquete_iniciado",{n:items.length});};
  bindPriceBox(drawSvcStep);bindZones(S.svcZones,"svc",drawSvcStep);bindNav();}
-function ruMissStep(m){ruDefaults();if(!S.rprods.length)m.push("Guarda al menos un producto con la ruleta");
+function ruMissStep(m){ruDefaults();if(!S.rprods.length)m.push("Guarda al menos un producto en «Arma tu servicio»");
  S.rprods.forEach(p=>{const x=ruMiss(p);if(x.length)m.push(`${p.name||"Producto"}: ${x.join(", ")}`);});S.rpkgs.forEach(p=>{const x=ruMiss(p);if(x.length)m.push(`${p.name||"Paquete"}: ${x.join(", ")}`);});}
 /* ---------- sitio público ---------- */
 function ruSyncServices(){if(!S.rprods)return;const cats=[...new Set(S.rprods.map(p=>p.dims[0]))];
