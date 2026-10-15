@@ -508,6 +508,38 @@ details.more{background:#FBFAFF;border-radius:14px;padding:8px 12px}details.more
 .vtabs button{flex:1 1 0;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:9px 6px!important;font-size:13px!important}
 @media(max-width:420px){.vtabs button{font-size:12px!important}}
 
+/* ===== v19 · servicios ===== */
+.carr{display:flex;align-items:center;gap:6px;min-width:0}
+.carr-in{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
+.carr.many .carr-in{flex-wrap:nowrap;display:grid;grid-auto-flow:column;grid-template-rows:repeat(2,auto);grid-auto-columns:max-content;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;padding:2px;flex:1;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
+.carr.many .carr-in::-webkit-scrollbar{display:none}
+.carr-in .chip{scroll-snap-align:start;white-space:nowrap}
+.carr-a{flex:none;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);font-weight:900;font-size:17px;line-height:1;color:var(--ink);cursor:pointer}
+@media(max-width:560px){.carr-a{display:none}}
+.pkrs{display:grid;gap:6px}
+.pkr{display:grid;grid-template-columns:minmax(0,1.3fr) 76px minmax(0,1fr) 24px;gap:6px;align-items:center;background:var(--paper);border-radius:14px;padding:6px 8px}
+.pkr .pkn{font-size:13.5px;overflow:hidden;text-overflow:ellipsis}
+.pkr input{padding:7px 9px;min-width:0}
+.pkr .sl-p{display:flex;align-items:center;gap:4px;font-weight:900;color:#8205B4}
+.pkbox[data-l="ex"] .pkr{grid-template-columns:minmax(0,1.3fr) 110px minmax(0,1fr) 24px}
+.relbox{gap:8px!important}
+.tsel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;border-radius:16px}
+.tsb{position:relative;display:grid;gap:2px;align-content:start;text-align:left;border:1.5px solid var(--line);background:var(--paper);border-radius:16px;padding:10px 40px 10px 12px;cursor:pointer;font:inherit;color:var(--ink)}
+.tsb b{font-size:14px}.tsb small{font-size:12px;color:var(--help,#9A92AE);line-height:1.3}
+.tsb .tick{top:12px;transform:none}
+.tsb[aria-pressed="true"]{border-color:#9146FF;box-shadow:0 0 0 2px rgba(145,70,255,.25)}
+.tsb[aria-pressed="true"] .tick{background:var(--grape);border-color:var(--grape)}.tsb[aria-pressed="true"] .tick svg{opacity:1}
+.tgrp.tw-full,.tgrp.tw-rent,.tgrp.tw-labor{border:0}
+.tgrp .tarr{display:flex!important;flex-wrap:wrap;gap:8px;align-items:center}
+.tgrp .tarr .sl-p input{width:110px}.tgrp .tarr select{width:auto}.tgrp .ta-hv{flex-basis:100%}
+.pkbadge{background:linear-gradient(135deg,#BEFF00,#FAFA19);color:#1a1033;border-radius:99px;padding:2px 10px;font-size:11.5px;font-weight:900}
+.ofn{color:var(--ink)}
+.rmodal{position:fixed;inset:0;z-index:90;background:rgba(18,11,30,.5);display:grid;place-items:center;padding:16px}
+.rsheet{max-width:500px;width:100%;max-height:calc(100% - 16px);overflow:auto;display:grid;gap:10px;justify-items:center;text-align:center;border-radius:28px;padding:20px;background:linear-gradient(165deg,#41145F 0%,#8205B4 60%,#FA1ED2 130%);color:#fff;box-shadow:0 0 0 3px rgba(190,255,0,.35),0 24px 60px rgba(0,0,0,.45)}
+.rsheet h2{color:#fff;font-size:22px;margin:0}.rsheet .big{font-size:48px;line-height:1}
+.rsheet .reco{background:none;padding:0;text-align:left}.rsheet .link{color:#fff}
+@media(max-width:560px){.tsel{grid-template-columns:minmax(0,1fr)}.pkr,.pkbox[data-l="ex"] .pkr{grid-template-columns:minmax(0,1fr) 76px 24px;grid-template-areas:"n q x" "u u u"}.pkr .pkn{grid-area:n}.pkr .pr-q,.pkr .sl-p{grid-area:q}.pkr .pr-u{grid-area:u}.pkr .pr-x{grid-area:x}.pkbox[data-l="ex"] .pkr .sl-p input{width:100%}}
+
 /* ===== v12 · degradados de marca ===== */
 :root{--g-prov:linear-gradient(160deg,#9146FF 0%,#FA1ED2 100%);--g-host:linear-gradient(160deg,#FA1ED2 0%,#FF6905 100%);
  --g-cta:linear-gradient(135deg,#BEFF00 0%,#FAFA19 100%);--cta-ink:#1a1033;--wa:#25D366;--ok-solid:#00A884}
@@ -525,6 +557,12 @@ details.more{background:#FBFAFF;border-radius:14px;padding:8px 12px}details.more
 .btn:not(.cta):not(.ghost):not(.white):not(.wa):not(.secondary){background:var(--g-prov)}
 </style>
 <style id="dark-fix">
+/* v19 · textos de ayuda más claros (todo el sitio) */
+:root{--help:#9A92AE}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--help:#8F86A8}}
+:root[data-theme="dark"]{--help:#8F86A8}
+.hint,.opt,.mini-l .opt,.lbl .opt,small.hint,.field .hint{color:var(--help)!important}
+input::placeholder,textarea::placeholder{color:var(--help)!important;opacity:1}
 @media (prefers-color-scheme: dark){
 :root:not([data-theme="light"]) .dlc,:root:not([data-theme="light"]) .nsr,:root:not([data-theme="light"]) .lrow,:root:not([data-theme="light"]) .tgrp,:root:not([data-theme="light"]) .pkgc,:root:not([data-theme="light"]) .polc,:root:not([data-theme="light"]) .fee,:root:not([data-theme="light"]) .pst,:root:not([data-theme="light"]) .arrive,:root:not([data-theme="light"]) .emph,:root:not([data-theme="light"]) .trkm,:root:not([data-theme="light"]) .rec,:root:not([data-theme="light"]) .fullx,:root:not([data-theme="light"]) .relbox,:root:not([data-theme="light"]) .incwrap,:root:not([data-theme="light"]) .sub-box{background:var(--paper)!important}
 :root:not([data-theme="light"]) .tarr,:root:not([data-theme="light"]) details.more,:root:not([data-theme="light"]) .crewr,:root:not([data-theme="light"]) .sugg .bs,:root:not([data-theme="light"]) .tab.sh,:root:not([data-theme="light"]) .infl button,:root:not([data-theme="light"]) .pt .pic,:root:not([data-theme="light"]) .idea,:root:not([data-theme="light"]) .qkb,:root:not([data-theme="light"]) .btn.white,:root:not([data-theme="light"]) .tnav button,:root:not([data-theme="light"]) .pricebar.empty,:root:not([data-theme="light"]) .vtabs button,:root:not([data-theme="light"]) .sgf,:root:not([data-theme="light"]) .ta-hv .hv,:root:not([data-theme="light"]) .rec>div{background:#2C2245!important;color:var(--ink)!important}
@@ -535,7 +573,7 @@ details.more{background:#FBFAFF;border-radius:14px;padding:8px 12px}details.more
 :root:not([data-theme="light"]) .dlc .dlh b[style*="1a1033"],:root:not([data-theme="light"]) .dlc b[style*="1a1033"]{color:var(--ink)!important}
 :root:not([data-theme="light"]) .pmv{background:var(--mint-soft)!important;color:var(--mint)!important}
 :root:not([data-theme="light"]) .hint.viat,:root:not([data-theme="light"]) .nightc{background:var(--warn-soft)!important;color:var(--ink)!important}
-:root:not([data-theme="light"]) .sl-p,:root:not([data-theme="light"]) .sl-p input,:root:not([data-theme="light"]) .pmf,:root:not([data-theme="light"]) .pmf input,:root:not([data-theme="light"]) .r-m,:root:not([data-theme="light"]) .r-m input,:root:not([data-theme="light"]) .mr .tn,:root:not([data-theme="light"]) .idea,:root:not([data-theme="light"]) .qkb,:root:not([data-theme="light"]) .ta-p,:root:not([data-theme="light"]) .pk-p,:root:not([data-theme="light"]) .sr-p,:root:not([data-theme="light"]) .r-cost,:root:not([data-theme="light"]) .ben-lead,:root:not([data-theme="light"]) .ben-lead b,:root:not([data-theme="light"]) .emph strong,:root:not([data-theme="light"]) .dlh .ed,:root:not([data-theme="light"]) .incr .r-m span{color:#D6BEFF!important}
+:root:not([data-theme="light"]) .sl-p,:root:not([data-theme="light"]) .sl-p input,:root:not([data-theme="light"]) .pkr .sl-p,:root:not([data-theme="light"]) .pmf,:root:not([data-theme="light"]) .pmf input,:root:not([data-theme="light"]) .r-m,:root:not([data-theme="light"]) .r-m input,:root:not([data-theme="light"]) .mr .tn,:root:not([data-theme="light"]) .idea,:root:not([data-theme="light"]) .qkb,:root:not([data-theme="light"]) .ta-p,:root:not([data-theme="light"]) .pk-p,:root:not([data-theme="light"]) .sr-p,:root:not([data-theme="light"]) .r-cost,:root:not([data-theme="light"]) .ben-lead,:root:not([data-theme="light"]) .ben-lead b,:root:not([data-theme="light"]) .emph strong,:root:not([data-theme="light"]) .dlh .ed,:root:not([data-theme="light"]) .incr .r-m span{color:#D6BEFF!important}
 :root:not([data-theme="light"]) button.link{color:#FF8FD2}
 :root:not([data-theme="light"]) .link.bad,:root:not([data-theme="light"]) .bad{color:#FF8FA6!important}
 :root:not([data-theme="light"]) .chip[aria-pressed="true"],:root:not([data-theme="light"]) .cat[aria-pressed="true"],:root:not([data-theme="light"]) .yn button[aria-pressed="true"],:root:not([data-theme="light"]) .seg button[aria-pressed="true"],:root:not([data-theme="light"]) .timeline li.now .dot,:root:not([data-theme="light"]) .avatar,:root:not([data-theme="light"]) .pill.primary,:root:not([data-theme="light"]) .plan .pro,:root:not([data-theme="light"]) .ag2.on .dt,:root:not([data-theme="light"]) .prov-top .av,:root:not([data-theme="light"]) .venue-head .ms-logo,:root:not([data-theme="light"]) .rbar,:root:not([data-theme="light"]) .btn:not(.ghost):not(.white):not(.cta):not(.wa){background:#8A3FFC!important;color:#fff!important}
@@ -556,7 +594,7 @@ details.more{background:#FBFAFF;border-radius:14px;padding:8px 12px}details.more
 :root[data-theme="dark"] .dlc .dlh b[style*="1a1033"],:root[data-theme="dark"] .dlc b[style*="1a1033"]{color:var(--ink)!important}
 :root[data-theme="dark"] .pmv{background:var(--mint-soft)!important;color:var(--mint)!important}
 :root[data-theme="dark"] .hint.viat,:root[data-theme="dark"] .nightc{background:var(--warn-soft)!important;color:var(--ink)!important}
-:root[data-theme="dark"] .sl-p,:root[data-theme="dark"] .sl-p input,:root[data-theme="dark"] .pmf,:root[data-theme="dark"] .pmf input,:root[data-theme="dark"] .r-m,:root[data-theme="dark"] .r-m input,:root[data-theme="dark"] .mr .tn,:root[data-theme="dark"] .idea,:root[data-theme="dark"] .qkb,:root[data-theme="dark"] .ta-p,:root[data-theme="dark"] .pk-p,:root[data-theme="dark"] .sr-p,:root[data-theme="dark"] .r-cost,:root[data-theme="dark"] .ben-lead,:root[data-theme="dark"] .ben-lead b,:root[data-theme="dark"] .emph strong,:root[data-theme="dark"] .dlh .ed,:root[data-theme="dark"] .incr .r-m span{color:#D6BEFF!important}
+:root[data-theme="dark"] .sl-p,:root[data-theme="dark"] .sl-p input,:root[data-theme="dark"] .pkr .sl-p,:root[data-theme="dark"] .pmf,:root[data-theme="dark"] .pmf input,:root[data-theme="dark"] .r-m,:root[data-theme="dark"] .r-m input,:root[data-theme="dark"] .mr .tn,:root[data-theme="dark"] .idea,:root[data-theme="dark"] .qkb,:root[data-theme="dark"] .ta-p,:root[data-theme="dark"] .pk-p,:root[data-theme="dark"] .sr-p,:root[data-theme="dark"] .r-cost,:root[data-theme="dark"] .ben-lead,:root[data-theme="dark"] .ben-lead b,:root[data-theme="dark"] .emph strong,:root[data-theme="dark"] .dlh .ed,:root[data-theme="dark"] .incr .r-m span{color:#D6BEFF!important}
 :root[data-theme="dark"] button.link{color:#FF8FD2}
 :root[data-theme="dark"] .link.bad,:root[data-theme="dark"] .bad{color:#FF8FA6!important}
 :root[data-theme="dark"] .chip[aria-pressed="true"],:root[data-theme="dark"] .cat[aria-pressed="true"],:root[data-theme="dark"] .yn button[aria-pressed="true"],:root[data-theme="dark"] .seg button[aria-pressed="true"],:root[data-theme="dark"] .timeline li.now .dot,:root[data-theme="dark"] .avatar,:root[data-theme="dark"] .pill.primary,:root[data-theme="dark"] .plan .pro,:root[data-theme="dark"] .ag2.on .dt,:root[data-theme="dark"] .prov-top .av,:root[data-theme="dark"] .venue-head .ms-logo,:root[data-theme="dark"] .rbar,:root[data-theme="dark"] .btn:not(.ghost):not(.white):not(.cta):not(.wa){background:#8A3FFC!important;color:#fff!important}
@@ -695,7 +733,12 @@ function bindAddrBlock(a,k,changed,redraw){const g=id=>document.getElementById(i
 const SVC=window.HQV_SVC,UF=SVC.units;
 const CATS=SVC.cats.map(c=>({n:c.n,e:c.e,s:c.s.map(([n,t,u])=>({n,t,u}))}));
 const C2=window.HQV_CAT2,CAT2=C2.cats;
-/* ===== v18 · Servicios (Diego, 14 oct 2026 noche) =====
+/* ===== v19 · Servicios (Diego, 14 oct 2026 noche) =====
+   v19: fichas en el orden de los botones y se abre la primera pendiente; textos de ayuda cortos y más claros;
+   sin ideas extra bajo el platillo (solo predictivo); otros servicios y extras como botones en carrusel con
+   cantidad/unidad o costo; tarifas seleccionables (Completo · Sin personal · Solo tu personal) que abren sus campos;
+   la ficha pasa a «Paquete de …» cuando incluye otros servicios; la recomendación sale al terminar todo.
+   ----- v18 -----
    · Cada ficha se arma como un paquete sin que se note: nombre → ¿para cuántas personas? → menú por tiempos →
      ¿Qué incluye? en 3 partes: 🧺 insumos (la unidad se predice sola), 🧩 otros servicios (categorías afines que se
      definen ahí mismo) y 🙋 staff (opción múltiple con lo indispensable ya marcado y la cantidad calculada por personas).
@@ -735,7 +778,7 @@ const INSUMOS={food:["Platos","Cubiertos","Servilletas","Vasos","Copas","Mantele
  drink:["Vasos","Copas","Hielo","Popotes","Mezcladores","Servilletas","Hieleras","Garrafones de agua","Refrescos","Agua mineral","Fruta para decorar","Jarras","Vitroleros"],
  gen:INC_SUGG};
 const UNIT_OF=Object.fromEntries(Object.entries({"platos":"piezas","plato":"piezas","cubiertos":"juegos","servilletas":"piezas","vasos":"piezas","copas":"piezas","mantelería":"piezas","manteles":"piezas","cubremanteles":"piezas","caminos de mesa":"piezas","loza":"juegos","cristalería":"juegos","charolas":"piezas","chafers":"piezas","desechables":"juegos","saleros y pimenteros":"juegos","servilleteros":"piezas","hielo":"kilos","carbón":"kilos","gas":"tanques","bolsas para basura":"piezas","popotes":"piezas","mezcladores":"piezas","hieleras":"piezas","garrafones de agua":"garrafones","refrescos":"litros","agua mineral":"litros","fruta para decorar":"kilos","jarras":"piezas","vitroleros":"piezas","mesas":"mesas","sillas":"piezas","salas lounge":"salas","barras":"piezas","centros de mesa":"piezas","bocinas":"piezas","micrófonos":"piezas","luces":"piezas","pantallas y proyectores":"piezas","vajillas":"juegos","menaje":"juegos","utensilios":"juegos","accesorios de mesa":"juegos"}).map(([k,v])=>[nrm(k),v]));
-function unitFor(c,cat){const n=nrm(c).trim();if(!n)return"";if(UNIT_OF[n])return UNIT_OF[n];const k=Object.keys(UNIT_OF).find(k=>n.startsWith(k)||(n.length>3&&k.startsWith(n)));if(k)return UNIT_OF[k];
+function unitFor(c,cat){const n=nrm(c).trim();if(!n)return"";if(cat==="Bebidas"){if(HOT_DR.some(x=>nrm(x)===n))return"tazas";if(ALC_DR.some(x=>nrm(x)===n))return"copas";return"litros";}if(UNIT_OF[n])return UNIT_OF[n];const k=Object.keys(UNIT_OF).find(k=>n.startsWith(k)||(n.length>3&&k.startsWith(n)));if(k)return UNIT_OF[k];
  if(cat==="Bebidas")return"litros";const C=catOf(cat);if(C&&C.full.some(x=>nrm(x)===n))return"servicio";if(["Música","Entretenimiento y shows","Audio, iluminación, foto y video"].includes(cat))return"horas";return"piezas";}
 /* v18 · staff incluido: [perfil, 1 por cada N personas (0 = uno fijo), ¿ya marcado?] */
 const CREW={"Banquete":[["Capitanes de meseros",0,1],["Meseros",15,1],["Cocineros",50,1],["Ayudantes de cocina",50,1],["Garroteros",50,0],["Bartenders",75,0],["Chefs",0,0]],
@@ -753,7 +796,17 @@ const REL={food:["Bebidas","Mobiliario y montaje","Cristalería y cubertería","
  gen:["Mobiliario y montaje","Decoración y ambientación","Audio, iluminación, foto y video","Infraestructura","Transporte"]};
 const relEmo=c=>c==="Bebidas"?"🍹":((catOf(c)||{}).e||"✨");
 function relList(o,s){return REL[o.kind].filter(c=>c!==s.cat&&(c==="Bebidas"||catOf(c)));}
-function relSugg(c){if(c==="Bebidas")return[...DRINK_VARS];const C=catOf(c);return C?[...C.full,...C.rent]:[];}
+function relSugg(c){if(c==="Bebidas")return C2.bebidas.map(b=>b.n);const C=catOf(c);return C?[...new Set([...C.full,...C.rent])].filter(x=>x.length>3&&!/^[a-z]/.test(x)):[];}
+const HOT_DR=["Café","Chocolate","Tés, tisanas e infusiones"],ALC_DR=["Destilados","Fermentados","Coctelería"];
+const EXTRAS={food:["Hora extra","Persona extra","Mesero extra","Tiempo extra","Postre extra","Pastel","Kilo extra"],drink:["Hora extra","Persona extra","Bartender extra","Botella extra","Coctel de autor","Kilo de hielo extra"],gen:["Hora extra","Persona extra","Pieza extra","Traslado"]};
+const EXTRA_U={"hora extra":"por hora","persona extra":"por persona","mesero extra":"por mesero","bartender extra":"por bartender","tiempo extra":"por persona","postre extra":"por persona","pastel":"por pieza","kilo extra":"por kilo","botella extra":"por botella","coctel de autor":"por persona","kilo de hielo extra":"por kilo","pieza extra":"por pieza","traslado":"por evento"};
+const extraU=c=>EXTRA_U[nrm(c).trim()]||"por evento";
+const isPkg=o=>(o.svcs||[]).some(v=>v.rows.some(r=>filled(r.c)));
+const offName=o=>isPkg(o)?"Paquete de "+(o.kind==="drink"?"bebidas en "+o.n.toLowerCase():o.n.toLowerCase()):(o.kind==="drink"?"Bebidas · "+o.n:o.n);
+const FMT_ORDER=[...FOOD_FMT,...DRINK_FMT];
+const fmtIx=o=>{const k=["food","drink","gen"].indexOf(o.kind),i=FMT_ORDER.indexOf(o.n);return k*1000+(i<0?500:i);};
+function orderedOffers(s){return s.offers.map((o,j)=>[o,j]).sort((a,b)=>fmtIx(a[0])-fmtIx(b[0])||a[1]-b[1]);}
+function nextOpen(s){const x=orderedOffers(s).find(([o])=>!offerOk(o));return x?"f"+x[1]:"";}
 function newRow(c){return{c:c||"",q:"",u:"",d:"",cj:""};}
 function menuRows(n,kind){if(n==="Banquete")return[0,1,2,3].map(()=>({e:"",d:""}));return[{e:"",d:""}];}
 function blankOffer(n,kind){kind=kind||"gen";const o={n,kind,name:"",pax:"",inc:[newRow()],svcs:[],crew:[],dur:kind==="gen"?"":"5",durU:"horas",tar:[{w:"full",price:"",u:kind==="gen"?"Por evento":"Por persona",uo:"",alc:""}],noStaff:false,ext:[],photos:[],min:blankMin(),promo:blankPromo(),
@@ -768,14 +821,16 @@ function svcDefaults(s){if(!s.offers)s.offers=[];if(!s.staff)s.staff=[];if(!s.re
  s.offers.forEach(o=>{if(!o.photos)o.photos=[];if(!o.kind)o.kind="gen";if(o.name===undefined)o.name="";if(!o.min)o.min=blankMin();if(!o.promo)o.promo=blankPromo();
   ["inc","ext"].forEach(L=>{o[L]=o[L]||[];o[L].forEach(r=>{if(r.c===undefined){r.c=r.u||r.w||"";r.u="";}if(r.d===undefined)r.d="";if(r.cj===undefined)r.cj="";});});
   o.tar=o.tar||[];o.tar.forEach(t=>{if(!t.w||t.w==="staff")t.w="full";if(!t.u)t.u="Por persona";if(t.uo===undefined)t.uo="";if(t.alc===undefined)t.alc="";});if(!o.tar.some(t=>t.w==="full"))o.tar.unshift({w:"full",price:"",u:"Por persona",uo:"",alc:""});
-  if(o.pax===undefined)o.pax="";if(!o.svcs)o.svcs=[];if(!o.crew)o.crew=[];o.svcs.forEach(v=>{if(!v.rows||!v.rows.length)v.rows=[newRow()];});
+  if(o.pax===undefined)o.pax="";if(!o.svcs)o.svcs=[];if(!o.crew)o.crew=[];o.svcs.forEach(v=>{if(!v.rows)v.rows=[];});
   if(crewable(o))["rent","labor"].forEach(w=>{if(!o.tar.some(t=>t.w===w))o.tar.push({w,price:"",u:w==="labor"&&o.kind==="gen"?"Por evento":o.tar[0].u,uo:"",alc:""});});
-  else o.tar=o.tar.filter(t=>t.w==="full");
-  o.noStaff=o.tar.some(t=>t.w==="rent"&&filled(t.price));
-  ["tiempos","sal","dul","con","sin"].forEach(L=>{o[L]=(o[L]||[]).map(r=>r.e!==undefined?r:{e:"",d:r.d||""});});});}
+  else for(let ix=o.tar.length-1;ix>=0;ix--)if(o.tar[ix].w!=="full")o.tar.splice(ix,1);
+  if(!o.tw)o.tw=crewable(o)?[...new Set(o.tar.filter(t=>filled(t.price)).map(t=>t.w))]:["full"];if(!crewable(o))o.tw=["full"];
+  o.ext.forEach(e=>{if(e.u===undefined||(!filled(e.u)&&filled(e.c)))e.u=extraU(e.c||"");});
+  o.noStaff=o.tw.includes("rent");
+  ["tiempos","sal","dul","con","sin"].forEach(L=>{if(!o[L])o[L]=[];o[L].forEach((r,ix)=>{if(r.e===undefined)o[L][ix]={e:"",d:r.d||""};});});});}
 function tarUnitLabel(t){return t.u==="__otra"?(t.uo?"por "+t.uo.replace(/^por\s+/i,""):"otra unidad"):uLabel(t.u);}
-const offTitle=o=>(o.kind==="drink"?"Bebidas · ":"")+o.n+(filled(o.name)?" · "+o.name:"");
-const activeTar=o=>o.tar.filter(t=>t.w==="full"||filled(t.price));
+const offTitle=o=>offName(o)+(filled(o.name)?" · "+o.name:"");
+const activeTar=o=>o.tar.filter(t=>(o.tw||[]).includes(t.w));
 const TAR_MODO={full:"completo",rent:"sin personal",labor:"solo personal"};
 function tarLabels(o){const f=o.kind==="food"?"la comida":o.kind==="drink"?"las bebidas":"tu servicio";
  return{full:["🎉 Completo",`${f.charAt(0).toUpperCase()+f.slice(1)} + tu equipo y tu personal`],rent:["📦 Sin personal",o.kind==="gen"?"Solo el equipo; tu cliente lo opera":`Solo ${f}; lo llevas o lo recogen y tu cliente lo sirve`],labor:["🙋 Solo tu personal",o.kind==="gen"?"Tu gente trabaja con el equipo del cliente":"Tu equipo trabaja con los insumos del cliente"]};}
@@ -801,10 +856,10 @@ function offerHost(o,t,cat){if(!(+t.price>0))return"";
  const g=+o.pax||EXG,r=costAt(o,t,cat,g);if(r.pend)return`<span class="hv">👀 Dinos para cuántas personas alcanza y lo convertimos; si no, el anfitrión lo verá «por cotizar».</span>`;
  const pp=Math.round(r.total/g);
  return`<span class="hv">👀 En una fiesta de ${g} personas: <b>${money(pp)}</b> por persona · <b>${money(Math.round(r.total))}</b> en total</span>`;}
-function offerOk(o){const F=o.tar.filter(t=>t.w==="full"),R=o.tar.filter(t=>t.w!=="full");const good=t=>!filled(t.price)||(t.u&&(t.u!=="__otra"||filled(t.uo)));
- return F.some(t=>filled(t.price))&&F.every(good)&&R.every(good)&&o.ext.every(e=>!filled(e.c)||filled(e.cost))&&(o.min.has!==true||minOk(o.min))&&(o.promo.has!==true||promoOk(o.promo));}
+function offerOk(o){const W=o.tw||[],good=t=>!filled(t.price)||(t.u&&(t.u!=="__otra"||filled(t.uo)));
+ return W.length>0&&W.every(w=>o.tar.some(t=>t.w===w&&filled(t.price)))&&activeTar(o).every(good)&&o.ext.every(e=>!filled(e.c)||filled(e.cost))&&(o.min.has!==true||minOk(o.min))&&(o.promo.has!==true||promoOk(o.promo));}
 function staffOk(r){return filled(r.price)&&!!r.u;}
-function offerSummary(o){const t=o.tar.find(x=>x.w==="full"&&filled(x.price));return[menuText(o)||rowsText(o.inc),t?`${money(t.price)} ${tarUnitLabel(t)}`:""].filter(Boolean).join(" · ");}
+function offerSummary(o){const t=activeTar(o).find(x=>filled(x.price));return[menuText(o)||rowsText(o.inc),t?`${money(t.price)} ${tarUnitLabel(t)}`:""].filter(Boolean).join(" · ");}
 /* ---------- partes de la ficha ---------- */
 const INS_PH={food:["platos","servilletas","mantelería"],drink:["vasos","hielo","popotes"],gen:["montaje","equipo","cables"]};
 function rowsHtml(o,cost,sv){const L=sv?sv.rows:cost?o.ext:o.inc,cls=cost?"ex":"in",ph=sv?relSugg(sv.cat).slice(0,3).map(x=>x.toLowerCase()):INS_PH[o.kind]||INS_PH.gen,sg=sv?`rel:${sv.cat}`:cost?"inc":`ins:${o.kind}`,lbl=sv?"":"Insumo: ";
@@ -812,31 +867,41 @@ function rowsHtml(o,cost,sv){const L=sv?sv.rows:cost?o.ext:o.inc,cls=cost?"ex":"
   ${/caja/i.test(r.u||"")?`<label class="r-cj">cada caja de <input type="number" min="0" class="r-cjn" value="${esc(r.cj)}" placeholder="#" aria-label="Piezas por caja"> piezas</label>`:""}
   ${filled(r.c)?`<input type="text" class="r-d" data-sg="det:${esc(nrm(r.c).trim())}" value="${esc(r.d)}" placeholder="${det?"¿De qué tipo? "+det.slice(0,3).join(", ").toLowerCase()+"…":"¿De qué tipo? (opcional)"}" aria-label="Detalle" autocomplete="off">`:""}</div>`;}).join("")}
  <button type="button" class="link r-add" style="justify-self:start">+ ${cost?"Agregar extra":"Agregar otro"}</button></div>`;}
+/* v19 · carrusel de botones seleccionables (+ Otro con texto) */
+function carrHtml(opts,isOn,cls,ph){const many=opts.length>7;
+ return`<div class="carr${many?" many":""}">${many?`<button type="button" class="carr-a" data-d="-1" aria-label="Ver anteriores">‹</button>`:""}<div class="carr-in">${opts.map(n=>`<button type="button" class="chip ${cls}" data-n="${esc(n)}" aria-pressed="${isOn(n)}">${TICK}${esc(n)}</button>`).join("")}<button type="button" class="chip new pk-new">✏️ Otro</button></div>${many?`<button type="button" class="carr-a" data-d="1" aria-label="Ver más">›</button>`:""}</div>
+  <div class="newrow" hidden><input type="text" class="pk-in" placeholder="${esc(ph)}" aria-label="Otro" autocomplete="off"><button type="button" class="btn sm pk-addb">Agregar</button></div>`;}
+function pickRowsHtml(L,mode){return L.length?`<div class="pkrs">${L.map((r,ri)=>`<div class="pkr" data-ri="${ri}"><b class="pkn">${esc(r.c)}</b>${mode==="ex"
+  ?`<label class="sl-p"><span>$</span><input type="number" min="0" class="pr-cost${MISS(filled(r.cost))}" value="${esc(r.cost)}" placeholder="costo" aria-label="Costo de ${esc(r.c)}"></label><input type="text" class="pr-u" data-sg="u" value="${esc(r.u)}" placeholder="por hora" aria-label="Unidad" autocomplete="off">`
+  :`<input type="number" min="0" class="pr-q" value="${esc(r.q)}" placeholder="#" aria-label="Cantidad de ${esc(r.c)}"><input type="text" class="pr-u" data-sg="u" value="${esc(r.u)}" placeholder="unidad" aria-label="Unidad" autocomplete="off">`}<button type="button" class="link bad pr-x" aria-label="Quitar ${esc(r.c)}">✕</button></div>`).join("")}</div>`:"";}
+function extrasHtml(o){const L=[...new Set([...(EXTRAS[o.kind]||EXTRAS.gen),...o.ext.map(e=>e.c).filter(filled)])];
+ return`<div class="incsec pkbox" data-l="ex"><span class="mini-l">➕ Extras <span class="opt">con costo adicional</span></span>${carrHtml(L,n=>o.ext.some(e=>e.c===n),"pk-c","Ej. Mesa de postres")}${pickRowsHtml(o.ext.filter(e=>filled(e.c)),"ex")}</div>`;}
 /* v18 · 🧩 otros servicios incluidos y 🙋 staff incluido */
 function svcsHtml(o,s){const R=relList(o,s);if(!R.length)return"";
- return`<div class="incsec"><span class="mini-l">🧩 ¿Qué otros servicios incluye? <span class="opt">(opcional · elige y defínelos aquí mismo)</span></span>
+ return`<div class="incsec"><span class="mini-l">🧩 ¿Qué otros servicios incluye?</span>
   <div class="chips cmini">${R.map(c=>`<button type="button" class="chip rel-c" data-c="${esc(c)}" aria-pressed="${o.svcs.some(v=>v.cat===c)}">${TICK}${relEmo(c)} ${esc(c)}</button>`).join("")}</div>
-  ${o.svcs.map(v=>`<div class="relbox" data-c="${esc(v.cat)}"><b class="relh">${relEmo(v.cat)} ${esc(v.cat)} <span class="opt">incluido en tu precio</span></b>${rowsHtml(o,false,v)}</div>`).join("")}</div>`;}
+  ${o.svcs.map(v=>{const R2=v.rows.filter(r=>filled(r.c)),opts=[...new Set([...relSugg(v.cat),...R2.map(r=>r.c)])];return`<div class="relbox pkbox" data-l="sv:${esc(v.cat)}"><b class="relh">${relEmo(v.cat)} ${esc(v.cat)}</b>${carrHtml(opts,n=>R2.some(r=>r.c===n),"pk-c","¿Qué más incluye?")}${pickRowsHtml(R2,"sv")}</div>`;}).join("")}</div>`;}
 function crewHtml(o,s){if(!crewable(o))return"";const P=crewList(o,s),names=[...new Set([...P.map(x=>x[0]),...o.crew.map(r=>r.n)])];
- return`<div class="incsec"><span class="mini-l">🙋 ¿Qué staff incluye? <span class="opt">Ya marcamos lo indispensable · ya va dentro de tu precio</span></span>
+ return`<div class="incsec"><span class="mini-l">🙋 ¿Qué staff incluye? <span class="opt">ya marcamos lo indispensable</span></span>
   <div class="chips cmini">${names.map(n=>`<button type="button" class="chip crew-c" data-n="${esc(n)}" aria-pressed="${o.crew.some(r=>r.n===n)}">${TICK}${esc(n)}</button>`).join("")}<button type="button" class="chip new crew-new">✏️ Otro</button></div>
   <div class="newrow" hidden><input type="text" class="crew-in" data-sg="staff" placeholder="Ej. Sommelier, Parrillero…" aria-label="Otro perfil" autocomplete="off"><button type="button" class="btn sm crew-addb">Agregar</button></div>
   ${o.crew.length?`<div class="crewl">${o.crew.map((r,ri)=>`<label class="crewr" data-ri="${ri}"><span>${esc(r.n)}</span><input type="number" min="0" class="cr-q" value="${esc(r.q)}" placeholder="#" aria-label="¿Cuántos ${esc(r.n.toLowerCase())}?"></label>`).join("")}</div>
-  <span class="hint">${o.kind!=="gen"?`Calculamos cuántos para ${+o.pax||EXG} personas; cámbialo si llevas otra cantidad.`:"¿Cuántas personas de cada perfil van?"}</span>`:""}</div>`;}
+  <span class="hint">${o.kind!=="gen"?`Calculado para ${+o.pax||EXG} personas.`:"¿Cuántos de cada uno?"}</span>`:""}</div>`;}
 function tarGridHtml(o,s){const T=tarLabels(o),W=crewable(o)?["full","rent","labor"]:["full"];
- return`<span class="mini-l">💲 Tus tarifas <span class="opt">${W.length>1?"La primera es obligatoria; las otras, solo si también las ofreces":"Con todo lo que incluye"}</span></span>
-  <div class="tgrid${W.length>1?"":" one"}">${W.map(w=>`<div class="tgrp tw-${w}"><b class="tw">${T[w][0]}${w==="full"?"":` <span class="opt">(opcional)</span>`}</b><span class="hint">${T[w][1]}</span>${tarRowsHtml(o,w,s)}</div>`).join("")}</div>`;}
+ return`<span class="mini-l">💲 ¿Cómo lo cobras? ${W.length>1?`<span class="opt">elige una o varias</span>`:""}</span>
+  ${W.length>1?`<div class="tsel${MISS(o.tw.length>0)}">${W.map(w=>`<button type="button" class="tsb" data-w="${w}" aria-pressed="${o.tw.includes(w)}">${TICK}<b>${T[w][0]}</b><small>${T[w][1]}</small></button>`).join("")}</div>`:""}
+  ${W.filter(w=>o.tw.includes(w)).map(w=>`<div class="tgrp tw-${w}">${W.length>1?`<b class="tw">${T[w][0]}</b>`:""}${tarRowsHtml(o,w,s)}</div>`).join("")}`;}
 function rowIdeas(scope,r){const e=espOf(scope,r.e);if(!e)return"";const used=new Set();return`<div class="ideas"><span>💡 Más ideas de ${esc(e.n.toLowerCase())}:</span>${e.d.filter(x=>nrm(x)!==nrm(r.d||"")).slice(0,6).map(x=>`<button type="button" class="idea" data-d="${esc(x)}">＋ ${esc(x)}</button>`).join("")}</div>`;}
 function menuRowHtml(o,key,xi,r,scope,lead){const drink=o.kind==="drink";
  const phE=key==="tiempos"?`Especialidad: ${(TIEMPO_PH[xi]||["otro tiempo"])[0]}`:drink?(key==="con"?"Tipo: coctelería":"Tipo: aguas frescas"):(key==="dul"?"Especialidad: postres":"Especialidad: tacos");
  const phD=key==="tiempos"?`Platillo: ${(TIEMPO_PH[xi]||["",""])[1]||"tu platillo"}`:drink?(key==="con"?"Bebida: margarita":"Bebida: agua de jamaica"):(key==="dul"?"Platillo: churros":"Platillo: al pastor");
- return`<div class="mr" data-k="${key}" data-xi="${xi}">${lead?`<span class="tn">${lead}</span>`:""}<input type="text" class="m-e" data-sg="esp:${scope}" value="${esc(r.e)}" placeholder="${esc(phE)}" aria-label="Especialidad" autocomplete="off"><input type="text" class="m-d" data-sg="dish:${scope}" value="${esc(r.d)}" placeholder="${esc(phD)}" aria-label="Platillo" autocomplete="off"><button type="button" class="link bad m-x" aria-label="Quitar">✕</button>${rowIdeas(scope,r)}</div>`;}
+ return`<div class="mr" data-k="${key}" data-xi="${xi}">${lead?`<span class="tn">${lead}</span>`:""}<input type="text" class="m-e" data-sg="esp:${scope}" value="${esc(r.e)}" placeholder="${esc(phE)}" aria-label="Especialidad" autocomplete="off"><input type="text" class="m-d" data-sg="dish:${scope}" value="${esc(r.d)}" placeholder="${esc(phD)}" aria-label="Platillo" autocomplete="off"><button type="button" class="link bad m-x" aria-label="Quitar">✕</button></div>`;}
 function menuHtml(o){
- if(o.n==="Banquete")return`<span class="mini-l">🍴 Arma tu menú por tiempos <span class="opt">(opcional · escribe y te sugerimos)</span></span>
+ if(o.n==="Banquete")return`<span class="mini-l">🍴 Arma tu menú por tiempos</span>
   ${o.tiempos.map((t,ti)=>menuRowHtml(o,"tiempos",ti,t,"Ambos",`${TIEMPO_N[ti]||ti+1}<br>tiempo`)).join("")}<button type="button" class="link m-add" data-k="tiempos" style="justify-self:start">+ Agregar tiempo</button>`;
  const seg=(key,tit,scope)=>`<div class="seg2"><b>${tit}</b>${o[key].map((x,xi)=>menuRowHtml(o,key,xi,x,scope,"")).join("")}<button type="button" class="link m-add" data-k="${key}" style="justify-self:start">+ Agregar</button></div>`;
- if(o.kind==="drink")return`<span class="mini-l">🍹 Arma tu menú de bebidas <span class="opt">(opcional · escribe y te sugerimos)</span></span>${seg("con","🍸 Con alcohol","Con alcohol")}${seg("sin","🧃 Sin alcohol","Sin alcohol")}`;
- if(o.kind==="food")return`<span class="mini-l">🍴 Arma tu menú <span class="opt">(opcional · escribe y te sugerimos)</span></span>${seg("sal","🧂 Salado","Salado")}${seg("dul","🍰 Dulce","Dulce")}`;
+ if(o.kind==="drink")return`<span class="mini-l">🍹 Arma tu menú de bebidas</span>${seg("con","🍸 Con alcohol","Con alcohol")}${seg("sin","🧃 Sin alcohol","Sin alcohol")}`;
+ if(o.kind==="food")return`<span class="mini-l">🍴 Arma tu menú</span>${seg("sal","🧂 Salado","Salado")}${seg("dul","🍰 Dulce","Dulce")}`;
  return"";}
 function tarRowsHtml(o,w,s){const T=o.tar.map((t,ti)=>[t,ti]).filter(([t])=>t.w===w);
  return`${T.map(([t,ti])=>`<div class="tarr" data-ti="${ti}"><label class="sl-p"><span>$</span><input type="number" min="0" step="any" class="ta-p${w==="full"?MISS(T.some(([x])=>filled(x.price))):""}" value="${esc(t.price)}" placeholder="precio" aria-label="Precio"></label>
@@ -845,25 +910,25 @@ function tarRowsHtml(o,w,s){const T=o.tar.map((t,ti)=>[t,ti]).filter(([t])=>t.w=
   ${t.u!=="Por persona"?`<label class="ta-al">alcanza para <input type="number" min="0" class="ta-a" value="${esc(t.alc)}" placeholder="#" aria-label="Alcanza para cuántas personas"> personas</label>`:""}
   ${T.length>1?`<button type="button" class="link bad ta-x" aria-label="Quitar tarifa">✕</button>`:""}<div class="ta-hv">${offerHost(o,t,s.cat)}</div></div>`).join("")}
  ${w==="full"?`<button type="button" class="link ta-add" data-w="${w}" style="justify-self:start">+ Otra tarifa</button>`:""}`;}
-function moreHtml(min,promo,k2,anchor,open){return`<details class="more"${open?" open":""}><summary>⚙️ Más opciones <span class="opt">(mínimo de compra y promoción)</span>${min.has===true?" · 🧾":""}${promo.has===true?" · 🏷️":""}</summary>${minHtml(min,k2)}${promoHtml(promo,k2,anchor)}</details>`;}
+function moreHtml(min,promo,k2,anchor,open){return`<details class="more"${open?" open":""}><summary>⚙️ Más opciones <span class="opt">mínimo y promoción</span>${min.has===true?" · 🧾":""}${promo.has===true?" · 🏷️":""}</summary>${minHtml(min,k2)}${promoHtml(promo,k2,anchor)}</details>`;}
 function offerCard(s,k,o,j){const open=s.open==="f"+j,ok=offerOk(o),emo=FMT_EMO[o.n]||(o.kind==="drink"?"🍹":"✨"),kj=`${k}o${j}`;
- if(!open)return`<div class="dlc closed ofc${MISS(ok)}" data-j="${j}"><button type="button" class="dlh of-open"><b>${emo}</b><span class="sm"><b style="color:#1a1033">${esc(offTitle(o))}</b> · ${esc(offerSummary(o)||"falta tu precio")}</span><span class="ed">${ok?"✏️ Editar":"⚠️ Completar"}</span></button><button type="button" class="ofx of-x" aria-label="Quitar ${esc(o.n)}">✕</button></div>`;
- const hasPrice=o.tar.some(t=>t.w==="full"&&filled(t.price)),multi=o.kind!=="gen";
+ if(!open)return`<div class="dlc closed ofc${MISS(ok)}" data-j="${j}"><button type="button" class="dlh of-open"><b>${emo}</b><span class="sm"><b class="ofn">${isPkg(o)?"🎁 ":""}${esc(offTitle(o))}</b> · ${esc(offerSummary(o)||"falta tu precio")}</span><span class="ed">${ok?"✏️ Editar":"⚠️ Completar"}</span></button><button type="button" class="ofx of-x" aria-label="Quitar ${esc(o.n)}">✕</button></div>`;
+ const hasPrice=activeTar(o).some(t=>filled(t.price)),multi=o.kind!=="gen",pk=isPkg(o);
  return`<div class="dlc open ofc${MISS(ok)}" data-j="${j}">
-  <div class="dlh"><b>${emo} ${esc(o.kind==="drink"?"Bebidas · "+o.n:o.n)}</b><span class="sm"></span><button type="button" class="link bad of-x" aria-label="Quitar ${esc(o.n)}">✕ Quitar</button></div>
-  ${multi?`<input type="text" class="of-name" value="${esc(o.name)}" placeholder="Nombre de este menú (opcional): ${o.n==="Banquete"?"Menú Plata, Menú Oro…":"Menú Clásico, Menú Premium…"}" aria-label="Nombre del menú">
-  <label class="paxr"><span>👥 ¿Para cuántas personas está pensado?</span><input type="number" min="1" class="of-pax" value="${esc(o.pax)}" placeholder="Ej. 100" aria-label="Personas"> <span>personas</span></label>`:""}
+  <div class="dlh"><b>${pk?"🎁":emo} ${esc(offName(o))}</b><span class="sm">${pk?`<span class="pkbadge">✨ Ya es un paquete</span>`:""}</span><button type="button" class="link bad of-x" aria-label="Quitar ${esc(o.n)}">✕ Quitar</button></div>
+  ${multi?`<input type="text" class="of-name" value="${esc(o.name)}" placeholder="Nombre de este menú" aria-label="Nombre del menú">
+  <label class="paxr"><span>👥 ¿Para cuántas personas está pensado?</span><input type="number" min="1" class="of-pax" value="${esc(o.pax)}" placeholder="#" aria-label="Personas"> <span>personas</span></label>`:""}
   ${menuHtml(o)}
-  <div class="incwrap"><span class="mini-l inct">✅ ¿Qué incluye tu ${esc(o.kind==="drink"?"servicio de bebidas":o.n.toLowerCase())}? <span class="opt">Todo esto ya va dentro de tu precio</span></span>
-  <div class="incsec"><span class="mini-l">🧺 ¿Qué insumos incluye? <span class="opt">Escribe el insumo y la cantidad; la unidad te la ponemos</span></span>${rowsHtml(o,false)}</div>
+  <div class="incwrap"><span class="mini-l inct">✅ ¿Qué incluye tu ${esc(o.kind==="drink"?"servicio de bebidas":o.n.toLowerCase())}? <span class="opt">ya va en tu precio</span></span>
+  <div class="incsec"><span class="mini-l">🧺 ¿Qué insumos incluye? <span class="opt">la unidad se llena sola</span></span>${rowsHtml(o,false)}</div>
   ${svcsHtml(o,s)}
   ${crewHtml(o,s)}</div>
   ${crewable(o)?`<div class="durr"><span class="mini-l" style="margin:0">⏱️ Duración del servicio</span><input type="number" min="0" step="any" class="of-dur" value="${esc(o.dur)}" placeholder="—" aria-label="Duración en horas"><span class="durh">horas</span></div>
-  <span class="hint arrive">⏰ Como proveedor, entiendo que llego <b>1 hora antes</b> para montar y tengo <b>1 hora al terminar</b> para retirarme${+o.dur>0?`: con ${esc(o.dur)} h de servicio estaré <b>${+o.dur+2} h</b> en el evento`:""}.</span>`:""}
+  <span class="hint arrive">⏰ Entiendo que llego <b>1 h antes</b> a montar y me retiro <b>1 h después</b>${+o.dur>0?`: ${esc(o.dur)} h de servicio = <b>${+o.dur+2} h</b> en el evento`:""}.</span>`:""}
   ${tarGridHtml(o,s)}
-  ${hasPrice?`<span class="mini-l">➕ Extras <span class="opt">(opcional · lo que el anfitrión puede sumar con costo)</span></span>${o.ext.length?rowsHtml(o,true):`<button type="button" class="link r-add" data-l="ex" style="justify-self:start">+ Agregar extra</button>`}
-  <span class="mini-l">📷 Fotos de ${esc(o.n.toLowerCase())} <span class="opt">(opcional · salen grandes en tu sitio)</span></span>${uploaderHtml(kj,"photo",o.photos,true)}
-  ${moreHtml(o.min,o.promo,kj,`s${k.slice(1)}-${j}`,o.min.has===true||o.promo.has===true)}`:`<span class="hint">Pon tu precio y te mostramos extras, fotos y más opciones.</span>`}
+  ${hasPrice?`${extrasHtml(o)}
+  <span class="mini-l">📷 Fotos <span class="opt">salen grandes en tu sitio</span></span>${uploaderHtml(kj,"photo",o.photos,true)}
+  ${moreHtml(o.min,o.promo,kj,`s${k.slice(1)}-${j}`,o.min.has===true||o.promo.has===true)}`:""}
   ${multi?`<button type="button" class="link of-dup" style="justify-self:start">+ Otro menú de ${esc(o.kind==="drink"?"bebidas en "+o.n.toLowerCase():o.n.toLowerCase())}</button>`:""}
   ${ok?`<button type="button" class="btn cta sm dl-ok of-ok">Listo ✓</button>`:""}</div>`;}
 /* entrega por sección: A domicilio / Recoger en mi local primero */
@@ -905,7 +970,7 @@ function bindPriceBox(redraw){const v=$("svcVar");if(v)v.oninput=e=>{S.svcVar=e.
 const VIATICOS=`<span class="hint viat">🚗 Si hay viáticos o costos adicionales por traslado fuera de tu zona, se acuerdan en la conversación directa con el anfitrión.</span>`;
 /* ---------- paquetes ---------- */
 function pkgItems(){const out=[];S.services.forEach((s,i)=>{svcDefaults(s);if(!catOf(s.cat))return;s.offers.forEach((o,j)=>out.push({key:`o${i}-${j}`,n:offTitle(o),s,o}));if(s.ways.staff)s.staff.forEach((r,j)=>out.push({key:`s${i}-${j}`,n:r.n,s,r,st:true}));if(s.ways.rent)s.rent.forEach((r,j)=>out.push({key:`r${i}-${j}`,n:r.n,s,r}));});return out;}
-function itemCost(it,g){if(it.o){const t=it.o.tar.find(x=>x.w==="full"&&filled(x.price));if(!t)return 0;const r=costAt(it.o,t,it.s.cat,g);return r.pend?0:r.total;}
+function itemCost(it,g){if(it.o){const t=activeTar(it.o).find(x=>filled(x.price));if(!t)return 0;const r=costAt(it.o,t,it.s.cat,g);return r.pend?0:r.total;}
  const p=+it.r.price||0;return it.st?p*(it.r.u==="Por hora"?(+it.r.min||5):1):p;}
 function pkgSuggest(P){const g=+P.alc||EXG,items=pkgItems().filter(it=>P.items.includes(it.key));const tot=items.reduce((a,it)=>a+itemCost(it,g),0);return P.per==="persona"?Math.round(tot/g):Math.round(tot);}
 function pkgHtml(){const L=S.svcPkgs,items=pkgItems();if(!items.length)return"";
@@ -945,8 +1010,8 @@ function sgList(inp){const k=inp.dataset.sg;
  addEventListener("scroll",hide,{passive:true});})();
 /* ---------- sitio público ---------- */
 function svcPlist(s){svcDefaults(s);const v=+S.svcVar||0,out=[];
- s.offers.forEach(o=>{const t=activeTar(o).filter(x=>filled(x.price));const m=menuText(o),inc=rowsText(o.inc),sv=svcsText(o),cr=crewText(o),TL={full:"Completo",rent:"Sin personal",labor:"Solo personal"};
-  out.push(`<span class="po${o.photos.length?" hasph":""}">${o.photos.length?`<img class="phbig" src="${o.photos[0].url||o.photos[0]}" alt="">`:""}<span class="pob"><span class="poh"><b>${FMT_EMO[o.n]||"✨"} ${esc(o.kind!=="gen"&&filled(o.name)?o.name:o.n)}<small class="ctag">${esc(o.kind==="drink"?"Bebidas · "+o.n:o.n)}${filled(o.pax)?` · para ${esc(o.pax)} personas`:""}${crewable(o)&&+o.dur>0?` · ${esc(o.dur)} h`:""}</small></b> <span class="price">${t.length?t.map(x=>`<span class="pl">${t.length>1?`<small>${TL[x.w]}:</small> `:""}${money(x.price)} <small>${esc(tarUnitLabel(x))}${+x.alc>0?` · ${esc(x.alc)} personas`:""}</small></span>`).join(""):"<small>Por cotizar</small>"}${v&&t.length?`<span class="pl"><small class="pmv">± ${v}%</small></span>`:""}</span></span>${m?`<small class="inc">🍴 Menú: ${esc(m)}</small>`:""}${inc?`<small class="inc">🧺 Incluye: ${esc(inc)}</small>`:""}${sv?`<small class="inc">🧩 ${esc(sv)}</small>`:""}${cr?`<small class="inc">🙋 Staff: ${esc(cr)}</small>`:""}${o.ext.some(e=>filled(e.c))?`<small class="inc">Extras: ${esc(o.ext.filter(e=>filled(e.c)).map(e=>rowsText([e])+(filled(e.cost)?" "+money(e.cost):"")).join(" · "))}</small>`:""}${o.min.has===true&&minText(o.min)?`<small class="inc">🧾 ${esc(minText(o.min))}</small>`:""}${o.promo.has===true&&o.promo.what?`<small class="inc">🏷️ ${esc(o.promo.what)}</small>`:""}${o.photos.length>1?`<span class="pph">${o.photos.slice(1,5).map(p=>`<img src="${p.url||p}" alt="">`).join("")}</span>`:""}</span></span>`);});
+ orderedOffers(s).forEach(([o])=>{const t=activeTar(o).filter(x=>filled(x.price));const m=menuText(o),inc=rowsText(o.inc),sv=svcsText(o),cr=crewText(o),TL={full:"Completo",rent:"Sin personal",labor:"Solo personal"};
+  out.push(`<span class="po${o.photos.length?" hasph":""}">${o.photos.length?`<img class="phbig" src="${o.photos[0].url||o.photos[0]}" alt="">`:""}<span class="pob"><span class="poh"><b>${FMT_EMO[o.n]||"✨"} ${esc(o.kind!=="gen"&&filled(o.name)?o.name:o.n)}<small class="ctag">${esc(o.kind==="drink"?"Bebidas · "+o.n:o.n)}${filled(o.pax)?` · para ${esc(o.pax)} personas`:""}${crewable(o)&&+o.dur>0?` · ${esc(o.dur)} h`:""}</small></b> <span class="price">${t.length?t.map(x=>`<span class="pl">${t.length>1?`<small>${TL[x.w]}:</small> `:""}${money(x.price)} <small>${esc(tarUnitLabel(x))}${+x.alc>0?` · ${esc(x.alc)} personas`:""}</small></span>`).join(""):"<small>Por cotizar</small>"}${v&&t.length?`<span class="pl"><small class="pmv">± ${v}%</small></span>`:""}</span></span>${m?`<small class="inc">🍴 Menú: ${esc(m)}</small>`:""}${inc?`<small class="inc">🧺 Incluye: ${esc(inc)}</small>`:""}${sv?`<small class="inc">🧩 ${esc(sv)}</small>`:""}${cr?`<small class="inc">🙋 Staff: ${esc(cr)}</small>`:""}${o.ext.some(e=>filled(e.c))?`<small class="inc">Extras: ${esc(o.ext.filter(e=>filled(e.c)).map(e=>e.c+(filled(e.cost)?" "+money(e.cost)+" "+(e.u||""):"")).join(" · "))}</small>`:""}${o.min.has===true&&minText(o.min)?`<small class="inc">🧾 ${esc(minText(o.min))}</small>`:""}${o.promo.has===true&&o.promo.what?`<small class="inc">🏷️ ${esc(o.promo.what)}</small>`:""}${o.photos.length>1?`<span class="pph">${o.photos.slice(1,5).map(p=>`<img src="${p.url||p}" alt="">`).join("")}</span>`:""}</span></span>`);});
  if(s.ways.staff&&s.staff.length)out.push(`<span class="po"><span class="pob"><span class="poh"><b>🙋 Staff</b> <span class="price">${s.staff.map(r=>`${esc(r.n)} ${filled(r.price)?money(r.price):""} <small>${esc(uLabel(r.u))}${filled(r.xh)?` · hora extra ${money(r.xh)}`:""}</small>`).join(" · ")}</span></span>${s.stx.night?`<small class="inc">🌙 Si la jornada termina después de las 12:00 a.m., el anfitrión cubre el transporte del personal${filled(s.stx.fee)?` (${money(s.stx.fee)} por persona)`:""}.</small>`:""}</span></span>`);
  if(s.ways.rent&&s.rent.length)out.push(`<span class="po"><span class="pob"><span class="poh"><b>📦 Renta</b> <span class="price">${s.rent.map(r=>`${esc(r.n)} ${filled(r.price)?money(r.price):""} <small>${esc(uLabel(r.u))}</small>`).join(" · ")}</span></span>${s.rtx.dl.length?`<small class="inc">${esc(s.rtx.dl.map(d=>dlText(d)).join(" · "))}</small>`:""}</span></span>`);
  return out.join("");}
@@ -959,7 +1024,7 @@ function drawServices(){const list=$("svcList");if(!list)return;const ae=documen
  const order=CAT2.slice().sort((a,b)=>sc.E&&!sc.S?(EMP.includes(b.n)?1:0)-(EMP.includes(a.n)?1:0):0);
  const cater=isCat(s),fulls=cat&&!cater?[...new Set([...(cat.full||[]),...s.offers.map(o=>o.n)])]:[];
  const priced=s.offers.some(o=>o.tar.some(t=>filled(t.price)));
- const sec=kind=>s.offers.map((o,j)=>[o,j]).filter(([o])=>o.kind===kind);
+ const sec=kind=>orderedOffers(s).filter(([o])=>o.kind===kind);
  const chips=(kind,list)=>`<div class="chips${MISS(sec(kind).length>0)}" style="border-radius:14px">${list.map(n=>`<button type="button" class="chip fmt" data-k="${kind}" data-n="${esc(n)}" aria-pressed="${s.offers.some(o=>o.kind===kind&&o.n===n)}">${TICK}${FMT_EMO[n]?FMT_EMO[n]+" ":""}${esc(n)}</button>`).join("")}<button type="button" class="chip new of-new">✏️ Otro</button></div>
    <div class="newrow" hidden><input type="text" class="of-in" data-k="${kind}" ${kind==="gen"?'data-sg="full"':""} placeholder="¿Cómo se llama?" aria-label="Otro" autocomplete="off"><button type="button" class="btn sm of-addb">Agregar</button></div>
    ${sec(kind).map(([o,j])=>offerCard(s,k,o,j)).join("")}`;
@@ -986,12 +1051,12 @@ function drawServices(){const list=$("svcList");if(!list)return;const ae=documen
   const chc=el.querySelector(".ch-cat");if(chc)chc.onclick=()=>{s.cat="";redraw();changed();};
   on(".ct",x=>{const c=x.dataset.x;s.cater[c]=!s.cater[c];if(!s.cater[c])s.offers=s.offers.filter(o=>o.kind!==c);});
   el.querySelectorAll(".gas").forEach(b=>b.onclick=()=>{const g=b.dataset.g;s.cater.gas=s.cater.gas.includes(g)?s.cater.gas.filter(x=>x!==g):[...s.cater.gas,g];b.setAttribute("aria-pressed",s.cater.gas.includes(g));if(!s.descEdited){s.desc=autoDesc(s);const d=$("d-"+k);if(d)d.value=s.desc;}changed();});
-  on(".fmt",x=>{const n=x.dataset.n,kd=x.dataset.k;if(s.offers.some(o=>o.n===n&&o.kind===kd)){s.offers=s.offers.filter(o=>!(o.n===n&&o.kind===kd));s.open="";}else addOffer(s,n,kd);});
+  on(".fmt",x=>{const n=x.dataset.n,kd=x.dataset.k;if(s.offers.some(o=>o.n===n&&o.kind===kd)){s.offers=s.offers.filter(o=>!(o.n===n&&o.kind===kd));s.open=nextOpen(s);}else{addOffer(s,n,kd);s.open=nextOpen(s)||s.open;}});
   el.querySelectorAll(".of-new,.st-new,.rt-new").forEach(b=>b.onclick=()=>{const r=b.closest(".field,.dlc").querySelector(".newrow");r.hidden=false;r.querySelector("input").focus();});
   const addNew=(inp,f)=>{const v=(inp.value||"").trim();if(!v)return;NEW_SUBS.add(v);hqvTrack("catalogo_propuesta",{tipo:"servicio",cat:s.cat,valor:v});f(v);redraw();changed();};
   el.querySelectorAll(".of-in").forEach(inp=>{const b=inp.nextElementSibling,f=v=>addOffer(s,v,inp.dataset.k);b.onclick=()=>addNew(inp,f);inp.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addNew(inp,f);}};});
   [[".st-in",".st-addb",v=>addPerson(s,"staff",v,"Por hora")],[".rt-in",".rt-addb",v=>addPerson(s,"rent",v,"Por pieza")]].forEach(([iq,bq,f])=>{const inp=el.querySelector(iq),b=el.querySelector(bq);if(!inp)return;b.onclick=()=>addNew(inp,f);inp.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addNew(inp,f);}};});
-  on(".of-open",x=>{s.open="f"+x.closest(".ofc").dataset.j;});on(".st-open",()=>{s.open="st";});on(".rt-open",()=>{s.open="rt";});on(".of-ok",()=>{s.open="";});
+  on(".of-open",x=>{s.open="f"+x.closest(".ofc").dataset.j;});on(".st-open",()=>{s.open="st";});on(".rt-open",()=>{s.open="rt";});on(".of-ok",()=>{s.open="";s.open=nextOpen(s);setTimeout(maybeRecoPop,350);});
   el.querySelectorAll(".ofc.closed .ofx").forEach(b=>b.onclick=()=>{const j=+b.closest(".ofc").dataset.j;confirmX(`¿Quitar ${offTitle(s.offers[j])}?`,()=>{s.offers.splice(j,1);s.open="";redraw();changed();});});
   bindYN(`ask-st-${k}`,v=>{s.askStaff=v;s.open=v?"st":"";redraw();changed();});bindYN(`ask-rt-${k}`,v=>{s.askRent=v;s.open=v?"rt":"";redraw();changed();});
   on(".st-c",x=>{const n=x.dataset.n,j=s.staff.findIndex(r=>r.n===n);if(j>=0)s.staff.splice(j,1);else s.staff.push({n,price:"",u:"Por hora",min:"5",xh:""});});
@@ -1002,8 +1067,8 @@ function drawServices(){const list=$("svcList");if(!list)return;const ae=documen
   el.querySelectorAll(".ofc.open[data-j]").forEach(C=>{const j=+C.dataset.j,o=s.offers[j];if(!o)return;const q=(sel,f)=>C.querySelectorAll(sel).forEach(f),kj=`${k}o${j}`;
    q(".of-x",b=>b.onclick=()=>{s.offers.splice(j,1);s.open="";redraw();changed();});
    q(".of-name",x=>x.oninput=e=>{o.name=e.target.value;changed();});
-   q(".of-dup",b=>b.onclick=()=>{const n=blankOffer(o.n,o.kind);n.tar=[{w:"full",price:"",u:o.tar[0].u,uo:"",alc:""}];s.offers.splice(j+1,0,n);s.open="f"+(j+1);redraw();changed();});
-   q(".mr",R=>{const L=o[R.dataset.k],x=L[+R.dataset.xi];R.querySelector(".m-e").oninput=e=>{x.e=e.target.value;changed();};R.querySelector(".m-e").onchange=()=>{const sc=(R.querySelector(".m-e").dataset.sg||"").slice(4);if(!espOf(sc,x.e))return;const key=R.dataset.k,xi=R.dataset.xi;redraw();setTimeout(()=>{const n=document.querySelector(`.box[data-i="${i}"] .ofc.open .mr[data-k="${key}"][data-xi="${xi}"] .m-d`);n&&n.focus();},0);};R.querySelector(".m-d").oninput=e=>{x.d=e.target.value;changed();};
+   q(".of-dup",b=>b.onclick=()=>{const n=blankOffer(o.n,o.kind);n.tar=[{w:"full",price:"",u:o.tar[0].u,uo:"",alc:""}];s.offers.push(n);s.open="f"+(s.offers.length-1);redraw();changed();});
+   q(".mr",R=>{const L=o[R.dataset.k],x=L[+R.dataset.xi];R.querySelector(".m-e").oninput=e=>{x.e=e.target.value;changed();};R.querySelector(".m-e").onchange=()=>{const sc=(R.querySelector(".m-e").dataset.sg||"").slice(4);if(espOf(sc,x.e)&&!filled(x.d))setTimeout(()=>R.querySelector(".m-d").focus(),0);};R.querySelector(".m-d").oninput=e=>{x.d=e.target.value;changed();};
     R.querySelector(".m-x").onclick=()=>{L.splice(+R.dataset.xi,1);redraw();changed();};
     R.querySelectorAll(".idea").forEach(b=>b.onmousedown=e=>{e.preventDefault();L.splice(+R.dataset.xi+1,0,{e:x.e,d:b.dataset.d});redraw();changed();});});
    q(".m-add",b=>b.onclick=()=>{o[b.dataset.k].push({e:"",d:""});redraw();setTimeout(()=>{const l=[...document.querySelectorAll(`.box[data-i="${i}"] .ofc.open .mr[data-k="${b.dataset.k}"] .m-e`)].pop();l&&l.focus();},0);});
@@ -1013,7 +1078,17 @@ function drawServices(){const list=$("svcList");if(!list)return;const ae=documen
     const u=R.querySelector(".r-u");u.oninput=e=>{r.u=e.target.value;r.uAuto=false;changed();};u.onchange=()=>{if(/caja/i.test(r.u)!==!!R.querySelector(".r-cj"))redraw();};
     R.querySelector(".r-x").onclick=()=>{L.splice(+R.dataset.ri,1);if(!L.length&&l!=="ex")L.push(newRow());redraw();changed();};});
    q(".r-add",b=>b.onclick=()=>{const l=b.closest(".rws").dataset.l;listOf(l).push(l==="ex"?{c:"",q:"",u:"",d:"",cj:"",cost:""}:newRow());redraw();setTimeout(()=>{const x=[...document.querySelectorAll(`.box[data-i="${i}"] .ofc.open .rws[data-l="${CSS.escape(l)}"] .r-c`)].pop();x&&x.focus();},0);});
-   q(".rel-c",b=>b.onclick=()=>{const c=b.dataset.c,ix=o.svcs.findIndex(v=>v.cat===c);if(ix>=0)o.svcs.splice(ix,1);else o.svcs.push({cat:c,rows:[newRow()]});redraw();changed();if(ix<0)setTimeout(()=>{const x=document.querySelector(`.box[data-i="${i}"] .ofc.open .rws[data-l="${CSS.escape("sv:"+c)}"] .r-c`);x&&x.focus();},0);});
+   q(".rel-c",b=>b.onclick=()=>{const c=b.dataset.c,ix=o.svcs.findIndex(v=>v.cat===c);if(ix>=0)o.svcs.splice(ix,1);else o.svcs.push({cat:c,rows:[]});redraw();changed();});
+   q(".tsb",b=>b.onclick=()=>{const w=b.dataset.w;if(o.tw.includes(w))o.tw=o.tw.filter(x=>x!==w);else{o.tw=["full","rent","labor"].filter(x=>x===w||o.tw.includes(x));if(!o.tar.some(t=>t.w===w))o.tar.push({w,price:"",u:o.kind==="gen"?"Por evento":"Por persona",uo:"",alc:""});}syncSubs(s);redraw();changed();if(o.tw.includes(w))setTimeout(()=>{const x=document.querySelector(`.box[data-i="${i}"] .ofc.open .tw-${w} .ta-p`);x&&x.focus();},0);});
+   q(".pkbox",B=>{const l=B.dataset.l,ex=l==="ex",cat=ex?"":l.slice(3),V=ex?null:o.svcs.find(v=>v.cat===cat);if(!ex&&!V)return;
+    const live=()=>ex?o.ext:V.rows,shown=()=>live().filter(r=>filled(r.c));
+    const add=n=>{n=(n||"").trim();if(!n)return;if(!ex)V.rows=V.rows.filter(r=>filled(r.c));const L=live();if(L.some(r=>nrm(r.c)===nrm(n)))return;L.push(ex?{c:n,q:"",u:extraU(n),d:"",cj:"",cost:""}:{c:n,q:"",u:unitFor(n,cat),uAuto:true,d:"",cj:""});};
+    B.querySelectorAll(":scope > .carr .pk-c, :scope .carr .pk-c").forEach(c=>c.onclick=()=>{const n=c.dataset.n,L=live(),ix=L.findIndex(r=>r.c===n);if(ix>=0)L.splice(ix,1);else add(n);syncSubs(s);redraw();changed();});
+    const nw=B.querySelector(".pk-new"),row=B.querySelector(".newrow");if(nw)nw.onclick=()=>{row.hidden=false;row.querySelector("input").focus();};
+    const inp=B.querySelector(".pk-in");if(inp){const go=()=>{if(!filled(inp.value))return;add(inp.value);NEW_SUBS.add(inp.value.trim());syncSubs(s);redraw();changed();};B.querySelector(".pk-addb").onclick=go;inp.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();go();}};}
+    B.querySelectorAll(".carr-a").forEach(a=>a.onclick=()=>{const c=a.parentElement.querySelector(".carr-in");c.scrollBy({left:+a.dataset.d*c.clientWidth*.7,behavior:"smooth"});});
+    B.querySelectorAll(".pkr").forEach(R=>{const r=shown()[+R.dataset.ri];if(!r)return;[["pr-q","q"],["pr-cost","cost"]].forEach(([c,f])=>{const x=R.querySelector("."+c);if(x)x.oninput=e=>{r[f]=e.target.value;syncSubs(s);changed();};});
+     const u=R.querySelector(".pr-u");u.oninput=e=>{r.u=e.target.value;r.uAuto=false;changed();};R.querySelector(".pr-x").onclick=()=>{const L=live();L.splice(L.indexOf(r),1);syncSubs(s);redraw();changed();};});});
    q(".of-pax",x=>{x.oninput=e=>{o.pax=e.target.value;changed();};x.onchange=()=>{const P=crewList(o,s);o.crew.forEach(r=>{if(r.auto){const p=P.find(z=>z[0]===r.n);if(p)r.q=crewQ(p[1],o.pax);}});syncSubs(s);redraw();};});
    q(".crew-c",b=>b.onclick=()=>{const n=b.dataset.n,ix=o.crew.findIndex(r=>r.n===n);if(ix>=0)o.crew.splice(ix,1);else{const p=crewList(o,s).find(z=>z[0]===n);o.crew.push({n,q:o.kind==="gen"?"":crewQ(p?p[1]:0,o.pax),auto:o.kind!=="gen"});}redraw();changed();});
    q(".crew-new",b=>b.onclick=()=>{const r=C.querySelector(".crew-in").closest(".newrow");r.hidden=false;r.querySelector("input").focus();});
@@ -1038,7 +1113,12 @@ function recoList(){const M=new Map(),no=S.svcRecoNo||[];
  S.services.forEach(s=>{svcDefaults(s);s.offers.forEach((o,j)=>{if(s.open==="f"+j)return;o.svcs.forEach(v=>{const rows=v.rows.filter(r=>filled(r.c));if(!rows.length||no.includes(v.cat)||soldApart(v.cat))return;
   if(!M.has(v.cat))M.set(v.cat,{cat:v.cat,rows:[],from:[]});const m=M.get(v.cat);rows.forEach(r=>{if(!m.rows.some(x=>nrm(x.c)===nrm(r.c)))m.rows.push(r);});m.from.push(offTitle(o));});});});
  return[...M.values()];}
-function recoHtml(){const L=recoList();if(!L.length)return"";
+function allDone(){return S.services.filter(s=>catOf(s.cat)).every(s=>{svcDefaults(s);if(String(s.open).startsWith("f"))return false;if(!s.offers.every(offerOk))return false;
+ if(isCat(s)){if(s.cater.food&&!s.offers.some(o=>o.kind==="food"))return false;if(s.cater.drink&&!s.offers.some(o=>o.kind==="drink"))return false;}return true;});}
+function maybeRecoPop(){const L=recoList();if(!L.length||!allDone())return;const key=L.map(x=>x.cat).join("|");if(S.recoPopKey===key)return;S.recoPopKey=key;
+ const m=document.createElement("div");m.className="rmodal";m.innerHTML=`<div class="rsheet"><div class="big">🎉</div><h2>¡Terminaste tus servicios!</h2>${recoHtml()}<button type="button" class="link rp-close">Lo reviso después</button></div>`;document.body.appendChild(m);
+ m.querySelector(".rp-close").onclick=()=>m.remove();m.onclick=e=>{if(e.target===m)m.remove();};bindReco(()=>{const y=scrollY;drawServices();scrollTo({top:y});});hqvTrack("recomendacion_popup",{cats:key});}
+function recoHtml(){const L=recoList();if(!L.length||!allDone())return"";
  return`<div class="reco"><span class="mk">🔎 DETECTAMOS MÁS SERVICIOS</span><b>Dentro de tus menús también ofreces ${esc(joinY(L.map(x=>x.cat.toLowerCase())))}.</b>
   <span class="hint">Te recomendamos venderlos también por separado: así te encuentran los anfitriones que solo buscan eso. Solo les pones precio.</span>
   ${L.map(x=>`<div class="recor" data-c="${esc(x.cat)}"><span><b>${relEmo(x.cat)} ${esc(x.cat)}</b><small>${esc(x.rows.map(r=>r.c).join(", "))} · en ${esc(joinY([...new Set(x.from)]))}</small></span><span class="recob"><button type="button" class="btn cta sm reco-y">Sí, venderlo aparte</button><button type="button" class="link reco-n">Ahora no</button></span></div>`).join("")}</div>`;}
@@ -1048,8 +1128,8 @@ function addUnitSvc(x){if(x.cat==="Bebidas"){const i=boxFor("Catering"),s=S.serv
  x.rows.forEach(r=>{const full=C&&C.full.find(f=>nrm(f)===nrm(r.c));addOffer(s,full||r.c,"gen");const o=s.offers[+s.open.slice(1)];if(!full)o.inc=[{c:r.c,q:r.q,u:r.u,d:r.d,cj:""}];});
  s.open="";syncSubs(s);return i;}
 function bindReco(redraw){document.querySelectorAll(".recor").forEach(R=>{const c=R.dataset.c,x=recoList().find(z=>z.cat===c);
- R.querySelector(".reco-y").onclick=()=>{const i=addUnitSvc(x);hqvTrack("recomendacion_unitario",{cat:c,acepta:true});changed();goBox(i,`✨ Agregamos ${c} como servicio por separado. Ponle su precio en «⚠️ Completar».`);};
- R.querySelector(".reco-n").onclick=()=>{S.svcRecoNo=[...(S.svcRecoNo||[]),c];hqvTrack("recomendacion_unitario",{cat:c,acepta:false});redraw();changed();};});}
+ R.querySelector(".reco-y").onclick=()=>{document.querySelectorAll(".rmodal").forEach(m=>m.remove());const i=addUnitSvc(x);hqvTrack("recomendacion_unitario",{cat:c,acepta:true});changed();goBox(i,`✨ Agregamos ${c} como servicio por separado. Ponle su precio en «⚠️ Completar».`);};
+ R.querySelector(".reco-n").onclick=()=>{const md=R.closest(".rmodal");S.svcRecoNo=[...(S.svcRecoNo||[]),c];hqvTrack("recomendacion_unitario",{cat:c,acepta:false});if(md){R.remove();if(!md.querySelector(".recor"))md.remove();}redraw();changed();};});}
 function confirmX(msg,yes){yes();}
 function drawSvcStep(){const sc=S.svcScope=S.svcScope||{S:false,E:false};
  $("stepBody").innerHTML=`<div class="panel"><span class="crumb">Mi negocio › Servicios</span><h2>Mis servicios 🎉</h2><p class="sub">Pon el precio como tú lo cobras. Nosotros se lo mostramos al anfitrión por persona y en total.</p>
@@ -1199,7 +1279,7 @@ exampleState=function(){const x=__exampleState();x.biz.links=[{t:"Sitio web",u:"
  const p=x.planner;p.socialFromBiz=true;p.fees=[{amount:"6000",unit:"evento",other:"",note:"Hasta 50 invitados"},{amount:"10",unit:"porcentaje",other:"",note:"Fiestas de más de 100 invitados"}];p.depositN="30";p.depositU="%";p.negotiable=true;
  p.bio="Me encanta que nadie note que hubo estrés detrás de una fiesta perfecta. Mi superpoder en una fiesta es leer a los invitados y saber cuándo subir la música.";
  {const s0=x.services[0];const B=blankOffer("Buffet","food"),Q=blankOffer("Banquete","food"),R=blankOffer("Barra","drink");
-  Object.assign(B,{name:"Taquiza Mexicana",pax:"60",sal:[{e:"Tacos",d:"Pastor"},{e:"Elotes y esquites",d:"Esquites"}],dul:[{e:"Churros",d:"Churros con chocolate"}],inc:[{c:"Platos",q:"60",u:"piezas",d:"Loza",cj:""},{c:"Servilletas",q:"2",u:"cajas",d:"Papel",cj:"100"}],crew:[{n:"Meseros",q:"3",auto:true},{n:"Cocineros",q:"1",auto:true},{n:"Taqueros",q:"2",auto:false}],tar:[{w:"full",price:"350",u:"Por persona",uo:"",alc:""},{w:"rent",price:"260",u:"Por persona",uo:"",alc:""},{w:"labor",price:"",u:"Por persona",uo:"",alc:""}],ext:[{c:"Pastel de 3 pisos",q:"1",u:"piezas",d:"",cj:"",cost:"1800"}],photos:sp("🌮","#FFB3D9","#FF6DB4")});
+  Object.assign(B,{name:"Taquiza Mexicana",pax:"60",sal:[{e:"Tacos",d:"Pastor"},{e:"Elotes y esquites",d:"Esquites"}],dul:[{e:"Churros",d:"Churros con chocolate"}],inc:[{c:"Platos",q:"60",u:"piezas",d:"Loza",cj:""},{c:"Servilletas",q:"2",u:"cajas",d:"Papel",cj:"100"}],crew:[{n:"Meseros",q:"3",auto:true},{n:"Cocineros",q:"1",auto:true},{n:"Taqueros",q:"2",auto:false}],tar:[{w:"full",price:"350",u:"Por persona",uo:"",alc:""},{w:"rent",price:"260",u:"Por persona",uo:"",alc:""},{w:"labor",price:"",u:"Por persona",uo:"",alc:""}],ext:[{c:"Pastel",q:"",u:"por pieza",d:"",cj:"",cost:"1800"},{c:"Hora extra",q:"",u:"por hora",d:"",cj:"",cost:"1500"}],photos:sp("🌮","#FFB3D9","#FF6DB4")});
   Object.assign(Q,{name:"Menú Oro",pax:"100",tiempos:[{e:"Entradas",d:"Ensalada de betabel con queso de cabra"},{e:"Cremas",d:"Crema de elote"},{e:"Platos fuertes",d:"Mole poblano con pollo"},{e:"Postres tradicionales",d:"Flan napolitano"}],
    inc:[{c:"Platos",q:"100",u:"piezas",d:"Loza",cj:""},{c:"Mantelería",q:"10",u:"piezas",d:"Redondos",cj:""},{c:"Servilletas",q:"100",u:"piezas",d:"Tela",cj:""}],
    svcs:[{cat:"Mobiliario y montaje",rows:[{c:"Sillas",q:"100",u:"piezas",d:"Tiffany",cj:""},{c:"Mesas",q:"10",u:"mesas",d:"Redondas",cj:""}]},{cat:"Cristalería y cubertería",rows:[{c:"Cristalería",q:"100",u:"juegos",d:"",cj:""}]}],

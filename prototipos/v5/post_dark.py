@@ -13,7 +13,7 @@ RULES = r'''
 .pmv{background:var(--mint-soft)!important;color:var(--mint)!important}
 .hint.viat,.nightc{background:var(--warn-soft)!important;color:var(--ink)!important}
 /* textos morados oscuros fijos */
-.sl-p,.sl-p input,.pmf,.pmf input,.r-m,.r-m input,.mr .tn,.idea,.qkb,.ta-p,.pk-p,.sr-p,.r-cost,.ben-lead,.ben-lead b,.emph strong,.dlh .ed,.incr .r-m span{color:#D6BEFF!important}
+.sl-p,.sl-p input,.pkr .sl-p,.pmf,.pmf input,.r-m,.r-m input,.mr .tn,.idea,.qkb,.ta-p,.pk-p,.sr-p,.r-cost,.ben-lead,.ben-lead b,.emph strong,.dlh .ed,.incr .r-m span{color:#D6BEFF!important}
 button.link{color:#FF8FD2}
 .link.bad,.bad{color:#FF8FA6!important}
 /* rellenos morados: el lila de noche es muy claro para texto blanco */
@@ -41,7 +41,11 @@ def scoped(prefix):
     return '\n'.join(out)
 
 
-STYLE = ('<style id="dark-fix">\n@media (prefers-color-scheme: dark){\n' + scoped(':root:not([data-theme="light"])') + '\n}\n'
+HELP = ('/* v19 · textos de ayuda más claros (todo el sitio) */\n:root{--help:#9A92AE}\n'
+        '@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--help:#8F86A8}}\n:root[data-theme="dark"]{--help:#8F86A8}\n'
+        '.hint,.opt,.mini-l .opt,.lbl .opt,small.hint,.field .hint{color:var(--help)!important}\n'
+        'input::placeholder,textarea::placeholder{color:var(--help)!important;opacity:1}\n')
+STYLE = ('<style id="dark-fix">\n' + HELP + '@media (prefers-color-scheme: dark){\n' + scoped(':root:not([data-theme="light"])') + '\n}\n'
          + scoped(':root[data-theme="dark"]') + '\n</style>\n')
 for f in ['negocio.html', 'fiestas.html', 'index.html']:
     p = O / f
